@@ -40,7 +40,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/helpButton"
-        app:layout_constraintEnd_toStartOf="@+id/truncateCheck"
+
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/AnswerBox"
         app:layout_constraintTop_toBottomOf="@+id/AnswerBox"
@@ -70,26 +70,7 @@
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="103dp" />
 
-    <CheckBox
-        android:id="@+id/truncateCheck"
-        android:buttonTint="?android:attr/textColor"
-        android:textColor="?android:attr/textColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="16dp"
-        android:letterSpacing=".25"
-        android:text="Truncate?"
 
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintBottom_toTopOf="@+id/searchFAB"
-        app:layout_constraintEnd_toEndOf="@+id/proofBox"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toStartOf="@+id/proofBox"
-        app:layout_constraintTop_toBottomOf="@+id/proofBox"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="95dp"
-        android:textSize="24sp" />
 
     <RadioGroup
         android:id="@+id/radioGroup"

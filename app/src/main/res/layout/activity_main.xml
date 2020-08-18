@@ -33,15 +33,14 @@
         android:id="@+id/searchAllCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
 
         android:buttonTint="?android:attr/textColor"
         android:text="@string/search_all_documents"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="?android:attr/textColor"
-        app:layout_constraintEnd_toEndOf="@+id/truncateCheck"
-        app:layout_constraintStart_toStartOf="@+id/truncateCheck"
-        app:layout_constraintTop_toBottomOf="@+id/truncateCheck"
+
+        app:layout_constraintStart_toStartOf="@+id/proofBox"
+        app:layout_constraintTop_toBottomOf="@+id/proofBox"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="178dp" />
 
@@ -63,24 +62,6 @@
         app:layout_constraintTop_toBottomOf="@+id/AnswerBox"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="103dp" />
-
-    <CheckBox
-        android:id="@+id/truncateCheck"
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:buttonTint="?android:attr/textColor"
-        android:letterSpacing=".3"
-        android:text="Truncate?"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="?android:attr/textColor"
-        app:layout_constraintEnd_toEndOf="@+id/proofBox"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toStartOf="@+id/proofBox"
-        app:layout_constraintTop_toBottomOf="@+id/proofBox"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="95dp" />
 
     <RadioGroup
         android:id="@+id/radioGroup"

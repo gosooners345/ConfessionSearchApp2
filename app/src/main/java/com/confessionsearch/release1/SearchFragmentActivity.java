@@ -28,7 +28,7 @@ public class SearchFragmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
     }
-    public void DisplayResults(DocumentList sourceList, ViewPager vp, SearchAdapter search, String searchTerm, Integer count, Boolean truncate ){
+    public void DisplayResults(DocumentList sourceList, ViewPager vp, SearchAdapter search, String searchTerm, Integer count ){
 
         documentList = sourceList;
         search.getItem(count);
@@ -47,14 +47,14 @@ class SearchAdapter extends FragmentStatePagerAdapter {
     public DocumentList dList1 = new DocumentList(), documentList1 = new DocumentList();
     private  Integer docPosition = 0;
     private  String term ="",header = "";
-    private Boolean truncate = false;
+
     //public FragmentManager news;
 FragmentManager news;
-    public SearchAdapter(FragmentManager fm, DocumentList documents, String searchTerm, Boolean truncate)
+    public SearchAdapter(FragmentManager fm, DocumentList documents, String searchTerm)
     { super(fm);
 
         documentList1 = documents;
-this.truncate = truncate;
+
 //news = fm;
 term = searchTerm;
     }
@@ -89,7 +89,7 @@ return  String.format("Result %s of %s for %s",position+1,documentList1.size(),t
             docTitle = document.getDocumentName();
         docPosition++;
         frg =SearchResultFragment.NewResult(document.getDocumentText(),document.getProofs(),document.getDocumentName(),
-                document.getChNumber(),documentList1.getTitle(),truncate,document.getMatches(),document.getChName(),document.getTags());
+                document.getChNumber(),documentList1.getTitle(),document.getMatches(),document.getChName(),document.getTags());
         return frg;
     }
 

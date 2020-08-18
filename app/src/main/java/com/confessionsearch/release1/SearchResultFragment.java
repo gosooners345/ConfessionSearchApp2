@@ -20,7 +20,7 @@ public  class SearchResultFragment extends Fragment {
     private String documentTitle;
     private static String PROOFS = "proofs", CHAPTER = "chapter", CHAPTITLE="chapterTitle",
             QUESTION = "question", TYPE = "type",
-            TITLE = "title", ANSWER = "answer", DOCTITLE = "titles", truncated = "truncate", matchNumb = "matches",TAGS = "tags";
+            TITLE = "title", ANSWER = "answer", DOCTITLE = "titles", matchNumb = "matches",TAGS = "tags";
     private static final String newLine = "\r\n";
     private static String number, match;
     public static String HEADER = "header";
@@ -41,7 +41,6 @@ public String shareList = "";
         String listTitles = getArguments().getString(DOCTITLE, "");
         String resultTitle = getArguments().getString(TITLE, "");
         int resultMatch = getArguments().getInt(matchNumb, -1);
-        Boolean resultBool = getArguments().getBoolean(truncated, false);
         int resultID = getArguments().getInt(number, 0);
         View view = inflater.inflate(R.layout.search_results, container, false);
         TextView chapterBox = (TextView) view.findViewById(R.id.chapterText);
@@ -87,7 +86,7 @@ public String shareList = "";
             view.setTextIsSelectable(selectable);
         }
     }
-    public static SearchResultFragment NewResult(String Chapter, String Proofs,String Title, Integer ID, String ListTitle, Boolean truncate, Integer MatchNum,String Chaptitle,String docTags )
+    public static SearchResultFragment NewResult(String Chapter, String Proofs,String Title, Integer ID, String ListTitle, Integer MatchNum,String Chaptitle,String docTags )
     {
         SearchResultFragment fragment = new SearchResultFragment();
         Bundle spaces = new Bundle();
