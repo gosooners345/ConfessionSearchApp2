@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">The Reformed Collective</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="confession">Confession</string>
+    <string name="creed">Creed</string>
+    <string name="catechism_help">Search Help:</string>
+    <string name="catechismPgh">
+  </string>
+    <string-array name="themes">
+        <item>Dark</item>
+        <item>Light</item>
+    </string-array>
+    <string name="OK">OK</string>
+    <string name="def_theme">LightMode</string>
+    <string name="theme_summary">Appearance</string>
+    <string name="theme_dialog_title">Theme</string>
+    <string name="settings">Settings</string>
+
+    <string name= "Source_Text">All documents listed below are public domain, the websites below helped me with collecting them. \n A big thanks for inspiration for this app came from this website."
+
+                           \n\nApostle's Creed: https://reformed.org/documents/apostles_creed.html
+                           \n1618 Belgic Confession: https://reformed.org/documents/BelgicConfession.html
+                           \n1646 Westminster Confession of Faith: https://reformed.org/documents/wcf_with_proofs/index.html
+                           \n1689 London Baptist Confession of Faith: https://reformed.org/documents/baptist_1689.html
+                           \n1658 Savoy Declaration of Faith and Order: https://reformed.org/documents/Savoy_Declaration/index.html
+                           \nWestminster Shorter Catechism: https://reformed.org/documents/wsc/index.html
+                            \nWestminster Larger Catechism: https://reformed.org/documents/wlc_w_proofs/index.html
+                           \nHeidelberg Catechism: https://reformed.org/documents/heidelberg.html
+                           \nNicean Creed: https://reformed.org/documents/nicene.html
+                            \nAthanasian Creed: https://reformed.org/documents/athanasian.html  </string>
+
+    <string name="View_Button">View</string>
+    <string name="confessionPgh">To exclude answers from results, hit the No Answers Checkbox under Search Options</string>
+    <string name="creedPgh">Hit the home button to go back home</string>
+    <string name="confession_help">Catechism Page only:</string>
+    <string name="other_pgh">Select a theme by hitting Themes at the top of your screen</string>
+    <string name="catechism">Catechism</string>
+
+
+    <string name="action_share">Share this with...</string>
+    <string name="facebook_app_id">301531087243095</string>
+    <string name="error_results">Search Error</string>
+
+    <string name="home_topic">Search again?</string>
+    <string name="exit_screen">Leave App?</string>
+    <string name="home_topic_body">Do you want to perform another search?</string>
+    <string name="exit_screen_body">Do you want to leave the app?</string>
+    <string name="search_results_title">Search Results</string>
+    <string name="intro_message">Welcome to the Reformed Collective Confession Search App!</string>
+    <string name="zero_results">No Results were found for</string>
+    <string name="help_line">For help, click on the help tab below.</string>
+    <string name="creedPageTitle">Creed Viewer</string>
+    <string name="zero_results_title">No Results were found</string>
+    <string name="search_status_sorting">Sorting started</string>
+    <string name="search_execution_begins">Search Execution Begins</string>
+    <string name="app_site">https://play.google.com/store/apps/details?id=com.confessionsearch.release1</string>
+    <string name="search_all_documents">Search All Documents?</string>
+    <string name="document_type">Document Type:</string>
+    <string name="Search">Search</string>
+    <string name="settings_page">Settings</string>
+    <string name="themeLabel_String">Set Theme:</string>
+
+    <string name="apply_theme_Text">Select a theme to apply</string>
+    <string name="reformed_index_search">Reformed Index Search</string>
+    <string name="search_by">Search By:</string>
+    <string name="topic_number">Topic/Number:</string>
+    <string name="search">Search</string>
+    <string name="help">Help</string>
+</resources>

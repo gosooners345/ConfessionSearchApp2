@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<attr name="bgTintColor" format="color"></attr>
+    <attr name="backgroundTint" format="color"></attr>
+    <attr name="secondaryTextColor" format="color"></attr>
+</resources>

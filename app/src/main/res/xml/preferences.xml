@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+    <ListPreference
+
+
+        android:defaultValue="false"
+
+
+        android:dialogTitle="@string/theme_dialog_title"
+        android:entries="@array/themes"
+        android:entryValues="@array/themes"
+        android:key="theme"
+        android:layout="@layout/menu_layout"
+        android:summary="@string/theme_summary"
+        android:textColorAlertDialogListItem="?android:attr/editTextColor"
+        android:title="@string/theme_dialog_title"
+        android:widgetLayout="@layout/menu_layout" />
+
+
+</PreferenceScreen>

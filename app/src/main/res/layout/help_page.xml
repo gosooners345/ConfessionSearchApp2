@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+
+    android:background="?attr/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="Help Page"
+
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/appTitle"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:layout_weight="5"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true" />
+
+
+    <TextView
+        android:id="@+id/confessionHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/appTitle"
+
+        android:text="@string/catechism_help"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+        android:id="@+id/confessionPgh"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/confessionHelp"
+        android:text="@string/confessionPgh" />
+    <TextView
+        android:id="@+id/creedHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+
+        android:layout_below="@+id/confessionPgh"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text= "Creed Help:"/>
+    <TextView
+        android:id="@+id/creedPgh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+
+        android:layout_below="@+id/creedHelp"
+        android:text="@string/creedPgh" />
+    <TextView
+        android:id="@+id/otherStuff"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/creedPgh"
+        android:text="Other Stuff:" />
+    <TextView
+        android:id="@+id/otherPgh"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/otherStuff"
+        android:text="@string/other_pgh"
+        android:paddingBottom="10dp" />
+    <TextView
+        android:id="@+id/searchTypeItem"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="visible"
+        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="73dp"
+        android:text="Home"
+        />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/homeButton"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:drawableLeft="@drawable/nav_home_light"
+        android:textColor="?attr/secondaryTextColor"
+        android:src="@android:drawable/ic_menu_search"
+        android:text="Home"
+        android:textAllCaps="true"
+        app:iconTint="@color/colorPrimary"
+        app:backgroundTint="?attr/bgTintColor"
+        app:fabSize="normal" />
+
+    <TextView
+        android:id="@+id/sourceLabel"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/otherPgh"
+        android:text="Sources:" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+
+        android:layout_below="@+id/sourceLabel">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/sourceTV"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="267dp"
+                android:text="@string/Source_Text" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
