@@ -679,6 +679,7 @@ Pattern replaceString=Pattern.compile(query, Pattern.CASE_INSENSITIVE);
             setContentView(R.layout.help_page);
         }
     };
+    //Enables the app to return to the main screen after home button pressed
     ExtendedFloatingActionButton.OnClickListener homeButtonListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
