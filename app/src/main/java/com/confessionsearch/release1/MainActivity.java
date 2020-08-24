@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -23,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SearchView;
 import android.view.KeyEvent;
 import android.view.View;
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     String shareList = "";
     public String fileName;
     protected Boolean allOpen, confessionOpen, catechismOpen, creedOpen, helpOpen;
-
+protected Boolean proofs=true, answers=true, searchAll = false;
     RadioButton topicButton, questionButton, viewAllButton;
     Intent intent;
     CheckBox answerCheck, allDocCheck, proofCheck;
@@ -82,69 +84,22 @@ public class MainActivity extends AppCompatActivity {
         else if (themeName.equals("Dark"))
             setTheme(R.style.DarkMode);
         super.onCreate(savedInstanceState);
-       int displayDPI = getResources().getDisplayMetrics().densityDpi;
-        switch (displayDPI)
-        {
-            case 480:            setContentView(R.layout.alt_main);
-                break;
-            case 320: setContentView(R.layout.tablet_main);break;
-            default:setContentView(R.layout.activity_main);break;
-        }
         //Set the show for the search app
         setTitle(R.string.app_name);
-        //Radio Button Initialization
-        topicButton = (RadioButton) findViewById(R.id.topicRadio);
-        questionButton = (RadioButton) findViewById(R.id.chapterRadio);
-        viewAllButton = (RadioButton) findViewById(R.id.viewAllRadio);
-        //Search Button Initialization
-        searchButton = findViewById(R.id.searchFAB);
-        searchButton.setOnClickListener(searchButtonListener);
-        //Search Box Initialization
-        searchBox = (SearchView) findViewById(R.id.searchView1);
-        searchBox.setOnQueryTextListener(searchQueryListener);
-        searchBox.setOnKeyListener(submissionKey);
-        //Help button Initialization
-        helpButton = findViewById(R.id.helpButton);
-        helpButton.setOnClickListener(helpButtonClick);
-        //CheckBox initialization
-        proofCheck = (CheckBox) findViewById(R.id.proofBox);
-        allDocCheck = (CheckBox) findViewById(R.id.searchAllCheckBox);
-        answerCheck = (CheckBox) findViewById(R.id.AnswerBox);
-
-        documentTypeSpinner = (Spinner) findViewById(R.id.documentTypeSpinner);
-        documentNameSpinner = (Spinner) findViewById(R.id.documentNameSpinner);
-       //Database stuff
-        documentDBHelper=new documentDBClassHelper(this);
-        documentDB = documentDBHelper.getReadableDatabase();
-        //Document selector Lists
-        docTypes = new ArrayList<>();
-        docTitles = new ArrayList<>();
-        ArrayList<DocumentType> typeList = documentDBHelper.getAllDocTypes(documentDB);
-        ArrayList<DocumentTitle> documentTitles = documentDBHelper.getAllDocTitles(type, documentDB);
-        //Document Type Spinner Initialization
-        docTypes.add("All");
-        for (DocumentType type : typeList) {
-            docTypes.add(type.documentTypeName);
-        }
-        docTypeSpinnerAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, docTypes);
-        documentTypeSpinner =  findViewById(R.id.documentTypeSpinner);
-        documentTypeSpinner.setAdapter(docTypeSpinnerAdapter);
-        documentTypeSpinner.setOnItemSelectedListener(spinnerItemSelectedListener);
-
-        //Document Titles Spinner Initialization
-        for (DocumentTitle docTitle : documentTitles) {
-            docTitles.add(docTitle.getDocumentName());
-        }
-        docTitleSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, docTitles);
-        Drawable picture = getDrawable(R.drawable.search_dark_drawable);
-        documentNameSpinner =  findViewById(R.id.documentNameSpinner);
-        documentNameSpinner.setOnItemSelectedListener(spinnerItemSelectedListener);
-        searchBox.setOnKeyListener(submissionKey);
-        topicButton.performClick();
-
-        helpButton.setOnClickListener(helpButton_Click);
+        refreshLayout();
 
     }
+    CheckBox.OnCheckedChangeListener checkBox = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        switch (compoundButton.getId())
+        {
+            case R.id.proofBox: if(proofCheck.isChecked()) proofs=false; else proofs=true;break;
+            case R.id.AnswerBox:if(answerCheck.isChecked())answers=false;else answers=true;break;
+            case R.id.searchAllCheckBox: if(allDocCheck.isChecked())searchAll=true; else searchAll=false;break;
+        }
+        }
+    };
     //Searches the Database for the topic and returns the results in a list
     public void Search(String query) {
 
@@ -152,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         Integer docID = 0;
 
         String accessString = "", fileString = "";
-        Boolean  proofs = true, answers = true, searchAll = false, viewDocs = false;
+        //Boolean  proofs = true, answers = true, searchAll = false, viewDocs = false;
         Log.d( "Search()", getString(R.string.search_execution_begins));
         searchFragment = new SearchFragmentActivity();
         RadioButton topicRadio = findViewById(R.id.topicRadio);
@@ -168,19 +123,19 @@ public class MainActivity extends AppCompatActivity {
         {readerSearch=true;textSearch=false;questionSearch=false;}
 
 
-        if (answerCheck.isChecked())answers = false;
+      /*  if (answerCheck.isChecked())answers = false;
         if (allDocCheck.isChecked())
         { searchAll = true;
 
-        }
-        else if (!allDocCheck.isChecked())
+        }*/
+       if (!allDocCheck.isChecked())
         {
-            searchAll = false;
+            //searchAll = false;
             accessString =String.format( " and documenttitle.documentName = '%s' ",fileName);
         }
 
-        if (proofCheck.isChecked())
-            proofs = false;
+      /*  if (proofCheck.isChecked())
+            proofs = false;*/
 
         if (allOpen) {
             docID = 0;
@@ -427,6 +382,68 @@ Pattern replaceString=Pattern.compile(query, Pattern.CASE_INSENSITIVE);
  Log.d("Test",resultString);
            return resultString;
     }
+    //Allows layouts to refresh if auto-rotate is enabled without losing everything
+    public void refreshLayout()
+    {            int displayDPI = getResources().getDisplayMetrics().densityDpi;
+        switch (displayDPI)
+        {
+            case 480:setContentView(R.layout.alt_main);break;
+            default:setContentView(R.layout.activity_main);break;
+        }
+        topicButton = (RadioButton) findViewById(R.id.topicRadio);
+        questionButton = (RadioButton) findViewById(R.id.chapterRadio);
+        viewAllButton = (RadioButton) findViewById(R.id.viewAllRadio);
+        //Search Button Initialization
+        searchButton = findViewById(R.id.searchFAB);
+        searchButton.setOnClickListener(searchButtonListener);
+        //Search Box Initialization
+        searchBox = (SearchView) findViewById(R.id.searchView1);
+        searchBox.setOnQueryTextListener(searchQueryListener);
+        searchBox.setOnKeyListener(submissionKey);
+        //Help button Initialization
+        helpButton = findViewById(R.id.helpButton);
+        helpButton.setOnClickListener(helpButtonClick);
+        //CheckBox initialization
+        proofCheck = (CheckBox) findViewById(R.id.proofBox);
+        allDocCheck = (CheckBox) findViewById(R.id.searchAllCheckBox);
+        answerCheck = (CheckBox) findViewById(R.id.AnswerBox);
+proofCheck.setOnCheckedChangeListener(checkBox);
+allDocCheck.setOnCheckedChangeListener(checkBox);
+answerCheck.setOnCheckedChangeListener(checkBox);
+        documentTypeSpinner = (Spinner) findViewById(R.id.documentTypeSpinner);
+        documentNameSpinner = (Spinner) findViewById(R.id.documentNameSpinner);
+        //Database stuff
+        documentDBHelper=new documentDBClassHelper(this);
+        documentDB = documentDBHelper.getReadableDatabase();
+        //Document selector Lists
+        docTypes = new ArrayList<>();
+        docTitles = new ArrayList<>();
+        ArrayList<DocumentType> typeList = documentDBHelper.getAllDocTypes(documentDB);
+        ArrayList<DocumentTitle> documentTitles = documentDBHelper.getAllDocTitles(type, documentDB);
+        //Document Type Spinner Initialization
+        docTypes.add("All");
+        for (DocumentType type : typeList) {
+            docTypes.add(type.documentTypeName);
+        }
+        docTypeSpinnerAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, docTypes);
+        documentTypeSpinner =  findViewById(R.id.documentTypeSpinner);
+        documentTypeSpinner.setAdapter(docTypeSpinnerAdapter);
+        documentTypeSpinner.setOnItemSelectedListener(spinnerItemSelectedListener);
+
+        //Document Titles Spinner Initialization
+        for (DocumentTitle docTitle : documentTitles) {
+            docTitles.add(docTitle.getDocumentName());
+        }
+        docTitleSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, docTitles);
+        Drawable picture = getDrawable(R.drawable.search_dark_drawable);
+        documentNameSpinner =  findViewById(R.id.documentNameSpinner);
+        documentNameSpinner.setOnItemSelectedListener(spinnerItemSelectedListener);
+        searchBox.setOnKeyListener(submissionKey);
+        topicButton.performClick();
+
+        helpButton.setOnClickListener(helpButton_Click);
+
+    }
     //Select search type
     public void SearchType(View view){
         KeyEvent enter = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER);
@@ -672,18 +689,31 @@ Pattern replaceString=Pattern.compile(query, Pattern.CASE_INSENSITIVE);
     //Help button on click listener
     FloatingActionButton.OnClickListener helpButtonClick = new OnClickListener() {
         @Override
-        public void onClick(View v) {
-            setContentView(R.layout.help_page);
-        }
+        public void onClick(View v) {setContentView(R.layout.help_page);}
     };
     //Enables the app to return to the main screen after home button pressed
     ExtendedFloatingActionButton.OnClickListener homeButtonListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
-            MainActivity.super.onStop();
-            MainActivity.super.finish();
-            startActivity(intent);
+          /*  Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            MainActivity.super.onStop();            MainActivity.super.finish();
+            startActivity(intent);*/
+          refreshLayout();
         }
     };
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+//refreshLayout();
+        // Checks the orientation of the screen
+       /* if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//this.getCurrentFocus().refreshDrawableState();
+
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+
+
+        }*/
+    }
 }

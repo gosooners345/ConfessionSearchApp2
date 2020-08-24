@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/background"
+    android:isScrollContainer="true"
+    android:overScrollMode="always"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarStyle="outsideInset"
+    android:scrollbars="vertical">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="?attr/background"
     android:orientation="vertical"
 
@@ -274,50 +284,68 @@
         tools:layout_conversion_absoluteHeight="60dp"
         tools:layout_conversion_absoluteWidth="83dp" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/searchFAB"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="76dp"
-        android:clickable="true"
-        android:drawableLeft="@android:drawable/ic_menu_search"
-        android:focusable="true"
-        android:text="@string/search"
-        android:textColor="?attr/secondaryTextColor"
-        app:backgroundTint="?attr/bgTintColor"
-
-        app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/helpButton"
-        app:layout_constraintTop_toTopOf="@+id/helpButton"
-        app:srcCompat="?android:attr/actionModeWebSearchDrawable"
-        tools:layout_conversion_absoluteHeight="56dp"
-        tools:layout_conversion_absoluteWidth="142dp" />
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/helpButton"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="72dp"
-        android:clickable="true"
-        android:drawableLeft="@android:drawable/ic_menu_help"
-        android:text="@string/help"
-        android:textColor="?attr/secondaryTextColor"
-        app:backgroundTint="?attr/bgTintColor"
-        app:fabSize="mini"
-        app:iconTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_info_details"
-        tools:layout_conversion_absoluteHeight="56dp"
-        tools:layout_conversion_absoluteWidth="123dp" />
+        app:layout_constraintTop_toBottomOf="@+id/searchAllCheckBox">
+
+        <!--    app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+
+          tools:layout_conversion_absoluteHeight="56dp"
+          tools:layout_conversion_absoluteWidth="123dp" -->
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/helpButton"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="72dp"
+            android:clickable="true"
+            android:drawableLeft="@android:drawable/ic_menu_help"
+            android:text="@string/help"
+            android:textColor="?attr/secondaryTextColor"
+            app:backgroundTint="?attr/bgTintColor"
+            app:fabSize="mini"
+            app:iconTint="@color/colorPrimary"
+            app:srcCompat="@android:drawable/ic_menu_info_details" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/searchFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="76dp"
+            android:clickable="true"
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:focusable="true"
+            android:text="@string/search"
+            android:textColor="?attr/secondaryTextColor"
+
+            app:backgroundTint="?attr/bgTintColor"
+
+            app:fabSize="mini"
+            app:srcCompat="?android:attr/actionModeWebSearchDrawable"
+            tools:layout_conversion_absoluteHeight="56dp"
+            tools:layout_conversion_absoluteWidth="142dp" />
+        <!-- app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/helpButton"
+            app:layout_constraintTop_toTopOf="@+id/helpButton"-->
+    </LinearLayout>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

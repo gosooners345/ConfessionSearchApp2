@@ -2,10 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="?attr/background"
+    android:orientation="vertical"
+
     >
 
 
@@ -13,16 +15,16 @@
         android:id="@+id/AnswerBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="25dp"
+
+        android:layout_marginTop="5dp"
         android:buttonTint="?android:attr/textColor"
         android:letterSpacing=".1"
         android:paddingTop="5dp"
         android:text="No Answers?"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="?android:attr/textColor"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/optionLabel"
+        app:layout_constraintStart_toStartOf="@+id/optionLabel"
         app:layout_constraintTop_toBottomOf="@+id/optionLabel"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="115dp" />
@@ -30,47 +32,36 @@
     <CheckBox
         android:id="@+id/searchAllCheckBox"
         android:layout_width="wrap_content"
-        android:buttonTint="?android:attr/textColor"
-        android:textColor="?android:attr/textColor"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="26dp"
+
+        android:buttonTint="?android:attr/textColor"
         android:text="@string/search_all_documents"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/helpButton"
+        android:textColor="?android:attr/textColor"
 
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/AnswerBox"
-        app:layout_constraintTop_toBottomOf="@+id/AnswerBox"
+        app:layout_constraintStart_toStartOf="@+id/proofBox"
+        app:layout_constraintTop_toBottomOf="@+id/proofBox"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="178dp" />
 
     <CheckBox
         android:id="@+id/proofBox"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="5dp"
-        android:checked="false"
-        android:buttonTint="?android:attr/textColor"
-        android:textColor="?android:attr/textColor"
-        android:letterSpacing=".15"
-        android:text="No Proofs?"
 
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:buttonTint="?android:attr/textColor"
+        android:checked="false"
+        android:letterSpacing=".2"
+        android:text="No Proofs?"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/AnswerBox"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="?android:attr/textColor"
+        app:layout_constraintEnd_toEndOf="@+id/AnswerBox"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/AnswerBox"
-        app:layout_constraintTop_toTopOf="@+id/AnswerBox"
+        app:layout_constraintStart_toStartOf="@+id/AnswerBox"
+        app:layout_constraintTop_toBottomOf="@+id/AnswerBox"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="103dp" />
-
-
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -83,28 +74,28 @@
 
         <RadioButton
             android:id="@+id/topicRadio"
-            android:buttonTint="?android:attr/textColor"
-            android:textColor="?android:attr/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="?android:attr/textColor"
             android:checked="true"
             android:onClick="SearchType"
             android:text="Topic"
+            android:textColor="?android:attr/textColor"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="68dp"
             tools:layout_editor_absoluteX="136dp"
             tools:layout_editor_absoluteY="31dp" />
 
         <RadioButton
-            android:buttonTint="?android:attr/textColor"
-            android:textColor="?android:attr/textColor"
             android:id="@+id/chapterRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:buttonTint="?android:attr/textColor"
             android:onClick="SearchType"
             android:text="Question"
+            android:textColor="?android:attr/textColor"
             tools:layout_conversion_absoluteHeight="48dp"
-
             tools:layout_conversion_absoluteWidth="89dp"
             tools:layout_editor_absoluteX="136dp"
             tools:layout_editor_absoluteY="79dp" />
@@ -113,13 +104,14 @@
             android:id="@+id/viewAllRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="SearchType"
             android:buttonTint="?android:attr/textColor"
-            android:textColor="?android:attr/textColor"
+            android:onClick="SearchType"
             android:text="Read Document"
+            android:textColor="?android:attr/textColor"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="133dp"
             tools:layout_editor_absoluteX="136dp"
+
             tools:layout_editor_absoluteY="127dp" />
     </RadioGroup>
 
@@ -129,15 +121,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/Search"
         android:imeOptions="normal|actionSearch"
         android:paddingLeft="5dp"
-        android:textColor="?android:attr/textColor"
         android:paddingTop="5dp"
         android:searchIcon="@android:drawable/ic_menu_search"
         android:textAlignment="gravity"
-        app:layout_constrainedWidth="false"
+        android:textColor="?android:attr/editTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/topicLabel"
@@ -150,7 +142,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="9dp"
         android:layout_marginEnd="8dp"
         android:clickable="true"
         android:dropDownWidth="wrap_content"
@@ -158,7 +150,6 @@
         android:paddingEnd="5dp"
         android:popupBackground="?attr/background"
         android:spinnerMode="dropdown"
-        android:textAlignment="viewEnd"
         app:layout_constraintEnd_toEndOf="@+id/searchView1"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/typeTVLabel"
@@ -168,16 +159,19 @@
 
     <Spinner
         android:id="@+id/documentNameSpinner"
-        android:popupBackground="?attr/background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="9dp"
+
+
         android:clickable="true"
+        android:dropDownWidth="wrap_content"
         android:paddingRight="5dp"
+        android:popupBackground="?attr/background"
+
         android:spinnerMode="dropdown"
         android:textAlignment="viewEnd"
         app:layout_constrainedWidth="true"
-        app:layout_constraintBaseline_toBaselineOf="@id/confessionLabel"
         app:layout_constraintEnd_toEndOf="@+id/documentTypeSpinner"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/confessionLabel"
@@ -187,14 +181,14 @@
 
     <TextView
         android:id="@+id/confessionLabel"
-        android:textColor="?android:attr/textColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="24dp"
         android:text="Document:"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="24sp"
+        android:textColor="?android:attr/textColor"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/typeTVLabel"
         app:layout_constraintTop_toBottomOf="@+id/typeTVLabel"
         tools:layout_conversion_absoluteHeight="24dp"
@@ -202,13 +196,14 @@
 
     <TextView
         android:id="@+id/optionLabel"
+
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textColor="?android:attr/textColor"
+        android:layout_marginTop="32dp"
         android:text="Search Options:"
+
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/documentNameSpinner"
@@ -217,14 +212,14 @@
 
     <TextView
         android:id="@+id/appTitle"
-        android:textColor="?android:attr/textColor"
+
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Reformed Index Search"
+        android:text="@string/reformed_index_search"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="30sp"
-
+        android:textColor="?android:attr/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -232,16 +227,15 @@
         tools:layout_conversion_absoluteWidth="230dp" />
 
     <TextView
+
         android:id="@+id/searchByLabel"
+
         android:layout_width="wrap_content"
-        android:textColor="?android:attr/textColor"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:text="Search By:"
-
+        android:text="@string/search_by"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
         app:layout_constraintEnd_toStartOf="@+id/radioGroup"
         app:layout_constraintHorizontal_bias="0.126"
@@ -252,15 +246,14 @@
 
     <TextView
         android:id="@+id/topicLabel"
+
         android:layout_width="95dp"
         android:layout_height="55dp"
-        android:layout_marginStart="32dp"
-        android:gravity="center_vertical"
+        android:layout_marginStart="8dp"
 
-        android:text="Topic/Number:"
+        android:gravity="center_vertical"
+        android:text="@string/topic_number"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColor"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/searchView1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/searchView1"
@@ -269,12 +262,12 @@
 
     <TextView
         android:id="@+id/typeTVLabel"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="12dp"
         android:text="@string/document_type"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="24sp"
         android:textColor="?android:attr/textColor"
         app:layout_constraintStart_toStartOf="@+id/topicLabel"
         app:layout_constraintTop_toBottomOf="@+id/topicLabel"
@@ -285,40 +278,42 @@
         android:id="@+id/searchFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="76dp"
         android:clickable="true"
         android:drawableLeft="@android:drawable/ic_menu_search"
         android:focusable="true"
-        android:text="Search"
+        android:text="@string/search"
         android:textColor="?attr/secondaryTextColor"
         app:backgroundTint="?attr/bgTintColor"
+
         app:fabSize="mini"
-        app:iconTint="#ffffffff"
-        app:layout_constraintBottom_toBottomOf="@+id/helpButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.916"
+        app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toEndOf="@+id/helpButton"
         app:layout_constraintTop_toTopOf="@+id/helpButton"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="?android:attr/actionModeWebSearchDrawable"
         tools:layout_conversion_absoluteHeight="56dp"
         tools:layout_conversion_absoluteWidth="142dp" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/helpButton"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_marginStart="24dp"
-
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="76dp"
         android:clickable="true"
         android:drawableLeft="@android:drawable/ic_menu_help"
-        android:text="Help"
+        android:text="@string/help"
         android:textColor="?attr/secondaryTextColor"
         app:backgroundTint="?attr/bgTintColor"
         app:fabSize="mini"
+        app:iconTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_menu_info_details"
