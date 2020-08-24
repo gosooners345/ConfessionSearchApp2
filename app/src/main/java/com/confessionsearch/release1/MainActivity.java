@@ -385,11 +385,12 @@ Pattern replaceString=Pattern.compile(query, Pattern.CASE_INSENSITIVE);
     //Allows layouts to refresh if auto-rotate is enabled without losing everything
     public void refreshLayout()
     {            int displayDPI = getResources().getDisplayMetrics().densityDpi;
-        switch (displayDPI)
+      /*  switch (displayDPI)
         {
             case 480:setContentView(R.layout.alt_main);break;
             default:setContentView(R.layout.activity_main);break;
-        }
+        }*/
+      setContentView(R.layout.activity_main);
         topicButton = (RadioButton) findViewById(R.id.topicRadio);
         questionButton = (RadioButton) findViewById(R.id.chapterRadio);
         viewAllButton = (RadioButton) findViewById(R.id.viewAllRadio);

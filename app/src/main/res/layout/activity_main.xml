@@ -130,7 +130,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:contentDescription="@string/Search"
@@ -285,11 +285,10 @@
         tools:layout_conversion_absoluteWidth="83dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="394dp"
+        android:layout_height="178dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchAllCheckBox">
 
         <!--    app:layout_constraintBottom_toBottomOf="parent"
@@ -304,6 +303,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:layout_marginStart="24dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="45dp"
             android:layout_marginBottom="72dp"
             android:clickable="true"
