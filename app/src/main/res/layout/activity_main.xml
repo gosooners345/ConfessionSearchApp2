@@ -26,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:buttonTint="?android:attr/textColor"
         android:letterSpacing=".1"
@@ -33,8 +34,7 @@
         android:text="No Answers?"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="?android:attr/textColor"
-        app:layout_constraintEnd_toEndOf="@+id/optionLabel"
-        app:layout_constraintStart_toStartOf="@+id/optionLabel"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/optionLabel"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="115dp" />
@@ -171,14 +171,15 @@
         android:id="@+id/documentNameSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+
+
         android:layout_marginTop="9dp"
-
-
         android:clickable="true"
         android:dropDownWidth="wrap_content"
         android:paddingRight="5dp"
-        android:popupBackground="?attr/background"
 
+        android:popupBackground="?attr/background"
         android:spinnerMode="dropdown"
         android:textAlignment="viewEnd"
         app:layout_constrainedWidth="true"
@@ -259,7 +260,7 @@
 
         android:layout_width="95dp"
         android:layout_height="55dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="7dp"
 
         android:gravity="center_vertical"
         android:text="@string/topic_number"
@@ -287,6 +288,7 @@
     <LinearLayout
         android:layout_width="394dp"
         android:layout_height="178dp"
+        android:paddingStart="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchAllCheckBox">
@@ -303,7 +305,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:layout_marginStart="24dp"
-            android:layout_marginLeft="5dp"
             android:layout_marginTop="45dp"
             android:layout_marginBottom="72dp"
             android:clickable="true"

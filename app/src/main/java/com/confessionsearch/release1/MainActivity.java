@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     documentDBClassHelper documentDBHelper;
     public  String type="";
     String shareList = "";
+
     public String fileName;
     protected Boolean allOpen, confessionOpen, catechismOpen, creedOpen, helpOpen;
 protected Boolean proofs=true, answers=true, searchAll = false;
@@ -71,17 +72,19 @@ protected Boolean proofs=true, answers=true, searchAll = false;
     ArrayAdapter<String> docTitleSpinnerAdapter;
     SearchView searchBox;
     SQLiteDatabase documentDB;
-    String themeName;
+  Boolean themeName;
+   // String themeName;
     SharedPreferences pref;// = PreferenceManager.getDefaultSharedPreferences(this);
     DocumentList masterList = new DocumentList();
    SearchFragmentActivity searchFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
-        themeName = pref.getString("theme","Light");
-        if(themeName.equals("Light"))
+//        themeName = pref.getString("theme","Dark");
+ themeName=pref.getBoolean("darkMode",true);
+        if(!themeName)//.equals("Light"))
             setTheme(R.style.LightMode);
-        else if (themeName.equals("Dark"))
+        else if (themeName)//.equals("Dark"))
             setTheme(R.style.DarkMode);
         super.onCreate(savedInstanceState);
         //Set the show for the search app
@@ -329,7 +332,6 @@ protected Boolean proofs=true, answers=true, searchAll = false;
                     {
                         int wordIndex =word.toUpperCase().indexOf(query.toUpperCase(), matchIndex);
                         if (wordIndex < 0) break;
-
                         matchIndex = wordIndex + 1;
                         document.setMatches(document.getMatches() + 1);
                     }
@@ -357,18 +359,26 @@ protected Boolean proofs=true, answers=true, searchAll = false;
             d.setDocumentText(HighlightText(d.getDocumentText(),query));}
         masterList = resultList;
     }
-
     //Look for the matching chapter/question index
     public void FilterResults(DocumentList documentList, Boolean answers, Boolean proofs, Integer indexNum) {
         DocumentList resultList = new DocumentList();
         for (Document document : documentList) {
             if (document.getChNumber() == indexNum)
-                resultList.add(document);
+            {
+                if(!answers) {
+                    if (document.getDocumentText().contains("Question"))
+                    {int closeIndex = document.getDocumentText().indexOf("Answer");
+                        document.setDocumentText(document.getDocumentText().substring(0,closeIndex-1) );
+                    }}
             else if (!proofs) {
                 document.setProofs("No Proofs Available");
+            }
+            resultList.add(document);
             } else
                 continue;
+
         }
+
         Collections.sort(resultList);
         masterList = resultList;
     }
@@ -382,14 +392,9 @@ Pattern replaceString=Pattern.compile(query, Pattern.CASE_INSENSITIVE);
  Log.d("Test",resultString);
            return resultString;
     }
-    //Allows layouts to refresh if auto-rotate is enabled without losing everything
+    //Executes on startup
     public void refreshLayout()
-    {            int displayDPI = getResources().getDisplayMetrics().densityDpi;
-      /*  switch (displayDPI)
-        {
-            case 480:setContentView(R.layout.alt_main);break;
-            default:setContentView(R.layout.activity_main);break;
-        }*/
+    {
       setContentView(R.layout.activity_main);
         topicButton = (RadioButton) findViewById(R.id.topicRadio);
         questionButton = (RadioButton) findViewById(R.id.chapterRadio);
@@ -491,11 +496,13 @@ answerCheck.setOnCheckedChangeListener(checkBox);
 
                 }
     }
+
+
     //Menu options for themes
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+       inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -503,23 +510,16 @@ answerCheck.setOnCheckedChangeListener(checkBox);
         switch (item.getItemId()) {
             case R.id.settings:
                 startActivityForResult(new Intent(MainActivity.this, ThemePreferenceActivity.class), SETTINGS_ACTION);
-
-
         }
                 return super.onOptionsItemSelected(item);
         }
         //Theme related
 @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == SETTINGS_ACTION) {
             if (resultCode == ThemePreferenceActivity.RESULT_CODE_THEME_UPDATED) {
-
              finish();
                 startActivity(getIntent());
-
-
-
                 return;
             }
         }
@@ -581,9 +581,11 @@ answerCheck.setOnCheckedChangeListener(checkBox);
 
             }break;
                 case R.id.documentNameSpinner:
-                    if(themeName.contains("Dark"))
+                  if(themeName)  //if(themeName.contains("Dark"))
                         ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
                     fileName = String.format("%s",parent.getSelectedItem().toString());
+
+
                 break;  }
         }
 
@@ -651,7 +653,7 @@ answerCheck.setOnCheckedChangeListener(checkBox);
         startActivity(intent);
     }
     //Prevents application from proceeding to execute if an error is found
-    public void ErrorMessage( String message){
+    public void ErrorMessage(String message){
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
 //Back Key Behavior
@@ -695,26 +697,8 @@ answerCheck.setOnCheckedChangeListener(checkBox);
     //Enables the app to return to the main screen after home button pressed
     ExtendedFloatingActionButton.OnClickListener homeButtonListener = new OnClickListener() {
         @Override
-        public void onClick(View view) {
-          /*  Intent intent = new Intent(MainActivity.this, MainActivity.class);
-            MainActivity.super.onStop();            MainActivity.super.finish();
-            startActivity(intent);*/
-          refreshLayout();
-        }
+        public void onClick(View view) {refreshLayout();}
     };
-
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-//refreshLayout();
-        // Checks the orientation of the screen
-       /* if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//this.getCurrentFocus().refreshDrawableState();
-
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-
-
-        }*/
-    }
+    public void onConfigurationChanged(Configuration newConfig) {        super.onConfigurationChanged(newConfig);  }
 }

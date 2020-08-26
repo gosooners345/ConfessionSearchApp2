@@ -3,21 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     >
-    <ListPreference
 
-
-        android:defaultValue="false"
-
-
-        android:dialogTitle="@string/theme_dialog_title"
-        android:entries="@array/themes"
-        android:entryValues="@array/themes"
-        android:key="theme"
-        android:layout="@layout/menu_layout"
-        android:summary="@string/theme_summary"
-        android:textColorAlertDialogListItem="?android:attr/editTextColor"
-        android:title="@string/theme_dialog_title"
-        android:widgetLayout="@layout/menu_layout" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="darkMode"
+        android:summary="Check here if you want to enable dark mode for easier reading"
+        android:summaryOff="Check Here for Dark mode"
+        android:summaryOn="Dark mode enabled"
+        android:title="@string/dark_mode_title" />
 
 
 </PreferenceScreen>
