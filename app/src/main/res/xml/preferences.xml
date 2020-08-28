@@ -2,9 +2,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    >
+  >
 
     <CheckBoxPreference
+        android:buttonTint="?android:attr/textColor"
         android:defaultValue="true"
         android:key="darkMode"
         android:summary="Check here if you want to enable dark mode for easier reading"

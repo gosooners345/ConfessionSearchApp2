@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     documentDBClassHelper documentDBHelper;
     public  String type="";
     String shareList = "";
-
+public static int themeID;
     public String fileName;
     protected Boolean allOpen, confessionOpen, catechismOpen, creedOpen, helpOpen;
 protected Boolean proofs=true, answers=true, searchAll = false;
@@ -82,10 +82,12 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 //        themeName = pref.getString("theme","Dark");
  themeName=pref.getBoolean("darkMode",true);
-        if(!themeName)//.equals("Light"))
-            setTheme(R.style.LightMode);
-        else if (themeName)//.equals("Dark"))
-            setTheme(R.style.DarkMode);
+        if(!themeName){
+            themeID=R.style.LightMode;
+            setTheme(R.style.LightMode);}
+        else if (themeName){
+            themeID= R.style.DarkMode;
+            setTheme(R.style.DarkMode);}
         super.onCreate(savedInstanceState);
         //Set the show for the search app
         setTitle(R.string.app_name);
@@ -519,7 +521,7 @@ answerCheck.setOnCheckedChangeListener(checkBox);
         if (requestCode == SETTINGS_ACTION) {
             if (resultCode == ThemePreferenceActivity.RESULT_CODE_THEME_UPDATED) {
              finish();
-                startActivity(getIntent());
+               startActivity(getIntent());
                 return;
             }
         }
@@ -607,7 +609,7 @@ answerCheck.setOnCheckedChangeListener(checkBox);
                 if(!query.isEmpty()&!viewAllButton.isSelected())
                 Search(query);
                 else
-                    ErrorMessage("You must enter a topic or chapter number in the search text field above to proceed!!");
+                    ErrorMessage("You must enter a topic or chapter number in the search text field above to proceed!");
                 return true;
             }
             else{

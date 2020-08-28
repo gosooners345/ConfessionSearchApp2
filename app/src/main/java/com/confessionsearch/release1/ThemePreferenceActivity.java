@@ -6,12 +6,14 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceChangeListener;
 
+import androidx.appcompat.widget.Toolbar;
+
 public class ThemePreferenceActivity extends PreferenceActivity {
     public static final int RESULT_CODE_THEME_UPDATED = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+setTheme(MainActivity.themeID);
             super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
