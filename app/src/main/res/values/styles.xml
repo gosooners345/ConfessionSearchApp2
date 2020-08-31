@@ -19,13 +19,13 @@
 <item name="android:closeIcon">@drawable/close_icon_light</item>
         <item name="background">@color/textPrimaryDark</item>
         <item name="colorOnBackground">@color/colorPrimary</item>
-        <item name="android:submitBackground"> @drawable/send_icon_light</item>
+        <item name="android:goIcon"> @drawable/send_icon_light</item>
 
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="DarkMode" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="android:closeIcon">@drawable/close_icon_dark</item>
-<item name="android:submitBackground"> @drawable/send_icon_dark</item>
+<item name="android:goIcon"> @drawable/send_icon_dark</item>
 <item name="android:textColor">@color/textPrimaryDark</item>
         <item name="android:colorBackground">@color/colorPrimary</item>
 
