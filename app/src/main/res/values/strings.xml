@@ -72,4 +72,13 @@
     <string name="help">Help</string>
     <string name="dark_mode_title">Dark Mode</string>
     <string name="sources">Sources:</string>
+    <string name="accessibility_checkbox_search_all">Search All Documents Checkbox</string>
+    <string name="document_list_spinner_desc">Document titles combo box</string>
+    <string name="no_proofs">No Proofs?</string>
+    <string name="topic">Topic</string>
+    <string name="question">Question</string>
+    <string name="read_document">Read Document</string>
+    <string name="no_answers">No Answers?</string>
+    <string name="document">Document:</string>
+    <string name="search_options">Search Options:</string>
 </resources>

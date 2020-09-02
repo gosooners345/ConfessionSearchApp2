@@ -24,11 +24,16 @@ setTheme(MainActivity.themeID);
         private final int resultCode;
         public RefreshActivityOnPreferenceChangeListener(int resultCode) {
             this.resultCode = resultCode;
+
+
         }
         @Override
         public boolean onPreferenceChange(Preference p, Object newValue) {
-            setResult(resultCode);
+           setResult(resultCode);
             return true;
         }
+
     }
+
+
 }

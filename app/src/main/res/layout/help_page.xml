@@ -16,7 +16,6 @@
         android:id="@+id/appTitle"
         android:layout_gravity="center_vertical"
         android:gravity="center"
-        android:layout_weight="5"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true" />
 
@@ -95,14 +94,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:clickable="true"
-        android:drawableLeft="@drawable/nav_home_light"
-        android:textColor="?attr/secondaryTextColor"
         android:src="@android:drawable/ic_menu_search"
         android:text="Home"
         android:textAllCaps="true"
-        app:iconTint="@color/colorPrimary"
+        android:textColor="?attr/secondaryTextColor"
         app:backgroundTint="?attr/bgTintColor"
-        app:fabSize="normal" />
+        app:fabSize="normal"
+        app:icon="@drawable/nav_home_light"
+        app:iconTint="?attr/background" />
 
     <TextView
         android:id="@+id/sourceLabel"

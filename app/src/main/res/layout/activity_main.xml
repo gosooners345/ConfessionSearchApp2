@@ -11,344 +11,336 @@
     android:scrollbarStyle="outsideInset"
     android:scrollbars="vertical">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/relativeLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/background"
-    android:orientation="vertical"
-
-    >
-
-
-    <CheckBox
-        android:id="@+id/AnswerBox"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/background"
+        android:orientation="vertical"
 
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:buttonTint="?android:attr/textColor"
-        android:letterSpacing=".1"
-        android:paddingTop="5dp"
-        android:text="No Answers?"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="?android:attr/textColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/optionLabel"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="115dp" />
+        >
 
-    <CheckBox
-        android:id="@+id/searchAllCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        android:buttonTint="?android:attr/textColor"
-        android:text="@string/search_all_documents"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="?android:attr/textColor"
-
-        app:layout_constraintStart_toStartOf="@+id/proofBox"
-        app:layout_constraintTop_toBottomOf="@+id/proofBox"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="178dp" />
-
-    <CheckBox
-        android:id="@+id/proofBox"
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:buttonTint="?android:attr/textColor"
-        android:checked="false"
-        android:letterSpacing=".2"
-        android:text="No Proofs?"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="?android:attr/textColor"
-        app:layout_constraintEnd_toEndOf="@+id/AnswerBox"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/AnswerBox"
-        app:layout_constraintTop_toBottomOf="@+id/AnswerBox"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="103dp" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appTitle">
-
-        <RadioButton
-            android:id="@+id/topicRadio"
+        <CheckBox
+            android:id="@+id/AnswerBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="?android:attr/textColor"
-            android:checked="true"
-            android:onClick="SearchType"
-            android:text="Topic"
-            android:textColor="?android:attr/textColor"
-            tools:layout_conversion_absoluteHeight="48dp"
-            tools:layout_conversion_absoluteWidth="68dp"
-            tools:layout_editor_absoluteX="136dp"
-            tools:layout_editor_absoluteY="31dp" />
 
-        <RadioButton
-            android:id="@+id/chapterRadio"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:buttonTint="?android:attr/textColor"
+            android:letterSpacing=".1"
+            android:paddingTop="5dp"
+            android:text="@string/no_answers"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="?android:attr/textColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/optionLabel"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="115dp" />
+
+        <CheckBox
+            android:id="@+id/searchAllCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:buttonTint="?android:attr/textColor"
-            android:onClick="SearchType"
-            android:text="Question"
-            android:textColor="?android:attr/textColor"
-            tools:layout_conversion_absoluteHeight="48dp"
-            tools:layout_conversion_absoluteWidth="89dp"
-            tools:layout_editor_absoluteX="136dp"
-            tools:layout_editor_absoluteY="79dp" />
+            android:contentDescription="@string/accessibility_checkbox_search_all"
+            android:text="@string/search_all_documents"
 
-        <RadioButton
-            android:id="@+id/viewAllRadio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="?android:attr/textColor"
+            app:layout_constraintStart_toStartOf="@+id/proofBox"
+            app:layout_constraintTop_toBottomOf="@+id/proofBox"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="178dp" />
+
+        <CheckBox
+            android:id="@+id/proofBox"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:buttonTint="?android:attr/textColor"
+            android:checked="false"
+            android:text="@string/no_proofs"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="?android:attr/textColor"
+            app:layout_constraintEnd_toEndOf="@+id/AnswerBox"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/AnswerBox"
+            app:layout_constraintTop_toBottomOf="@+id/AnswerBox"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="103dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="?android:attr/textColor"
-            android:onClick="SearchType"
-            android:text="Read Document"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appTitle">
+
+            <RadioButton
+                android:id="@+id/topicRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="?android:attr/textColor"
+                android:checked="true"
+                android:onClick="SearchType"
+                android:text="@string/topic"
+                android:textColor="?android:attr/textColor"
+                tools:layout_conversion_absoluteHeight="48dp"
+                tools:layout_conversion_absoluteWidth="68dp"
+                tools:layout_editor_absoluteX="136dp"
+                tools:layout_editor_absoluteY="31dp" />
+
+            <RadioButton
+                android:id="@+id/chapterRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:buttonTint="?android:attr/textColor"
+                android:onClick="SearchType"
+                android:text="@string/question"
+                android:textColor="?android:attr/textColor"
+                tools:layout_conversion_absoluteHeight="48dp"
+                tools:layout_conversion_absoluteWidth="89dp"
+                tools:layout_editor_absoluteX="136dp"
+                tools:layout_editor_absoluteY="79dp" />
+
+            <RadioButton
+                android:id="@+id/viewAllRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="?android:attr/textColor"
+                android:onClick="SearchType"
+                android:text="@string/read_document"
+                android:textColor="?android:attr/textColor"
+                tools:layout_conversion_absoluteHeight="48dp"
+                tools:layout_conversion_absoluteWidth="133dp"
+                tools:layout_editor_absoluteX="136dp"
+
+                tools:layout_editor_absoluteY="127dp" />
+        </RadioGroup>
+
+        <SearchView
+            android:id="@+id/searchView1"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:closeIcon="?android:attr/closeIcon"
+            android:contentDescription="@string/Search"
+            android:goIcon="?android:attr/goIcon"
+            android:iconifiedByDefault="false"
+            android:imeOptions="normal|actionSearch"
+            android:paddingTop="5dp"
+            android:searchIcon="?android:attr/searchIcon"
+            android:textAlignment="gravity"
+            android:textColor="?android:attr/editTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/topicLabel"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+            tools:layout_conversion_absoluteHeight="53dp"
+            tools:layout_conversion_absoluteWidth="53dp" />
+
+        <Spinner
+            android:id="@+id/documentTypeSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="4dp"
+            android:dropDownWidth="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:popupBackground="?attr/background"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="@+id/searchView1"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/typeTVLabel"
+            app:layout_constraintTop_toBottomOf="@+id/searchView1"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="269dp" />
+
+        <Spinner
+            android:id="@+id/documentNameSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+
+
+            android:layout_marginTop="9dp"
+
+            android:contentDescription="@string/document_list_spinner_desc"
+            android:dropDownWidth="wrap_content"
+
+            android:focusable="true"
+            android:paddingRight="5dp"
+            android:popupBackground="?attr/background"
+            android:spinnerMode="dropdown"
+            android:textAlignment="viewEnd"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="@+id/documentTypeSpinner"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/confessionLabel"
+            app:layout_constraintTop_toBottomOf="@+id/documentTypeSpinner"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="270dp" />
+
+        <TextView
+            android:id="@+id/confessionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:labelFor="@id/documentNameSpinner"
+            android:text="@string/document"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="?android:attr/textColor"
-            tools:layout_conversion_absoluteHeight="48dp"
-            tools:layout_conversion_absoluteWidth="133dp"
-            tools:layout_editor_absoluteX="136dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/typeTVLabel"
+            app:layout_constraintTop_toBottomOf="@+id/typeTVLabel"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="86dp" />
 
-            tools:layout_editor_absoluteY="127dp" />
-    </RadioGroup>
-
-    <SearchView
-        android:id="@+id/searchView1"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:closeIcon="?android:attr/closeIcon"
-        android:contentDescription="@string/Search"
-        android:goIcon="?android:attr/goIcon"
-        android:imeOptions="normal|actionSearch"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:searchIcon="?android:attr/searchIcon"
-        android:textAlignment="gravity"
-        android:textColor="?android:attr/editTextColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/topicLabel"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        tools:layout_conversion_absoluteHeight="53dp"
-        tools:layout_conversion_absoluteWidth="53dp" />
-
-    <Spinner
-        android:id="@+id/documentTypeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="8dp"
-        android:clickable="true"
-        android:dropDownWidth="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingEnd="5dp"
-        android:popupBackground="?attr/background"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="@+id/searchView1"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/typeTVLabel"
-        app:layout_constraintTop_toBottomOf="@+id/searchView1"
-        tools:layout_conversion_absoluteHeight="24dp"
-        tools:layout_conversion_absoluteWidth="269dp" />
-
-    <Spinner
-        android:id="@+id/documentNameSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        <TextView
+            android:id="@+id/optionLabel"
 
 
-        android:layout_marginTop="9dp"
-        android:clickable="true"
-        android:dropDownWidth="wrap_content"
-        android:paddingRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/search_options"
 
-        android:popupBackground="?attr/background"
-        android:spinnerMode="dropdown"
-        android:textAlignment="viewEnd"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toEndOf="@+id/documentTypeSpinner"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/confessionLabel"
-        app:layout_constraintTop_toBottomOf="@+id/documentTypeSpinner"
-        tools:layout_conversion_absoluteHeight="24dp"
-        tools:layout_conversion_absoluteWidth="270dp" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/documentNameSpinner"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="125dp" />
 
-    <TextView
-        android:id="@+id/confessionLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Document:"
-        android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColor"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/typeTVLabel"
-        app:layout_constraintTop_toBottomOf="@+id/typeTVLabel"
-        tools:layout_conversion_absoluteHeight="24dp"
-        tools:layout_conversion_absoluteWidth="86dp" />
+        <TextView
+            android:id="@+id/appTitle"
 
-    <TextView
-        android:id="@+id/optionLabel"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/reformed_index_search"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="?android:attr/textColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="30dp"
+            tools:layout_conversion_absoluteWidth="230dp" />
+
+        <TextView
+
+            android:id="@+id/searchByLabel"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:labelFor="@id/radioGroup"
+            android:text="@string/search_by"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+            app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+            app:layout_constraintHorizontal_bias="0.126"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/radioGroup"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="83dp" />
+
+        <TextView
+            android:id="@+id/topicLabel"
+
+            android:layout_width="95dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="7dp"
+
+            android:gravity="center_vertical"
+            android:labelFor="@id/searchView1"
+            android:text="@string/topic_number"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            app:layout_constraintBottom_toBottomOf="@+id/searchView1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/searchView1"
+            tools:layout_conversion_absoluteHeight="60dp"
+            tools:layout_conversion_absoluteWidth="83dp" />
+
+        <TextView
+            android:id="@+id/typeTVLabel"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:labelFor="@id/documentTypeSpinner"
+            android:text="@string/document_type"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:attr/textColor"
+            app:layout_constraintStart_toStartOf="@+id/topicLabel"
+            app:layout_constraintTop_toBottomOf="@+id/topicLabel"
+            tools:layout_conversion_absoluteHeight="60dp"
+            tools:layout_conversion_absoluteWidth="83dp" />
+
+        <!--   -->
 
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Search Options:"
-
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/documentNameSpinner"
-        tools:layout_conversion_absoluteHeight="24dp"
-        tools:layout_conversion_absoluteWidth="125dp" />
-
-    <TextView
-        android:id="@+id/appTitle"
-
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/reformed_index_search"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="?android:attr/textColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="30dp"
-        tools:layout_conversion_absoluteWidth="230dp" />
-
-    <TextView
-
-        android:id="@+id/searchByLabel"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:text="@string/search_by"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
-        app:layout_constraintEnd_toStartOf="@+id/radioGroup"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/radioGroup"
-        tools:layout_conversion_absoluteHeight="24dp"
-        tools:layout_conversion_absoluteWidth="83dp" />
-
-    <TextView
-        android:id="@+id/topicLabel"
-
-        android:layout_width="95dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="7dp"
-
-        android:gravity="center_vertical"
-        android:text="@string/topic_number"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        app:layout_constraintBottom_toBottomOf="@+id/searchView1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searchView1"
-        tools:layout_conversion_absoluteHeight="60dp"
-        tools:layout_conversion_absoluteWidth="83dp" />
-
-    <TextView
-        android:id="@+id/typeTVLabel"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/document_type"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColor"
-        app:layout_constraintStart_toStartOf="@+id/topicLabel"
-        app:layout_constraintTop_toBottomOf="@+id/topicLabel"
-        tools:layout_conversion_absoluteHeight="60dp"
-        tools:layout_conversion_absoluteWidth="83dp" />
-
-    <LinearLayout
-        android:layout_width="394dp"
-        android:layout_height="178dp"
-        android:paddingStart="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchAllCheckBox">
-
-        <!--    app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-
-          tools:layout_conversion_absoluteHeight="56dp"
-          tools:layout_conversion_absoluteWidth="123dp" -->
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/helpButton"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
-            android:layout_gravity="left|center_vertical"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="45dp"
-            android:layout_marginBottom="72dp"
-            android:clickable="true"
-            android:drawableLeft="@android:drawable/ic_menu_help"
+
+
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/help"
             android:text="@string/help"
             android:textColor="?attr/secondaryTextColor"
             app:backgroundTint="?attr/bgTintColor"
-            app:fabSize="mini"
-            app:iconTint="@color/colorPrimary"
-            app:srcCompat="@android:drawable/ic_menu_info_details" />
+            app:fabSize="auto"
+            app:icon="@android:drawable/ic_menu_help"
+            app:iconTint="?attr/secondaryTextColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchFAB"
+            tools:layout_conversion_absoluteHeight="56dp"
+            tools:layout_conversion_absoluteWidth="123dp" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/searchFAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginStart="85dp"
-            android:layout_marginTop="45dp"
-            android:layout_marginBottom="76dp"
+
+            android:layout_marginTop="230dp"
+            android:layout_marginEnd="8dp"
+
             android:clickable="true"
-            android:drawableLeft="@android:drawable/ic_menu_search"
+
             android:focusable="true"
             android:text="@string/search"
             android:textColor="?attr/secondaryTextColor"
-
             app:backgroundTint="?attr/bgTintColor"
-
-            app:fabSize="mini"
-            app:srcCompat="?android:attr/actionModeWebSearchDrawable"
+            app:fabSize="auto"
+            app:icon="@android:drawable/ic_menu_search"
+            app:iconTint="?attr/secondaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/documentNameSpinner"
             tools:layout_conversion_absoluteHeight="56dp"
             tools:layout_conversion_absoluteWidth="142dp" />
-        <!-- app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/helpButton"
-            app:layout_constraintTop_toTopOf="@+id/helpButton"-->
-    </LinearLayout>
+        <!-- -->
 
 
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

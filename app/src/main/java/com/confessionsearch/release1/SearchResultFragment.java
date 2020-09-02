@@ -67,10 +67,6 @@ public String shareList = "";
             chNumbBox.setText(String.format("%s ",chTitle));
         }
         matchView.setText(String.format("Matches: %s",resultMatch));
-//        TextView[] views = new TextView[6];
-//        views[0] = chapterBox; views[1] = proofBox; views[2] = chNumbBox;
-//        views[3] = docTitleBox; views[4] = matchView; views[5] =tagBox;
-//        ChangeColor(views,true, Color.BLACK);
         shareList = docTitleBox.getText()+newLine+chNumbBox.getText()+newLine
                 + newLine+chapterBox.getText()+newLine+"Proofs"+newLine+proofBox.getText();
         FloatingActionButton fab= view.findViewById(R.id.shareActionButton);

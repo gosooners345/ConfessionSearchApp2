@@ -1,151 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:overScrollMode="always"
-    android:orientation="vertical"
-    android:isScrollContainer="true"
-    android:background="?attr/background"
-    android:scrollbarAlwaysDrawVerticalTrack="true"
-    android:scrollbarStyle="outsideInset"
-    android:scrollbars="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none|vertical"
-        android:verticalScrollbarPosition="right">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
+    android:layout_height="match_parent"
+    android:layout_x="2dp"
+    android:layout_y="2dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:nestedScrollingEnabled="true"
+    app:cardBackgroundColor="?attr/background"
+    app:cardElevation="3dp"
+    app:layout_scrollFlags="scroll">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/result_screen"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout2">
+            android:fitsSystemWindows="true"
+            android:scrollbars="vertical">
+
+            <ScrollView
+                android:id="@+id/chapterTextScroller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:scrollbarStyle="outsideInset"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/confessionChLabel">
+
+                <TextView
+                    android:id="@+id/chapterText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="ifContentScrolls"
+                    android:scrollbars="none|vertical"
+                    android:text="ChapterTextHere"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textIsSelectable="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/confessionChLabel" />
+            </ScrollView>
+
+            <ScrollView
+                android:id="@+id/proofTextScroller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:scrollbarStyle="outsideInset"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/proofLabel">
+
+                <TextView
+                    android:id="@+id/proofText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+                    android:text="Proofs Here"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textIsSelectable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/proofLabel" />
+            </ScrollView>
 
             <TextView
                 android:id="@+id/documentTitleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
 
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="8dp"
                 android:text="Document Title Here"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout1">
-
-            <TextView
-                android:id="@+id/confessionChLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-
-                android:text="ChapterLabel:"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/TextLayout"
-            android:overScrollMode="ifContentScrolls">
-
-            <TextView
-                android:id="@+id/chapterText"
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="5dp"
-                android:overScrollMode="ifContentScrolls"
-                android:scrollbars="none|vertical"
-                android:text="ChapterTextHere"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:verticalScrollbarPosition="right" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout3">
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textIsSelectable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/proofLabel"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
+                android:layout_height="25dp"
 
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
                 android:text="Proofs:"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout4">
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chapterTextScroller" />
 
             <TextView
-                android:id="@+id/proofText"
-
+                android:id="@+id/confessionChLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="5dp"
-                android:text="Proofs Here"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout5">
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:text="ChapterLabel:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textIsSelectable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/documentTitleLabel" />
 
             <TextView
                 android:id="@+id/matchView"
+
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
                 android:text="Matches:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </LinearLayout>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/proofTextScroller" />
 
-        <TextView
-            android:id="@+id/tagView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            <TextView
+                android:id="@+id/tagView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:text="Tags:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/matchView" />
 
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="Tags:"
-            android:textSize="18sp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/shareActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="5dp"
-            android:actionProviderClass="android.widget.ShareActionProvider"
-            android:src="@drawable/share_dark_drawable"
-            app:backgroundTint="#151E75" />
-
-    </LinearLayout>
-</ScrollView>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/shareActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:actionProviderClass="android.widget.ShareActionProvider"
+                android:src="@drawable/share_dark_drawable"
+                app:backgroundTint="#151E75"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tagView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.cardview.widget.CardView>

@@ -520,7 +520,7 @@ answerCheck.setOnCheckedChangeListener(checkBox);
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SETTINGS_ACTION) {
             if (resultCode == ThemePreferenceActivity.RESULT_CODE_THEME_UPDATED) {
-             finish();
+                finish();
                startActivity(getIntent());
                 return;
             }
@@ -656,7 +656,7 @@ answerCheck.setOnCheckedChangeListener(checkBox);
     }
     //Prevents application from proceeding to execute if an error is found
     public void ErrorMessage(String message){
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 //Back Key Behavior
     @Override
