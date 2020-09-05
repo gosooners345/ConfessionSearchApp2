@@ -1,5 +1,7 @@
 package com.confessionsearch.release1;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -30,6 +32,7 @@ public class Notes {
         this.content = content;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "Notes{" +
@@ -58,7 +61,7 @@ public class Notes {
     public static ArrayList<Notes> createNotesList(int entries) {
         ArrayList<Notes> notes = new ArrayList<Notes>();
         for (int i = 1; i < entries; i++) {
-            notes.add(new Notes("subject:", "content:"));
+            notes.add(new Notes("subject:", "content:\r\n Sandman\r\n Jesus is King of Kings!"));
 
         }
         return notes;

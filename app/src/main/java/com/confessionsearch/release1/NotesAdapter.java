@@ -30,8 +30,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
         View noteView=inflater.inflate(R.layout.notes_item_layout,parent,false);
 
-        ViewHolder newNoteDisplay= new ViewHolder(noteView);
-        return newNoteDisplay;
+        return new ViewHolder(noteView);
     }
 
     @Override

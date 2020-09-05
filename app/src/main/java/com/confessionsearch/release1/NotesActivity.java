@@ -23,9 +23,9 @@ ArrayList<Notes> notesArrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(MainActivity.themeID==R.style.LightMode)
-            this.setTheme(R.style.LightMode_AppBarOverlay);
+            setTheme(R.style.LightMode_NoActionBar);
         if(MainActivity.themeID==R.style.DarkMode)
-            this.setTheme(R.style.DarkMode_AppBarOverlay);
+            setTheme(R.style.DarkMode_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -46,6 +46,9 @@ notesList.setLayoutManager(new LinearLayoutManager(this));
                         .setAction("Action", null).show();
             }
         });
+    }
+    public void NewNote(){
+
     }
 
 }
