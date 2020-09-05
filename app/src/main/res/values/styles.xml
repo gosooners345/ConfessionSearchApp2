@@ -25,6 +25,7 @@
         <item name="android:goIcon">@drawable/send_icon_dark</item>
         <item name="android:textColor">@color/textPrimaryDark</item>
         <item name="android:colorBackground">@color/colorPrimary</item>
+
         <item name="backgroundTint">@color/textPrimaryDark</item>
         <item name="background">@color/colorPrimary</item>
         <item name="android:textColorAlertDialogListItem">@color/colorPrimary</item>
@@ -34,4 +35,21 @@
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:searchIcon">@drawable/search_dark_drawable</item>
     </style>
+
+    <style name="DarkMode.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DarkMode.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="DarkMode.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="LightMode.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="LightMode.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="LightMode.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

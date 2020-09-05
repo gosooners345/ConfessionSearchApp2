@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private int SETTINGS_ACTION = 1;
     ExtendedFloatingActionButton  helpButton;
     ExtendedFloatingActionButton searchButton;
+    ExtendedFloatingActionButton notesButton;
     String header="";
     private static String THEME= "THEME";
     private static String theme = "";
@@ -99,9 +100,15 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         switch (compoundButton.getId())
         {
-            case R.id.proofBox: if(proofCheck.isChecked()) proofs=false; else proofs=true;break;
-            case R.id.AnswerBox:if(answerCheck.isChecked())answers=false;else answers=true;break;
-            case R.id.searchAllCheckBox: if(allDocCheck.isChecked())searchAll=true; else searchAll=false;break;
+            case R.id.proofBox:
+                proofs= !proofCheck.isChecked();
+                break;
+            case R.id.AnswerBox:
+                answers= !answerCheck.isChecked();
+                break;
+            case R.id.searchAllCheckBox:
+                searchAll= allDocCheck.isChecked();
+                break;
         }
         }
     };
@@ -201,7 +208,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
                     query=fileName;
                     setContentView(R.layout.index_pager);
                     SearchAdapter adapter = new SearchAdapter(getSupportFragmentManager(),masterList,query);
-                    ViewPager vp2 = (ViewPager) findViewById(R.id.resultPager);
+                    ViewPager vp2 = findViewById(R.id.resultPager);
                     searchFragment.DisplayResults(masterList, vp2, adapter, query, 0);
                 }
             }
@@ -226,7 +233,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         if (masterList.size() > 1) {
             setContentView(R.layout.index_pager);
            SearchAdapter adapter = new SearchAdapter(getSupportFragmentManager(),masterList,query);
-            ViewPager vp2 = (ViewPager) findViewById(R.id.resultPager);
+            ViewPager vp2 = findViewById(R.id.resultPager);
             searchFragment.DisplayResults(masterList, vp2, adapter, query, 0);
         }
         else {
@@ -235,7 +242,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
                 Log.i("Error", "No results found for Topic");
                 Toast.makeText(this, String.format("No Results were found for %s", query), Toast.LENGTH_LONG).show();
                 setContentView(R.layout.error_page);
-                TextView errorMsg = (TextView) findViewById(R.id.errorTV);
+                TextView errorMsg = findViewById(R.id.errorTV);
                 errorMsg.setText(String.format("No results were found for %s \r\n\r\n" +
                         "Go back to home page to search for another topic", query));
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -268,11 +275,11 @@ protected Boolean proofs=true, answers=true, searchAll = false;
                 Document document = masterList.get(masterList.size() - 1);
                 setContentView(R.layout.search_results);
                 FloatingActionButton fab = findViewById(R.id.shareActionButton);
-                TextView chapterBox = (TextView) findViewById(R.id.chapterText);
-                TextView proofBox = (TextView) findViewById(R.id.proofText);
-                TextView chNumbBox = (TextView) findViewById(R.id.confessionChLabel);
-                TextView docTitleBox = (TextView) findViewById(R.id.documentTitleLabel);
-                TextView tagBox = (TextView) findViewById(R.id.tagView);
+                TextView chapterBox = findViewById(R.id.chapterText);
+                TextView proofBox = findViewById(R.id.proofText);
+                TextView chNumbBox = findViewById(R.id.confessionChLabel);
+                TextView docTitleBox = findViewById(R.id.documentTitleLabel);
+                TextView tagBox = findViewById(R.id.tagView);
                 proofBox.setText(Html.fromHtml(document.getProofs()));
                 docTitleBox.setText(document.getDocumentName());
                 docTitleBox.setText(document.getDocumentName());
@@ -398,28 +405,28 @@ Pattern replaceString=Pattern.compile(query, Pattern.CASE_INSENSITIVE);
     public void refreshLayout()
     {
       setContentView(R.layout.activity_main);
-        topicButton = (RadioButton) findViewById(R.id.topicRadio);
-        questionButton = (RadioButton) findViewById(R.id.chapterRadio);
-        viewAllButton = (RadioButton) findViewById(R.id.viewAllRadio);
+        topicButton = findViewById(R.id.topicRadio);
+        questionButton = findViewById(R.id.chapterRadio);
+        viewAllButton = findViewById(R.id.viewAllRadio);
         //Search Button Initialization
         searchButton = findViewById(R.id.searchFAB);
         searchButton.setOnClickListener(searchButtonListener);
         //Search Box Initialization
-        searchBox = (SearchView) findViewById(R.id.searchView1);
+        searchBox = findViewById(R.id.searchView1);
         searchBox.setOnQueryTextListener(searchQueryListener);
         searchBox.setOnKeyListener(submissionKey);
         //Help button Initialization
         helpButton = findViewById(R.id.helpButton);
-        helpButton.setOnClickListener(helpButtonClick);
+        helpButton.setOnClickListener(helpButton_Click);
         //CheckBox initialization
-        proofCheck = (CheckBox) findViewById(R.id.proofBox);
-        allDocCheck = (CheckBox) findViewById(R.id.searchAllCheckBox);
-        answerCheck = (CheckBox) findViewById(R.id.AnswerBox);
+        proofCheck = findViewById(R.id.proofBox);
+        allDocCheck = findViewById(R.id.searchAllCheckBox);
+        answerCheck = findViewById(R.id.AnswerBox);
 proofCheck.setOnCheckedChangeListener(checkBox);
 allDocCheck.setOnCheckedChangeListener(checkBox);
 answerCheck.setOnCheckedChangeListener(checkBox);
-        documentTypeSpinner = (Spinner) findViewById(R.id.documentTypeSpinner);
-        documentNameSpinner = (Spinner) findViewById(R.id.documentNameSpinner);
+        documentTypeSpinner = findViewById(R.id.documentTypeSpinner);
+        documentNameSpinner = findViewById(R.id.documentNameSpinner);
         //Database stuff
         documentDBHelper=new documentDBClassHelper(this);
         documentDB = documentDBHelper.getReadableDatabase();
@@ -450,6 +457,7 @@ answerCheck.setOnCheckedChangeListener(checkBox);
         topicButton.performClick();
 
         helpButton.setOnClickListener(helpButton_Click);
+notesButton = findViewById(R.id.notesButton);
 
     }
     //Select search type
@@ -638,7 +646,7 @@ answerCheck.setOnCheckedChangeListener(checkBox);
         @Override
         public void onClick(View v) {
             setContentView(R.layout.help_page);
-            ExtendedFloatingActionButton homeButton = (ExtendedFloatingActionButton)findViewById(R.id.homeButton);
+            ExtendedFloatingActionButton homeButton = findViewById(R.id.homeButton);
             homeButton.setOnClickListener(homeButtonListener);
         }
     };
@@ -692,15 +700,19 @@ answerCheck.setOnCheckedChangeListener(checkBox);
 
     };
     //Help button on click listener
-    FloatingActionButton.OnClickListener helpButtonClick = new OnClickListener() {
-        @Override
-        public void onClick(View v) {setContentView(R.layout.help_page);}
-    };
+
     //Enables the app to return to the main screen after home button pressed
     ExtendedFloatingActionButton.OnClickListener homeButtonListener = new OnClickListener() {
         @Override
         public void onClick(View view) {refreshLayout();}
     };
+
+   public void NoteLauncher(View view){
+Intent noteIntent = new Intent(this,NotesActivity.class);
+startActivity(noteIntent);
+        }
+
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {        super.onConfigurationChanged(newConfig);  }
 }

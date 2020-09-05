@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/DarkMode">
         <activity
+            android:name=".NotesActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".NotesActivity"
+            android:theme="@style/DarkMode.NoActionBar"></activity>
+        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <intent-filter>

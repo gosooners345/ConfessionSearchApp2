@@ -16,15 +16,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:buttonTint="?android:attr/textColor"
         android:letterSpacing=".1"
         android:paddingTop="5dp"
-        android:text="No Answers?"
+        android:text="@string/no_answers"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="?android:attr/textColor"
-        app:layout_constraintEnd_toEndOf="@+id/optionLabel"
-        app:layout_constraintStart_toStartOf="@+id/optionLabel"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/optionLabel"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="115dp" />
@@ -35,10 +35,11 @@
         android:layout_height="wrap_content"
 
         android:buttonTint="?android:attr/textColor"
+        android:contentDescription="@string/accessibility_checkbox_search_all"
         android:text="@string/search_all_documents"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="?android:attr/textColor"
-
         app:layout_constraintStart_toStartOf="@+id/proofBox"
         app:layout_constraintTop_toBottomOf="@+id/proofBox"
         tools:layout_conversion_absoluteHeight="48dp"
@@ -52,8 +53,7 @@
         android:layout_marginTop="5dp"
         android:buttonTint="?android:attr/textColor"
         android:checked="false"
-        android:letterSpacing=".2"
-        android:text="No Proofs?"
+        android:text="@string/no_proofs"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="?android:attr/textColor"
         app:layout_constraintEnd_toEndOf="@+id/AnswerBox"
@@ -277,50 +277,48 @@
         tools:layout_conversion_absoluteWidth="83dp" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/helpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/help"
+        android:text="@string/help"
+        android:textColor="?attr/secondaryTextColor"
+        app:backgroundTint="?attr/bgTintColor"
+        app:fabSize="auto"
+        app:icon="@android:drawable/ic_menu_help"
+        app:iconTint="?attr/secondaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchFAB"
+        tools:layout_conversion_absoluteHeight="56dp"
+        tools:layout_conversion_absoluteWidth="123dp" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/searchFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="76dp"
+
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="8dp"
+
         android:clickable="true"
-        android:drawableLeft="@android:drawable/ic_menu_search"
+
         android:focusable="true"
         android:text="@string/search"
         android:textColor="?attr/secondaryTextColor"
         app:backgroundTint="?attr/bgTintColor"
-
-        app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:fabSize="auto"
+        app:icon="@android:drawable/ic_menu_search"
+        app:iconTint="?attr/secondaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.818"
-        app:layout_constraintStart_toEndOf="@+id/helpButton"
-        app:layout_constraintTop_toTopOf="@+id/helpButton"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="?android:attr/actionModeWebSearchDrawable"
+        app:layout_constraintTop_toBottomOf="@+id/documentNameSpinner"
         tools:layout_conversion_absoluteHeight="56dp"
         tools:layout_conversion_absoluteWidth="142dp" />
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/helpButton"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginBottom="76dp"
-        android:clickable="true"
-        android:drawableLeft="@android:drawable/ic_menu_help"
-        android:text="@string/help"
-        android:textColor="?attr/secondaryTextColor"
-        app:backgroundTint="?attr/bgTintColor"
-        app:fabSize="mini"
-        app:iconTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_info_details"
-        tools:layout_conversion_absoluteHeight="56dp"
-        tools:layout_conversion_absoluteWidth="123dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
