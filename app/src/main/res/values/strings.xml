@@ -35,7 +35,7 @@
     <string name="catechism">Catechism</string>
     <string name="action_share">Share this with...</string>
 
-<string name="notes_button_string">Notes</string>
+    <string name="notes_button_string">Notes</string>
     <string name="facebook_app_id">301531087243095</string>
     <string name="error_results">Search Error</string>
     <string name="home_topic">Search again?</string>
@@ -90,6 +90,9 @@
     <string name="notes">Notes:</string>
     <string name="content">Content:</string>
     <string name="new_Note_string_add">New Note</string>
+    <string name="enter_title_string">Enter Title Here</string>
+    <string name="enter_notes_string">Enter Notes Content Here</string>
+    <string name="save_note">Save Note</string>
     <string-array name="themes">
         <item>Dark</item>
         <item>Light</item>

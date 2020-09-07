@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/DarkMode">
+        <activity android:name=".NotesComposeClass"></activity>
         <activity
             android:name=".NotesActivity"
             android:label="@string/app_name"
             android:parentActivityName=".NotesActivity"
-            android:theme="@style/DarkMode.NoActionBar"></activity>
+            android:theme="@style/DarkMode.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">

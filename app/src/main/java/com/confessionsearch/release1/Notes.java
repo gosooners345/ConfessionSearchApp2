@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 public class Notes {
     private String name;
     private String content;
-
+public Notes() {}
     public Notes(String newname, String newcontent) {
         name = newname;
         content = newcontent;

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class NotesActivity extends AppCompatActivity {
 //ArrayAdapter<Notes> arrayAdapter;
 ArrayList<Notes> notesArrayList;
+RecyclerView notesList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(MainActivity.themeID==R.style.LightMode)
@@ -30,7 +31,8 @@ ArrayList<Notes> notesArrayList;
         setContentView(R.layout.activity_notes);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        RecyclerView notesList = findViewById(R.id.notesListView);
+        notesList = findViewById(R.id.notesListView);
+
 notesArrayList = Notes.createNotesList(10);
 NotesAdapter adapter = new NotesAdapter(notesArrayList);
 notesList.setAdapter(adapter);
@@ -47,8 +49,14 @@ notesList.setLayoutManager(new LinearLayoutManager(this));
             }
         });
     }
-    public void NewNote(){
+
+    public void NewNote(View view)
+    {
+Intent intent = new Intent();
+
 
     }
+
+
 
 }
