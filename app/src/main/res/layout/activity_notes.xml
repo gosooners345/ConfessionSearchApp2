@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:onClick="NewNote"
         android:text="@string/new_Note_string_add"
         android:textColor="?attr/secondaryTextColor"
         app:backgroundTint="?attr/bgTintColor"

@@ -9,11 +9,22 @@ import androidx.annotation.NonNull;
 
 public class Notes {
     private String name;
+    public int noteID;
     private String content;
 public Notes() {}
-    public Notes(String newname, String newcontent) {
+
+    public Notes(String newname, String newcontent,int noteID) {
         name = newname;
         content = newcontent;
+        this.noteID=noteID;
+    }
+
+    public int getNoteID() {
+        return noteID;
+    }
+
+    public void setNoteID(int noteID) {
+        this.noteID = noteID;
     }
 
     public String getContent() {
@@ -61,7 +72,7 @@ public Notes() {}
     public static ArrayList<Notes> createNotesList(int entries) {
         ArrayList<Notes> notes = new ArrayList<Notes>();
         for (int i = 1; i < entries; i++) {
-            notes.add(new Notes("subject:", "content:\r\n Sandman\r\n Jesus is King of Kings!"));
+            notes.add(new Notes("subject:", "content:\r\n Sandman\r\n Jesus is King of Kings!",i));
 
         }
         return notes;

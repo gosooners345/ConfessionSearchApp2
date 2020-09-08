@@ -86,6 +86,7 @@
             android:layout_marginTop="36dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
+            android:onClick="SaveNote"
             android:text="@string/save_note"
             android:textColor="?attr/secondaryTextColor"
             app:backgroundTint="?attr/bgTintColor"

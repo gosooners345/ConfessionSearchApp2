@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/DarkMode">
-        <activity android:name=".NotesComposeClass"></activity>
+        <activity android:name=".NotesComposeClass"
+            android:label="New Note"
+            android:parentActivityName=".NotesActivity"
+            ></activity>
         <activity
             android:name=".NotesActivity"
             android:label="@string/app_name"
