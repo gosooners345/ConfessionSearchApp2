@@ -317,7 +317,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(getApplicationContext(), NotesComposeActivity.class);
-            intent.putExtra(" ", shareNote);
+            intent.putExtra("search_result_save", shareNote);
             startActivity(intent);
         }
     };
