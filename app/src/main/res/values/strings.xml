@@ -93,6 +93,8 @@
     <string name="enter_title_string">Enter Title Here</string>
     <string name="enter_notes_string">Enter Notes Content Here</string>
     <string name="save_note">Save Note</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="share">Share</string>
     <string-array name="themes">
         <item>Dark</item>
         <item>Light</item>

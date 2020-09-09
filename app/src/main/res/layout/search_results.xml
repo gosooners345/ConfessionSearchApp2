@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
+android:id="@+id/result_layout_anchor"
     android:layout_height="match_parent"
     android:layout_x="2dp"
     android:layout_y="2dp"
@@ -134,18 +134,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/matchView" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/shareActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:actionProviderClass="android.widget.ShareActionProvider"
-                android:src="@drawable/share_dark_drawable"
-                app:backgroundTint="#151E75"
+                android:text="@string/share"
+                android:textColor="?attr/secondaryTextColor"
+                app:backgroundTint="?attr/bgTintColor"
+                app:icon="@drawable/share_dark_drawable"
+
+                app:iconTint="?attr/secondaryTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/saveNote" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/saveNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="5dp"
+                android:text="@string/save_note"
+                android:textColor="?attr/secondaryTextColor"
+                app:backgroundTint="?attr/bgTintColor"
+                app:icon="@android:drawable/ic_menu_save"
+                app:iconTint="?attr/secondaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tagView" />
         </androidx.constraintlayout.widget.ConstraintLayout>

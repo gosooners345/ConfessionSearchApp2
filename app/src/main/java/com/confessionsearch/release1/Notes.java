@@ -1,16 +1,33 @@
 package com.confessionsearch.release1;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
 
-public class Notes {
+
+@Entity(tableName = "notes")
+public class Notes implements Parcelable {
+
+@ColumnInfo(name = "title")
     private String name;
+
+    @PrimaryKey(autoGenerate = true)
     public int noteID;
+
+    @ColumnInfo(name = "content")
     private String content;
+
+
 public Notes() {}
 
     public Notes(String newname, String newcontent,int noteID) {
@@ -18,6 +35,36 @@ public Notes() {}
         content = newcontent;
         this.noteID=noteID;
     }
+
+    protected Notes(Parcel in) {
+        name = in.readString();
+        noteID = in.readInt();
+        content = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeInt(noteID);
+        dest.writeString(content);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Notes> CREATOR = new Creator<Notes>() {
+        @Override
+        public Notes createFromParcel(Parcel in) {
+            return new Notes(in);
+        }
+
+        @Override
+        public Notes[] newArray(int size) {
+            return new Notes[size];
+        }
+    };
 
     public int getNoteID() {
         return noteID;
@@ -67,15 +114,5 @@ public Notes() {}
                 content.equals(notes.content);
     }
 
-    private static int lastNoteID = 0;
 
-    public static ArrayList<Notes> createNotesList(int entries) {
-        ArrayList<Notes> notes = new ArrayList<Notes>();
-        for (int i = 1; i < entries; i++) {
-            notes.add(new Notes("subject:", "content:\r\n Sandman\r\n Jesus is King of Kings!",i));
-
-        }
-        return notes;
-    }
-    
 }

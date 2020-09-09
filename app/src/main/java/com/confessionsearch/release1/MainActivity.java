@@ -38,6 +38,8 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private int SETTINGS_ACTION = 1;
     ExtendedFloatingActionButton  helpButton;
     ExtendedFloatingActionButton searchButton;
+    static NotesActivity notesActivity=new NotesActivity();
+
     ExtendedFloatingActionButton notesButton;
     String header="";
     private static String THEME= "THEME";
@@ -77,7 +81,10 @@ protected Boolean proofs=true, answers=true, searchAll = false;
    // String themeName;
     SharedPreferences pref;// = PreferenceManager.getDefaultSharedPreferences(this);
     DocumentList masterList = new DocumentList();
-   SearchFragmentActivity searchFragment;
+    Notes shareNote;
+    static ArrayList<Notes> notesArrayList = new ArrayList<>();
+
+    SearchFragmentActivity searchFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -135,20 +142,12 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         {readerSearch=true;textSearch=false;questionSearch=false;}
 
 
-      /*  if (answerCheck.isChecked())answers = false;
-        if (allDocCheck.isChecked())
-        { searchAll = true;
 
-        }*/
        if (!allDocCheck.isChecked())
         {
-            //searchAll = false;
+
             accessString =String.format( " and documenttitle.documentName = '%s' ",fileName);
         }
-
-      /*  if (proofCheck.isChecked())
-            proofs = false;*/
-
         if (allOpen) {
             docID = 0;
             if (searchAll)
@@ -234,7 +233,9 @@ protected Boolean proofs=true, answers=true, searchAll = false;
             setContentView(R.layout.index_pager);
            SearchAdapter adapter = new SearchAdapter(getSupportFragmentManager(),masterList,query);
             ViewPager vp2 = findViewById(R.id.resultPager);
+
             searchFragment.DisplayResults(masterList, vp2, adapter, query, 0);
+            Snackbar.make(findViewById(R.id.resultPage), "Search Completed", BaseTransientBottomBar.LENGTH_SHORT).show();
         }
         else {
             //Returns an error if there are no results in the list
@@ -273,8 +274,10 @@ protected Boolean proofs=true, answers=true, searchAll = false;
             else {
 
                 Document document = masterList.get(masterList.size() - 1);
+
                 setContentView(R.layout.search_results);
-                FloatingActionButton fab = findViewById(R.id.shareActionButton);
+                ExtendedFloatingActionButton saveFab =findViewById(R.id.saveNote);
+                ExtendedFloatingActionButton fab = findViewById(R.id.shareActionButton);
                 TextView chapterBox = findViewById(R.id.chapterText);
                 TextView proofBox = findViewById(R.id.proofText);
                 TextView chNumbBox = findViewById(R.id.confessionChLabel);
@@ -300,11 +303,27 @@ protected Boolean proofs=true, answers=true, searchAll = false;
                         + newLine + chapterBox.getText() + newLine + "Proofs" + newLine + proofBox.getText();
                 fab.setOnClickListener(shareContent);
                 fab.setBackgroundColor(Color.BLACK);
+                shareNote = new Notes();
+                shareNote.setName("");
+                shareNote.setContent(docTitleBox.getText()+newLine+newLine+ chNumbBox.getText() + newLine
+                        + newLine+chapterBox.getText() + newLine + "Proofs" + newLine + proofBox.getText());
+                saveFab.setOnClickListener(saveNewNote);
+
             }
         }
     }
+    //Enables Note Saving from results screen
+    ExtendedFloatingActionButton.OnClickListener saveNewNote = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getApplicationContext(), NotesComposeActivity.class);
+            intent.putExtra(" ", shareNote);
+            startActivity(intent);
+        }
+    };
+
     //Enables Share function
-    FloatingActionButton.OnClickListener shareContent=new OnClickListener() {
+    ExtendedFloatingActionButton.OnClickListener shareContent=new OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent sendIntent = new Intent();
@@ -315,6 +334,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
             startActivity(Intent.createChooser(sendIntent,INTENTNAME));
         }
     };
+
     //Formats the text to be reader friendly
     public String Formatter(String formatString){
         formatString=formatString.replace("|","<br><br>");
@@ -664,7 +684,8 @@ notesButton = findViewById(R.id.notesButton);
     }
     //Prevents application from proceeding to execute if an error is found
     public void ErrorMessage(String message){
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.relativeLayout), message, BaseTransientBottomBar.LENGTH_SHORT).show();
     }
 //Back Key Behavior
     @Override
@@ -709,10 +730,13 @@ notesButton = findViewById(R.id.notesButton);
 
    public void NoteLauncher(View view){
 Intent noteIntent = new Intent(this,NotesActivity.class);
+noteIntent.putExtra("noteList",notesArrayList);
 startActivity(noteIntent);
         }
 
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {        super.onConfigurationChanged(newConfig);  }
+
+
 }
