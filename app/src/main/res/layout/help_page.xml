@@ -30,31 +30,36 @@
         android:layout_marginLeft="5dp"
         android:text="@string/catechism_help"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/confessionPgh"
-        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/confessionHelp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:text="@string/confessionPgh" />
+
     <TextView
         android:id="@+id/creedHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/confessionPgh"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="5dp"
-        android:layout_below="@+id/confessionPgh"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text= "Creed Help:"/>
+        android:text="@string/notes_section_header"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/creedPgh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp"
         android:layout_below="@+id/creedHelp"
-        android:text="@string/creedPgh" />
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/notes_section_help" />
     <TextView
         android:id="@+id/otherStuff"
         android:layout_marginLeft="5dp"
@@ -93,6 +98,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:src="@android:drawable/ic_menu_search"
         android:text="Home"
@@ -112,32 +120,18 @@
         android:layout_below="@+id/otherPgh"
         android:layout_alignParentStart="true"
         android:layout_marginStart="5dp"
-        android:text="@string/sources" />
+        android:text="@string/sources"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_marginLeft="5dp"
+    <TextView
+        android:id="@+id/sourceTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sourceLabel"
 
-        android:layout_below="@+id/sourceLabel">
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/Source_Text" />
 
 
-            <TextView
-                android:id="@+id/sourceTV"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="267dp"
-                android:text="@string/Source_Text" />
-        </LinearLayout>
-    </ScrollView>
 </RelativeLayout>

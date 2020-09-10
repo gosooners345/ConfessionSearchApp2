@@ -1,10 +1,5 @@
 package com.confessionsearch.release1;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ShareActionProvider;
-import androidx.viewpager.widget.ViewPager;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -13,38 +8,40 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View.OnClickListener;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.SearchView;
-import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ShareActionProvider;
+import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private int SETTINGS_ACTION = 1;
     ExtendedFloatingActionButton  helpButton;
     ExtendedFloatingActionButton searchButton;
-    static NotesActivity notesActivity=new NotesActivity();
-
+    public static final int ACTIVITY_ID = 31;
     ExtendedFloatingActionButton notesButton;
     String header="";
     private static String THEME= "THEME";
@@ -81,7 +77,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
    // String themeName;
     SharedPreferences pref;// = PreferenceManager.getDefaultSharedPreferences(this);
     DocumentList masterList = new DocumentList();
-    Notes shareNote;
+    String shareNote;
     static ArrayList<Notes> notesArrayList = new ArrayList<>();
 
     SearchFragmentActivity searchFragment;
@@ -131,22 +127,26 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         searchFragment = new SearchFragmentActivity();
         RadioButton topicRadio = findViewById(R.id.topicRadio);
         RadioButton questionRadio =findViewById(R.id.chapterRadio);
-        RadioButton readerRadio=findViewById(R.id.viewAllRadio);
-        if(topicRadio.isChecked())
-        {
-            readerSearch=false;textSearch=true;questionSearch=false;
+        RadioButton readerRadio = findViewById(R.id.viewAllRadio);
+        //Type of Search
+        if (topicRadio.isChecked()) {
+            readerSearch = false;
+            textSearch = true;
+            questionSearch = false;
+        } else if (questionRadio.isChecked()) {
+            readerSearch = false;
+            textSearch = false;
+            questionSearch = true;
+        } else if (readerRadio.isChecked()) {
+            readerSearch = true;
+            textSearch = false;
+            questionSearch = false;
         }
-        else if (questionRadio.isChecked())
-        {readerSearch=false;textSearch=false;questionSearch=true;}
-        else if(readerRadio.isChecked())
-        {readerSearch=true;textSearch=false;questionSearch=false;}
 
 
-
-       if (!allDocCheck.isChecked())
-        {
-
-            accessString =String.format( " and documenttitle.documentName = '%s' ",fileName);
+        //Filters for how searches are executed by document type and name
+        if (!allDocCheck.isChecked()) {
+            accessString = String.format(" and documenttitle.documentName = '%s' ", fileName);
         }
         if (allOpen) {
             docID = 0;
@@ -182,10 +182,8 @@ protected Boolean proofs=true, answers=true, searchAll = false;
             {
                 fileString =(String.format(" documentTitle.DocumentTypeID = 1"));
             }
-
         }
-
-
+//This fills the list with entries for filtering and sorting
         masterList = documentDBHelper.getAllDocuments(fileString, fileName, docID, allOpen,documentDB,accessString,masterList,this);
         for (Document d:masterList) {
             if(d.getDocumentText().contains("|")|d.getProofs().contains("|"))
@@ -196,13 +194,12 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         }
         //Search topics and filter them
         if (!readerSearch  &textSearch & !questionSearch) {
-
             if(!query.isEmpty()) {
                 FilterResults(masterList,  answers, proofs, query);
                 Collections.reverse(masterList);
             }
+            //Display reader
             else {
-
                 if (masterList.size() > 1) {
                     query=fileName;
                     setContentView(R.layout.index_pager);
@@ -235,7 +232,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
             ViewPager vp2 = findViewById(R.id.resultPager);
 
             searchFragment.DisplayResults(masterList, vp2, adapter, query, 0);
-            Snackbar.make(findViewById(R.id.resultPage), "Search Completed", BaseTransientBottomBar.LENGTH_SHORT).show();
+
         }
         else {
             //Returns an error if there are no results in the list
@@ -272,9 +269,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
             }
             // For Results with only 1 result
             else {
-
                 Document document = masterList.get(masterList.size() - 1);
-
                 setContentView(R.layout.search_results);
                 ExtendedFloatingActionButton saveFab =findViewById(R.id.saveNote);
                 ExtendedFloatingActionButton fab = findViewById(R.id.shareActionButton);
@@ -303,20 +298,22 @@ protected Boolean proofs=true, answers=true, searchAll = false;
                         + newLine + chapterBox.getText() + newLine + "Proofs" + newLine + proofBox.getText();
                 fab.setOnClickListener(shareContent);
                 fab.setBackgroundColor(Color.BLACK);
-                shareNote = new Notes();
-                shareNote.setName("");
-                shareNote.setContent(docTitleBox.getText()+newLine+newLine+ chNumbBox.getText() + newLine
-                        + newLine+chapterBox.getText() + newLine + "Proofs" + newLine + proofBox.getText());
+                shareNote = "";
+
+                shareNote = (docTitleBox.getText() + newLine + newLine + chNumbBox.getText() + newLine
+                        + newLine + chapterBox.getText() + newLine + "Proofs" + newLine + proofBox.getText());
                 saveFab.setOnClickListener(saveNewNote);
 
             }
         }
     }
+
     //Enables Note Saving from results screen
     ExtendedFloatingActionButton.OnClickListener saveNewNote = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(getApplicationContext(), NotesComposeActivity.class);
+            intent.putExtra("activity_ID", ACTIVITY_ID);
             intent.putExtra("search_result_save", shareNote);
             startActivity(intent);
         }
@@ -412,19 +409,19 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         masterList = resultList;
     }
     //Highlights topic entries in search results
-    public String HighlightText(String sourceStr,String query){
-        String replaceQuery = "<b>"+query+"</b>";
-        String resultString="";
-Pattern replaceString=Pattern.compile(query, Pattern.CASE_INSENSITIVE);
+    public String HighlightText(String sourceStr, String query) {
+        String replaceQuery = "<b>" + query + "</b>";
+        String resultString = "";
+        Pattern replaceString = Pattern.compile(query, Pattern.CASE_INSENSITIVE);
         Matcher m = replaceString.matcher(sourceStr);
-        resultString=m.replaceAll(replaceQuery);
- Log.d("Test",resultString);
-           return resultString;
+        resultString = m.replaceAll(replaceQuery);
+        Log.d("Test", resultString);
+        return resultString;
     }
+
     //Executes on startup
-    public void refreshLayout()
-    {
-      setContentView(R.layout.activity_main);
+    public void refreshLayout() {
+        setContentView(R.layout.activity_main);
         topicButton = findViewById(R.id.topicRadio);
         questionButton = findViewById(R.id.chapterRadio);
         viewAllButton = findViewById(R.id.viewAllRadio);
@@ -442,13 +439,13 @@ Pattern replaceString=Pattern.compile(query, Pattern.CASE_INSENSITIVE);
         proofCheck = findViewById(R.id.proofBox);
         allDocCheck = findViewById(R.id.searchAllCheckBox);
         answerCheck = findViewById(R.id.AnswerBox);
-proofCheck.setOnCheckedChangeListener(checkBox);
-allDocCheck.setOnCheckedChangeListener(checkBox);
-answerCheck.setOnCheckedChangeListener(checkBox);
+        proofCheck.setOnCheckedChangeListener(checkBox);
+        allDocCheck.setOnCheckedChangeListener(checkBox);
+        answerCheck.setOnCheckedChangeListener(checkBox);
         documentTypeSpinner = findViewById(R.id.documentTypeSpinner);
         documentNameSpinner = findViewById(R.id.documentNameSpinner);
         //Database stuff
-        documentDBHelper=new documentDBClassHelper(this);
+        documentDBHelper = new documentDBClassHelper(this);
         documentDB = documentDBHelper.getReadableDatabase();
         //Document selector Lists
         docTypes = new ArrayList<>();
@@ -461,7 +458,7 @@ answerCheck.setOnCheckedChangeListener(checkBox);
             docTypes.add(type.documentTypeName);
         }
         docTypeSpinnerAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, docTypes);
-        documentTypeSpinner =  findViewById(R.id.documentTypeSpinner);
+        documentTypeSpinner = findViewById(R.id.documentTypeSpinner);
         documentTypeSpinner.setAdapter(docTypeSpinnerAdapter);
         documentTypeSpinner.setOnItemSelectedListener(spinnerItemSelectedListener);
 
@@ -470,15 +467,13 @@ answerCheck.setOnCheckedChangeListener(checkBox);
             docTitles.add(docTitle.getDocumentName());
         }
         docTitleSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, docTitles);
-        Drawable picture = getDrawable(R.drawable.search_dark_drawable);
-        documentNameSpinner =  findViewById(R.id.documentNameSpinner);
+
+        documentNameSpinner = findViewById(R.id.documentNameSpinner);
         documentNameSpinner.setOnItemSelectedListener(spinnerItemSelectedListener);
         searchBox.setOnKeyListener(submissionKey);
         topicButton.performClick();
-
         helpButton.setOnClickListener(helpButton_Click);
-notesButton = findViewById(R.id.notesButton);
-
+        notesButton = findViewById(R.id.notesButton);
     }
     //Select search type
     public void SearchType(View view){
@@ -527,7 +522,6 @@ notesButton = findViewById(R.id.notesButton);
                 }
     }
 
-
     //Menu options for themes
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -543,7 +537,8 @@ notesButton = findViewById(R.id.notesButton);
         }
                 return super.onOptionsItemSelected(item);
         }
-        //Theme related
+
+    //For Activities that return a result like theme setting
 @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SETTINGS_ACTION) {
@@ -556,7 +551,7 @@ notesButton = findViewById(R.id.notesButton);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    //This fills and assigns entries to spinner widgets on main search screen
+    //This listens for clicks on the spinner widgets on home screen
     AdapterView.OnItemSelectedListener spinnerItemSelectedListener =new AdapterView.OnItemSelectedListener() {
         @SuppressLint("ResourceAsColor")
         @Override
@@ -630,20 +625,21 @@ notesButton = findViewById(R.id.notesButton);
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             SearchView searchBox = (SearchView) v;
-            TextView text = (TextView)v;
+            TextView text = (TextView) v;
             if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 query = searchBox.getQuery().toString();
-                Log.d("View",String.format("%s",event.getDisplayLabel()));
-                if(!query.isEmpty()&!viewAllButton.isSelected())
-                Search(query);
+                Log.d("View", String.format("%s", event.getDisplayLabel()));
+                if (!query.isEmpty() & !viewAllButton.isSelected())
+                    Search(query);
                 else
                     ErrorMessage("You must enter a topic or chapter number in the search text field above to proceed!");
                 return true;
+            } else {
+                return false;
             }
-            else{
-                return false;}
         }
     };
+
     // This assigns an action to the search button so it can execute the search
     public ExtendedFloatingActionButton.OnClickListener searchButtonListener =new OnClickListener() {
         @Override
@@ -683,11 +679,12 @@ notesButton = findViewById(R.id.notesButton);
         startActivity(intent);
     }
     //Prevents application from proceeding to execute if an error is found
-    public void ErrorMessage(String message){
-        //Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
-        Snackbar.make(findViewById(R.id.relativeLayout), message, BaseTransientBottomBar.LENGTH_SHORT).show();
+    public void ErrorMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        //   Snackbar.make(findViewById(R.id.relativeLayout), message, BaseTransientBottomBar.LENGTH_SHORT).show();
     }
-//Back Key Behavior
+
+    //Back Key Behavior
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -720,23 +717,27 @@ notesButton = findViewById(R.id.notesButton);
         }
 
     };
-    //Help button on click listener
+
 
     //Enables the app to return to the main screen after home button pressed
     ExtendedFloatingActionButton.OnClickListener homeButtonListener = new OnClickListener() {
         @Override
-        public void onClick(View view) {refreshLayout();}
+        public void onClick(View view) {
+            refreshLayout();
+        }
     };
 
-   public void NoteLauncher(View view){
-Intent noteIntent = new Intent(this,NotesActivity.class);
-noteIntent.putExtra("noteList",notesArrayList);
-startActivity(noteIntent);
-        }
+    //Launches the note section of the application
+    public void NoteLauncher(View view) {
+        Intent noteIntent = new Intent(this, NotesActivity.class);
+        startActivity(noteIntent);
+    }
 
-
+    //Handles Orientation changes
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {        super.onConfigurationChanged(newConfig);  }
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 
 
 }

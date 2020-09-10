@@ -1,7 +1,6 @@
 package com.confessionsearch.release1;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -11,15 +10,13 @@ import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public  class SearchResultFragment extends Fragment {
     private String documentTitle;
+    public static final int ACTIVITY_ID = 30;
     private static String PROOFS = "proofs", CHAPTER = "chapter", CHAPTITLE = "chapterTitle",
             QUESTION = "question", TYPE = "type",
             TITLE = "title", ANSWER = "answer", DOCTITLE = "titles", matchNumb = "matches", TAGS = "tags";
@@ -27,7 +24,7 @@ public  class SearchResultFragment extends Fragment {
     private static String number, match;
     public static String HEADER = "header";
     ShareActionProvider action;
-    static Notes shareNote;
+    String shareNote;
     public String shareList = "";
 
     @Override
@@ -48,7 +45,7 @@ public  class SearchResultFragment extends Fragment {
         int resultID = getArguments().getInt(number, 0);
         View view = inflater.inflate(R.layout.search_results, container, false);
         TextView chapterBox = view.findViewById(R.id.chapterText);
-        //TextView chNameBox = (TextView)view.findViewById(R.id.)
+
         TextView proofBox = view.findViewById(R.id.proofText);
         TextView chNumbBox = view.findViewById(R.id.confessionChLabel);
         TextView docTitleBox = view.findViewById(R.id.documentTitleLabel);
@@ -75,12 +72,10 @@ public  class SearchResultFragment extends Fragment {
         ExtendedFloatingActionButton fab = view.findViewById(R.id.shareActionButton);
         ExtendedFloatingActionButton saveFab = view.findViewById(R.id.saveNote);
         fab.setOnClickListener(shareContent);
-        shareNote = new Notes();
-        shareNote.setName("");
-        shareNote.setContent(docTitleBox.getText()+newLine+newLine+ chNumbBox.getText() + newLine
-                + newLine+chapterBox.getText() + newLine + "Proofs" + newLine + proofBox.getText());
+        shareNote = "";
+        shareNote = (docTitleBox.getText() + newLine + newLine + chNumbBox.getText() + newLine
+                + newLine + chapterBox.getText() + newLine + "Proofs" + newLine + proofBox.getText());
         saveFab.setOnClickListener(saveNewNote);
-
 
 
         return view;
@@ -124,6 +119,7 @@ public  class SearchResultFragment extends Fragment {
         public void onClick(View view) {
             Intent intent = new Intent(getContext(), NotesComposeActivity.class);
             intent.putExtra("search_result_save", shareNote);
+            intent.putExtra("activity_ID", ACTIVITY_ID);
             startActivity(intent);
         }
     };

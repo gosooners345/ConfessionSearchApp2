@@ -1,10 +1,6 @@
 package com.confessionsearch.release1;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,17 +8,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.HashSet;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class NotesComposeActivity extends AppCompatActivity {
     EditText notesSubject, notesContent;
-    int noteID;
-    ExtendedFloatingActionButton saveButton,editButton, shareButton;
+    int activityID;
+    ExtendedFloatingActionButton saveButton, editButton;
     Boolean isNewNote = false;
     String noteContentString = "", noteSubjectString = "";
     String shareList = "";
@@ -31,7 +28,8 @@ public class NotesComposeActivity extends AppCompatActivity {
     int mode;
     private static final int EDIT_ON = 1;
     private static final int EDIT_OFF = 0;
-
+    public static final int SAVE_NOTE_CODE = 1;
+    public static final int CANCEL_SAVE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +95,8 @@ public class NotesComposeActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveNote);
         saveButton.setOnClickListener(SaveNote);
         editButton = findViewById(R.id.editButton);
-        if(!intent.hasExtra("search_result_save"))
+        //if(!intent.hasExtra("search_result_save"))
+        activityID = getIntent().getIntExtra("activity_ID", -1);
         editButton.setOnClickListener(editNote);
     }
 ExtendedFloatingActionButton.OnClickListener editNote= new View.OnClickListener() {
@@ -122,19 +121,16 @@ ExtendedFloatingActionButton.OnClickListener editNote= new View.OnClickListener(
             newNote.setName(noteSubjectString);
             newNote.setContent(noteContentString);
 
-            if(getIntent().hasExtra("search_result_save"))
-                MainActivity.notesArrayList.add(newNote);
-            else { //Update or insert new note into database
-                if (isNewNote || newNote.getNoteID() == 0)
+            { //Update or insert new note into database
+                if (isNewNote) {
                     noteRepository.insertNote(newNote);
-                else
+                } else
                     noteRepository.updateNote(newNote);
+                if (activityID == 32)
+                    NotesActivity.adapter.notifyDataSetChanged();
 
-
-                NotesActivity.adapter.notifyDataSetChanged();
-
-
-                Snackbar.make(findViewById(R.id.masterLayout), "Note Saved", BaseTransientBottomBar.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Note Saved", Toast.LENGTH_SHORT).show();
+                // Snackbar.make(findViewById(R.id.masterLayout), "Note Saved", BaseTransientBottomBar.LENGTH_LONG).show();
             }
             //Close this activity out and head back to parent screen
            finish();
@@ -147,7 +143,6 @@ ExtendedFloatingActionButton.OnClickListener editNote= new View.OnClickListener(
         if (getIntent().hasExtra("note_selected")) {
             incomingNote = getIntent().getParcelableExtra("note_selected");
             newNote = new Notes();
-
             newNote.setNoteID(incomingNote.getNoteID());
             newNote.setContent(incomingNote.getContent());
             newNote.setName(incomingNote.getName());
@@ -156,12 +151,9 @@ ExtendedFloatingActionButton.OnClickListener editNote= new View.OnClickListener(
             return false;
         } else if (getIntent().hasExtra("search_result_save"))
         {
-incomingNote = getIntent().getParcelableExtra("search_result_save");
-newNote=new Notes();
-
-            newNote.setNoteID(incomingNote.getNoteID());
-            newNote.setContent(incomingNote.getContent());
-            newNote.setName(incomingNote.getName());
+            String contentString = getIntent().getStringExtra("search_result_save");
+            newNote = new Notes();
+            newNote.setContent(contentString);
             mode = EDIT_ON;
             isNewNote = true;
             return false;

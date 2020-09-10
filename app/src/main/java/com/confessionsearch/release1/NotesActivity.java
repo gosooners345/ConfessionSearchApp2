@@ -2,10 +2,11 @@ package com.confessionsearch.release1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,21 +16,15 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
+import static com.confessionsearch.release1.MainActivity.notesArrayList;
 
 public class NotesActivity extends AppCompatActivity implements NotesAdapter.OnNoteListener {
 //ArrayAdapter<Notes> arrayAdapter;
     private static final String TAG = "NotesActivity";
-    static NotesAdapter  adapter;
-public NoteRepository noteRepository;
-static ArrayList<Notes> notesArrayList = new ArrayList<>(),secondList;
+    static NotesAdapter adapter;
+    public static final int ACTIVITY_ID = 32;
+    public NoteRepository noteRepository;
+    //static ArrayList<Notes> notesArrayList = new ArrayList<>(),secondList;
 RecyclerView notesList;
     ExtendedFloatingActionButton fab;
     @Override
@@ -44,7 +39,7 @@ RecyclerView notesList;
         setContentView(R.layout.activity_notes);
         //not sure what this is useful for
         Toolbar toolbar = findViewById(R.id.toolbar);
-secondList=getIntent().getParcelableArrayListExtra("noteList");
+
         setSupportActionBar(toolbar);
 
 
@@ -52,56 +47,47 @@ secondList=getIntent().getParcelableArrayListExtra("noteList");
         fetchNotes();
         //Initialize notes RecyclerView
         notesList = findViewById(R.id.notesListView);
-        adapter = new NotesAdapter(notesArrayList,this);
+        adapter = new NotesAdapter(notesArrayList, this);
         notesList.setLayoutManager(new LinearLayoutManager(this));
         notesList.setItemAnimator(new DefaultItemAnimator());
-
         notesList.setAdapter(adapter);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(notesList);
-
-//notesList.setOnClickListener(listItemListener);
-        Intent intent = getIntent();
-        //String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
         fab = findViewById(R.id.newNote);
 
     }
+
+    private void fetchNotes() {
+        noteRepository.fetchNotes().observe(this, new Observer<List<Notes>>() {
+                    @Override
+                    public void onChanged(List<Notes> notes) {
+                        if (notesArrayList.size() > 0)
+                            notesArrayList.clear();
+                        if (notes != null) {
+                            notesArrayList.addAll(notes);
+
+                        }
+                        adapter.notifyDataSetChanged();
+
+                    }
+                }
+        );
+    }
+
     //Fetch notes from storage
-private void fetchNotes(){
-noteRepository.fetchNotes().observe(this, new Observer<List<Notes>>() {
-            @Override
-            public void onChanged(List<Notes> notes) {
-                if(notesArrayList.size()>0)
-                    notesArrayList.clear();
-            if(notes!=null){
-                notesArrayList.addAll(notes);
-                notesArrayList.addAll(secondList);
-            }
-adapter.notifyDataSetChanged();
-
-            }
-        }
-);
-}
-
-
-
-    public void NewNote(View view)
-    {
-Intent intent = new Intent(getApplicationContext(),NotesComposeActivity.class);
-
-startActivity(intent);
-
-
+    public void NewNote(View view) {
+        Intent intent = new Intent(getApplicationContext(), NotesComposeActivity.class);
+        intent.putExtra("activity_ID", ACTIVITY_ID);
+        startActivity(intent);
     }
 
     @Override
     public void onNoteClick(int position) {
         notesArrayList.get(position);
-        String title = notesArrayList.get(position).getName(),content = notesArrayList.get(position).getContent();
-        Intent intent = new Intent(this,NotesComposeActivity.class);
-intent.putExtra("note_selected",notesArrayList.get(position));
-startActivity(intent);
+        String title = notesArrayList.get(position).getName(), content = notesArrayList.get(position).getContent();
+        Intent intent = new Intent(this, NotesComposeActivity.class);
+        intent.putExtra("activity_ID", ACTIVITY_ID);
+        intent.putExtra("note_selected", notesArrayList.get(position));
+        startActivity(intent);
 
     }
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -116,11 +102,11 @@ startActivity(intent);
         }
     };
     //Note deletion
-private void deleteNote(Notes note)
-{
+private void deleteNote(Notes note) {
     notesArrayList.remove(note);
-    adapter.notifyDataSetChanged();
     noteRepository.deleteNote(note);
+    adapter.notifyDataSetChanged();
+
 }
 
 
