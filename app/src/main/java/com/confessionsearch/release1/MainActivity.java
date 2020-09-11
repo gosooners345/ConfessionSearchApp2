@@ -46,6 +46,7 @@ import androidx.viewpager.widget.ViewPager;
 public class MainActivity extends AppCompatActivity {
 
     ShareActionProvider shareProvider;
+    public static final String TAG = "MainActivity";
     private Spinner documentTypeSpinner,documentNameSpinner;
     private int SETTINGS_ACTION = 1;
     ExtendedFloatingActionButton  helpButton;
@@ -315,6 +316,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
             Intent intent = new Intent(getApplicationContext(), NotesComposeActivity.class);
             intent.putExtra("activity_ID", ACTIVITY_ID);
             intent.putExtra("search_result_save", shareNote);
+            Log.i(TAG,"Opening new note to save entry");
             startActivity(intent);
         }
     };
