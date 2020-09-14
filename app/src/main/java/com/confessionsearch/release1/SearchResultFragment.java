@@ -3,6 +3,7 @@ package com.confessionsearch.release1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 public  class SearchResultFragment extends Fragment {
     private String documentTitle;
     public static final int ACTIVITY_ID = 30;
+    public static final String TAG = "SearchResultFragment";
     private static String PROOFS = "proofs", CHAPTER = "chapter", CHAPTITLE = "chapterTitle",
             QUESTION = "question", TYPE = "type",
             TITLE = "title", ANSWER = "answer", DOCTITLE = "titles", matchNumb = "matches", TAGS = "tags";
@@ -120,6 +122,7 @@ public  class SearchResultFragment extends Fragment {
             Intent intent = new Intent(getContext(), NotesComposeActivity.class);
             intent.putExtra("search_result_save", shareNote);
             intent.putExtra("activity_ID", ACTIVITY_ID);
+            Log.i(TAG,"Opening new note to save entry");
             startActivity(intent);
         }
     };

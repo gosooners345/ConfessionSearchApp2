@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class NotesComposeActivity extends AppCompatActivity {
     EditText notesSubject, notesContent;
     int activityID;
+    public static final String TAG= "NotesComposeActivity";
     ExtendedFloatingActionButton saveButton, editButton;
     Boolean isNewNote = false;
     String noteContentString = "", noteSubjectString = "";
@@ -129,8 +131,9 @@ ExtendedFloatingActionButton.OnClickListener editNote= new View.OnClickListener(
                 if (activityID == 32)
                     NotesActivity.adapter.notifyDataSetChanged();
 
-                Toast.makeText(getApplicationContext(), "Note Saved", Toast.LENGTH_SHORT).show();
-                // Snackbar.make(findViewById(R.id.masterLayout), "Note Saved", BaseTransientBottomBar.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Note Saved", Toast.LENGTH_SHORT).show();
+                Log.i(TAG,"Saving note to storage");
+                Snackbar.make(findViewById(R.id.masterLayout), "Note Saved", BaseTransientBottomBar.LENGTH_LONG).show();
             }
             //Close this activity out and head back to parent screen
            finish();
