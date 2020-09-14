@@ -10,6 +10,7 @@
         <item name="android:windowBackground">@color/textPrimaryDark</item>
         <item name="secondaryTextColor">@color/textPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
         <item name="bgTintColor">@color/colorPrimary</item>
         <item name="android:searchIcon">@drawable/search_light_drawable</item>
         <item name="android:textColorAlertDialogListItem">@color/colorPrimary</item>
@@ -25,7 +26,7 @@
         <item name="android:goIcon">@drawable/send_icon_dark</item>
         <item name="android:textColor">@color/textPrimaryDark</item>
         <item name="android:colorBackground">@color/colorPrimary</item>
-
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
         <item name="backgroundTint">@color/textPrimaryDark</item>
         <item name="background">@color/colorPrimary</item>
         <item name="android:textColorAlertDialogListItem">@color/colorPrimary</item>
@@ -36,6 +37,15 @@
         <item name="android:searchIcon">@drawable/search_dark_drawable</item>
     </style>
 
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="colorPrimary">#FF0000</item>
+        <item name="colorOnPrimary">#CD5C5C</item>
+    </style>
+
     <style name="DarkMode.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -44,6 +54,7 @@
     <style name="DarkMode.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="DarkMode.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="LightMode.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

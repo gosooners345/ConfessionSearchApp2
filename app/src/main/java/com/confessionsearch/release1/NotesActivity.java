@@ -2,12 +2,16 @@ package com.confessionsearch.release1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -16,12 +20,14 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.confessionsearch.release1.MainActivity.SETTINGS_ACTION;
 import static com.confessionsearch.release1.MainActivity.notesArrayList;
 
 public class NotesActivity extends AppCompatActivity implements NotesAdapter.OnNoteListener {
 //ArrayAdapter<Notes> arrayAdapter;
     private static final String TAG = "NotesActivity";
     static NotesAdapter adapter;
+    BottomNavigationView bottomNav;
     public static final int ACTIVITY_ID = 32;
     public NoteRepository noteRepository;
     //static ArrayList<Notes> notesArrayList = new ArrayList<>(),secondList;
@@ -53,7 +59,9 @@ RecyclerView notesList;
         notesList.setAdapter(adapter);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(notesList);
         fab = findViewById(R.id.newNote);
-
+        bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
+        bottomNav.setOnNavigationItemReselectedListener(reselectedListener);
     }
 
     private void fetchNotes() {
@@ -101,13 +109,61 @@ RecyclerView notesList;
             deleteNote(notesArrayList.get(viewHolder.getAdapterPosition()));
         }
     };
+
     //Note deletion
-private void deleteNote(Notes note) {
-    notesArrayList.remove(note);
-    noteRepository.deleteNote(note);
-    adapter.notifyDataSetChanged();
+    private void deleteNote(Notes note) {
+        notesArrayList.remove(note);
+        noteRepository.deleteNote(note);
+        adapter.notifyDataSetChanged();
 
-}
+    }
 
+    public boolean navItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search_page:
+                finish();
+                return true;
 
+            case R.id.notes_page:
+                Intent noteIntent = new Intent(getApplicationContext(), NotesActivity.class);
+                startActivity(noteIntent);
+                return true;
+            case R.id.settings_page:
+                setContentView(R.layout.help_page);
+                bottomNav = findViewById(R.id.bottom_navigation);
+                bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
+                bottomNav.setOnNavigationItemReselectedListener(reselectedListener);
+                return true;
+            case R.id.theme_page:
+                startActivityForResult(new Intent(getParent().getApplicationContext(), ThemePreferenceActivity.class), SETTINGS_ACTION);
+                return true;
+            default:
+                return false;
+        }
+
+    }
+
+    BottomNavigationView.OnNavigationItemSelectedListener bottomNavListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Boolean itemState = navItemSelected(item);
+            updateNavigationBarState(item.getItemId());
+            return itemState;
+        }
+    };
+    BottomNavigationView.OnNavigationItemReselectedListener reselectedListener = new BottomNavigationView.OnNavigationItemReselectedListener() {
+        @Override
+        public void onNavigationItemReselected(@NonNull MenuItem item) {
+            navItemSelected(item);
+        }
+    };
+
+    private void updateNavigationBarState(int actionId) {
+        Menu menu = bottomNav.getMenu();
+
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            item.setChecked(item.getItemId() == actionId);
+        }
+    }
 }

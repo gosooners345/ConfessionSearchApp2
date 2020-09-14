@@ -30,14 +30,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ShareActionProvider;
@@ -46,25 +47,26 @@ import androidx.viewpager.widget.ViewPager;
 public class MainActivity extends AppCompatActivity {
 
     ShareActionProvider shareProvider;
-    private Spinner documentTypeSpinner,documentNameSpinner;
-    private int SETTINGS_ACTION = 1;
-    ExtendedFloatingActionButton  helpButton;
+    BottomNavigationView bottomNav;
+    private Spinner documentTypeSpinner, documentNameSpinner;
+    protected static int SETTINGS_ACTION = 1;
+    ExtendedFloatingActionButton helpButton;
     ExtendedFloatingActionButton searchButton;
     public static final int ACTIVITY_ID = 31;
     ExtendedFloatingActionButton notesButton;
-    String header="";
-    private static String THEME= "THEME";
+    String header = "";
+    private static String THEME = "THEME";
     private static String theme = "";
-    protected  Boolean textSearch,questionSearch,readerSearch;
+    protected Boolean textSearch, questionSearch, readerSearch;
     String query;
     public String dbName = "confessionSearchDB.sqlite3";
     documentDBClassHelper documentDBHelper;
-    public  String type="";
+    public String type = "";
     String shareList = "";
-public static int themeID;
+    public static int themeID;
     public String fileName;
     protected Boolean allOpen, confessionOpen, catechismOpen, creedOpen, helpOpen;
-protected Boolean proofs=true, answers=true, searchAll = false;
+    protected Boolean proofs = true, answers = true, searchAll = false;
     RadioButton topicButton, questionButton, viewAllButton;
     Intent intent;
     CheckBox answerCheck, allDocCheck, proofCheck;
@@ -73,48 +75,59 @@ protected Boolean proofs=true, answers=true, searchAll = false;
     ArrayAdapter<String> docTitleSpinnerAdapter;
     SearchView searchBox;
     SQLiteDatabase documentDB;
-  Boolean themeName;
-   // String themeName;
+    Boolean themeName;
+    // String themeName;
     SharedPreferences pref;// = PreferenceManager.getDefaultSharedPreferences(this);
     DocumentList masterList = new DocumentList();
     String shareNote;
     static ArrayList<Notes> notesArrayList = new ArrayList<>();
 
     SearchFragmentActivity searchFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 //        themeName = pref.getString("theme","Dark");
- themeName=pref.getBoolean("darkMode",true);
-        if(!themeName){
-            themeID=R.style.LightMode;
-            setTheme(R.style.LightMode);}
-        else if (themeName){
-            themeID= R.style.DarkMode;
-            setTheme(R.style.DarkMode);}
+        themeName = pref.getBoolean("darkMode", true);
+        if (!themeName) {
+            themeID = R.style.LightMode;
+            setTheme(R.style.LightMode);
+        } else if (themeName) {
+            themeID = R.style.DarkMode;
+            setTheme(R.style.DarkMode);
+        }
         super.onCreate(savedInstanceState);
         //Set the show for the search app
         setTitle(R.string.app_name);
-        refreshLayout();
+        refreshLayout(R.layout.test_layout_home);
+
 
     }
+
+    protected void bottomNavEnabler() {
+        bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
+        bottomNav.setOnNavigationItemReselectedListener(reselectedListener);
+    }
+
+
     CheckBox.OnCheckedChangeListener checkBox = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        switch (compoundButton.getId())
-        {
-            case R.id.proofBox:
-                proofs= !proofCheck.isChecked();
-                break;
-            case R.id.AnswerBox:
-                answers= !answerCheck.isChecked();
-                break;
-            case R.id.searchAllCheckBox:
-                searchAll= allDocCheck.isChecked();
-                break;
-        }
+            switch (compoundButton.getId()) {
+                case R.id.proofBox:
+                    proofs = !proofCheck.isChecked();
+                    break;
+                case R.id.AnswerBox:
+                    answers = !answerCheck.isChecked();
+                    break;
+                case R.id.searchAllCheckBox:
+                    searchAll = allDocCheck.isChecked();
+                    break;
+            }
         }
     };
+
     //Searches the Database for the topic and returns the results in a list
     public void Search(String query) {
 
@@ -123,10 +136,10 @@ protected Boolean proofs=true, answers=true, searchAll = false;
 
         String accessString = "", fileString = "";
         //Boolean  proofs = true, answers = true, searchAll = false, viewDocs = false;
-        Log.d( "Search()", getString(R.string.search_execution_begins));
+        Log.d("Search()", getString(R.string.search_execution_begins));
         searchFragment = new SearchFragmentActivity();
         RadioButton topicRadio = findViewById(R.id.topicRadio);
-        RadioButton questionRadio =findViewById(R.id.chapterRadio);
+        RadioButton questionRadio = findViewById(R.id.chapterRadio);
         RadioButton readerRadio = findViewById(R.id.viewAllRadio);
         //Type of Search
         if (topicRadio.isChecked()) {
@@ -158,65 +171,60 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         if (catechismOpen) {
             docID = 3;
             if (!searchAll) {
-                fileString =( String.format(" documentTitle.DocumentTypeID = 3 AND DocumentName = '%s'", fileName));
+                fileString = (String.format(" documentTitle.DocumentTypeID = 3 AND DocumentName = '%s'", fileName));
             } else
-                fileString =( " documentTitle.DocumentTypeID = 3");
-        }
-        else if (confessionOpen) {
+                fileString = (" documentTitle.DocumentTypeID = 3");
+        } else if (confessionOpen) {
             docID = 2;
             if (!searchAll) {
-                fileString =(String.format(" documentTitle.DocumentTypeID = 2 AND DocumentName = '%s'", fileName));
-            }
-            else {
-                fileString =( " documentTitle.DocumentTypeID = 2");
+                fileString = (String.format(" documentTitle.DocumentTypeID = 2 AND DocumentName = '%s'", fileName));
+            } else {
+                fileString = (" documentTitle.DocumentTypeID = 2");
 
             }
-        }
-        else if (creedOpen) {
+        } else if (creedOpen) {
             docID = 1;
-            if(!searchAll)
-            {
-                fileString =( String.format(" documentTitle.DocumentTypeID = 1 AND DocumentName = '%s'", fileName));
-            }
-            else
-            {
-                fileString =(String.format(" documentTitle.DocumentTypeID = 1"));
+            if (!searchAll) {
+                fileString = (String.format(" documentTitle.DocumentTypeID = 1 AND DocumentName = '%s'", fileName));
+            } else {
+                fileString = (String.format(" documentTitle.DocumentTypeID = 1"));
             }
         }
 //This fills the list with entries for filtering and sorting
-        masterList = documentDBHelper.getAllDocuments(fileString, fileName, docID, allOpen,documentDB,accessString,masterList,this);
-        for (Document d:masterList) {
-            if(d.getDocumentText().contains("|")|d.getProofs().contains("|"))
-            {
+        masterList = documentDBHelper.getAllDocuments(fileString, fileName, docID, allOpen, documentDB, accessString, masterList, this);
+        for (Document d : masterList) {
+            if (d.getDocumentText().contains("|") | d.getProofs().contains("|")) {
                 d.setProofs(Formatter(d.getProofs()));
                 d.setDocumentText(Formatter(d.getDocumentText()));
             }
         }
         //Search topics and filter them
-        if (!readerSearch  &textSearch & !questionSearch) {
-            if(!query.isEmpty()) {
-                FilterResults(masterList,  answers, proofs, query);
+        if (!readerSearch & textSearch & !questionSearch) {
+            if (!query.isEmpty()) {
+                FilterResults(masterList, answers, proofs, query);
                 Collections.reverse(masterList);
             }
             //Display reader
             else {
                 if (masterList.size() > 1) {
-                    query=fileName;
+                    query = fileName;
                     setContentView(R.layout.index_pager);
-                    SearchAdapter adapter = new SearchAdapter(getSupportFragmentManager(),masterList,query);
+                    SearchAdapter adapter = new SearchAdapter(getSupportFragmentManager(), masterList, query);
                     ViewPager vp2 = findViewById(R.id.resultPager);
                     searchFragment.DisplayResults(masterList, vp2, adapter, query, 0);
                 }
             }
         }
         //Searching chapters
-        else if (questionSearch & query != ""& !readerSearch&!textSearch) {
-            if(query!=""){
+        else if (questionSearch & query != "" & !readerSearch & !textSearch) {
+            if (query != "") {
                 Integer searchInt = Integer.parseInt(query);
-                FilterResults(masterList,answers, proofs, searchInt);}
-            else {recreate();}
+                FilterResults(masterList, answers, proofs, searchInt);
+            } else {
+                recreate();
+            }
 
-        } else if (readerSearch&!questionSearch&!textSearch) {
+        } else if (readerSearch & !questionSearch & !textSearch) {
             if (!searchAll) {
                 query = "Results for All";
 
@@ -228,13 +236,12 @@ protected Boolean proofs=true, answers=true, searchAll = false;
 //Displays the list of results
         if (masterList.size() > 1) {
             setContentView(R.layout.index_pager);
-           SearchAdapter adapter = new SearchAdapter(getSupportFragmentManager(),masterList,query);
+            SearchAdapter adapter = new SearchAdapter(getSupportFragmentManager(), masterList, query);
             ViewPager vp2 = findViewById(R.id.resultPager);
 
             searchFragment.DisplayResults(masterList, vp2, adapter, query, 0);
 
-        }
-        else {
+        } else {
             //Returns an error if there are no results in the list
             if (masterList.size() == 0) {
                 Log.i("Error", "No results found for Topic");
@@ -264,14 +271,14 @@ protected Boolean proofs=true, answers=true, searchAll = false;
                     }
                 });
                 Dialog dialog = alert.create();
-                if(! isFinishing())
+                if (!isFinishing())
                     dialog.show();
             }
             // For Results with only 1 result
             else {
                 Document document = masterList.get(masterList.size() - 1);
                 setContentView(R.layout.search_results);
-                ExtendedFloatingActionButton saveFab =findViewById(R.id.saveNote);
+                ExtendedFloatingActionButton saveFab = findViewById(R.id.saveNote);
                 ExtendedFloatingActionButton fab = findViewById(R.id.shareActionButton);
                 TextView chapterBox = findViewById(R.id.chapterText);
                 TextView proofBox = findViewById(R.id.proofText);
@@ -320,23 +327,24 @@ protected Boolean proofs=true, answers=true, searchAll = false;
     };
 
     //Enables Share function
-    ExtendedFloatingActionButton.OnClickListener shareContent=new OnClickListener() {
+    ExtendedFloatingActionButton.OnClickListener shareContent = new OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             String INTENTNAME = "SHARE";
-            sendIntent.putExtra(Intent.EXTRA_TEXT,shareList);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, shareList);
             sendIntent.setType("text/plain");
-            startActivity(Intent.createChooser(sendIntent,INTENTNAME));
+            startActivity(Intent.createChooser(sendIntent, INTENTNAME));
         }
     };
 
     //Formats the text to be reader friendly
-    public String Formatter(String formatString){
-        formatString=formatString.replace("|","<br><br>");
+    public String Formatter(String formatString) {
+        formatString = formatString.replace("|", "<br><br>");
         return formatString;
     }
+
     //Filter Search Results
     public void FilterResults(DocumentList documentList, Boolean answers, Boolean proofs, String query) {
         DocumentList resultList = new DocumentList();
@@ -352,11 +360,10 @@ protected Boolean proofs=true, answers=true, searchAll = false;
             searchEntries.add(document.getTags());
             for (String word : searchEntries) {
                 {
-                    int matchIndex =0;
+                    int matchIndex = 0;
 //Tally up all matching sections
-                    while (true)
-                    {
-                        int wordIndex =word.toUpperCase().indexOf(query.toUpperCase(), matchIndex);
+                    while (true) {
+                        int wordIndex = word.toUpperCase().indexOf(query.toUpperCase(), matchIndex);
                         if (wordIndex < 0) break;
                         matchIndex = wordIndex + 1;
                         document.setMatches(document.getMatches() + 1);
@@ -366,40 +373,41 @@ protected Boolean proofs=true, answers=true, searchAll = false;
 //If the entry has a match to the query, it'll show up in the results
             if (document.getMatches() > 0) {
                 // No answers
-                if(!answers) {
-                    if (document.getDocumentText().contains("Question"))
-                    {int closeIndex = document.getDocumentText().indexOf("Answer");
-                        document.setDocumentText(document.getDocumentText().substring(0,closeIndex-1) );
+                if (!answers) {
+                    if (document.getDocumentText().contains("Question")) {
+                        int closeIndex = document.getDocumentText().indexOf("Answer");
+                        document.setDocumentText(document.getDocumentText().substring(0, closeIndex - 1));
                     }
                 }
                 //No proofs
-                 if (!proofs)
+                if (!proofs)
                     document.setProofs("No Proofs available!");
                 resultList.add(document);
             }
         }
         //Sort the Results by highest matching tally
         Collections.sort(resultList, Document.compareMatches);
-        for(Document d : resultList)
-        {  d.setProofs(HighlightText(d.getProofs(),query));
-            d.setDocumentText(HighlightText(d.getDocumentText(),query));}
+        for (Document d : resultList) {
+            d.setProofs(HighlightText(d.getProofs(), query));
+            d.setDocumentText(HighlightText(d.getDocumentText(), query));
+        }
         masterList = resultList;
     }
+
     //Look for the matching chapter/question index
     public void FilterResults(DocumentList documentList, Boolean answers, Boolean proofs, Integer indexNum) {
         DocumentList resultList = new DocumentList();
         for (Document document : documentList) {
-            if (document.getChNumber() == indexNum)
-            {
-                if(!answers) {
-                    if (document.getDocumentText().contains("Question"))
-                    {int closeIndex = document.getDocumentText().indexOf("Answer");
-                        document.setDocumentText(document.getDocumentText().substring(0,closeIndex-1) );
-                    }}
-            else if (!proofs) {
-                document.setProofs("No Proofs Available");
-            }
-            resultList.add(document);
+            if (document.getChNumber() == indexNum) {
+                if (!answers) {
+                    if (document.getDocumentText().contains("Question")) {
+                        int closeIndex = document.getDocumentText().indexOf("Answer");
+                        document.setDocumentText(document.getDocumentText().substring(0, closeIndex - 1));
+                    }
+                } else if (!proofs) {
+                    document.setProofs("No Proofs Available");
+                }
+                resultList.add(document);
             } else
                 continue;
 
@@ -408,6 +416,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         Collections.sort(resultList);
         masterList = resultList;
     }
+
     //Highlights topic entries in search results
     public String HighlightText(String sourceStr, String query) {
         String replaceQuery = "<b>" + query + "</b>";
@@ -420,8 +429,8 @@ protected Boolean proofs=true, answers=true, searchAll = false;
     }
 
     //Executes on startup
-    public void refreshLayout() {
-        setContentView(R.layout.activity_main);
+    public void refreshLayout(int viewID) {
+        setContentView(viewID);
         topicButton = findViewById(R.id.topicRadio);
         questionButton = findViewById(R.id.chapterRadio);
         viewAllButton = findViewById(R.id.viewAllRadio);
@@ -433,8 +442,8 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         searchBox.setOnQueryTextListener(searchQueryListener);
         searchBox.setOnKeyListener(submissionKey);
         //Help button Initialization
-        helpButton = findViewById(R.id.helpButton);
-        helpButton.setOnClickListener(helpButton_Click);
+        //   helpButton = findViewById(R.id.helpButton);
+        //  helpButton.setOnClickListener(helpButton_Click);
         //CheckBox initialization
         proofCheck = findViewById(R.id.proofBox);
         allDocCheck = findViewById(R.id.searchAllCheckBox);
@@ -472,52 +481,50 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         documentNameSpinner.setOnItemSelectedListener(spinnerItemSelectedListener);
         searchBox.setOnKeyListener(submissionKey);
         topicButton.performClick();
-        helpButton.setOnClickListener(helpButton_Click);
-        notesButton = findViewById(R.id.notesButton);
+        bottomNavEnabler();
+
+        // helpButton.setOnClickListener(helpButton_Click);
+        //notesButton = findViewById(R.id.notesButton);
     }
+
     //Select search type
-    public void SearchType(View view){
+    public void SearchType(View view) {
         KeyEvent enter = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER);
-        RadioButton radio= (RadioButton)view;
+        RadioButton radio = (RadioButton) view;
         ExtendedFloatingActionButton searchFab = findViewById(R.id.searchFAB);
-        if(radio==findViewById(R.id.topicRadio)) {
-            if (radio.isChecked())
-            {
+        if (radio == findViewById(R.id.topicRadio)) {
+            if (radio.isChecked()) {
                 searchBox.setEnabled(true);
                 searchBox.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
                 searchBox.setSubmitButtonEnabled(true);
                 searchBox.setOnKeyListener(submissionKey);
                 searchBox.setOnQueryTextListener(searchQueryListener);
                 searchBox.setInputType(InputType.TYPE_CLASS_TEXT);
-                textSearch=true;
-                questionSearch=false;
+                textSearch = true;
+                questionSearch = false;
                 readerSearch = false;
                 searchFab.setText(getResources().getString(R.string.Search));
             }
-        }
-        else if (radio==findViewById(R.id.chapterRadio))
-            if(radio.isChecked())
-            {
+        } else if (radio == findViewById(R.id.chapterRadio))
+            if (radio.isChecked()) {
                 searchBox.setEnabled(true);
                 searchBox.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
                 searchBox.setInputType(InputType.TYPE_CLASS_NUMBER);
                 searchBox.setOnQueryTextListener(searchQueryListener);
                 searchBox.setOnKeyListener(submissionKey);
-                textSearch=false;
-                readerSearch=false;
-                questionSearch=true;
+                textSearch = false;
+                readerSearch = false;
+                questionSearch = true;
                 searchFab.setText(getResources().getString(R.string.Search));
 
 
-            }
-            else if (radio==findViewById(R.id.viewAllRadio))
-                if (radio.isChecked())
-                {
+            } else if (radio == findViewById(R.id.viewAllRadio))
+                if (radio.isChecked()) {
                     searchFab.setText(getResources().getString(R.string.read_button_text));
 
                     textSearch = false;
-                    questionSearch=false;
-                    readerSearch=true;
+                    questionSearch = false;
+                    readerSearch = true;
 
                 }
     }
@@ -526,25 +533,26 @@ protected Boolean proofs=true, answers=true, searchAll = false;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-       inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.settings:
                 startActivityForResult(new Intent(MainActivity.this, ThemePreferenceActivity.class), SETTINGS_ACTION);
         }
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
+    }
 
     //For Activities that return a result like theme setting
-@Override
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SETTINGS_ACTION) {
             if (resultCode == ThemePreferenceActivity.RESULT_CODE_THEME_UPDATED) {
                 finish();
-               startActivity(getIntent());
+                startActivity(getIntent());
                 return;
             }
         }
@@ -552,71 +560,72 @@ protected Boolean proofs=true, answers=true, searchAll = false;
     }
 
     //This listens for clicks on the spinner widgets on home screen
-    AdapterView.OnItemSelectedListener spinnerItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+    AdapterView.OnItemSelectedListener spinnerItemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @SuppressLint("ResourceAsColor")
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            switch (parent.getId())
-            { case R.id.documentTypeSpinner:
-            {
+            switch (parent.getId()) {
+                case R.id.documentTypeSpinner: {
 
-                docTitles= new ArrayList<>();
-                type =parent.getSelectedItem().toString();
-                //Gets all document titles and places them in a list
-                for (DocumentTitle docTitle : documentDBHelper.getAllDocTitles(type,documentDB)
-                ) {
-                    docTitles.add(docTitle.getDocumentName());
+                    docTitles = new ArrayList<>();
+                    type = parent.getSelectedItem().toString();
+                    //Gets all document titles and places them in a list
+                    for (DocumentTitle docTitle : documentDBHelper.getAllDocTitles(type, documentDB)
+                    ) {
+                        docTitles.add(docTitle.getDocumentName());
+                    }
+                    docTitleSpinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, docTitles);
+                    docTitleSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                    documentNameSpinner.setAdapter(docTitleSpinnerAdapter);
+
+                    switch (type.toUpperCase()) {
+                        case "ALL":
+                            allOpen = true;
+                            confessionOpen = false;
+                            catechismOpen = false;
+                            creedOpen = false;
+                            helpOpen = false;
+                            break;
+                        case "CONFESSION":
+                            allOpen = false;
+                            confessionOpen = true;
+                            catechismOpen = false;
+                            header = "Chapter ";
+                            creedOpen = false;
+                            helpOpen = false;
+                            break;
+                        case "CATECHISM":
+                            allOpen = false;
+                            header = "Question ";
+                            confessionOpen = false;
+                            catechismOpen = true;
+                            creedOpen = false;
+                            helpOpen = false;
+                            break;
+                        case "CREED":
+                            allOpen = false;
+                            creedOpen = true;
+                            catechismOpen = false;
+                            confessionOpen = false;
+                            helpOpen = false;
+                            break;
+                    }
+
                 }
-                docTitleSpinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, docTitles);
-                docTitleSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                documentNameSpinner.setAdapter(docTitleSpinnerAdapter);
-
-                switch (type.toUpperCase()) {
-                    case "ALL":
-                        allOpen = true;
-                        confessionOpen = false;
-                        catechismOpen = false;
-                        creedOpen = false;
-                        helpOpen = false;
-                        break;
-                    case "CONFESSION":
-                        allOpen = false;
-                        confessionOpen = true;
-                        catechismOpen = false;
-                        header = "Chapter ";
-                        creedOpen = false;
-                        helpOpen = false;
-                        break;
-                    case "CATECHISM":
-                        allOpen = false;
-                        header = "Question ";
-                        confessionOpen = false;
-                        catechismOpen = true;
-                        creedOpen = false;
-                        helpOpen = false;
-                        break;
-                    case "CREED":
-                        allOpen = false;
-                        creedOpen = true;
-                        catechismOpen = false;
-                        confessionOpen = false;
-                        helpOpen = false;
-                        break;
-                }
-
-            }break;
+                break;
                 case R.id.documentNameSpinner:
-                  if(themeName)  //if(themeName.contains("Dark"))
-                        ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
-                    fileName = String.format("%s",parent.getSelectedItem().toString());
+                    if (themeName)  //if(themeName.contains("Dark"))
+                        ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
+                    fileName = String.format("%s", parent.getSelectedItem().toString());
 
 
-                break;  }
+                    break;
+            }
         }
 
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
-            type=parent.getSelectedItem().toString();
+            type = parent.getSelectedItem().toString();
         }
     };
 
@@ -641,43 +650,45 @@ protected Boolean proofs=true, answers=true, searchAll = false;
     };
 
     // This assigns an action to the search button so it can execute the search
-    public ExtendedFloatingActionButton.OnClickListener searchButtonListener =new OnClickListener() {
+    public ExtendedFloatingActionButton.OnClickListener searchButtonListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             String query;
-            if(!viewAllButton.isChecked()) {
+            if (!viewAllButton.isChecked()) {
                 query = searchBox.getQuery().toString();
-                if(query.isEmpty())
-            ErrorMessage(getResources().getString(R.string.query_error));
-            else
+                if (query.isEmpty())
+                    ErrorMessage(getResources().getString(R.string.query_error));
+                else
+                    Search(query);
+            } else {
+                query = "";
                 Search(query);
             }
-            else
-                {   query = "";
-            Search(query);}
         }
     };
     //Takes user to help screen
-    public FloatingActionButton.OnClickListener helpButton_Click = new FloatingActionButton.OnClickListener() {
+   /* public FloatingActionButton.OnClickListener helpButton_Click = new FloatingActionButton.OnClickListener() {
         @Override
         public void onClick(View v) {
             setContentView(R.layout.help_page);
             ExtendedFloatingActionButton homeButton = findViewById(R.id.homeButton);
             homeButton.setOnClickListener(homeButtonListener);
         }
-    };
+    };*/
+
     //Return to application's main starting screen
-    public void Home(){
+    public void Home() {
 // Finish Results activity
         searchFragment.finish();
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        Log.d("Application","Rebooting application");
-        searchFragment=null;
+        Log.d("Application", "Rebooting application");
+        searchFragment = null;
 //Take user to main search screen
         MainActivity.super.onStop();
         MainActivity.super.finish();
         startActivity(intent);
     }
+
     //Prevents application from proceeding to execute if an error is found
     public void ErrorMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -688,28 +699,29 @@ protected Boolean proofs=true, answers=true, searchAll = false;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(searchFragment!=null)
+        if (searchFragment != null)
             Home();
         else {
             Log.d("Exiting", "Elvis Has Left the building");
             MainActivity.super.finish();
         }
     }
+
     //SearchView Listeners
-    SearchView.OnQueryTextListener searchQueryListener= new SearchView.OnQueryTextListener() {
+    SearchView.OnQueryTextListener searchQueryListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String entry) {
-            query=entry;
-            if(!viewAllButton.isChecked()) {
+            query = entry;
+            if (!viewAllButton.isChecked()) {
                 if (query.isEmpty())
                     ErrorMessage(getResources().getString(R.string.query_error));
                 else
                     Search(query);
-            }
-            else
-            Search(query);
+            } else
+                Search(query);
             return false;
         }
+
         //nothing happens here
         @Override
         public boolean onQueryTextChange(String newText) {
@@ -723,7 +735,7 @@ protected Boolean proofs=true, answers=true, searchAll = false;
     ExtendedFloatingActionButton.OnClickListener homeButtonListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
-            refreshLayout();
+            refreshLayout(R.layout.test_layout_home);
         }
     };
 
@@ -739,5 +751,57 @@ protected Boolean proofs=true, answers=true, searchAll = false;
         super.onConfigurationChanged(newConfig);
     }
 
+    public boolean navItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search_page:
+                refreshLayout(R.layout.test_layout_home);
 
+                return true;
+            case R.id.notes_page:
+                Intent noteIntent = new Intent(getApplicationContext(), NotesActivity.class);
+                startActivity(noteIntent);
+
+                return true;
+            case R.id.settings_page:
+                setContentView(R.layout.help_page);
+
+                bottomNavEnabler();
+
+                return true;
+            case R.id.theme_page:
+                startActivityForResult(new Intent(MainActivity.this, ThemePreferenceActivity.class), SETTINGS_ACTION);
+
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    BottomNavigationView.OnNavigationItemSelectedListener bottomNavListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Boolean itemState = navItemSelected(item);
+            updateNavigationBarState(item.getItemId());
+            return itemState;
+        }
+    };
+    BottomNavigationView.OnNavigationItemReselectedListener reselectedListener = new BottomNavigationView.OnNavigationItemReselectedListener() {
+        @Override
+        public void onNavigationItemReselected(@NonNull MenuItem item) {
+            //Boolean itemState= navItemSelected(item);
+            updateNavigationBarState(item.getItemId());
+            navItemSelected(item);
+        }
+    };
+
+    private void updateNavigationBarState(int actionId) {
+        Menu menu = bottomNav.getMenu();
+
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            item.setChecked(item.getItemId() == actionId);
+        }
+    }
 }
+
+
