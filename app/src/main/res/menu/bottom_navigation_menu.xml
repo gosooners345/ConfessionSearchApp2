@@ -4,18 +4,21 @@
     <item
         android:id="@+id/search_page"
         android:enabled="true"
+        android:icon="@drawable/search_light_drawable"
+        android:checkable="true"
         android:title="@string/search" />
     <item
         android:id="@+id/notes_page"
+        android:icon="@drawable/notes_light_drawable"
         android:title="@string/notes_button_string"
+        android:checkable="true"
         android:enabled="true" />
     <item
         android:id="@+id/settings_page"
         android:enabled="true"
+        android:checkable="true"
+        android:icon="@android:drawable/ic_menu_help"
         android:title="@string/help" />
-    <item
-        android:id="@+id/theme_page"
-        android:title="@string/theme_dialog_title"
-        android:enabled="true" />
+
 
 </menu>

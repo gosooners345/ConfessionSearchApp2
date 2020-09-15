@@ -7,7 +7,6 @@
         android:id="@+id/settings"
         android:title="Themes"
         app:showAsAction="ifRoom"
-        app:actionViewClass="com.confessionsearch.release1.ThemePreferenceActivity"
         tools:ignore="MissingClass"></item>
 
 </menu>

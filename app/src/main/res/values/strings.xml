@@ -88,6 +88,7 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="save_note">Save Note</string>
     <string name="edit_note">Edit Note</string>
     <string name="share">Share</string>
+
     <string-array name="themes">
         <item>Dark</item>
         <item>Light</item>

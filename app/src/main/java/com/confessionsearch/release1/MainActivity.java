@@ -99,15 +99,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Set the show for the search app
         setTitle(R.string.app_name);
-        refreshLayout(R.layout.test_layout_home);
-
+        refreshLayout(R.layout.activity_main);
+        bottomNavEnabler();
 
     }
 
     protected void bottomNavEnabler() {
         bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
-        bottomNav.setOnNavigationItemReselectedListener(reselectedListener);
+        // bottomNav.setOnNavigationItemReselectedListener(reselectedListener);
     }
 
 
@@ -481,7 +481,7 @@ public class MainActivity extends AppCompatActivity {
         documentNameSpinner.setOnItemSelectedListener(spinnerItemSelectedListener);
         searchBox.setOnKeyListener(submissionKey);
         topicButton.performClick();
-        bottomNavEnabler();
+
 
         // helpButton.setOnClickListener(helpButton_Click);
         //notesButton = findViewById(R.id.notesButton);
@@ -732,12 +732,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Enables the app to return to the main screen after home button pressed
-    ExtendedFloatingActionButton.OnClickListener homeButtonListener = new OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            refreshLayout(R.layout.test_layout_home);
-        }
-    };
+
+    public void HelpLauncher() {
+        setContentView(R.layout.help_page);
+        bottomNavEnabler();
+
+    }
 
     //Launches the note section of the application
     public void NoteLauncher(View view) {
@@ -751,48 +751,73 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
     }
 
-    public boolean navItemSelected(@NonNull MenuItem item) {
+/*    public boolean navItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search_page:
-                refreshLayout(R.layout.test_layout_home);
-
+                refreshLayout(R.layout.activity_main);
+                Log.d("HOME PAGE", "Home Page Launched");
+                bottomNavEnabler();
+                Log.d("BottomNav","Home Page Bottom Nav Enabled");
+                //updateNavigationBarState(R.id.search_page);
+                Log.d("HomePage","Menu item selected lit up");
+                item.setChecked(true);
                 return true;
             case R.id.notes_page:
+
                 Intent noteIntent = new Intent(getApplicationContext(), NotesActivity.class);
                 startActivity(noteIntent);
-
                 return true;
             case R.id.settings_page:
-                setContentView(R.layout.help_page);
-
+                HelpLauncher();
+                Log.d("HELP PAGE", "Help Page Launched");
                 bottomNavEnabler();
-
-                return true;
-            case R.id.theme_page:
-                startActivityForResult(new Intent(MainActivity.this, ThemePreferenceActivity.class), SETTINGS_ACTION);
-
+                Log.d("BottomNav","Help Page Bottom Nav Enabled");
+               // updateNavigationBarState(R.id.settings_page);
+                Log.d("HelpPage","Menu item selected lit up");
+                item.setChecked(true);
                 return true;
             default:
                 return false;
         }
-    }
+    }*/
 
     BottomNavigationView.OnNavigationItemSelectedListener bottomNavListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Boolean itemState = navItemSelected(item);
-            updateNavigationBarState(item.getItemId());
-            return itemState;
+            //Boolean itemState = navItemSelected(item);
+            switch (item.getItemId()) {
+                case R.id.search_page:
+                    refreshLayout(R.layout.activity_main);
+                    Log.d("HOME PAGE", "Home Page Launched");
+                    bottomNavEnabler();
+                    Log.d("BottomNav", "Home Page Bottom Nav Enabled");
+                    //updateNavigationBarState(R.id.search_page);
+                    Log.d("HomePage", "Menu item selected lit up");
+                    //     item.setChecked(true);
+                    break;
+                case R.id.notes_page:
+
+                    Intent noteIntent = new Intent(getApplicationContext(), NotesActivity.class);
+                    startActivity(noteIntent);
+                    break;
+                case R.id.settings_page:
+                    HelpLauncher();
+                    Log.d("HELP PAGE", "Help Page Launched");
+                    bottomNavEnabler();
+                    Log.d("BottomNav", "Help Page Bottom Nav Enabled");
+                    // updateNavigationBarState(R.id.settings_page);
+                    Log.d("HelpPage", "Menu item selected lit up");
+                    //  item.setChecked(true);
+                    break;
+                default:
+                    return false;
+            }
+            item.setChecked(true);
+            return true;
+            // return itemState;
         }
     };
-    BottomNavigationView.OnNavigationItemReselectedListener reselectedListener = new BottomNavigationView.OnNavigationItemReselectedListener() {
-        @Override
-        public void onNavigationItemReselected(@NonNull MenuItem item) {
-            //Boolean itemState= navItemSelected(item);
-            updateNavigationBarState(item.getItemId());
-            navItemSelected(item);
-        }
-    };
+
 
     private void updateNavigationBarState(int actionId) {
         Menu menu = bottomNav.getMenu();

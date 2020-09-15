@@ -10,7 +10,7 @@
         <item name="android:windowBackground">@color/textPrimaryDark</item>
         <item name="secondaryTextColor">@color/textPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView.Light</item>
         <item name="bgTintColor">@color/colorPrimary</item>
         <item name="android:searchIcon">@drawable/search_light_drawable</item>
         <item name="android:textColorAlertDialogListItem">@color/colorPrimary</item>
@@ -26,7 +26,7 @@
         <item name="android:goIcon">@drawable/send_icon_dark</item>
         <item name="android:textColor">@color/textPrimaryDark</item>
         <item name="android:colorBackground">@color/colorPrimary</item>
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView.Dark</item>
         <item name="backgroundTint">@color/textPrimaryDark</item>
         <item name="background">@color/colorPrimary</item>
         <item name="android:textColorAlertDialogListItem">@color/colorPrimary</item>
@@ -37,13 +37,24 @@
         <item name="android:searchIcon">@drawable/search_dark_drawable</item>
     </style>
 
-    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+    <style name="Widget.App.BottomNavigationView.Dark" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
     </style>
 
-    <style name="ThemeOverlay.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
-        <item name="colorPrimary">#FF0000</item>
-        <item name="colorOnPrimary">#CD5C5C</item>
+    <style name="Widget.App.BottomNavigationView.Light" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView.Light</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorOnPrimary">?attr/secondaryTextColor</item>
+
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView.Light" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="colorPrimary">#000000</item>
+        <item name="colorOnPrimary">?attr/secondaryTextColor</item>
+
     </style>
 
     <style name="DarkMode.NoActionBar">
@@ -61,6 +72,5 @@
     </style>
 
     <style name="LightMode.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="LightMode.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
