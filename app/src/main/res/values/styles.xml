@@ -1,16 +1,32 @@
 <resources>
 
     <!-- Base application theme. -->
+    <style name="DarkMode" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:closeIcon">@drawable/close_icon_dark</item>
+        <item name="android:goIcon">@drawable/send_icon_dark</item>
+        <item name="android:textColor">@color/textPrimaryDark</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
+        <item name="backgroundTint">@color/textPrimaryDark</item>
+        <item name="background">@color/colorPrimary</item>
+        <item name="android:textColorAlertDialogListItem">@color/colorPrimary</item>
+        <item name="secondaryTextColor">@color/colorPrimary</item>
+        <item name="android:editTextColor">@color/textPrimaryDark</item>
+        <item name="bgTintColor">@color/textPrimaryDark</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        implementation 'com.github.irshulx:laser-native-editor:3.0.3'
+        <item name="android:searchIcon">@drawable/search_dark_drawable</item>
+    </style>
+
     <style name="LightMode" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:editTextColor">@color/colorPrimary</item>
+
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="backgroundTint">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/textPrimaryDark</item>
         <item name="android:windowBackground">@color/textPrimaryDark</item>
         <item name="secondaryTextColor">@color/textPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView.Light</item>
         <item name="bgTintColor">@color/colorPrimary</item>
         <item name="android:searchIcon">@drawable/search_light_drawable</item>
         <item name="android:textColorAlertDialogListItem">@color/colorPrimary</item>
@@ -21,37 +37,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="DarkMode" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="android:closeIcon">@drawable/close_icon_dark</item>
-        <item name="android:goIcon">@drawable/send_icon_dark</item>
-        <item name="android:textColor">@color/textPrimaryDark</item>
-        <item name="android:colorBackground">@color/colorPrimary</item>
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView.Dark</item>
-        <item name="backgroundTint">@color/textPrimaryDark</item>
-        <item name="background">@color/colorPrimary</item>
-        <item name="android:textColorAlertDialogListItem">@color/colorPrimary</item>
-        <item name="secondaryTextColor">@color/colorPrimary</item>
-        <item name="android:editTextColor">@color/textPrimaryDark</item>
-        <item name="bgTintColor">@color/textPrimaryDark</item>
-        <item name="android:windowBackground">@color/colorPrimary</item>
-        <item name="android:searchIcon">@drawable/search_dark_drawable</item>
-    </style>
-
-    <style name="Widget.App.BottomNavigationView.Dark" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
-    </style>
 
     <style name="Widget.App.BottomNavigationView.Light" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView.Light</item>
     </style>
 
-    <style name="ThemeOverlay.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+    <style name="ThemeOverlay.App.BottomNavigationView.Light" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
         <item name="colorPrimary">#FFFFFF</item>
         <item name="colorOnPrimary">?attr/secondaryTextColor</item>
 
     </style>
 
-    <style name="ThemeOverlay.App.BottomNavigationView.Light" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
         <item name="colorPrimary">#000000</item>
         <item name="colorOnPrimary">?attr/secondaryTextColor</item>
 
@@ -64,7 +65,7 @@
 
     <style name="DarkMode.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="DarkMode.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="DarkMode.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 
     <style name="LightMode.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -72,5 +73,6 @@
     </style>
 
     <style name="LightMode.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="LightMode.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="LightMode.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 </resources>

@@ -36,12 +36,14 @@ RecyclerView notesList;
             setTheme(R.style.LightMode_NoActionBar);
         if(MainActivity.themeID==R.style.DarkMode)
             setTheme(R.style.DarkMode_NoActionBar);
+
+
         super.onCreate(savedInstanceState);
         //set layout to notes list
         setContentView(R.layout.activity_notes);
         //not sure what this is useful for
         Toolbar toolbar = findViewById(R.id.toolbar);
-
+        toolbar.setTitle("Notes");
         setSupportActionBar(toolbar);
 
 

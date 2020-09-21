@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,11 +36,11 @@ private OnNoteListener onNoteListener;
 
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
-Notes note = noteList.get(position);
-TextView noteTitle = holder.subjectView;
-noteTitle.setText(note.getName());
-TextView contentHolder = holder.contentView;
-contentHolder.setText(note.getContent());
+        Notes note = noteList.get(position);
+        TextView noteTitle = holder.subjectView;
+        noteTitle.setText(note.getName());
+        TextView contentHolder = holder.contentView;
+        contentHolder.setText((note.getContent()));//note.getContent());
 
     }
 

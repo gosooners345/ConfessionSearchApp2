@@ -32,6 +32,8 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     String header = "";
     private static String THEME = "THEME";
     private static String theme = "";
+
     protected Boolean textSearch, questionSearch, readerSearch;
     String query;
     public String dbName = "confessionSearchDB.sqlite3";
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> docTitleSpinnerAdapter;
     SearchView searchBox;
     SQLiteDatabase documentDB;
-    Boolean themeName;
+    Boolean themeName, systemTheme;
     // String themeName;
     SharedPreferences pref;// = PreferenceManager.getDefaultSharedPreferences(this);
     DocumentList masterList = new DocumentList();
@@ -87,14 +90,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
+        //int nightModeOn=32, nightModeOff=16,on=2,off=1;
+
 //        themeName = pref.getString("theme","Dark");
         themeName = pref.getBoolean("darkMode", true);
+
         if (!themeName) {
             themeID = R.style.LightMode;
-            setTheme(R.style.LightMode);
+            setTheme(themeID);
         } else if (themeName) {
             themeID = R.style.DarkMode;
-            setTheme(R.style.DarkMode);
+            setTheme(themeID);
         }
         super.onCreate(savedInstanceState);
         //Set the show for the search app
@@ -307,8 +313,8 @@ public class MainActivity extends AppCompatActivity {
                 fab.setBackgroundColor(Color.BLACK);
                 shareNote = "";
 
-                shareNote = (docTitleBox.getText() + newLine + newLine + chNumbBox.getText() + newLine
-                        + newLine + chapterBox.getText() + newLine + "Proofs" + newLine + proofBox.getText());
+                shareNote = (docTitleBox.getText() + "<br>" + "<br>" + chNumbBox.getText() + "<br>"
+                        + "<br>" + document.getDocumentText() + "<br>" + "Proofs" + "<br>" + document.getProofs());
                 saveFab.setOnClickListener(saveNewNote);
 
             }
@@ -478,7 +484,7 @@ public class MainActivity extends AppCompatActivity {
         docTitleSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, docTitles);
 
         documentNameSpinner = findViewById(R.id.documentNameSpinner);
-        documentNameSpinner.setOnItemSelectedListener(spinnerItemSelectedListener);
+        documentNameSpinner.setOnItemSelectedListener(docTitleSpinner);
         searchBox.setOnKeyListener(submissionKey);
         topicButton.performClick();
 
@@ -541,7 +547,8 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.settings:
-                startActivityForResult(new Intent(MainActivity.this, ThemePreferenceActivity.class), SETTINGS_ACTION);
+                HelpLauncher();
+                bottomNavEnabler();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -564,8 +571,7 @@ public class MainActivity extends AppCompatActivity {
         @SuppressLint("ResourceAsColor")
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            switch (parent.getId()) {
-                case R.id.documentTypeSpinner: {
+            {
 
                     docTitles = new ArrayList<>();
                     type = parent.getSelectedItem().toString();
@@ -576,8 +582,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     docTitleSpinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, docTitles);
                     docTitleSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                    documentNameSpinner.setAdapter(docTitleSpinnerAdapter);
-
+                documentNameSpinner.setAdapter(docTitleSpinnerAdapter);
+                documentNameSpinner.setOnItemSelectedListener(docTitleSpinner);
                     switch (type.toUpperCase()) {
                         case "ALL":
                             allOpen = true;
@@ -610,22 +616,34 @@ public class MainActivity extends AppCompatActivity {
                             helpOpen = false;
                             break;
                     }
-
-                }
-                break;
-                case R.id.documentNameSpinner:
-                    if (themeName)  //if(themeName.contains("Dark"))
-                        ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
-                    fileName = String.format("%s", parent.getSelectedItem().toString());
-
-
-                    break;
             }
         }
+
 
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
             type = parent.getSelectedItem().toString();
+        }
+    };
+    AdapterView.OnItemSelectedListener docTitleSpinner = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            try {
+                if (themeName)  //if(themeName.contains("Dark"))
+
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
+
+            } catch (Exception ex) {
+                documentNameSpinner.setOnItemSelectedListener(docTitleSpinner);
+                documentNameSpinner.setSelection(0);
+            }
+
+            fileName = String.format("%s", adapterView.getSelectedItem().toString());
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
         }
     };
 
@@ -641,7 +659,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!query.isEmpty() & !viewAllButton.isSelected())
                     Search(query);
                 else
-                    ErrorMessage("You must enter a topic or chapter number in the search text field above to proceed!");
+                    ErrorMessage(getResources().getString(R.string.query_error));
                 return true;
             } else {
                 return false;
@@ -666,15 +684,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-    //Takes user to help screen
-   /* public FloatingActionButton.OnClickListener helpButton_Click = new FloatingActionButton.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            setContentView(R.layout.help_page);
-            ExtendedFloatingActionButton homeButton = findViewById(R.id.homeButton);
-            homeButton.setOnClickListener(homeButtonListener);
-        }
-    };*/
 
     //Return to application's main starting screen
     public void Home() {
@@ -691,8 +700,10 @@ public class MainActivity extends AppCompatActivity {
 
     //Prevents application from proceeding to execute if an error is found
     public void ErrorMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        //   Snackbar.make(findViewById(R.id.relativeLayout), message, BaseTransientBottomBar.LENGTH_SHORT).show();
+        //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Snackbar errorBar = Snackbar.make(findViewById(R.id.layout_super), message, BaseTransientBottomBar.LENGTH_SHORT);
+        errorBar.setAnchorView(R.id.bottom_navigation);
+        errorBar.show();
     }
 
     //Back Key Behavior
@@ -751,35 +762,6 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
     }
 
-/*    public boolean navItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.search_page:
-                refreshLayout(R.layout.activity_main);
-                Log.d("HOME PAGE", "Home Page Launched");
-                bottomNavEnabler();
-                Log.d("BottomNav","Home Page Bottom Nav Enabled");
-                //updateNavigationBarState(R.id.search_page);
-                Log.d("HomePage","Menu item selected lit up");
-                item.setChecked(true);
-                return true;
-            case R.id.notes_page:
-
-                Intent noteIntent = new Intent(getApplicationContext(), NotesActivity.class);
-                startActivity(noteIntent);
-                return true;
-            case R.id.settings_page:
-                HelpLauncher();
-                Log.d("HELP PAGE", "Help Page Launched");
-                bottomNavEnabler();
-                Log.d("BottomNav","Help Page Bottom Nav Enabled");
-               // updateNavigationBarState(R.id.settings_page);
-                Log.d("HelpPage","Menu item selected lit up");
-                item.setChecked(true);
-                return true;
-            default:
-                return false;
-        }
-    }*/
 
     BottomNavigationView.OnNavigationItemSelectedListener bottomNavListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -793,7 +775,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("BottomNav", "Home Page Bottom Nav Enabled");
                     //updateNavigationBarState(R.id.search_page);
                     Log.d("HomePage", "Menu item selected lit up");
-                    //     item.setChecked(true);
+                    item.setChecked(true);
                     break;
                 case R.id.notes_page:
 
@@ -801,20 +783,16 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(noteIntent);
                     break;
                 case R.id.settings_page:
-                    HelpLauncher();
-                    Log.d("HELP PAGE", "Help Page Launched");
+                    startActivityForResult(new Intent(MainActivity.this, ThemePreferenceActivity.class), SETTINGS_ACTION);
                     bottomNavEnabler();
-                    Log.d("BottomNav", "Help Page Bottom Nav Enabled");
-                    // updateNavigationBarState(R.id.settings_page);
-                    Log.d("HelpPage", "Menu item selected lit up");
-                    //  item.setChecked(true);
+
                     break;
                 default:
                     return false;
             }
             item.setChecked(true);
             return true;
-            // return itemState;
+
         }
     };
 

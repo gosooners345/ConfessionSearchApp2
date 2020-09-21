@@ -19,7 +19,7 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:label="Notes"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/DarkMode.NoActionBar" />
+             />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
@@ -34,6 +34,9 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:label="Settings"
             android:parentActivityName=".MainActivity" />
+        <activity android:name="com.onegravity.rteditor.media.choose.MediaChooserActivity" />
+
+        <activity android:name="com.onegravity.rteditor.media.crop.CropImageActivity" />
     </application>
 
 </manifest>

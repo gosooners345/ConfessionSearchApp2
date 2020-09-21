@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/settings"
-        android:title="Themes"
+        android:title="Help"
         app:showAsAction="ifRoom"
         tools:ignore="MissingClass"></item>
 

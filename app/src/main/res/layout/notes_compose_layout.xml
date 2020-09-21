@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/masterLayout"
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@+id/masterLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/background"
@@ -14,7 +14,8 @@
         android:overScrollMode="always"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarStyle="outsideInset"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        app:layout_anchorGravity="center">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/notes_screen_layout"
@@ -39,37 +40,71 @@
                 app:layout_constraintStart_toEndOf="@+id/subjectLabelTV"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/contentEditText"
+            <LinearLayout
+                android:id="@+id/content_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="5dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/enter_notes_string"
-                android:inputType="textMultiLine"
-                android:isScrollContainer="true"
-                android:scrollbars="vertical"
-                android:selectAllOnFocus="true"
-                android:textColor="?android:attr/textColor"
-                android:textColorHint="?android:attr/textColor"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/subjectTitleEditText" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="38dp"
-                android:text="@string/content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="?android:attr/textColor"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subjectLabelTV" />
+                app:layout_constraintTop_toBottomOf="@+id/subjectTitleEditText">
+
+                <EditText
+                    android:id="@+id/contentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:hint="@string/enter_notes_string"
+                    android:imeOptions="normal"
+                    android:inputType="textMultiLine|text|textImeMultiLine"
+                    android:isScrollContainer="true"
+                    android:padding="5dp"
+                    android:scrollbars="vertical"
+                    android:selectAllOnFocus="false"
+                    android:textColor="?android:attr/textColor"
+                    android:textColorHint="?android:attr/textColor" />
+                <!--<HorizontalScrollView
+                    android:id="@+id/tools"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#e6e6e6"
+                    android:isScrollContainer="true"
+                    android:scrollbars="horizontal">
+
+                    <include layout="@layout/editor_toolbar_linearlayout_horizontal" />
+
+
+                </HorizontalScrollView>
+
+                <com.github.irshulx.Editor
+                    android:id="@+id/contentRichText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="100dp"
+                    app:render_type="Editor" />-->
+                <!--<org.wordpress.aztec.source.SourceViewEditText
+                    android:id="@+id/source"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="textNoSuggestions|textMultiLine"
+                    android:scrollbars="vertical"
+                    aztec:codeBackgroundColor="@android:color/transparent"
+                    aztec:codeTextColor="@android:color/white" />
+
+                <org.wordpress.aztec.toolbar.AztecToolbar
+                    android:id="@+id/formatting_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom" />-->
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/subjectLabelTV"
@@ -83,23 +118,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/saveNote"
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="32dp"
-                android:text="@string/save_note"
-                android:textColor="?attr/secondaryTextColor"
-                app:backgroundTint="?attr/bgTintColor"
-                app:icon="@android:drawable/ic_menu_save"
-                app:iconTint="?attr/secondaryTextColor"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contentEditText" />
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="?android:attr/textColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subjectLabelTV" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/editButton"
@@ -117,7 +146,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/saveNote"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contentEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/content_container" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/saveNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="32dp"
+                android:text="@string/save_note"
+                android:textColor="?attr/secondaryTextColor"
+                app:backgroundTint="?attr/bgTintColor"
+                app:icon="@android:drawable/ic_menu_save"
+                app:iconTint="?attr/secondaryTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/content_container" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
