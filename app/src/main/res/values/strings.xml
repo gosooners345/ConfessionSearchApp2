@@ -17,7 +17,8 @@
     <string name="Source_Text" formatted="true">All documents used in this application are public domain. A big thanks for inspiration and help for this app came from https://www.reformed.org/."</string>
     <string name="View_Button">View</string>
 
-    <string name="confessionPgh">To exclude answers from results, hit the No Answers Checkbox under Search Options</string>
+    <string name="confessionPgh" formatted="true">To exclude answers from results, hit the No Answers Checkbox under Search Options.\n
+    To exclude proofs from search, Hit no Proofs checkbox.</string>
     <string name="creedPgh">Hit the home button to go back home</string>
     <string name="confession_help">Catechism Page only:</string>
     <string name="other_pgh">Select a theme by hitting Themes at the top of your screen</string>
@@ -32,7 +33,9 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="facebook_app_id">301531087243095</string>
     <string name="error_results">Search Error</string>
     <string name="home_topic">Search again?</string>
-
+    <string name="save_note_message">Do you want to save any changes to your note?</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="save_button_text">Save</string>
     <string name="exit_screen">Leave App?</string>
     <string name="home_topic_body">Do you want to perform another search?</string>
     <string name="exit_screen_body">Do you want to leave the app?</string>
@@ -103,6 +106,9 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="other_stuff">Theme Section</string>
+    <string name="home_page">Home</string>
+    <string name="help_page">Help Page</string>
     <string-array name="themes">
         <item>Dark</item>
         <item>Light</item>

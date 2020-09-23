@@ -75,8 +75,7 @@ public  class SearchResultFragment extends Fragment {
         ExtendedFloatingActionButton saveFab = view.findViewById(R.id.saveNote);
         fab.setOnClickListener(shareContent);
         shareNote = "";
-        /*shareNote = (docTitleBox.getText() + newLine + newLine + chNumbBox.getText() + "<br>"
-                + "<br>" + resultChapter + "<br>" + "Proofs" + "<br>" + resultProofs).toString();*/
+
         shareNote = (docTitleBox.getText() + newLine + newLine + chNumbBox.getText() + newLine
                 + newLine + chapterBox.getText() + newLine + "Proofs" + newLine + proofBox.getText()) + newLine;
         saveFab.setOnClickListener(saveNewNote);

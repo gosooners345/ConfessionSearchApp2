@@ -1,5 +1,7 @@
 package com.confessionsearch.release1;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,6 +16,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class NotesComposeActivity extends AppCompatActivity {
@@ -25,22 +28,20 @@ public class NotesComposeActivity extends AppCompatActivity {
     String noteContentString = "", noteSubjectString = "";
     String shareList = "";
     Notes newNote, incomingNote;
-
     NoteRepository noteRepository;
-
-
     int mode;
     private static final int EDIT_ON = 1;
     private static final int EDIT_OFF = 0;
-    public static final int SAVE_NOTE_CODE = 1;
-    public static final int CANCEL_SAVE = 0;
 
+//Custom Editor Test Variables
+    //Editor notesContentRichText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         if (MainActivity.themeID == R.style.LightMode) {
             setTheme(R.style.LightMode);
+
         }
         if (MainActivity.themeID == R.style.DarkMode) {
             setTheme(R.style.DarkMode);
@@ -51,7 +52,6 @@ public class NotesComposeActivity extends AppCompatActivity {
 
         notesContent = findViewById(R.id.contentEditText);
         notesSubject = findViewById(R.id.subjectTitleEditText);
-
         noteRepository = new NoteRepository(this);
 //Load Notes
         if (!getIntentInfo()) {
@@ -62,6 +62,7 @@ public class NotesComposeActivity extends AppCompatActivity {
         } else {
             notesSubject.setText("");
             notesContent.setText("");
+
 
         }
         notesSubject.addTextChangedListener(new TextWatcher() {
@@ -81,6 +82,8 @@ public class NotesComposeActivity extends AppCompatActivity {
 
             }
         });
+
+
         notesContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -127,7 +130,6 @@ ExtendedFloatingActionButton.OnClickListener editNote= new View.OnClickListener(
                 newNote = new Notes(noteSubjectString, noteContentString, incomingNote.getNoteID());
             else
                 newNote = new Notes();
-
             newNote.setName(noteSubjectString);
             newNote.setContent(noteContentString);
 
@@ -138,8 +140,6 @@ ExtendedFloatingActionButton.OnClickListener editNote= new View.OnClickListener(
                     noteRepository.updateNote(newNote);
                 if (activityID == 32)
                     NotesActivity.adapter.notifyDataSetChanged();
-
-
                 Log.i(TAG,"Saving note to storage");
                 Snackbar.make(findViewById(R.id.masterLayout), "Note Saved", BaseTransientBottomBar.LENGTH_LONG).show();
             }
@@ -179,7 +179,33 @@ ExtendedFloatingActionButton.OnClickListener editNote= new View.OnClickListener(
     @Override
     public void onBackPressed() {
         if (mode == EDIT_OFF) {
-            saveButton.performClick();
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Save your work?");
+            alert.setMessage(String.format(getResources().getString(R.string.save_note_message)));
+            alert.setPositiveButton(getResources().getString(R.string.save_button_text), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    saveButton.performClick();
+                }
+            });
+            alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            alert.setCancelable(true);
+            alert.setNeutralButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            Dialog dialog = alert.create();
+            if (!isFinishing())
+                dialog.show();
         } else
             DisableEdit();
     }
@@ -195,7 +221,6 @@ ExtendedFloatingActionButton.OnClickListener editNote= new View.OnClickListener(
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mode = savedInstanceState.getInt("mode");
-
         if (mode == EDIT_ON) {
             Snackbar.make(findViewById(R.id.masterLayout), "Resume Writing", BaseTransientBottomBar.LENGTH_SHORT).show();
         }
@@ -218,7 +243,6 @@ ExtendedFloatingActionButton.OnClickListener editNote= new View.OnClickListener(
 
 
     @Override
-
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.share_menu, menu);
         return super.onCreateOptionsMenu(menu);

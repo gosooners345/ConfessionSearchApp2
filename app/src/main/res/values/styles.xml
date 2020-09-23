@@ -5,16 +5,18 @@
         <item name="android:closeIcon">@drawable/close_icon_dark</item>
         <item name="android:goIcon">@drawable/send_icon_dark</item>
         <item name="android:textColor">@color/textPrimaryDark</item>
+
         <item name="android:colorBackground">@color/colorPrimary</item>
-        <item name="backgroundTint">@color/textPrimaryDark</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
         <item name="background">@color/colorPrimary</item>
         <item name="android:textColorAlertDialogListItem">@color/colorPrimary</item>
         <item name="secondaryTextColor">@color/colorPrimary</item>
         <item name="android:editTextColor">@color/textPrimaryDark</item>
         <item name="bgTintColor">@color/textPrimaryDark</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
-        implementation 'com.github.irshulx:laser-native-editor:3.0.3'
         <item name="android:searchIcon">@drawable/search_dark_drawable</item>
+
+
     </style>
 
     <style name="LightMode" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -35,8 +37,8 @@
         <item name="colorOnBackground">@color/colorPrimary</item>
         <item name="android:goIcon">@drawable/send_icon_light</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
+    </style>
 
     <style name="Widget.App.BottomNavigationView.Light" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView.Light</item>

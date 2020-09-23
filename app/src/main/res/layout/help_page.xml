@@ -4,8 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:orientation="vertical"
         android:id="@+id/help_page_Layout"
         android:background="?attr/background"
@@ -13,7 +12,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:text="Help Page"
+            android:text="@string/help_page"
 
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="wrap_content"
@@ -32,7 +31,10 @@
             android:layout_below="@+id/appTitle"
             android:layout_alignParentStart="true"
 
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:text="@string/catechism_help"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -42,8 +44,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/confessionHelp"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:text="@string/confessionPgh" />
 
         <TextView
@@ -52,7 +56,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/confessionPgh"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:text="@string/notes_section_header"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -64,21 +70,23 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:text="@string/notes_section_help" />
 
         <TextView
             android:id="@+id/otherStuff"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_below="@+id/creedPgh"
-            android:text="Other Stuff:" />
+            android:text="@string/other_stuff" />
 
         <TextView
             android:id="@+id/otherPgh"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -88,7 +96,7 @@
 
         <TextView
             android:id="@+id/searchTypeItem"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -96,27 +104,8 @@
             android:visibility="visible"
             android:layout_marginBottom="19dp"
             android:layout_marginEnd="73dp"
-            android:text="Home" />
+            android:text="@string/home_page" />
 
-        <!--  <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-              android:id="@+id/homeButton"
-
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentEnd="true"
-              android:layout_alignParentBottom="true"
-              android:layout_marginStart="5dp"
-              android:layout_marginEnd="5dp"
-              android:layout_marginBottom="8dp"
-              android:clickable="true"
-              android:src="@android:drawable/ic_menu_search"
-              android:text="Home"
-              android:textAllCaps="true"
-              android:textColor="?attr/secondaryTextColor"
-              app:backgroundTint="?attr/bgTintColor"
-              app:fabSize="normal"
-              app:icon="@drawable/nav_home_light"
-              app:iconTint="?attr/background" />-->
 
         <TextView
             android:id="@+id/sourceLabel"
@@ -138,6 +127,8 @@
 
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:text="@string/Source_Text" />
 
 

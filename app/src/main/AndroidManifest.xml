@@ -34,9 +34,7 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:label="Settings"
             android:parentActivityName=".MainActivity" />
-        <activity android:name="com.onegravity.rteditor.media.choose.MediaChooserActivity" />
 
-        <activity android:name="com.onegravity.rteditor.media.crop.CropImageActivity" />
     </application>
 
 </manifest>

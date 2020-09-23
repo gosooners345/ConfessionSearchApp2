@@ -32,6 +32,8 @@
                 android:ems="10"
                 android:hint="@string/enter_title_string"
                 android:inputType="text"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
                 android:textColor="?android:attr/textColor"
@@ -50,7 +52,27 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/subjectTitleEditText">
+                <!--<com.github.irshulx.Editor
+                    android:id="@+id/contentRichText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="100dp"
+                    app:render_type="Editor" />
 
+                <HorizontalScrollView
+                    android:id="@+id/tools"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#e6e6e6"
+                    android:isScrollContainer="true"
+                    android:scrollbars="horizontal">
+                    <include layout="@layout/editor_toolbar_linearlayout_horizontal" />
+                </HorizontalScrollView>-->
                 <EditText
                     android:id="@+id/contentEditText"
                     android:layout_width="match_parent"
@@ -64,46 +86,8 @@
                     android:scrollbars="vertical"
                     android:selectAllOnFocus="false"
                     android:textColor="?android:attr/textColor"
+                    android:textColorHighlight="@color/design_default_color_error"
                     android:textColorHint="?android:attr/textColor" />
-                <!--<HorizontalScrollView
-                    android:id="@+id/tools"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:background="#e6e6e6"
-                    android:isScrollContainer="true"
-                    android:scrollbars="horizontal">
-
-                    <include layout="@layout/editor_toolbar_linearlayout_horizontal" />
-
-
-                </HorizontalScrollView>
-
-                <com.github.irshulx.Editor
-                    android:id="@+id/contentRichText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="100dp"
-                    app:render_type="Editor" />-->
-                <!--<org.wordpress.aztec.source.SourceViewEditText
-                    android:id="@+id/source"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:imeOptions="flagNoExtractUi"
-                    android:inputType="textNoSuggestions|textMultiLine"
-                    android:scrollbars="vertical"
-                    aztec:codeBackgroundColor="@android:color/transparent"
-                    aztec:codeTextColor="@android:color/white" />
-
-                <org.wordpress.aztec.toolbar.AztecToolbar
-                    android:id="@+id/formatting_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom" />-->
             </LinearLayout>
 
             <TextView

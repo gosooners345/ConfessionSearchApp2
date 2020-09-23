@@ -312,9 +312,12 @@ public class MainActivity extends AppCompatActivity {
                 fab.setOnClickListener(shareContent);
                 fab.setBackgroundColor(Color.BLACK);
                 shareNote = "";
-
                 shareNote = (docTitleBox.getText() + "<br>" + "<br>" + chNumbBox.getText() + "<br>"
                         + "<br>" + document.getDocumentText() + "<br>" + "Proofs" + "<br>" + document.getProofs());
+                //  shareNote = (docTitleBox.getText() +newLine +newLine +  chNumbBox.getText() + "<br>"
+                //        + "<br>" + resultChapter + "<br>" + "Proofs" + "<br>" + resultProofs).toString();
+                //  shareNote = (docTitleBox.getText() + newLine + newLine + chNumbBox.getText() + newLine
+                //       + newLine + chapterBox.getText() + newLine + "Proofs" + newLine + proofBox.getText()) + newLine;
                 saveFab.setOnClickListener(saveNewNote);
 
             }
@@ -362,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
 
             searchEntries.add(document.getChName());
             searchEntries.add(document.getDocumentText());
-            searchEntries.add((document.getProofs()));
+            if (proofs) searchEntries.add((document.getProofs()));
             searchEntries.add(document.getTags());
             for (String word : searchEntries) {
                 {
@@ -447,9 +450,7 @@ public class MainActivity extends AppCompatActivity {
         searchBox = findViewById(R.id.searchView1);
         searchBox.setOnQueryTextListener(searchQueryListener);
         searchBox.setOnKeyListener(submissionKey);
-        //Help button Initialization
-        //   helpButton = findViewById(R.id.helpButton);
-        //  helpButton.setOnClickListener(helpButton_Click);
+
         //CheckBox initialization
         proofCheck = findViewById(R.id.proofBox);
         allDocCheck = findViewById(R.id.searchAllCheckBox);
@@ -652,7 +653,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             SearchView searchBox = (SearchView) v;
-            TextView text = (TextView) v;
+
             if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 query = searchBox.getQuery().toString();
                 Log.d("View", String.format("%s", event.getDisplayLabel()));
@@ -750,11 +751,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Launches the note section of the application
-    public void NoteLauncher(View view) {
-        Intent noteIntent = new Intent(this, NotesActivity.class);
-        startActivity(noteIntent);
-    }
 
     //Handles Orientation changes
     @Override
@@ -797,14 +793,6 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    private void updateNavigationBarState(int actionId) {
-        Menu menu = bottomNav.getMenu();
-
-        for (int i = 0, size = menu.size(); i < size; i++) {
-            MenuItem item = menu.getItem(i);
-            item.setChecked(item.getItemId() == actionId);
-        }
-    }
 }
 
 
