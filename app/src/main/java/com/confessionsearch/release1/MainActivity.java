@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     String header = "";
     private static String THEME = "THEME";
     private static String theme = "";
-
     protected Boolean textSearch, questionSearch, readerSearch;
     String query;
     public String dbName = "confessionSearchDB.sqlite3";
@@ -78,13 +77,11 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> docTitleSpinnerAdapter;
     SearchView searchBox;
     SQLiteDatabase documentDB;
-    Boolean themeName, systemTheme;
-    // String themeName;
-    SharedPreferences pref;// = PreferenceManager.getDefaultSharedPreferences(this);
+    Boolean themeName;
+    SharedPreferences pref;
     DocumentList masterList = new DocumentList();
     String shareNote;
     static ArrayList<Notes> notesArrayList = new ArrayList<>();
-
     SearchFragmentActivity searchFragment;
 
     @Override
@@ -771,12 +768,13 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("BottomNav", "Home Page Bottom Nav Enabled");
                     //updateNavigationBarState(R.id.search_page);
                     Log.d("HomePage", "Menu item selected lit up");
-                    item.setChecked(true);
+
                     break;
                 case R.id.notes_page:
 
                     Intent noteIntent = new Intent(getApplicationContext(), NotesActivity.class);
                     startActivity(noteIntent);
+
                     break;
                 case R.id.settings_page:
                     startActivityForResult(new Intent(MainActivity.this, ThemePreferenceActivity.class), SETTINGS_ACTION);

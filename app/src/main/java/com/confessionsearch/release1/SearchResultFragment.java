@@ -84,13 +84,6 @@ public  class SearchResultFragment extends Fragment {
         return view;
     }
 
-    public void ChangeColor(TextView[] views, Boolean selectable, int color) {
-        for (TextView view : views) {
-            view.setTextColor(color);
-            view.setTextIsSelectable(selectable);
-        }
-    }
-
     public static SearchResultFragment NewResult(String Chapter, String Proofs, String Title, Integer ID, String ListTitle, Integer MatchNum, String Chaptitle, String docTags) {
         SearchResultFragment fragment = new SearchResultFragment();
         Bundle spaces = new Bundle();
