@@ -38,7 +38,7 @@ class SearchAdapter(fm: FragmentManager?, documents: DocumentList, searchTerm: S
 
     override fun getPageTitle(position: Int): CharSequence? {
         if (term === "") {
-            term = documentList1[position + 1].documentName
+            term = documentList1[position + 1].documentName!!
         }
         return String.format("Result %s of %s for %s", position + 1, documentList1.size, term)
     }
@@ -48,7 +48,7 @@ class SearchAdapter(fm: FragmentManager?, documents: DocumentList, searchTerm: S
         val frg: Fragment
         val document = documentList1[position]
         var docTitle: String? = ""
-        title = document.documentName
+        title = document.documentName!!
         docTitle = if (title === "Results" || title === "") document.documentName else document.documentName
         docPosition++
         frg = SearchResultFragment.NewResult(document.documentText, document.proofs, document.documentName,

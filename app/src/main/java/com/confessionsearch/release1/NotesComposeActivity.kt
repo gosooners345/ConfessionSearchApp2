@@ -90,7 +90,7 @@ class NotesComposeActivity : AppCompatActivity() {
             noteSubjectString = notesSubject!!.text.toString()
             noteContentString = notesContent!!.text.toString()
             //Update or save new content to note
-            newNote = if (!isNewNote) Notes(noteSubjectString, noteContentString, incomingNote!!.getNoteID()) else Notes()
+            newNote = if (!isNewNote) Notes(noteSubjectString, noteContentString, incomingNote!!.noteID) else Notes()
             newNote!!.name = noteSubjectString
             newNote!!.content = noteContentString
             run {
@@ -113,7 +113,7 @@ class NotesComposeActivity : AppCompatActivity() {
             if (intent.hasExtra("note_selected")) {
                 incomingNote = intent.getParcelableExtra("note_selected")
                 newNote = Notes()
-                newNote!!.setNoteID(incomingNote!!.getNoteID())
+                newNote!!.noteID = incomingNote!!.noteID
                 newNote!!.content = incomingNote!!.content
                 newNote!!.name = incomingNote!!.name
                 mode = EDIT_ON

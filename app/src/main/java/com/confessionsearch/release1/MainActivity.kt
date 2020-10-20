@@ -188,9 +188,9 @@ open class MainActivity : AppCompatActivity() {
         //This fills the list with entries for filtering and sorting
         masterList = documentDBHelper!!.getAllDocuments(fileString, fileName, docID, allOpen, documentDB, accessString, masterList, this)
         for (d in masterList) {
-            if (d.documentText.contains("|") or d.proofs.contains("|")) {
-                d.proofs = Formatter(d.proofs)
-                d.documentText = Formatter(d.documentText)
+            if (d.documentText!!.contains("|") or d.proofs!!.contains("|")) {
+                d.proofs = Formatter(d.proofs!!)
+                d.documentText = Formatter(d.documentText!!)
             }
         }
         //Search topics and filter them
@@ -323,10 +323,10 @@ open class MainActivity : AppCompatActivity() {
         //Break document up into pieces to be searched for topic
         for (document in documentList) {
             val searchEntries = ArrayList<String>()
-            searchEntries.add(document.chName)
-            searchEntries.add(document.documentText)
-            if (proofs) searchEntries.add(document.proofs)
-            searchEntries.add(document.tags)
+            searchEntries.add(document.chName!!)
+            searchEntries.add(document.documentText!!)
+            if (proofs) searchEntries.add(document.proofs!!)
+            searchEntries.add(document.tags!!)
             for (word in searchEntries) {
                 run {
                     var matchIndex = 0
@@ -335,17 +335,17 @@ open class MainActivity : AppCompatActivity() {
                         val wordIndex = word.toUpperCase().indexOf(query!!.toUpperCase(), matchIndex)
                         if (wordIndex < 0) break
                         matchIndex = wordIndex + 1
-                        document.matches = document.matches + 1
+                        document.matches = document.matches!! + 1
                     }
                 }
             }
             //If the entry has a match to the query, it'll show up in the results
-            if (document.matches > 0) {
+            if (document.matches!! > 0) {
                 // No answers
                 if (!answers!!) {
-                    if (document.documentText.contains("Question")) {
-                        val closeIndex = document.documentText.indexOf("Answer")
-                        document.documentText = document.documentText.substring(0, closeIndex - 1)
+                    if (document.documentText!!.contains("Question")) {
+                        val closeIndex = document.documentText!!.indexOf("Answer")
+                        document.documentText = document.documentText!!.substring(0, closeIndex - 1)
                     }
                 }
                 //No proofs
@@ -366,11 +366,11 @@ open class MainActivity : AppCompatActivity() {
     fun FilterResults(documentList: DocumentList, answers: Boolean?, proofs: Boolean?, indexNum: Int) {
         val resultList = DocumentList()
         for (document in documentList) {
-            if (document.chNumber === indexNum) {
+            if (document.chNumber!! == indexNum) {
                 if (!answers!!) {
-                    if (document.documentText.contains("Question")) {
-                        val closeIndex = document.documentText.indexOf("Answer")
-                        document.documentText = document.documentText.substring(0, closeIndex - 1)
+                    if (document.documentText!!.contains("Question")) {
+                        val closeIndex = document.documentText!!.indexOf("Answer")
+                        document.documentText = document.documentText!!.substring(0, closeIndex - 1)
                     }
                 } else if (!proofs!!) {
                     document.proofs = "No Proofs Available"
@@ -445,9 +445,6 @@ open class MainActivity : AppCompatActivity() {
         searchBox!!.setOnKeyListener(submissionKey)
         topicButton!!.performClick()
 
-
-        // helpButton.setOnClickListener(helpButton_Click);
-        //notesButton = findViewById(R.id.notesButton);
     }
 
     //Select search type
