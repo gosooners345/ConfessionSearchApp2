@@ -32,6 +32,7 @@ class Document : BaseColumns, Comparable<Document> {
         return chNumber!!.compareTo(compareDocument.chNumber!!)
     }
 
+
     companion object {
         var compareMatches = java.util.Comparator<Document> { document1, document2 ->
             val string1: String

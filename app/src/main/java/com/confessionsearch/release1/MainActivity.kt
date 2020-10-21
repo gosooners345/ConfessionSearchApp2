@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.InputType
@@ -17,6 +18,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ShareActionProvider
@@ -75,9 +77,6 @@ open class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val pref: SharedPreferences? = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
 
-        //int nightModeOn=32, nightModeOff=16,on=2,off=1;
-
-//        themeName = pref.getString("theme","Dark");
         this.themeName = pref?.getBoolean("darkMode", true)
         if (!themeName!!) {
             themeID = R.style.LightMode
@@ -130,6 +129,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
     //Searches the Database for the topic and returns the results in a list
+    @RequiresApi(Build.VERSION_CODES.N)
     fun Search(query: String?) {
         var query = query
         var docID = 0
@@ -196,7 +196,7 @@ open class MainActivity : AppCompatActivity() {
         //Search topics and filter them
         if (!readerSearch!! and textSearch!! and !questionSearch!!) {
             if (!query!!.isEmpty()) {
-                FilterResults(masterList, answers, proofs, query)
+                this.FilterResults(masterList, answers, proofs, query)
                 Collections.reverse(masterList)
             } else {
                 if (masterList.size > 1) {
@@ -317,6 +317,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
     //Filter Search Results
+    @RequiresApi(Build.VERSION_CODES.N)
     fun FilterResults(documentList: DocumentList, answers: Boolean?, proofs: Boolean, query: String?) {
         val resultList = DocumentList()
 
@@ -354,9 +355,9 @@ open class MainActivity : AppCompatActivity() {
             }
         }
         //Sort the Results by highest matching tally
-        Collections.sort(resultList, Document.compareMatches)
+        Collections.sort(resultList, Document.compareMatches.reversed())
         for (d in resultList) {
-            d.proofs = HighlightText(d.proofs, query)
+            d.proofs = HighlightText(d.proofs!!, query)
             d.documentText = HighlightText(d.documentText, query)
         }
         masterList = resultList
@@ -378,7 +379,8 @@ open class MainActivity : AppCompatActivity() {
                 resultList.add(document)
             } else continue
         }
-        Collections.sort(resultList)
+
+        Collections.sort(resultList, Document.compareMatches)
         masterList = resultList
     }
 
@@ -428,7 +430,7 @@ open class MainActivity : AppCompatActivity() {
         //Document Type Spinner Initialization
         docTypes!!.add("All")
         for (type in typeList) {
-            docTypes!!.add(type.documentTypeName)
+            docTypes!!.add(type.documentTypeName!!)
         }
         docTypeSpinnerAdapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, docTypes!!)
         documentTypeSpinner = findViewById(R.id.documentTypeSpinner)
@@ -437,7 +439,7 @@ open class MainActivity : AppCompatActivity() {
 
         //Document Titles Spinner Initialization
         for (docTitle in documentTitles) {
-            docTitles!!.add(docTitle.documentName)
+            docTitles!!.add(docTitle.documentName!!)
         }
         docTitleSpinnerAdapter = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, docTitles!!)
         documentNameSpinner = findViewById(R.id.documentNameSpinner)
@@ -522,7 +524,7 @@ open class MainActivity : AppCompatActivity() {
                 type = parent.selectedItem.toString()
                 //Gets all document titles and places them in a list
                 for (docTitle in documentDBHelper!!.getAllDocTitles(type, documentDB)) {
-                    docTitles!!.add(docTitle.documentName)
+                    docTitles!!.add(docTitle.documentName!!)
                 }
                 docTitleSpinnerAdapter = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, docTitles!!)
                 docTitleSpinnerAdapter!!.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
@@ -582,6 +584,7 @@ open class MainActivity : AppCompatActivity() {
         override fun onNothingSelected(adapterView: AdapterView<*>?) {}
     }
 
+    @SuppressLint("NewApi")
     //This allows for Submission to take place
     var submissionKey = View.OnKeyListener { v, keyCode, event ->
         val searchBox = v as SearchView
@@ -596,6 +599,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
     // This assigns an action to the search button so it can execute the search
+    @SuppressLint("NewApi")
     var searchButtonListener = View.OnClickListener {
         val query: String
         if (!viewAllButton!!.isChecked) {
@@ -637,6 +641,7 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NewApi")
     //SearchView Listeners
     var searchQueryListener: SearchView.OnQueryTextListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(entry: String): Boolean {

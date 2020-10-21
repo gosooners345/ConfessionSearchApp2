@@ -52,7 +52,7 @@ class SearchAdapter(fm: FragmentManager?, documents: DocumentList, searchTerm: S
         docTitle = if (title === "Results" || title === "") document.documentName else document.documentName
         docPosition++
         frg = SearchResultFragment.NewResult(document.documentText, document.proofs, document.documentName,
-                document.chNumber, documentList1.getTitle(), document.matches, document.chName, document.tags)
+                document.chNumber, documentList1.title, document.matches, document.chName, document.tags)
         return frg
     }
 
