@@ -27,50 +27,87 @@
             >
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/option_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                android:layoutDirection="locale"
+                android:padding="5dp"
+                app:layout_constraintStart_toEndOf="@id/searchByLabel"
+                app:layout_constraintTop_toBottomOf="@+id/appTitle"
+
+                >
+
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/topicChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/topic"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIconVisible="true"
+                    android:checkable="true"
+                    app:closeIconEnabled="false" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/questionChip"
+                    android:text="@string/question"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIconVisible="true"
+                    android:checkable="true"
+                    app:closeIconEnabled="false" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/readDocsChip"
+                    android:text="@string/read_document"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIconVisible="true"
+                    android:checkable="true"
+                    app:closeIconEnabled="false" />
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chip_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layoutDirection="locale"
                 android:padding="5dp"
 
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/optionLabel">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/answerChip"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-
                     android:text="@string/no_answers"
-
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     app:chipIconVisible="true"
                     app:closeIconVisible="false" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/proofChip"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-
                     android:text="@string/no_proofs"
-
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     app:chipIconVisible="true"
                     app:closeIconVisible="false" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/searchAllChip"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-
                     android:text="@string/search_all_documents"
-
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     app:chipIconVisible="true"
                     app:closeIconVisible="false" />
@@ -131,7 +168,7 @@
                 tools:layout_conversion_absoluteHeight="48dp"
                 tools:layout_conversion_absoluteWidth="103dp" />-->
 
-            <RadioGroup
+            <!--<RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,7 +218,7 @@
                     tools:layout_editor_absoluteX="136dp"
 
                     tools:layout_editor_absoluteY="127dp" />
-            </RadioGroup>
+            </RadioGroup>-->
 
             <SearchView
                 android:id="@+id/searchView1"
@@ -203,7 +240,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/topicLabel"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+                app:layout_constraintTop_toBottomOf="@+id/option_group"
                 tools:layout_conversion_absoluteHeight="53dp"
                 tools:layout_conversion_absoluteWidth="53dp" />
 
@@ -307,14 +344,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:labelFor="@id/radioGroup"
+                android:labelFor="@id/option_group"
                 android:text="@string/search_by"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
-                app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+                app:layout_constraintBottom_toBottomOf="@id/option_group"
+
                 app:layout_constraintHorizontal_bias="0.126"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/radioGroup"
+                app:layout_constraintTop_toBottomOf="@id/appTitle"
                 tools:layout_conversion_absoluteHeight="24dp"
                 tools:layout_conversion_absoluteWidth="83dp" />
 

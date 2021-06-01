@@ -66,10 +66,16 @@ open class MainActivity : AppCompatActivity() {
     var answerChip: Chip? = null
     var proofChip: Chip? = null
     var searchAllChip: Chip? = null
+    var optionGroup: ChipGroup? = null
 
-    var answerCheck: CheckBox? = null
-    var allDocCheck: CheckBox? = null
-    var proofCheck: CheckBox? = null
+    //Testing
+    var topicChip: Chip? = null
+    var questionChip: Chip? = null
+    var readDocsChip: Chip? = null
+
+    //    var answerCheck: CheckBox? = null
+    //  var allDocCheck: CheckBox? = null
+    // var proofCheck: CheckBox? = null
     var docTypes: ArrayList<String>? = null
     var docTitles: ArrayList<String>? = null
     var docTypeSpinnerAdapter: ArrayAdapter<String>? = null
@@ -128,6 +134,41 @@ open class MainActivity : AppCompatActivity() {
     }
 
 
+    fun SearchType(view: View) {
+        val enter = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)
+        val radio = view as RadioButton
+        val searchFab = findViewById<ExtendedFloatingActionButton>(R.id.searchFAB)
+        if (radio === findViewById<View>(R.id.topicRadio)) {
+            if (radio.isChecked) {
+                searchBox!!.isEnabled = true
+                searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
+                searchBox!!.isSubmitButtonEnabled = true
+                searchBox!!.setOnKeyListener(submissionKey)
+                searchBox!!.setOnQueryTextListener(searchQueryListener)
+                searchBox!!.inputType = InputType.TYPE_CLASS_TEXT
+                textSearch = true
+                questionSearch = false
+                readerSearch = false
+                searchFab.text = resources.getString(R.string.Search)
+            }
+        } else if (radio === findViewById<View>(R.id.chapterRadio)) if (radio.isChecked) {
+            searchBox!!.isEnabled = true
+            searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
+            searchBox!!.inputType = InputType.TYPE_CLASS_NUMBER
+            searchBox!!.setOnQueryTextListener(searchQueryListener)
+            searchBox!!.setOnKeyListener(submissionKey)
+            textSearch = false
+            readerSearch = false
+            questionSearch = true
+            searchFab.text = resources.getString(R.string.Search)
+        } else if (radio === findViewById<View>(R.id.viewAllRadio)) if (radio.isChecked) {
+            searchFab.text = resources.getString(R.string.read_button_text)
+            textSearch = false
+            questionSearch = false
+            readerSearch = true
+        }
+    }
+
     // Update: Testing out chip check settings
     var checkBox = CompoundButton.OnCheckedChangeListener { compoundButton, _ ->
         when (compoundButton.id) {
@@ -140,6 +181,41 @@ open class MainActivity : AppCompatActivity() {
             R.id.searchAllChip -> searchAll = searchAllChip!!.isChecked
         }
     }
+    var optionListener = ChipGroup.OnCheckedChangeListener { group, checkedId ->
+        val enter = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)
+        val searchFab = findViewById<ExtendedFloatingActionButton>(R.id.searchFAB)
+        if (checkedId == (R.id.topicChip)) {
+            searchBox!!.isEnabled = true
+            searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
+            searchBox!!.isSubmitButtonEnabled = true
+            searchBox!!.setOnKeyListener(submissionKey)
+            searchBox!!.setOnQueryTextListener(searchQueryListener)
+            searchBox!!.inputType = InputType.TYPE_CLASS_TEXT
+            textSearch = true
+            questionSearch = false
+            readerSearch = false
+            searchFab.text = resources.getString(R.string.Search)
+
+        } else if (checkedId == R.id.questionChip) {
+            searchBox!!.isEnabled = true
+            searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
+            searchBox!!.inputType = InputType.TYPE_CLASS_NUMBER
+            searchBox!!.setOnQueryTextListener(searchQueryListener)
+            searchBox!!.setOnKeyListener(submissionKey)
+            textSearch = false
+            readerSearch = false
+            questionSearch = true
+            searchFab.text = resources.getString(R.string.Search)
+
+        } else if (checkedId == R.id.readDocsChip) {
+            searchFab.text = resources.getString(R.string.read_button_text)
+            textSearch = false
+            questionSearch = false
+            readerSearch = true
+        }
+
+    }
+
 
     //Searches the Database for the topic and returns the results in a list
     @RequiresApi(Build.VERSION_CODES.N)
@@ -153,23 +229,23 @@ open class MainActivity : AppCompatActivity() {
         Log.d("Search()", getString(R.string.search_execution_begins))
         searchFragment = SearchFragmentActivity()
 
-        val topicRadio = findViewById<RadioButton>(R.id.topicRadio)
-        val questionRadio = findViewById<RadioButton>(R.id.chapterRadio)
-        val readerRadio = findViewById<RadioButton>(R.id.viewAllRadio)
-        //Type of Search
-        if (topicRadio.isChecked) {
-            readerSearch = false
-            textSearch = true
-            questionSearch = false
-        } else if (questionRadio.isChecked) {
-            readerSearch = false
-            textSearch = false
-            questionSearch = true
-        } else if (readerRadio.isChecked) {
-            readerSearch = true
-            textSearch = false
-            questionSearch = false
-        }
+        /* val topicRadio = findViewById<RadioButton>(R.id.topicRadio)
+         val questionRadio = findViewById<RadioButton>(R.id.chapterRadio)
+         val readerRadio = findViewById<RadioButton>(R.id.viewAllRadio)
+         //Type of Search
+         if (topicRadio.isChecked) {
+             readerSearch = false
+             textSearch = true
+             questionSearch = false
+         } else if (questionRadio.isChecked) {
+             readerSearch = false
+             textSearch = false
+             questionSearch = true
+         } else if (readerRadio.isChecked) {
+             readerSearch = true
+             textSearch = false
+             questionSearch = false
+         }*/
 
 
         //Filters for how searches are executed by document type and name
@@ -415,6 +491,7 @@ open class MainActivity : AppCompatActivity() {
         setContentView(viewID)
         //New Chip Group addition for testing
         chipGroup = findViewById(R.id.chip_group)
+        optionGroup = findViewById(R.id.option_group)
         topicButton = findViewById(R.id.topicRadio)
         questionButton = findViewById(R.id.chapterRadio)
         viewAllButton = findViewById(R.id.viewAllRadio)
@@ -433,7 +510,7 @@ open class MainActivity : AppCompatActivity() {
          proofCheck!!.setOnCheckedChangeListener(checkBox)
          allDocCheck!!.setOnCheckedChangeListener(checkBox)
          answerCheck!!.setOnCheckedChangeListener(checkBox)*/
-
+        optionGroup!!.setOnCheckedChangeListener(optionListener)
 
         // Chip Initialization 06/01/2021 - Testing look and execution
         answerChip = findViewById(R.id.answerChip)
@@ -444,7 +521,9 @@ open class MainActivity : AppCompatActivity() {
         answerChip!!.setOnCheckedChangeListener(checkBox)
         proofChip!!.setOnCheckedChangeListener(checkBox)
         searchAllChip!!.setOnCheckedChangeListener(checkBox)
-
+        topicChip = findViewById(R.id.topicChip)
+        questionChip = findViewById(R.id.questionChip)
+        readDocsChip = findViewById(R.id.readDocsChip)
 
         documentTypeSpinner = findViewById(R.id.documentTypeSpinner)
         documentNameSpinner = findViewById(R.id.documentNameSpinner)
@@ -474,45 +553,12 @@ open class MainActivity : AppCompatActivity() {
         documentNameSpinner = findViewById(R.id.documentNameSpinner)
         documentNameSpinner!!.onItemSelectedListener = docTitleSpinner
         searchBox!!.setOnKeyListener(submissionKey)
-        topicButton!!.performClick()
+        topicChip!!.performClick()
 
     }
 
     //Select search type
-    fun SearchType(view: View) {
-        val enter = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)
-        val radio = view as RadioButton
-        val searchFab = findViewById<ExtendedFloatingActionButton>(R.id.searchFAB)
-        if (radio === findViewById<View>(R.id.topicRadio)) {
-            if (radio.isChecked) {
-                searchBox!!.isEnabled = true
-                searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
-                searchBox!!.isSubmitButtonEnabled = true
-                searchBox!!.setOnKeyListener(submissionKey)
-                searchBox!!.setOnQueryTextListener(searchQueryListener)
-                searchBox!!.inputType = InputType.TYPE_CLASS_TEXT
-                textSearch = true
-                questionSearch = false
-                readerSearch = false
-                searchFab.text = resources.getString(R.string.Search)
-            }
-        } else if (radio === findViewById<View>(R.id.chapterRadio)) if (radio.isChecked) {
-            searchBox!!.isEnabled = true
-            searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
-            searchBox!!.inputType = InputType.TYPE_CLASS_NUMBER
-            searchBox!!.setOnQueryTextListener(searchQueryListener)
-            searchBox!!.setOnKeyListener(submissionKey)
-            textSearch = false
-            readerSearch = false
-            questionSearch = true
-            searchFab.text = resources.getString(R.string.Search)
-        } else if (radio === findViewById<View>(R.id.viewAllRadio)) if (radio.isChecked) {
-            searchFab.text = resources.getString(R.string.read_button_text)
-            textSearch = false
-            questionSearch = false
-            readerSearch = true
-        }
-    }
+
 
     //Menu options for themes
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -631,7 +677,7 @@ open class MainActivity : AppCompatActivity() {
     @SuppressLint("NewApi")
     var searchButtonListener = View.OnClickListener {
         val query: String
-        if (!viewAllButton!!.isChecked) {
+        if (!readerSearch!!) {
             query = searchBox!!.query.toString()
             if (query.isEmpty()) ErrorMessage(resources.getString(R.string.query_error)) else Search(query)
         } else {
@@ -675,7 +721,7 @@ open class MainActivity : AppCompatActivity() {
     var searchQueryListener: SearchView.OnQueryTextListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(entry: String): Boolean {
             query = entry
-            if (!viewAllButton!!.isChecked) {
+            if (!readerSearch!!) {
                 if (query!!.isEmpty()) ErrorMessage(resources.getString(R.string.query_error)) else Search(query)
             } else Search(query)
             return false
