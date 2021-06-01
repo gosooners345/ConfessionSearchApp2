@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "com.confessionsearch.release1"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 29
-        versionCode 52
-        versionName "4.0.3"
+        versionCode 53
+        versionName "4.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

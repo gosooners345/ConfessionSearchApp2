@@ -60,7 +60,9 @@ class Notes : Parcelable, Cloneable {
         return name == notes.name && content == notes.content
     }
 
+
     companion object {
+        @JvmField
         val CREATOR: Parcelable.Creator<Notes?> = object : Parcelable.Creator<Notes?> {
             override fun createFromParcel(`in`: Parcel): Notes? {
                 return Notes(`in`)

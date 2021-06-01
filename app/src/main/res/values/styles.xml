@@ -14,15 +14,37 @@
         <item name="android:editTextColor">@color/textPrimaryDark</item>
         <item name="bgTintColor">@color/textPrimaryDark</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="chipStyle">@style/Widget.App.Chip.DarkMode</item>
         <item name="android:searchIcon">@drawable/search_dark_drawable</item>
 
+
+    </style>
+
+
+    <style name="ThemeOverlay.App.Chip.DarkMode" parent="">
+        <item name="colorOnSurface">@color/textPrimaryDark</item>
+    </style>
+
+    <style name="Widget.App.Chip.DarkMode" parent="Widget.MaterialComponents.Chip.Entry">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Chip.DarkMode</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="ThemeOverlay.App.Chip.LightMode" parent="">
+        <item name="colorOnSurface">@color/colorPrimary</item>
+    </style>
+
+    <style name="Widget.App.Chip.LightMode" parent="Widget.MaterialComponents.Chip.Entry">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Chip.LightMode</item>
+        <item name="android:textColor">@color/colorPrimary</item>
 
     </style>
 
     <style name="LightMode" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:editTextColor">@color/colorPrimary</item>
-
+        <item name="chipStyle">@style/Widget.App.Chip.LightMode</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="backgroundTint">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/textPrimaryDark</item>

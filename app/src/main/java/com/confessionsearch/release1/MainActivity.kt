@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ShareActionProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -60,6 +62,11 @@ open class MainActivity : AppCompatActivity() {
     var questionButton: RadioButton? = null
     var viewAllButton: RadioButton? = null
 
+    //Testing
+    var answerChip: Chip? = null
+    var proofChip: Chip? = null
+    var searchAllChip: Chip? = null
+
     var answerCheck: CheckBox? = null
     var allDocCheck: CheckBox? = null
     var proofCheck: CheckBox? = null
@@ -70,7 +77,7 @@ open class MainActivity : AppCompatActivity() {
     var searchBox: SearchView? = null
     var documentDB: SQLiteDatabase? = null
     var themeName: Boolean? = false
-
+    var chipGroup: ChipGroup? = null
     var masterList = DocumentList()
     var shareNote: String? = null
     var searchFragment: SearchFragmentActivity? = null
@@ -88,7 +95,7 @@ open class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //Set the show for the search app
         setTitle(R.string.app_name)
-        refreshLayout(R.layout.activity_main)
+        refreshLayout(R.layout.test_activity_main)
         bottomNavEnabler()
     }
 
@@ -120,11 +127,17 @@ open class MainActivity : AppCompatActivity() {
 
     }
 
+
+    // Update: Testing out chip check settings
     var checkBox = CompoundButton.OnCheckedChangeListener { compoundButton, _ ->
         when (compoundButton.id) {
-            R.id.proofBox -> proofs = !proofCheck!!.isChecked
-            R.id.AnswerBox -> answers = !answerCheck!!.isChecked
-            R.id.searchAllCheckBox -> searchAll = allDocCheck!!.isChecked
+            /* R.id.proofBox -> proofs = !proofCheck!!.isChecked
+             R.id.AnswerBox -> answers = !answerCheck!!.isChecked
+            R.id.searchAllCheckBox -> searchAll = !allDocCheck!!.isChecked*/
+            // These are in testing
+            R.id.proofChip -> proofs = !proofChip!!.isChecked
+            R.id.answerChip -> answers = !answerChip!!.isChecked
+            R.id.searchAllChip -> searchAll = searchAllChip!!.isChecked
         }
     }
 
@@ -136,8 +149,10 @@ open class MainActivity : AppCompatActivity() {
         var accessString = ""
         var fileString = ""
         //Boolean  proofs = true, answers = true, searchAll = false, viewDocs = false;
+
         Log.d("Search()", getString(R.string.search_execution_begins))
         searchFragment = SearchFragmentActivity()
+
         val topicRadio = findViewById<RadioButton>(R.id.topicRadio)
         val questionRadio = findViewById<RadioButton>(R.id.chapterRadio)
         val readerRadio = findViewById<RadioButton>(R.id.viewAllRadio)
@@ -158,7 +173,7 @@ open class MainActivity : AppCompatActivity() {
 
 
         //Filters for how searches are executed by document type and name
-        if (!allDocCheck!!.isChecked) {
+        if (!searchAll) {
             accessString = String.format(" and documenttitle.documentName = '%s' ", fileName)
         }
         if (allOpen!!) {
@@ -398,6 +413,8 @@ open class MainActivity : AppCompatActivity() {
     //Executes on startup
     fun refreshLayout(viewID: Int) {
         setContentView(viewID)
+        //New Chip Group addition for testing
+        chipGroup = findViewById(R.id.chip_group)
         topicButton = findViewById(R.id.topicRadio)
         questionButton = findViewById(R.id.chapterRadio)
         viewAllButton = findViewById(R.id.viewAllRadio)
@@ -410,13 +427,25 @@ open class MainActivity : AppCompatActivity() {
         searchBox!!.setOnKeyListener(submissionKey)
 
         //CheckBox initialization
-        proofCheck = findViewById(R.id.proofBox)
-        allDocCheck = findViewById(R.id.searchAllCheckBox)
+        /* proofCheck = findViewById(R.id.proofBox)
+         allDocCheck = findViewById(R.id.searchAllCheckBox)
+         answerCheck = findViewById(R.id.AnswerBox)
+         proofCheck!!.setOnCheckedChangeListener(checkBox)
+         allDocCheck!!.setOnCheckedChangeListener(checkBox)
+         answerCheck!!.setOnCheckedChangeListener(checkBox)*/
 
-        answerCheck = findViewById(R.id.AnswerBox)
-        proofCheck!!.setOnCheckedChangeListener(checkBox)
-        allDocCheck!!.setOnCheckedChangeListener(checkBox)
-        answerCheck!!.setOnCheckedChangeListener(checkBox)
+
+        // Chip Initialization 06/01/2021 - Testing look and execution
+        answerChip = findViewById(R.id.answerChip)
+        proofChip = findViewById(R.id.proofChip)
+        searchAllChip = findViewById(R.id.searchAllChip)
+
+        //Implement check changed listeners
+        answerChip!!.setOnCheckedChangeListener(checkBox)
+        proofChip!!.setOnCheckedChangeListener(checkBox)
+        searchAllChip!!.setOnCheckedChangeListener(checkBox)
+
+
         documentTypeSpinner = findViewById(R.id.documentTypeSpinner)
         documentNameSpinner = findViewById(R.id.documentNameSpinner)
         //Database stuff
