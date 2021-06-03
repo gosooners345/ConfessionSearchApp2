@@ -229,25 +229,6 @@ open class MainActivity : AppCompatActivity() {
         Log.d("Search()", getString(R.string.search_execution_begins))
         searchFragment = SearchFragmentActivity()
 
-        /* val topicRadio = findViewById<RadioButton>(R.id.topicRadio)
-         val questionRadio = findViewById<RadioButton>(R.id.chapterRadio)
-         val readerRadio = findViewById<RadioButton>(R.id.viewAllRadio)
-         //Type of Search
-         if (topicRadio.isChecked) {
-             readerSearch = false
-             textSearch = true
-             questionSearch = false
-         } else if (questionRadio.isChecked) {
-             readerSearch = false
-             textSearch = false
-             questionSearch = true
-         } else if (readerRadio.isChecked) {
-             readerSearch = true
-             textSearch = false
-             questionSearch = false
-         }*/
-
-
         //Filters for how searches are executed by document type and name
         if (!searchAll) {
             accessString = String.format(" and documenttitle.documentName = '%s' ", fileName)
@@ -256,6 +237,7 @@ open class MainActivity : AppCompatActivity() {
             docID = 0
             fileString = if (searchAll) "SELECT * FROM DocumentTitle" else String.format("Select * From DocumentTitle where DocumentTitle.DocumentName = '%s'", fileName)
         }
+
         if (catechismOpen!!) {
             docID = 3
             fileString = if (!searchAll) {
@@ -288,7 +270,7 @@ open class MainActivity : AppCompatActivity() {
         if (!readerSearch!! and textSearch!! and !questionSearch!!) {
             if (!query!!.isEmpty()) {
                 this.FilterResults(masterList, answers, proofs, query)
-                Collections.reverse(masterList)
+                //Collections.reverse(masterList)
             } else {
                 if (masterList.size > 1) {
                     query = fileName
@@ -312,7 +294,7 @@ open class MainActivity : AppCompatActivity() {
         }
 
 
-//Displays the list of results
+        //Displays the list of results
         if (masterList.size > 1) {
             setContentView(R.layout.index_pager)
             val adapter = SearchAdapter(supportFragmentManager, masterList, query!!)
