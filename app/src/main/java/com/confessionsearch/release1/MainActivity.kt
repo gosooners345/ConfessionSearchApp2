@@ -29,6 +29,8 @@ import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabItem
+import com.google.android.material.tabs.TabLayout
 import java.util.*
 import java.util.regex.Pattern
 
@@ -61,6 +63,9 @@ open class MainActivity : AppCompatActivity() {
     var topicButton: RadioButton? = null
     var questionButton: RadioButton? = null
     var viewAllButton: RadioButton? = null
+    var tabLayout: TabLayout? = null
+    var searchTab: TabItem? = null
+    var notesTab: TabItem? = null
 
     //Testing
     var answerChip: Chip? = null
@@ -103,8 +108,12 @@ open class MainActivity : AppCompatActivity() {
         setTitle(R.string.app_name)
         refreshLayout(R.layout.test_activity_main)
         bottomNavEnabler()
-    }
+        //New Layout for tab screen
 
+    }
+    //New Tab Layout 06.03.2021
+
+    // Getting replaced
     protected fun bottomNavEnabler() {
         this.bottomNav = findViewById(R.id.bottom_navigation)
         bottomNav!!.setOnNavigationItemSelectedListener { item ->
