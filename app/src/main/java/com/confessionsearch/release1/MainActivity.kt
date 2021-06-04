@@ -23,21 +23,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ShareActionProvider
 import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabItem
-import com.google.android.material.tabs.TabLayout
 import java.util.*
 import java.util.regex.Pattern
 
 open class MainActivity : AppCompatActivity() {
     var shareProvider: ShareActionProvider? = null
-    var bottomNav: BottomNavigationView? = null
+
     private var documentTypeSpinner: Spinner? = null
     private var documentNameSpinner: Spinner? = null
     var helpButton: ExtendedFloatingActionButton? = null
@@ -63,11 +59,7 @@ open class MainActivity : AppCompatActivity() {
     protected var answers = true
     protected var searchAll = false
 
-    // Placeholders For New Tab UI Layout
-    var tabLayout: TabLayout? = null
-    var searchTab: TabItem? = null
-    var notesTab: TabItem? = null
-    var viewPager2: ViewPager2? = null
+
 
     //Testing
     var answerChip: Chip? = null
@@ -75,7 +67,7 @@ open class MainActivity : AppCompatActivity() {
     var searchAllChip: Chip? = null
     var optionGroup: ChipGroup? = null
 
-    //Testing
+
     var topicChip: Chip? = null
     var questionChip: Chip? = null
     var readDocsChip: Chip? = null
@@ -91,9 +83,10 @@ open class MainActivity : AppCompatActivity() {
     var masterList = DocumentList()
     var shareNote: String? = null
     var searchFragment: SearchFragmentActivity? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        val pref: SharedPreferences? = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+    //Theme related entries
+        val pref: SharedPreferences? = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
         this.themeName = pref?.getBoolean("darkMode", true)
         if (!themeName!!) {
             themeID = R.style.LightMode
@@ -103,92 +96,26 @@ open class MainActivity : AppCompatActivity() {
             setTheme(themeID)
         }
         super.onCreate(savedInstanceState)
-        //Set the show for the search app
+        // This is where the app title comes in
         setTitle(R.string.app_name)
+        //This is easier to copy if I wanted to refresh the main screen instead of restarting the application
         refreshLayout(R.layout.test_activity_main)
-        //bottomNavEnabler()
-        //New Layout for tab screen
+
 
     }
-    //New Tab Layout 06.03.2021
 
-
-    // Getting replaced
-    /* protected fun bottomNavEnabler() {
-         this.bottomNav = findViewById(R.id.bottom_navigation)
-         bottomNav!!.setOnNavigationItemSelectedListener { item ->
-             when (item.itemId) {
-                 R.id.search_page -> {
-                     refreshLayout(R.layout.activity_main)
-                     Log.d("HOME PAGE", "Home Page Launched")
-                     bottomNavEnabler()
-                     Log.d("BottomNav", "Home Page Bottom Nav Enabled")
-                     //updateNavigationBarState(R.id.search_page);
-                     Log.d("HomePage", "Menu item selected lit up")
-                 }
-                 R.id.notes_page -> {
-                     val noteIntent = Intent(applicationContext, NotesActivity::class.java)
-                     startActivity(noteIntent)
-                 }
-                 R.id.settings_page -> {
-                     startActivityForResult(Intent(this@MainActivity, ThemePreferenceActivity::class.java), SETTINGS_ACTION)
-                     bottomNavEnabler()
-                 }
-                 else -> false
-             }
-             item.isChecked = true
-             true
-         }
-
-     }*/
-
-
-/*    fun SearchType(view: View) {
-        val enter = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)
-        val radio = view as RadioButton
-        val searchFab = findViewById<ExtendedFloatingActionButton>(R.id.searchFAB)
-        if (radio === findViewById<View>(R.id.topicRadio)) {
-            if (radio.isChecked) {
-                searchBox!!.isEnabled = true
-                searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
-                searchBox!!.isSubmitButtonEnabled = true
-                searchBox!!.setOnKeyListener(submissionKey)
-                searchBox!!.setOnQueryTextListener(searchQueryListener)
-                searchBox!!.inputType = InputType.TYPE_CLASS_TEXT
-                textSearch = true
-                questionSearch = false
-                readerSearch = false
-                searchFab.text = resources.getString(R.string.Search)
-            }
-        } else if (radio === findViewById<View>(R.id.chapterRadio)) if (radio.isChecked) {
-            searchBox!!.isEnabled = true
-            searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
-            searchBox!!.inputType = InputType.TYPE_CLASS_NUMBER
-            searchBox!!.setOnQueryTextListener(searchQueryListener)
-            searchBox!!.setOnKeyListener(submissionKey)
-            textSearch = false
-            readerSearch = false
-            questionSearch = true
-            searchFab.text = resources.getString(R.string.Search)
-        } else if (radio === findViewById<View>(R.id.viewAllRadio)) if (radio.isChecked) {
-            searchFab.text = resources.getString(R.string.read_button_text)
-            textSearch = false
-            questionSearch = false
-            readerSearch = true
-        }
-    }*/
 
     // Update: Testing out chip check settings
-    var checkBox = CompoundButton.OnCheckedChangeListener { compoundButton, _ ->
+    private var checkBox = CompoundButton.OnCheckedChangeListener { compoundButton, _ ->
         when (compoundButton.id) {
-
-            // These Work Well
             R.id.proofChip -> proofs = !proofChip!!.isChecked
             R.id.answerChip -> answers = !answerChip!!.isChecked
             R.id.searchAllChip -> searchAll = searchAllChip!!.isChecked
         }
     }
-    var optionListener = ChipGroup.OnCheckedChangeListener { group, checkedId ->
+
+    //For the option group chips
+    private var optionListener = ChipGroup.OnCheckedChangeListener { group, checkedId ->
         val enter = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)
         val searchFab = findViewById<ExtendedFloatingActionButton>(R.id.searchFAB)
         if (checkedId == (R.id.topicChip)) {
@@ -269,8 +196,8 @@ open class MainActivity : AppCompatActivity() {
         masterList = documentDBHelper!!.getAllDocuments(fileString, fileName, docID, allOpen, documentDB, accessString, masterList, this)
         for (d in masterList) {
             if (d.documentText!!.contains("|") or d.proofs!!.contains("|")) {
-                d.proofs = Formatter(d.proofs!!)
-                d.documentText = Formatter(d.documentText!!)
+                d.proofs = formatter(d.proofs!!)
+                d.documentText = formatter(d.documentText!!)
             }
         }
         //Search topics and filter them
@@ -372,7 +299,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
     //Enables Note Saving from results screen
-    var saveNewNote = View.OnClickListener {
+    private var saveNewNote = View.OnClickListener {
         val intent = Intent(applicationContext, NotesComposeActivity::class.java)
         intent.putExtra("activity_ID", ACTIVITY_ID)
         intent.putExtra("search_result_save", shareNote)
@@ -389,15 +316,16 @@ open class MainActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(sendIntent, INTENTNAME))
     }
 
+
     //Formats the text to be reader friendly
-    fun Formatter(formatString: String): String {
+    private fun formatter(formatString: String): String {
         var formatString = formatString
         formatString = formatString.replace("|", "<br><br>")
         return formatString
     }
 
     //Temporary placeholder for notes section functionality
-    var notesButtonListener = View.OnClickListener {
+    private var notesButtonListener = View.OnClickListener {
         val noteIntent = Intent(applicationContext, NotesActivity::class.java)
         startActivity(noteIntent)
     }
@@ -549,7 +477,6 @@ open class MainActivity : AppCompatActivity() {
 
     }
 
-    //Select search type
 
 
     //Menu options for themes
@@ -564,7 +491,6 @@ open class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.settings -> {
                 HelpLauncher()
-                //bottomNavEnabler()
             }
             R.id.themeSettings -> {
                 ThemeLauncher()
@@ -639,6 +565,8 @@ open class MainActivity : AppCompatActivity() {
             type = parent.selectedItem.toString()
         }
     }
+
+    //Document Title combo box
     var docTitleSpinner: OnItemSelectedListener = object : OnItemSelectedListener {
         override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
             try {
@@ -698,7 +626,7 @@ open class MainActivity : AppCompatActivity() {
     fun ErrorMessage(message: String?) {
         //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         val errorBar = Snackbar.make(findViewById(R.id.layout_super), message!!, BaseTransientBottomBar.LENGTH_SHORT)
-        errorBar.setAnchorView(R.id.layoutMain)
+        errorBar.setAnchorView(R.id.relativeLayout)
         errorBar.show()
     }
 
@@ -731,7 +659,6 @@ open class MainActivity : AppCompatActivity() {
     //Enables the app to return to the main screen after home button pressed
     fun HelpLauncher() {
         setContentView(R.layout.help_page)
-        //bottomNavEnabler()
     }
 
     fun ThemeLauncher() {

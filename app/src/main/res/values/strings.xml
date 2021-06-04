@@ -109,6 +109,8 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="other_stuff">Theme Section</string>
     <string name="home_page">Home</string>
     <string name="help_page">Help Page</string>
+    <string name="advanced_search_options">Advanced Search Options:</string>
+    <string name="search_documents_below">Search Documents Below</string>
     <string-array name="themes">
         <item>Dark</item>
         <item>Light</item>

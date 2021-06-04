@@ -116,112 +116,6 @@
             </com.google.android.material.chip.ChipGroup>
 
 
-            <!--<CheckBox
-                android:id="@+id/AnswerBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
-                android:buttonTint="?android:attr/textColor"
-                android:letterSpacing=".1"
-                android:paddingTop="5dp"
-                android:text="@string/no_answers"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chip_group"
-                tools:layout_conversion_absoluteHeight="48dp"
-                tools:layout_conversion_absoluteWidth="115dp" />
-
-            <CheckBox
-                android:id="@+id/searchAllCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginBottom="75dp"
-                android:buttonTint="?android:attr/textColor"
-                android:contentDescription="@string/accessibility_checkbox_search_all"
-
-                android:text="@string/search_all_documents"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColor"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/proofBox"
-                app:layout_constraintTop_toBottomOf="@+id/proofBox"
-                tools:layout_conversion_absoluteHeight="48dp"
-                tools:layout_conversion_absoluteWidth="178dp" />
-
-            <CheckBox
-                android:id="@+id/proofBox"
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:buttonTint="?android:attr/textColor"
-                android:checked="false"
-                android:text="@string/no_proofs"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="?android:attr/textColor"
-                app:layout_constraintEnd_toEndOf="@+id/AnswerBox"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/AnswerBox"
-                app:layout_constraintTop_toBottomOf="@+id/AnswerBox"
-                tools:layout_conversion_absoluteHeight="48dp"
-                tools:layout_conversion_absoluteWidth="103dp" />-->
-
-            <!--<RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appTitle">
-
-                <RadioButton
-                    android:id="@+id/topicRadio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="?android:attr/textColor"
-                    android:checked="true"
-                    android:onClick="SearchType"
-                    android:text="@string/topic"
-                    android:textColor="?android:attr/textColor"
-                    tools:layout_conversion_absoluteHeight="48dp"
-                    tools:layout_conversion_absoluteWidth="68dp"
-                    tools:layout_editor_absoluteX="136dp"
-                    tools:layout_editor_absoluteY="31dp" />
-
-                <RadioButton
-                    android:id="@+id/chapterRadio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:buttonTint="?android:attr/textColor"
-                    android:onClick="SearchType"
-                    android:text="@string/question"
-                    android:textColor="?android:attr/textColor"
-                    tools:layout_conversion_absoluteHeight="48dp"
-                    tools:layout_conversion_absoluteWidth="89dp"
-                    tools:layout_editor_absoluteX="136dp"
-                    tools:layout_editor_absoluteY="79dp" />
-
-                <RadioButton
-                    android:id="@+id/viewAllRadio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="?android:attr/textColor"
-                    android:onClick="SearchType"
-                    android:text="@string/read_document"
-                    android:textColor="?android:attr/textColor"
-                    tools:layout_conversion_absoluteHeight="48dp"
-                    tools:layout_conversion_absoluteWidth="133dp"
-                    tools:layout_editor_absoluteX="136dp"
-
-                    tools:layout_editor_absoluteY="127dp" />
-            </RadioGroup>-->
-
             <SearchView
                 android:id="@+id/searchView1"
 
@@ -278,7 +172,7 @@
                 android:dropDownWidth="wrap_content"
 
                 android:focusable="true"
-                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
                 android:popupBackground="?attr/background"
                 android:spinnerMode="dropdown"
                 android:textAlignment="viewEnd"
@@ -313,7 +207,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/search_options"
+                android:text="@string/advanced_search_options"
 
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -329,7 +223,7 @@
 
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/reformed_index_search"
+                android:text="@string/search_documents_below"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="?android:attr/textColor"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -347,7 +241,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:labelFor="@id/option_group"
-                android:text="@string/search_by"
+                android:text="@string/search_options"
                 android:textAppearance="?android:attr/textAppearanceMedium"
 
                 app:layout_constraintHorizontal_bias="0.126"
@@ -388,48 +282,7 @@
                 tools:layout_conversion_absoluteHeight="60dp"
                 tools:layout_conversion_absoluteWidth="83dp" />
 
-            <!--   -->
 
-
-            <!-- <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                 android:id="@+id/helpButton"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-
-
-                 android:layout_marginEnd="4dp"
-                 android:layout_marginBottom="8dp"
-                 android:contentDescription="@string/help"
-                 android:text="@string/help"
-                 android:textColor="?attr/secondaryTextColor"
-                 app:backgroundTint="?attr/bgTintColor"
-                 app:fabSize="auto"
-                 app:icon="@android:drawable/ic_menu_help"
-                 app:iconTint="?attr/secondaryTextColor"
-                 app:layout_constraintBottom_toBottomOf="parent"
-                 app:layout_constraintEnd_toEndOf="parent"
-                 tools:layout_conversion_absoluteHeight="56dp"
-                 tools:layout_conversion_absoluteWidth="123dp" />-->
-
-
-            <!-- -->
-            <!--<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/notesButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:onClick="NoteLauncher"
-                android:text="@string/notes_button_string"
-                android:textColor="?attr/secondaryTextColor"
-                app:backgroundTint="?attr/bgTintColor"
-                app:fabSize="auto"
-                app:icon="@drawable/notes_dark_drawable"
-                app:iconTint="?attr/secondaryTextColor"
-                app:layout_constraintBottom_toTopOf="@+id/helpButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/searchFAB" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -470,11 +323,11 @@
         android:layout_marginBottom="30dp"
         android:clickable="true"
         android:focusable="true"
-        android:text="@string/notes"
+        android:text="@string/notes_button_string"
         android:textColor="?attr/secondaryTextColor"
         app:backgroundTint="?attr/bgTintColor"
         app:fabSize="auto"
-        app:icon="@android:drawable/ic_menu_search"
+        app:icon="@android:drawable/ic_input_get"
         app:iconTint="?attr/secondaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_button"
