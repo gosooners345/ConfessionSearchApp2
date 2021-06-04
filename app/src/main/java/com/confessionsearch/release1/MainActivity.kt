@@ -52,6 +52,7 @@ open class MainActivity : AppCompatActivity() {
     var documentDBHelper: documentDBClassHelper? = null
     var type = ""
     var shareList = ""
+
     var fileName: String? = null
     protected var allOpen: Boolean? = null
     protected var confessionOpen: Boolean? = null
@@ -105,7 +106,7 @@ open class MainActivity : AppCompatActivity() {
         //Set the show for the search app
         setTitle(R.string.app_name)
         refreshLayout(R.layout.test_activity_main)
-        bottomNavEnabler()
+        //bottomNavEnabler()
         //New Layout for tab screen
 
     }
@@ -113,33 +114,33 @@ open class MainActivity : AppCompatActivity() {
 
 
     // Getting replaced
-    protected fun bottomNavEnabler() {
-        this.bottomNav = findViewById(R.id.bottom_navigation)
-        bottomNav!!.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.search_page -> {
-                    refreshLayout(R.layout.activity_main)
-                    Log.d("HOME PAGE", "Home Page Launched")
-                    bottomNavEnabler()
-                    Log.d("BottomNav", "Home Page Bottom Nav Enabled")
-                    //updateNavigationBarState(R.id.search_page);
-                    Log.d("HomePage", "Menu item selected lit up")
-                }
-                R.id.notes_page -> {
-                    val noteIntent = Intent(applicationContext, NotesActivity::class.java)
-                    startActivity(noteIntent)
-                }
-                R.id.settings_page -> {
-                    startActivityForResult(Intent(this@MainActivity, ThemePreferenceActivity::class.java), SETTINGS_ACTION)
-                    bottomNavEnabler()
-                }
-                else -> false
-            }
-            item.isChecked = true
-            true
-        }
+    /* protected fun bottomNavEnabler() {
+         this.bottomNav = findViewById(R.id.bottom_navigation)
+         bottomNav!!.setOnNavigationItemSelectedListener { item ->
+             when (item.itemId) {
+                 R.id.search_page -> {
+                     refreshLayout(R.layout.activity_main)
+                     Log.d("HOME PAGE", "Home Page Launched")
+                     bottomNavEnabler()
+                     Log.d("BottomNav", "Home Page Bottom Nav Enabled")
+                     //updateNavigationBarState(R.id.search_page);
+                     Log.d("HomePage", "Menu item selected lit up")
+                 }
+                 R.id.notes_page -> {
+                     val noteIntent = Intent(applicationContext, NotesActivity::class.java)
+                     startActivity(noteIntent)
+                 }
+                 R.id.settings_page -> {
+                     startActivityForResult(Intent(this@MainActivity, ThemePreferenceActivity::class.java), SETTINGS_ACTION)
+                     bottomNavEnabler()
+                 }
+                 else -> false
+             }
+             item.isChecked = true
+             true
+         }
 
-    }
+     }*/
 
 
 /*    fun SearchType(view: View) {
@@ -395,6 +396,12 @@ open class MainActivity : AppCompatActivity() {
         return formatString
     }
 
+    //Temporary placeholder for notes section functionality
+    var notesButtonListener = View.OnClickListener {
+        val noteIntent = Intent(applicationContext, NotesActivity::class.java)
+        startActivity(noteIntent)
+    }
+
     //Filter Search Results
     @RequiresApi(Build.VERSION_CODES.N)
     fun FilterResults(documentList: DocumentList, answers: Boolean?, proofs: Boolean, query: String?) {
@@ -488,6 +495,10 @@ open class MainActivity : AppCompatActivity() {
         searchBox!!.setOnQueryTextListener(searchQueryListener)
         searchBox!!.setOnKeyListener(submissionKey)
 
+        //Notes Button Temp Re-enabled
+        notesButton = findViewById(R.id.notesExtFab)
+        notesButton!!.setOnClickListener(notesButtonListener)
+
         //tab UI initialization 06/03/2021
 
 
@@ -553,7 +564,10 @@ open class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.settings -> {
                 HelpLauncher()
-                bottomNavEnabler()
+                //bottomNavEnabler()
+            }
+            R.id.themeSettings -> {
+                ThemeLauncher()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -684,7 +698,7 @@ open class MainActivity : AppCompatActivity() {
     fun ErrorMessage(message: String?) {
         //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         val errorBar = Snackbar.make(findViewById(R.id.layout_super), message!!, BaseTransientBottomBar.LENGTH_SHORT)
-        errorBar.setAnchorView(R.id.bottom_navigation)
+        errorBar.setAnchorView(R.id.layoutMain)
         errorBar.show()
     }
 
@@ -717,7 +731,12 @@ open class MainActivity : AppCompatActivity() {
     //Enables the app to return to the main screen after home button pressed
     fun HelpLauncher() {
         setContentView(R.layout.help_page)
-        bottomNavEnabler()
+        //bottomNavEnabler()
+    }
+
+    fun ThemeLauncher() {
+        startActivityForResult(Intent(this@MainActivity, ThemePreferenceActivity::class.java), SETTINGS_ACTION)
+
     }
 
     companion object {
