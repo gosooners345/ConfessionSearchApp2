@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.confessionsearch.release1.NotesAdapter.OnNoteListener
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class NotesActivity : AppCompatActivity(), OnNoteListener {
-    var bottomNav: BottomNavigationView? = null
     var noteRepository: NoteRepository? = null
 
     //static ArrayList<Notes> notesArrayList = new ArrayList<>(),secondList;

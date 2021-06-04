@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ShareActionProvider
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -60,12 +61,12 @@ open class MainActivity : AppCompatActivity() {
     protected var proofs = true
     protected var answers = true
     protected var searchAll = false
-    var topicButton: RadioButton? = null
-    var questionButton: RadioButton? = null
-    var viewAllButton: RadioButton? = null
+
+    // Placeholders For New Tab UI Layout
     var tabLayout: TabLayout? = null
     var searchTab: TabItem? = null
     var notesTab: TabItem? = null
+    var viewPager2: ViewPager2? = null
 
     //Testing
     var answerChip: Chip? = null
@@ -78,9 +79,6 @@ open class MainActivity : AppCompatActivity() {
     var questionChip: Chip? = null
     var readDocsChip: Chip? = null
 
-    //    var answerCheck: CheckBox? = null
-    //  var allDocCheck: CheckBox? = null
-    // var proofCheck: CheckBox? = null
     var docTypes: ArrayList<String>? = null
     var docTitles: ArrayList<String>? = null
     var docTypeSpinnerAdapter: ArrayAdapter<String>? = null
@@ -113,6 +111,7 @@ open class MainActivity : AppCompatActivity() {
     }
     //New Tab Layout 06.03.2021
 
+
     // Getting replaced
     protected fun bottomNavEnabler() {
         this.bottomNav = findViewById(R.id.bottom_navigation)
@@ -143,7 +142,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
 
-    fun SearchType(view: View) {
+/*    fun SearchType(view: View) {
         val enter = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)
         val radio = view as RadioButton
         val searchFab = findViewById<ExtendedFloatingActionButton>(R.id.searchFAB)
@@ -176,15 +175,13 @@ open class MainActivity : AppCompatActivity() {
             questionSearch = false
             readerSearch = true
         }
-    }
+    }*/
 
     // Update: Testing out chip check settings
     var checkBox = CompoundButton.OnCheckedChangeListener { compoundButton, _ ->
         when (compoundButton.id) {
-            /* R.id.proofBox -> proofs = !proofCheck!!.isChecked
-             R.id.AnswerBox -> answers = !answerCheck!!.isChecked
-            R.id.searchAllCheckBox -> searchAll = !allDocCheck!!.isChecked*/
-            // These are in testing
+
+            // These Work Well
             R.id.proofChip -> proofs = !proofChip!!.isChecked
             R.id.answerChip -> answers = !answerChip!!.isChecked
             R.id.searchAllChip -> searchAll = searchAllChip!!.isChecked
@@ -483,9 +480,6 @@ open class MainActivity : AppCompatActivity() {
         //New Chip Group addition for testing
         chipGroup = findViewById(R.id.chip_group)
         optionGroup = findViewById(R.id.option_group)
-        topicButton = findViewById(R.id.topicRadio)
-        questionButton = findViewById(R.id.chapterRadio)
-        viewAllButton = findViewById(R.id.viewAllRadio)
         //Search Button Initialization
         searchButton = findViewById(R.id.searchFAB)
         searchButton!!.setOnClickListener(searchButtonListener)
@@ -494,13 +488,9 @@ open class MainActivity : AppCompatActivity() {
         searchBox!!.setOnQueryTextListener(searchQueryListener)
         searchBox!!.setOnKeyListener(submissionKey)
 
-        //CheckBox initialization
-        /* proofCheck = findViewById(R.id.proofBox)
-         allDocCheck = findViewById(R.id.searchAllCheckBox)
-         answerCheck = findViewById(R.id.AnswerBox)
-         proofCheck!!.setOnCheckedChangeListener(checkBox)
-         allDocCheck!!.setOnCheckedChangeListener(checkBox)
-         answerCheck!!.setOnCheckedChangeListener(checkBox)*/
+        //tab UI initialization 06/03/2021
+
+
         optionGroup!!.setOnCheckedChangeListener(optionListener)
 
         // Chip Initialization 06/01/2021 - Testing look and execution
@@ -657,7 +647,7 @@ open class MainActivity : AppCompatActivity() {
         if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
             query = searchBox.query.toString()
             Log.d("View", String.format("%s", event.displayLabel))
-            if (!query!!.isEmpty() and !viewAllButton!!.isSelected) Search(query) else ErrorMessage(resources.getString(R.string.query_error))
+            if (!query!!.isEmpty() and !readerSearch!!) Search(query) else ErrorMessage(resources.getString(R.string.query_error))
             true
         } else {
             false
