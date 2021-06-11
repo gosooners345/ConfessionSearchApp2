@@ -1,6 +1,9 @@
 package com.confessionsearch.release1
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -28,10 +31,15 @@ class SearchScreenFragment : Fragment() {
     var dbName = "confessionSearchDB.sqlite3"
     var documentDBHelper: documentDBClassHelper? = null
     var type = ""
+
     var fileName: String? = null
+
+    //Chip Variables
     var topicChip: Chip? = null
     var questionChip: Chip? = null
     var readDocsChip: Chip? = null
+    //Search Option Variables
+
     protected var allOpen: Boolean? = null
     protected var confessionOpen: Boolean? = null
     protected var catechismOpen: Boolean? = null
@@ -81,6 +89,7 @@ class SearchScreenFragment : Fragment() {
         answerChip!!.setOnCheckedChangeListener(checkBox)
         proofChip!!.setOnCheckedChangeListener(checkBox)
         searchAllChip!!.setOnCheckedChangeListener(checkBox)
+//Spinner Initialization
 
 
 
@@ -125,10 +134,29 @@ class SearchScreenFragment : Fragment() {
     //Search Method to rule them all
     fun searchPassThru(stringQuery: String?) {
         query = stringQuery
+        var intent = Intent(context, Search::class.java)
+
+
+
         TODO(
             "Implement one single method for passing multiple lines into a bundle and also allow for integers to be " +
                     "passed by using a boolean and an int"
         )
+        intent.putExtra("allopen", allOpen)
+        intent.putExtra("proofs", proofs)
+        intent.putExtra("type", type)
+        intent.putExtra("confessionopen", confessionOpen)
+        intent.putExtra("catechismopen", catechismOpen)
+        intent.putExtra("creedopen", creedOpen)
+        intent.putExtra("searchall", searchAll)
+        intent.putExtra("readersearch", readerSearch)
+        intent.putExtra("questionsearch", questionSearch)
+        intent.putExtra("answers", answers)
+        intent.putExtra("query", query)
+        intent.putExtra("textsearch", textSearch)
+        startActivity(intent)
+
+
     }
 
     //Enter Key
@@ -196,6 +224,83 @@ class SearchScreenFragment : Fragment() {
 
     }
 
+    //Spinner Initialization
+    var spinnerItemSelectedListener: AdapterView.OnItemSelectedListener = object :
+        AdapterView.OnItemSelectedListener {
+        @SuppressLint("ResourceAsColor")
+        override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            run {
+                docTitles = ArrayList()
+                type = parent.selectedItem.toString()
+                //Gets all document titles and places them in a list
+                for (docTitle in documentDBHelper!!.getAllDocTitles(type, documentDB)) {
+                    docTitles!!.add(docTitle.documentName!!)
+                }
+                docTitleSpinnerAdapter = ArrayAdapter(
+                    context!!,
+                    R.layout.support_simple_spinner_dropdown_item,
+                    docTitles!!
+                )
+                docTitleSpinnerAdapter!!.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+                documentNameSpinner!!.adapter = docTitleSpinnerAdapter
+                documentNameSpinner!!.onItemSelectedListener = docTitleSpinner
+                when (type.toUpperCase()) {
+                    "ALL" -> {
+                        allOpen = true
+                        confessionOpen = false
+                        catechismOpen = false
+                        creedOpen = false
+                        helpOpen = false
+                    }
+                    "CONFESSION" -> {
+                        allOpen = false
+                        confessionOpen = true
+                        catechismOpen = false
+                        header = "Chapter "
+                        creedOpen = false
+                        helpOpen = false
+                    }
+                    "CATECHISM" -> {
+                        allOpen = false
+                        header = "Question "
+                        confessionOpen = false
+                        catechismOpen = true
+                        creedOpen = false
+                        helpOpen = false
+                    }
+                    "CREED" -> {
+                        allOpen = false
+                        creedOpen = true
+                        catechismOpen = false
+                        confessionOpen = false
+                        helpOpen = false
+                    }
+                }
+            }
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>) {
+            type = parent.selectedItem.toString()
+        }
+    }
+
+    //Document Title combo box
+    var docTitleSpinner: AdapterView.OnItemSelectedListener = object :
+        AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
+            try {
+                if (themeName!!) //if(themeName.contains("Dark"))
+                    (adapterView.getChildAt(0) as TextView).setTextColor(Color.WHITE)
+            } catch (ex: Exception) {
+                documentNameSpinner!!.onItemSelectedListener = this
+                documentNameSpinner!!.setSelection(0)
+            }
+            fileName = String.format("%s", adapterView.selectedItem.toString())
+        }
+
+        override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+    }
+
 
     companion object {
         private const val ALLOPEN = "allopen"
@@ -215,11 +320,6 @@ class SearchScreenFragment : Fragment() {
         private const val DOCNAMES = "docnames"
 
 
-        fun NewSearch(): SearchScreenFragment {
-            val fragment = SearchScreenFragment()
-
-            return fragment
-        }
     }
 
 
