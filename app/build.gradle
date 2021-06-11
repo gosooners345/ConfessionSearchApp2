@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 29
 
+
+
     defaultConfig {
         applicationId "com.confessionsearch.release1"
         minSdkVersion 26
@@ -14,12 +16,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+
 }
 
 dependencies {
