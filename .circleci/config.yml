@@ -9,6 +9,9 @@ orbs:
 jobs:
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
   build-and-test:  
+
+
+
     # These next lines define the Android machine image executor: https://circleci.com/docs/2.0/executor-types/
     executor:
       name: android/android-machine
@@ -16,6 +19,12 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
+      - run:
+          name: Chmod permissions
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
 
       # The next step will run the unit tests
       - android/run-tests:
@@ -24,7 +33,7 @@ jobs:
       # Then start the emulator and run the Instrumentation tests!
       - android/start-emulator-and-run-tests:
           test-command: ./gradlew connectedDebugAndroidTest
-          system-image: system-images;android-27;google_apis;x86
+          system-image: system-images;android-29;google_apis;x86
 
       # And finally run the release build
       - run:
