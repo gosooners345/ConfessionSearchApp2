@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Assemble release build
           command: |
-            ./gradlew assembleRelease    
+            ./gradlew assembleDebugAndroidTest    
 
 workflows:
   # Below is the definition of your workflow.
