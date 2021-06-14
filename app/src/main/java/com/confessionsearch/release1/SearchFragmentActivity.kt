@@ -24,9 +24,11 @@ class SearchFragmentActivity  //public ViewPager2 vp2;
 }
 
 class SearchAdapter(fm: FragmentManager?, documents: DocumentList, searchTerm: String) : FragmentStatePagerAdapter(fm!!) {
+    var dList1 = DocumentList()
     var documentList1 = DocumentList()
     private var docPosition = 0
     private var term = ""
+    private val header = ""
 
     //public FragmentManager news;
     var news: FragmentManager? = null
@@ -57,6 +59,7 @@ class SearchAdapter(fm: FragmentManager?, documents: DocumentList, searchTerm: S
     init {
         documentList1 = documents
 
+//news = fm;
         term = searchTerm
     }
 }
