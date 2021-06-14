@@ -28,6 +28,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of b632d3e... Started working on Tab UI layout. Created relevant classes and fragments .
       <option name="PACKAGES_TO_USE_STAR_IMPORTS">
         <value>
           <package name="java.util" alias="false" withSubpackages="false" />
@@ -45,6 +48,7 @@
         </value>
       </option>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of c7a9d32... Added more functionality to the fragment and search activity classes
 =======
@@ -52,6 +56,8 @@
 =======
 >>>>>>> parent of c7a9d32... Added more functionality to the fragment and search activity classes
       <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+=======
+>>>>>>> parent of b632d3e... Started working on Tab UI layout. Created relevant classes and fragments .
 =======
 >>>>>>> parent of b632d3e... Started working on Tab UI layout. Created relevant classes and fragments .
     </JetCodeStyleSettings>
