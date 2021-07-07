@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.confessionsearch.release1"
-        minSdkVersion 27
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 56
         versionName "4.0.5"
