@@ -411,6 +411,7 @@ open class MainActivity : AppCompatActivity() {
 
     //Executes on startup
     fun refreshLayout(viewID: Int) {
+        //This was to catch any bugs the SetContentView method was showing
         try {
             setContentView(viewID)
         } catch (Ex: Exception) {
