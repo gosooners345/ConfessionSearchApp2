@@ -411,7 +411,12 @@ open class MainActivity : AppCompatActivity() {
 
     //Executes on startup
     fun refreshLayout(viewID: Int) {
-        setContentView(viewID)
+        try {
+            setContentView(viewID)
+        } catch (Ex: Exception) {
+            Ex.printStackTrace()
+            Toast.makeText(this, Ex.message?.toString(), Toast.LENGTH_LONG).show()
+        }
         //New Chip Group addition for testing
         chipGroup = findViewById(R.id.chip_group)
         optionGroup = findViewById(R.id.option_group)
