@@ -117,4 +117,6 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
         <item>Dark Red</item>
         <item>Light Red</item>
     </string-array>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
 </resources>

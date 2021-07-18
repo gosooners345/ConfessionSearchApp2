@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.home.SearchFragment"
+    android:id="@+id/layoutMain"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+
+    android:isScrollContainer="true"
+    android:overScrollMode="always"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarStyle="outsideInset"
+    android:scrollbars="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
+        tools:context=".ui.home.SearchFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/option_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            android:layoutDirection="locale"
+            android:padding="5dp"
+            app:layout_constraintStart_toStartOf="@id/searchByLabel"
+            app:layout_constraintTop_toBottomOf="@+id/searchByLabel">
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/topicChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/topic"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:chipIconVisible="true"
+                android:checkable="true"
+                android:padding="5dp"
+                app:closeIconEnabled="false" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:padding="5dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/questionChip"
+                    android:text="@string/question"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIconVisible="true"
+                    android:checkable="true"
+                    app:closeIconEnabled="false" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/readDocsChip"
+                    android:padding="5dp"
+                    android:text="@string/read_document"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIconVisible="true"
+                    android:checkable="true"
+                    app:closeIconEnabled="false" />
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:selectionRequired="false"
+                android:layoutDirection="locale"
+                android:padding="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/optionLabel">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/answerChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:padding="5dp"
+                    android:text="@string/no_answers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIconVisible="true"
+                    app:closeIconVisible="false" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/proofChip"
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/no_proofs"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIconVisible="true"
+                    app:closeIconVisible="false" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/searchAllChip"
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/search_all_documents"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIconVisible="true"
+                    app:closeIconVisible="false" />
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <SearchView
+                android:id="@+id/searchView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+
+                android:contentDescription="@string/Search"
+
+                android:iconifiedByDefault="false"
+                android:imeOptions="normal|actionSearch"
+                android:paddingTop="5dp"
+                android:textAlignment="gravity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/topicLabel"
+                app:layout_constraintTop_toBottomOf="@+id/option_group"
+                tools:layout_conversion_absoluteHeight="53dp"
+                tools:layout_conversion_absoluteWidth="53dp" />
+
+            <Spinner
+                android:id="@+id/documentTypeSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="4dp"
+                android:dropDownWidth="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="@+id/searchView1"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/typeTVLabel"
+                app:layout_constraintTop_toBottomOf="@+id/searchView1"
+                tools:layout_conversion_absoluteHeight="24dp"
+                tools:layout_conversion_absoluteWidth="269dp" />
+
+        <Spinner
+            android:id="@+id/documentNameSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+
+
+            android:layout_marginTop="9dp"
+
+            android:contentDescription="@string/document_list_spinner_desc"
+            android:dropDownWidth="wrap_content"
+
+            android:focusable="true"
+            android:paddingEnd="5dp"
+
+            android:spinnerMode="dialog"
+            android:textAlignment="viewEnd"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="@+id/documentTypeSpinner"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/confessionLabel"
+            app:layout_constraintTop_toBottomOf="@+id/documentTypeSpinner"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="270dp" />
+
+            <TextView
+                android:id="@+id/confessionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:labelFor="@id/documentNameSpinner"
+                android:text="@string/document"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/typeTVLabel"
+                app:layout_constraintTop_toBottomOf="@+id/typeTVLabel"
+                tools:layout_conversion_absoluteHeight="24dp"
+                tools:layout_conversion_absoluteWidth="86dp" />
+
+            <TextView
+                android:id="@+id/optionLabel"
+
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/advanced_search_options"
+
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/documentNameSpinner"
+                tools:layout_conversion_absoluteHeight="24dp"
+                tools:layout_conversion_absoluteWidth="125dp" />
+
+        <TextView
+            android:id="@+id/appTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:text="@string/search_documents_below"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="30dp"
+            tools:layout_conversion_absoluteWidth="230dp" />
+
+        <TextView
+
+            android:id="@+id/searchByLabel"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:labelFor="@id/option_group"
+            android:text="@string/search_options"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+
+            app:layout_constraintHorizontal_bias="0.126"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appTitle"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="83dp" />
+
+            <TextView
+                android:id="@+id/topicLabel"
+                android:layout_width="95dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="7dp"
+                android:gravity="center_vertical"
+                android:labelFor="@id/searchView1"
+                android:text="@string/topic_number"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:layout_constraintBottom_toBottomOf="@+id/searchView1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/searchView1"
+                tools:layout_conversion_absoluteHeight="60dp"
+                tools:layout_conversion_absoluteWidth="83dp" />
+
+            <TextView
+                android:id="@+id/typeTVLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:labelFor="@id/documentTypeSpinner"
+                android:text="@string/document_type"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:layout_constraintStart_toStartOf="@+id/topicLabel"
+                app:layout_constraintTop_toBottomOf="@+id/topicLabel"
+                tools:layout_conversion_absoluteHeight="60dp"
+                tools:layout_conversion_absoluteWidth="83dp" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/searchFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/search"
+            app:fabSize="auto"
+            app:icon="@drawable/search_light_drawable"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chip_group" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
+
+
+

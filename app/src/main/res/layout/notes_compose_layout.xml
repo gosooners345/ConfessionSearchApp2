@@ -9,7 +9,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/background"
+
         android:isScrollContainer="true"
         android:overScrollMode="always"
         android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -36,8 +36,6 @@
                 android:paddingEnd="5dp"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:textColor="?android:attr/textColor"
-                android:textColorHint="?android:attr/textColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/subjectLabelTV"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -63,10 +61,7 @@
                     android:isScrollContainer="true"
                     android:padding="5dp"
                     android:scrollbars="vertical"
-                    android:selectAllOnFocus="false"
-                    android:textColor="?android:attr/textColor"
-                    android:textColorHighlight="@color/design_default_color_error"
-                    android:textColorHint="?android:attr/textColor" />
+                    android:selectAllOnFocus="false" />
             </LinearLayout>
 
             <TextView
@@ -77,7 +72,6 @@
                 android:layout_marginTop="30dp"
                 android:text="@string/subject"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="?android:attr/textColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,7 +83,6 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="?android:attr/textColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/subjectLabelTV" />
 
@@ -102,10 +95,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="32dp"
                 android:text="@string/edit_note"
-                android:textColor="?attr/secondaryTextColor"
-                app:backgroundTint="?attr/bgTintColor"
-                app:icon="@android:drawable/ic_menu_edit"
-                app:iconTint="?attr/secondaryTextColor"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/saveNote"
                 app:layout_constraintStart_toStartOf="parent"
@@ -121,10 +111,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="32dp"
                 android:text="@string/save_note"
-                android:textColor="?attr/secondaryTextColor"
-                app:backgroundTint="?attr/bgTintColor"
-                app:icon="@android:drawable/ic_menu_save"
-                app:iconTint="?attr/secondaryTextColor"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/content_container" />

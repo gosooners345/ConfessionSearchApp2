@@ -7,17 +7,15 @@
     android:layout_x="2dp"
     android:layout_y="2dp"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
     android:nestedScrollingEnabled="true"
-    app:cardBackgroundColor="?attr/background"
+
     app:cardCornerRadius="2dp"
     app:cardElevation="3dp"
     app:layout_scrollFlags="scroll">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/background">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/result_screen"
@@ -164,15 +162,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:actionProviderClass="android.widget.ShareActionProvider"
                 android:text="@string/share"
-                android:textColor="?attr/secondaryTextColor"
-                app:backgroundTint="?attr/bgTintColor"
-                app:icon="@drawable/share_dark_drawable"
 
-                app:iconTint="?attr/secondaryTextColor"
+                app:icon="@drawable/share_light_drawable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -181,14 +176,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="5dp"
+
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+
+
                 android:text="@string/save_note"
-                android:textColor="?attr/secondaryTextColor"
-                app:backgroundTint="?attr/bgTintColor"
-                app:icon="@android:drawable/ic_menu_save"
-                app:iconTint="?attr/secondaryTextColor"
+                app:icon="@drawable/ic_save_note"
                 app:layout_constraintBottom_toTopOf="@id/shareActionButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tagView"

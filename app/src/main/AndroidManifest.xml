@@ -8,21 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/DarkMode">
-        <activity
-            android:name=".NotesComposeActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:label="New Note"
-            android:parentActivityName=".NotesActivity" />
-        <activity
-            android:name=".NotesActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:label="Notes"
-            android:parentActivityName=".MainActivity"
-             />
+        android:theme="@style/Theme.ConfessionSearchApp">
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
+            android:exported="true"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,9 +20,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ThemePreferenceActivity"
+            android:name=".ui.notesActivity.NotesComposeActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:label="Settings"
+            android:label="New Note" />
+        <activity
+            android:name=".searchhandlers.SearchHandler"
+            android:label="Search Results"
             android:parentActivityName=".MainActivity" />
 
     </application>
