@@ -156,16 +156,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-
-
-            android:layout_marginTop="9dp"
-
             android:contentDescription="@string/document_list_spinner_desc"
             android:dropDownWidth="wrap_content"
-
             android:focusable="true"
             android:paddingEnd="5dp"
-
             android:spinnerMode="dialog"
             android:textAlignment="viewEnd"
             app:layout_constrainedWidth="true"
