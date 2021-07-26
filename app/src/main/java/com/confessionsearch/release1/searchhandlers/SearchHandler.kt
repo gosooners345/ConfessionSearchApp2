@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -23,6 +24,7 @@ import com.confessionsearch.release1.data.documents.documentDBClassHelper
 import com.confessionsearch.release1.searchresults.SearchAdapter
 import com.confessionsearch.release1.searchresults.SearchFragmentActivity
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.vdx.designertoast.DesignerToast
 import java.util.*
 import java.util.regex.Pattern
 
@@ -225,11 +227,13 @@ class SearchHandler : AppCompatActivity() {
                 // saveFab.setOnClickListener(saveNewNote)
             } else {
                 Log.i("Error", "No results found for Topic")
-                Toast.makeText(
+                DesignerToast.Error(
                     this,
                     String.format("No Results were found for %s", query),
+                    Gravity.CENTER,
                     Toast.LENGTH_LONG
-                ).show()
+                )
+
                 super.setContentView(R.layout.error_page)
                 val errorMsg = findViewById<TextView>(R.id.errorTV)
                 errorMsg.text = String.format(
