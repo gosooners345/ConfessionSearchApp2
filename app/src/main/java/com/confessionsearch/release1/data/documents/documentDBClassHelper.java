@@ -49,8 +49,8 @@ public Context context;
 
     public documentDBClassHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-this.context= context;
-
+this.context = context;
+        this.setForcedUpgrade();
     }
 
 documentDBClassHelper(final  Context context, String databaseName){
