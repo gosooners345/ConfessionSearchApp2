@@ -56,7 +56,7 @@ this.context = context;
 documentDBClassHelper(final  Context context, String databaseName){
              super(new DatabaseContext(context),databaseName,null,DATABASE_VERSION);
     try{
-        String myPath =DATABASE_PATH; //"assets/databases/"+DATABASE_NAME;// DATABASE_PATH;
+        String myPath =DATABASE_PATH;
         File dbFile = new File(myPath);
         if(dbFile.exists()) {
             Toast.makeText(context, "DBExists", Toast.LENGTH_LONG).show();
@@ -132,7 +132,7 @@ c.moveToFirst();
         String commandText = "SELECT * FROM DocumentType";
 
 
-        Cursor cursor =getDocumentTypes();// getReadableDatabase().rawQuery(commandText, null);
+        Cursor cursor =getDocumentTypes();
         try {
             if(cursor.moveToFirst())
            for(int i = 0; i < cursor.getCount();i++,cursor.moveToNext())
@@ -164,18 +164,16 @@ c.moveToFirst();
         switch (type.toUpperCase())
         {
             case "ALL":commandText = "SELECT * FROM DocumentTitle";break;
-            //case"ALL": commandText="SELECT * FROM DocumentTitle"; break;
             default:commandText = LayoutString(type.toUpperCase());
         }
 
 switch (type.toUpperCase())
-{ case "CREED":typeID=1; break;
+{ 
+    case "CREED":typeID=1; break;
     case "CONFESSION":typeID=2;break;
     case  "CATECHISM":typeID=3;break;
-    case "ALL":typeID=0;break;}
-
-
-       // SQLiteDatabase db =dbType; //getReadableDatabase();
+    case "ALL":typeID=0;break;
+}
         Cursor cursor = dbType.rawQuery(commandText,null);
         try{
             if (cursor.moveToFirst()){
@@ -187,10 +185,8 @@ switch (type.toUpperCase())
                 newTitle.setDocumentName(cursor.getString(cursor.getColumnIndex(KEY_DOCUMENTTITLE_NAME)));
                if (newTitle.getDocumentTypeID()==typeID || typeID ==0)
                                     documentTitles.add(newTitle);
-
                else
                     continue;
-              // documentTitles.add(newTitle);
                 }
 
             }
@@ -229,8 +225,6 @@ return  documentTitles;
         ArrayList<Integer> docIds = new ArrayList<>();
         ArrayList<String> docTitleList = new ArrayList<>();
         cursor = dbList.rawQuery(commandText, null);
-       //cursor1 =
-
         try {
 
             if (cursor.moveToFirst()) {
