@@ -150,7 +150,7 @@ c.moveToFirst();
             if (cursor != null && !cursor.isClosed()) cursor.close();
             {
                 cursor.close();
-            }    //
+            }    
         }
         return types;
     }
@@ -209,7 +209,6 @@ return  documentTitles;
     public DocumentList getAllDocuments(String fileString,String fileName,Integer docID, Boolean allDocs,SQLiteDatabase dbList,String access,DocumentList docList,Context context) {
         Cursor cursor;
         DocumentList documentList = new DocumentList();
-//SQLiteDatabase db =dbList;// getReadableDatabase();
         String commandText, docCommandText, accessString;
         int documentIndex = 0;
         accessString = DataTableAccess(access);
