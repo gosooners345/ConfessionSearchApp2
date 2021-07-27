@@ -8,7 +8,7 @@ android {
         applicationId "com.confessionsearch.release1"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 60
+        versionCode 61
         versionName "5.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
