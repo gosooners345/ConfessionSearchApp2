@@ -1,7 +1,6 @@
 package com.confessionsearch.release1.searchhandlers
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.os.Build
@@ -13,16 +12,16 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
-import com.confessionsearch.release1.MainActivity
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.documents.Document
 import com.confessionsearch.release1.data.documents.DocumentList
 import com.confessionsearch.release1.data.documents.documentDBClassHelper
 import com.confessionsearch.release1.searchresults.SearchAdapter
 import com.confessionsearch.release1.searchresults.SearchFragmentActivity
+import com.example.awesomedialog.*
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.vdx.designertoast.DesignerToast
 import java.util.*
@@ -243,27 +242,26 @@ class SearchHandler : AppCompatActivity() {
     Go back to home page to search for another topic
     """.trimIndent(), query
                 )
-                val alert = AlertDialog.Builder(this)
-                alert.setTitle("No Results found!")
-                alert.setMessage(
-                    String.format(
-                        """
-    No Results were found for %s.
-    
-    Do you want to go back and search for another topic?
-    """.trimIndent(), query
+                val awesomeDialog = AwesomeDialog.build(this)
+                    .title(
+                        "No Results Found!",
+                        titleColor = ContextCompat.getColor(this, android.R.color.holo_red_light)
                     )
-                )
-                alert.setPositiveButton("Yes") { dialog, which ->
-                    intent = Intent(this, MainActivity.javaClass)
-                    searchFragment = null
-                    onStop()
-                    finish()
-                    startActivity(intent)
-                }
-                alert.setNegativeButton("No") { dialog, which -> dialog.dismiss() }
-                val dialog: Dialog = alert.create()
-                if (!isFinishing) dialog.show()
+                    .body(
+                        "No results were found. Do you want to go back and search for another topic?",
+                        color = ContextCompat.getColor(this, android.R.color.holo_red_light)
+                    )
+                    .background(R.drawable.layout_rounded_white)
+                    .onPositive("Yes") {
+                        this.onBackPressed()
+                    }
+                    .onNegative("No") {
+
+                    }
+                    .position(AwesomeDialog.POSITIONS.CENTER)
+
+                if (!isFinishing) awesomeDialog.show()
+
             }
         }
     }
