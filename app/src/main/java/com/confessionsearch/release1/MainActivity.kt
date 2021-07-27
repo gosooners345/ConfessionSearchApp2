@@ -15,6 +15,7 @@ import com.confessionsearch.release1.databinding.ActivityMainBinding
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
 import com.confessionsearch.release1.ui.notesActivity.NotesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.vdx.designertoast.DesignerToast
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,13 +36,15 @@ class MainActivity : AppCompatActivity() {
             val appBarConfiguration = AppBarConfiguration(
                 setOf(
                     R.id.navigation_home, R.id.navigation_notes
+                    //Adding Bible Reader Nav id here later
                 )
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
         } catch (ex: Exception) {
             ex.printStackTrace()
-            Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
+            DesignerToast.Error(this,ex.message,Gravity.BOTTOM,Toast.LENGTH_LONG)
         }
 
     }
