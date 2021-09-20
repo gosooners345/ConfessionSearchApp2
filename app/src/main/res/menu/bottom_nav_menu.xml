@@ -11,5 +11,8 @@
         android:icon="@drawable/ic_note_navigation"
         android:title="@string/notes_button_string" />
 
-
+    <item
+        android:id="@+id/navigation_bible"
+        android:icon="@drawable/ic_note_navigation"
+        android:title="Bible" />
 </menu>

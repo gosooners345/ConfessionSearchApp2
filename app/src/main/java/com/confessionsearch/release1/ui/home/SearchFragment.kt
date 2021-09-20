@@ -13,8 +13,8 @@ import androidx.appcompat.widget.ShareActionProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.confessionsearch.release1.R
+import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.data.documents.DocumentList
-import com.confessionsearch.release1.data.documents.documentDBClassHelper
 import com.confessionsearch.release1.databinding.FragmentHomeBinding
 import com.confessionsearch.release1.searchhandlers.SearchHandler
 import com.google.android.material.chip.Chip
@@ -29,7 +29,7 @@ class SearchFragment : Fragment() {
     private lateinit var searchViewModel: SearchViewModel
     private var _binding: FragmentHomeBinding? = null
     var documentDB: SQLiteDatabase? = null
-    var docDBhelper: documentDBClassHelper? = null
+    var docDBhelper: DocumentDBClassHelper? = null
     var shareProvider: ShareActionProvider? = null
 
     private var documentTypeSpinner: Spinner? = null
@@ -92,7 +92,7 @@ class SearchFragment : Fragment() {
         // Load all objects related to Search Screen Here
         searchViewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
         // Load database
-        docDBhelper = documentDBClassHelper(super.getContext())
+        docDBhelper = DocumentDBClassHelper(super.getContext())
         documentDB = docDBhelper!!.readableDatabase
         //Load Types and Load Spinners
         searchViewModel.loadTypes(docDBhelper!!.getAllDocTypes(documentDB))
@@ -137,7 +137,7 @@ class SearchFragment : Fragment() {
         documentTypeSpinner!!.onItemSelectedListener = spinnerItemSelectedListener
         type = ""
         //Load Document Titles into Doc Title list for preparation
-        searchViewModel.loadTitles(docDBhelper!!.getAllDocTitles(type, documentDB))
+        searchViewModel.loadTitles(docDBhelper!!.getAllDocTitles(type, documentDB!!))
         docTitleList = searchViewModel.getTitles()
         docTitleSpinnerAdapter = ArrayAdapter(
             requireContext(),
@@ -264,7 +264,7 @@ class SearchFragment : Fragment() {
                 val docTitles: ArrayList<String?> = ArrayList()
                 type = parent.selectedItem.toString()
                 //Gets all document titles and places them in a list
-                for (docTitle in docDBhelper!!.getAllDocTitles(type, documentDB)) {
+                for (docTitle in docDBhelper!!.getAllDocTitles(type, documentDB!!)) {
                     docTitles.add(docTitle.documentName!!)
                 }
                 docTitleSpinnerAdapter = ArrayAdapter(

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/result_layout_anchor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_x="2dp"
+    android:layout_y="2dp"
+    android:clickable="true"
+    android:nestedScrollingEnabled="true"
+
+    app:cardCornerRadius="2dp"
+    app:cardElevation="3dp"
+    app:layout_scrollFlags="scroll">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/result_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/chapterText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:includeFontPadding="true"
+                android:overScrollMode="ifContentScrolls"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:scrollbars="none|vertical"
+                android:text="ChapterTextHere"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textIsSelectable="true"
+                android:verticalScrollbarPosition="right"
+                app:layout_constraintEnd_toStartOf="@+id/saveNote"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/shareActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="16dp"
+                android:actionProviderClass="android.widget.ShareActionProvider"
+
+                android:text="@string/share"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/saveNote" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/saveNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="5dp"
+
+
+                android:layout_marginBottom="16dp"
+                android:text="@string/save_note"
+                app:layout_constraintBottom_toTopOf="@id/shareActionButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chapterText" />
+
+            <TextView
+                android:id="@+id/chapterHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="chapterHeader"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintBottom_toTopOf="@+id/chapterText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.cardview.widget.CardView>

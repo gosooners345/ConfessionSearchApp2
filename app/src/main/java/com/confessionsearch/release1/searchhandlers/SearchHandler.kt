@@ -17,8 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.documents.Document
+import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.data.documents.DocumentList
-import com.confessionsearch.release1.data.documents.documentDBClassHelper
 import com.confessionsearch.release1.searchresults.SearchAdapter
 import com.confessionsearch.release1.searchresults.SearchFragmentActivity
 import com.example.awesomedialog.*
@@ -32,7 +32,7 @@ class SearchHandler : AppCompatActivity() {
     var masterList = DocumentList()
     var searchFragment: SearchFragmentActivity? = null
     var documentDB: SQLiteDatabase? = null
-    var docDBhelper: documentDBClassHelper? = null
+    var docDBhelper: DocumentDBClassHelper? = null
     var shareList = ""
 
 
@@ -91,7 +91,7 @@ class SearchHandler : AppCompatActivity() {
         var fileString = ""
         // var docDBhelper = docHelper /*documentDBClassHelper(super.getApplicationContext())*/
         // var documentDB = docDB //docDBhelper!!.readableDatabase
-        docDBhelper = documentDBClassHelper(this)
+        docDBhelper = DocumentDBClassHelper(this)
         documentDB = docDBhelper!!.readableDatabase
 
         //Boolean  proofs = true, answers = true, searchAll = false, viewDocs = false;
@@ -137,11 +137,11 @@ class SearchHandler : AppCompatActivity() {
             fileName,
             docID,
             allOpen,
-            documentDB,
+            documentDB!!,
             accessString,
             masterList,
             this
-        )
+        )!!
         for (d in masterList) {
             if (d.documentText!!.contains("|") or d.proofs!!.contains("|")) {
                 d.proofs = formatter(d.proofs!!)

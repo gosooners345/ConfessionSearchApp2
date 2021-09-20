@@ -6,14 +6,17 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.confessionsearch.release1.ui.home.SearchFragment"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
         android:id="@+id/navigation_notes"
         android:name="com.confessionsearch.release1.ui.notesActivity.NotesFragment"
         tools:layout="@layout/fragment_notes" />
 
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.confessionsearch.release1.ui.home.SearchFragment"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navigation_bible"
+        android:name="com.confessionsearch.release1.ui.bible.BibleFragment"
+        android:label="Bible Reader" />
 
 </navigation>

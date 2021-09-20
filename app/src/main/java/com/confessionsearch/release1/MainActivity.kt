@@ -3,6 +3,7 @@ package com.confessionsearch.release1
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             // menu should be considered as top level destinations.
             val appBarConfiguration = AppBarConfiguration(
                 setOf(
-                    R.id.navigation_home, R.id.navigation_notes
+                    R.id.navigation_home, R.id.navigation_notes, R.id.navigation_bible
                     //Adding Bible Reader Nav id here later
                 )
             )
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         } catch (ex: Exception) {
             ex.printStackTrace()
             //Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
-            DesignerToast.Error(this,ex.message,Gravity.BOTTOM,Toast.LENGTH_LONG)
+            DesignerToast.Error(this, ex.message, Gravity.BOTTOM, Toast.LENGTH_LONG)
         }
 
     }
@@ -55,6 +56,10 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("activity_ID", NotesFragment.ACTIVITY_ID)
         startActivity(intent)
 
+    }
+
+    override fun onBackPressed() {
+        this.finish()
     }
 
     //Pass any static variables along here

@@ -16,10 +16,10 @@ class SearchViewModel : ViewModel() {
         return documentTypes
     }
 
-    fun loadTypes(list: ArrayList<DocumentType?>) {
+    fun loadTypes(list: ArrayList<DocumentType>) {
         documentTypes.add("All")
         for (type in list)
-            documentTypes.add(type!!.documentTypeName)
+            documentTypes.add(type.documentTypeName)
 
     }
 
@@ -27,9 +27,9 @@ class SearchViewModel : ViewModel() {
         return documentTitleList
     }
 
-    fun loadTitles(list: ArrayList<DocumentTitle?>) {
+    fun loadTitles(list: ArrayList<DocumentTitle>) {
         for (docTitle in list)
-            documentTitleList.add(docTitle!!.documentName)
+            documentTitleList.add(docTitle.documentName)
 
     }
 
