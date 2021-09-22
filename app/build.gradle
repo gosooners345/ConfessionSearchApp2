@@ -8,8 +8,8 @@ android {
         applicationId "com.confessionsearch.release1"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 61
-        versionName "5.0"
+        versionCode 62
+        versionName "5.0.0-release"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

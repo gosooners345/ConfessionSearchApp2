@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <item
+        android:id="@+id/navigation_notes"
+        android:icon="@drawable/ic_sticky_note"
+        android:title="@string/notes_button_string" />
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/search_light_drawable"
         android:title="@string/search" />
 
     <item
-        android:id="@+id/navigation_notes"
-        android:icon="@drawable/ic_sticky_note"
-        android:title="@string/notes_button_string" />
-
-    <item
         android:id="@+id/navigation_bible"
         android:icon="@drawable/ic_nav_bible"
         android:title="@string/bible_footer" />
+
+    <item
+        android:id="@+id/navigation_help"
+        android:icon="@drawable/ic_nav_help"
+        android:title="@string/help" />
 </menu>

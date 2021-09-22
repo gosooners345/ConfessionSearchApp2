@@ -36,7 +36,10 @@ class MainActivity : AppCompatActivity() {
             // menu should be considered as top level destinations.
             val appBarConfiguration = AppBarConfiguration(
                 setOf(
-                    R.id.navigation_home, R.id.navigation_notes, R.id.navigation_bible
+                    R.id.navigation_home,
+                    R.id.navigation_notes,
+                    R.id.navigation_bible,
+                    R.id.navigation_help
                     //Adding Bible Reader Nav id here later
                 )
             )
