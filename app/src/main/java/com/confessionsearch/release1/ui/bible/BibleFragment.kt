@@ -215,6 +215,7 @@ class BibleFragment : Fragment() {
                     parent.selectedItem.toString().toInt()
             }
         }
+
     var submitFabClicker = View.OnClickListener {
         try {
             val bibleIntent = Intent(context, BibleReaderSearchResults::class.java)
