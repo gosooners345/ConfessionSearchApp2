@@ -43,7 +43,9 @@ class BibleViewerFragment : Fragment() {
         fab.setOnClickListener(shareContent)
         shareNote = ""
         shareNote =
-            chHeader.text.toString() + BibleViewerFragment.newLine + chTextBox.text.toString()//+" " + BibleViewerFragment.newLine
+            String.format(chHeader.text.toString() + newLine + chTextBox.text.toString())//Html.fromHtml(chHeader.text.toString() +"<br><br>" + chTextBox.text.toString())
+        //.toString())//+" " + BibleViewerFragment.newLine)
+
         saveFab.setOnClickListener(saveNewNote)
 
         return view

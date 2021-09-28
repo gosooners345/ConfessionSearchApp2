@@ -2,14 +2,19 @@ package com.confessionsearch.release1.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Configuration
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
-import android.view.*
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.widget.ShareActionProvider
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.confessionsearch.release1.R
@@ -20,7 +25,7 @@ import com.confessionsearch.release1.searchhandlers.SearchHandler
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.vdx.designertoast.DesignerToast
+import www.sanju.motiontoast.MotionToast
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -208,13 +213,42 @@ class SearchFragment : Fragment() {
             query = searchBox!!.query.toString()
             if (query.isEmpty())
             // Toast.makeText(super.getContext(), R.string.query_error, Toast.LENGTH_LONG).show()
-                DesignerToast.Error(
-                    super.getContext(),
-                    "Enter A topic in the search field!",
-                    Gravity.BOTTOM,
-                    Toast.LENGTH_LONG
-                )
-            else Search(query)
+            /* DesignerToast.Error(
+                 super.getContext(),
+                 "Enter A topic in the search field!",
+                 Gravity.BOTTOM,
+                 Toast.LENGTH_LONG
+             )*/ {
+                when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        MotionToast.darkToast(
+                            super.requireActivity(), getString(R.string.query_error),
+                            "Enter A topic in the search field!",
+                            MotionToast.TOAST_ERROR,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.SHORT_DURATION,
+                            ResourcesCompat.getFont(
+                                super.requireActivity(),
+                                R.font.helvetica_regular
+                            )
+                        )
+                    }
+                    Configuration.UI_MODE_NIGHT_NO -> {
+                        MotionToast.createToast(
+                            super.requireActivity(), getString(R.string.query_error),
+                            "Enter a topic in the search field!",
+                            MotionToast.TOAST_ERROR,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.SHORT_DURATION,
+                            ResourcesCompat.getFont(
+                                super.requireActivity(),
+                                R.font.helvetica_regular
+                            )
+                        )
+
+                    }
+                }
+            } else Search(query)
         } else {
             query = ""
             Search(query)

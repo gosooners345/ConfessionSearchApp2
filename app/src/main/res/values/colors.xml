@@ -15,7 +15,7 @@
 
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#1B3147</color>
-    <color name="colorAccent">#616161</color>
+    <!--<color name="colorAccent">#616161</color>-->
     <color name="textPrimaryDark">#FFFFFF</color>
     <color name="bgPrimaryDark">#000000</color>
 

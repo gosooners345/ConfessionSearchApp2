@@ -63,8 +63,12 @@ class SearchResultFragment : Fragment() {
         val saveFab: ExtendedFloatingActionButton = view.findViewById(R.id.saveNote)
         fab.setOnClickListener(shareContent)
         shareNote = ""
-        shareNote = (docTitleBox.text.toString() + newLine + newLine + chNumbBox.text + newLine
-                + newLine + chapterBox.text + newLine + "Proofs" + newLine + proofBox.text) + newLine
+        shareNote = String.format(
+            docTitleBox.text.toString() + newLine + chNumbBox.text.toString() + newLine
+                    + chapterBox.text + newLine + "Proofs" + newLine + proofBox.text.toString()
+        )
+        //( Html.fromHtml(docTitleBox.text.toString() + lineBreak + chNumbBox.text.toString() + lineBreak
+        //  + lineBreak + chapterBox.text + singleBreak + "Proofs" + singleBreak + proofBox.text).toString())
         saveFab.setOnClickListener(saveNewNote)
         return view
     }
@@ -96,6 +100,8 @@ class SearchResultFragment : Fragment() {
         private const val TITLE = "title"
         private const val ANSWER = "answer"
         private const val DOCTITLE = "titles"
+        val lineBreak = "<br><br>"
+        val singleBreak = "<br>"
         private const val matchNumb = "matches"
         private const val TAGS = "tags"
         private const val newLine = "\r\n"

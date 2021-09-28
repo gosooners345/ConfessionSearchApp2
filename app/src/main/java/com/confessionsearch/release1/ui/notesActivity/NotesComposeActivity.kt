@@ -1,7 +1,7 @@
 package com.confessionsearch.release1.ui.notesActivity
 
-import android.app.Dialog
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,12 +10,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.notes.NoteRepository
 import com.confessionsearch.release1.data.notes.Notes
+import com.example.awesomedialog.*
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import www.sanju.motiontoast.MotionToast
 
 class NotesComposeActivity : AppCompatActivity() {
     var notesSubject: EditText? = null
@@ -134,22 +136,26 @@ class NotesComposeActivity : AppCompatActivity() {
     //back button
     override fun onBackPressed() {
         if (mode == EDIT_OFF) {
-            val alert = AlertDialog.Builder(this)
-            alert.setTitle("Save your work?")
-            alert.setMessage(String.format(resources.getString(R.string.save_note_message)))
-            alert.setPositiveButton(resources.getString(R.string.save_button_text)) { dialog, which ->
-                dialog.dismiss()
-                saveButton!!.performClick()
+            var darkMode = false
+            when (applicationContext.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_YES -> darkMode = true
+                Configuration.UI_MODE_NIGHT_NO -> darkMode = false
+
             }
-            alert.setNegativeButton("No") { dialog, which ->
-                dialog.dismiss()
-                finish()
-            }
-            alert.setCancelable(true)
-            alert.setNeutralButton(R.string.cancel_button) { dialogInterface, i -> dialogInterface.dismiss() }
-            val dialog: Dialog = alert.create()
-            if (!isFinishing) dialog.show()
-        } else DisableEdit()
+            val awesomeDialog = AwesomeDialog.build(this)
+                .title("Save Note?")
+                .body(String.format(resources.getString(R.string.save_note_message)))
+                .background(R.drawable.info_background)
+                .onPositive("Yes") {
+                    saveButton!!.performClick()
+                }
+                .onNegative("No") { finish() }
+
+            if (!isFinishing) awesomeDialog.show()
+        } else {
+            DisableEdit()
+
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -161,7 +167,31 @@ class NotesComposeActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         mode = savedInstanceState.getInt("mode")
         if (mode == EDIT_ON) {
-            // Snackbar.make(findViewById(R.id.masterLayout), "Resume Writing", BaseTransientBottomBar.LENGTH_SHORT).show()
+            when (applicationContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    MotionToast.darkToast(
+                        this,
+                        "Edit Mode On",
+                        "Note Editing Enabled!",
+                        MotionToast.TOAST_INFO,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.SHORT_DURATION,
+                        ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                    )
+                }
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    MotionToast.createToast(
+                        this,
+                        "Edit Mode On",
+                        "Note Editing Enabled!",
+                        MotionToast.TOAST_INFO,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.SHORT_DURATION,
+                        ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                    )
+
+                }
+            }
         }
     }
 
@@ -169,14 +199,62 @@ class NotesComposeActivity : AppCompatActivity() {
         notesContent!!.isEnabled = false
         notesSubject!!.isEnabled = false
         mode = EDIT_OFF
-        //Snackbar.make(findViewById(R.id.masterLayout), "Save Note", BaseTransientBottomBar.LENGTH_SHORT).show()
+        when (applicationContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                MotionToast.darkToast(
+                    this,
+                    "Edit Mode Off",
+                    "Note Editing Disabled!",
+                    MotionToast.TOAST_INFO,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.SHORT_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                )
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                MotionToast.createToast(
+                    this,
+                    "Edit Mode Off",
+                    "Note Editing Disabled!",
+                    MotionToast.TOAST_INFO,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.SHORT_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                )
+
+            }
+        }
     }
 
     private fun EnableEdit() {
         notesContent!!.isEnabled = true
         notesSubject!!.isEnabled = true
         mode = EDIT_ON
-        //    Snackbar.make(findViewById(R.id.masterLayout), "Resume Writing", BaseTransientBottomBar.LENGTH_SHORT).show()
+        when (applicationContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                MotionToast.darkToast(
+                    this,
+                    "Edit Mode On",
+                    "Note Editing Enabled!",
+                    MotionToast.TOAST_INFO,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.SHORT_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                )
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                MotionToast.createToast(
+                    this,
+                    "Edit Mode On",
+                    "Note Editing Enabled!",
+                    MotionToast.TOAST_INFO,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.SHORT_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                )
+
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -2,18 +2,17 @@ package com.confessionsearch.release1.searchhandlers
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Configuration
 import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.ViewPager
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.documents.Document
@@ -21,9 +20,11 @@ import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.data.documents.DocumentList
 import com.confessionsearch.release1.searchresults.SearchAdapter
 import com.confessionsearch.release1.searchresults.SearchFragmentActivity
+import com.confessionsearch.release1.searchresults.SearchResultFragment
+import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
 import com.example.awesomedialog.*
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.vdx.designertoast.DesignerToast
+import www.sanju.motiontoast.MotionToast
 import java.util.*
 import java.util.regex.Pattern
 
@@ -34,6 +35,7 @@ class SearchHandler : AppCompatActivity() {
     var documentDB: SQLiteDatabase? = null
     var docDBhelper: DocumentDBClassHelper? = null
     var shareList = ""
+    var shareNote = ""
 
 
     @SuppressLint("NewApi")
@@ -220,19 +222,38 @@ class SearchHandler : AppCompatActivity() {
                         + newLine + chapterBox.text + newLine + "Proofs" + newLine + proofBox.text)
                 fab.setOnClickListener(shareContent)
                 // fab.setBackgroundColor(Color.BLACK)
-                var shareNote = ""
+
                 shareNote = (docTitleBox.text.toString() + "<br>" + "<br>" + chNumbBox.text + "<br>"
                         + "<br>" + document.documentText + "<br>" + "Proofs" + "<br>" + document.proofs)
-                // saveFab.setOnClickListener(saveNewNote)
+                saveFab.setOnClickListener(saveNewNote)
             } else {
                 Log.i("Error", "No results found for Topic")
-                DesignerToast.Error(
-                    this,
-                    String.format("No Results were found for %s", query),
-                    Gravity.CENTER,
-                    Toast.LENGTH_LONG
-                )
+                //Night Mode Code to allow for dark mode toasts
+                when (applicationContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        MotionToast.darkToast(
+                            this,
+                            "No Results Found",
+                            String.format("No results were found for %s", query),
+                            MotionToast.TOAST_ERROR,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.SHORT_DURATION,
+                            ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                        )
+                    }
+                    Configuration.UI_MODE_NIGHT_NO -> {
+                        MotionToast.createToast(
+                            this,
+                            "No Results Found",
+                            String.format("No results were found for %s", query),
+                            MotionToast.TOAST_ERROR,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.SHORT_DURATION,
+                            ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                        )
 
+                    }
+                }
                 super.setContentView(R.layout.error_page)
                 val errorMsg = findViewById<TextView>(R.id.errorTV)
                 errorMsg.text = String.format(
@@ -245,18 +266,17 @@ class SearchHandler : AppCompatActivity() {
                 val awesomeDialog = AwesomeDialog.build(this)
                     .title(
                         "No Results Found!",
-                        titleColor = ContextCompat.getColor(this, android.R.color.holo_red_light)
+                        // titleColor = ContextCompat.getColor(this, android.R.color.)
                     )
                     .body(
                         "No results were found. Do you want to go back and search for another topic?",
-                        color = ContextCompat.getColor(this, android.R.color.holo_red_light)
+                        ///  color = ContextCompat.getColor(this, android.R.color.holo_red_light)
                     )
-                    .background(R.drawable.layout_rounded_white)
+                    .background(R.drawable.error_background)
                     .onPositive("Yes") {
                         this.onBackPressed()
                     }
                     .onNegative("No") {
-
                     }
                     .position(AwesomeDialog.POSITIONS.CENTER)
 
@@ -352,7 +372,15 @@ class SearchHandler : AppCompatActivity() {
         val INTENTNAME = "SHARE"
         sendIntent.putExtra(Intent.EXTRA_TEXT, shareList)
         sendIntent.type = "text/plain"
+        Log.i(SearchResultFragment.TAG, "Sharing Content with provider")
         startActivity(Intent.createChooser(sendIntent, INTENTNAME))
+    }
+    var saveNewNote = View.OnClickListener {
+        val intent = Intent(this, NotesComposeActivity::class.java)
+        intent.putExtra("search_result_save", shareNote)
+        intent.putExtra("activity_ID", SearchResultFragment.ACTIVITY_ID)
+        Log.i(SearchResultFragment.TAG, "Opening new note to save entry")
+        startActivity(intent)
     }
 
     //Highlights topic entries in search results
@@ -362,7 +390,7 @@ class SearchHandler : AppCompatActivity() {
         val replaceString = Pattern.compile(query!!, Pattern.CASE_INSENSITIVE)
         val m = replaceString.matcher(sourceStr!!)
         resultString = m.replaceAll(replaceQuery)
-        Log.d("Test", resultString)
+        //Log.d("Test", resultString)
         return resultString
     }
 
