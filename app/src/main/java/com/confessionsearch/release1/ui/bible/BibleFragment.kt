@@ -109,7 +109,6 @@ class BibleFragment : Fragment() {
         AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             bibleBook = String.format("%s", parent!!.selectedItem.toString())
-            if (bibleChapterList.isNotEmpty())
                 bibleChapterList.clear()
             bibleViewModel.loadChapters(
                 docDBhelper!!.getAllChapters(
@@ -133,7 +132,6 @@ class BibleFragment : Fragment() {
 
         override fun onNothingSelected(parent: AdapterView<*>?) {
             bibleBook = String.format("%s", parent!!.selectedItem.toString())
-            if (bibleChapterList.isNotEmpty())
                 bibleChapterList.clear()
             bibleViewModel.loadChapters(
                 docDBhelper!!.getAllChapters(
@@ -166,9 +164,9 @@ class BibleFragment : Fragment() {
                     0
                 else
                     parent.selectedItem.toString().toInt()
-                if (bibleVerseNumList.isNotEmpty()) {
-                    bibleVerseNumList.clear()
-                }
+
+                bibleVerseNumList.clear()
+
                 bibleViewModel.loadVerseNumbers(
                     docDBhelper!!.getAllVerseNumbers(
                         documentDB!!,
