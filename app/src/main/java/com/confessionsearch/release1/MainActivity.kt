@@ -40,14 +40,13 @@ class MainActivity : AppCompatActivity() {
                     R.id.navigation_notes,
                     R.id.navigation_bible,
                     R.id.navigation_help
-                    //Adding Bible Reader Nav id here later
+                   
                 )
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
         } catch (ex: Exception) {
             ex.printStackTrace()
-            //Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
             DesignerToast.Error(this, ex.message, Gravity.BOTTOM, Toast.LENGTH_LONG)
         }
 
