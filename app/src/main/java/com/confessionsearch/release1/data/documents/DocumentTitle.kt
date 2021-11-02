@@ -1,5 +1,5 @@
 package com.confessionsearch.release1.data.documents
-
+//DocumentTitle Data Class For ConfessionSearchApp
 class DocumentTitle {
     var documentID: Int? = null
     var documentTypeID: Int? = null
