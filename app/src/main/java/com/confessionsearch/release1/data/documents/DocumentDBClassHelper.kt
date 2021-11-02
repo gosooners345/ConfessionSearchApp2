@@ -11,6 +11,8 @@ import com.confessionsearch.release1.data.bible.BibleContentsList
 import com.confessionsearch.release1.data.bible.BibleTranslation
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 
+// Database Helper class for the ConfessionSearchApp Main Search and Bible reader functionality
+
 class DocumentDBClassHelper : SQLiteAssetHelper {
     var context: Context? = null
 
@@ -22,7 +24,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
     override fun onOpen(db: SQLiteDatabase) {
         super.onOpen(db)
     }
-
+//Handles read only db
     @Synchronized
     override fun getReadableDatabase(): SQLiteDatabase {
         return super.getReadableDatabase()
@@ -62,12 +64,9 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
             return c
         }
 
-    // Needs to be fixed to allow for smooth upgrades
+    // Fixed 07/2021
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         if (oldVersion != newVersion) {
-//context.deleteDatabase(DATABASE_NAME)
-            //new DocumentDBClassHelper(context)
-
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOCUMENTTITLE)
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOCUMENT)
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOCUMENTTYPE)
@@ -247,7 +246,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
             return verseList
         }
     }
-
+//Get Bible Verses
     fun getAllVerses(
         bibleList: SQLiteDatabase?,
         translationName: String?,
