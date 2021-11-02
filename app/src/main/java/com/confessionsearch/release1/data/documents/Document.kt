@@ -2,6 +2,8 @@ package com.confessionsearch.release1.data.documents
 
 import android.provider.BaseColumns
 
+//Document Data class for confession Search app.
+
 class Document : BaseColumns, Comparable<Document> {
     var chNumber: Int? = null
     var docDetailID: Int? = null
@@ -42,6 +44,7 @@ class Document : BaseColumns, Comparable<Document> {
                 string2 = document2.chNumber.toString() + document2.docDetailID
                 string1.compareTo(string2)
             }
+            //Add comparator object for sorting by numerical order
         }
     }
 }
