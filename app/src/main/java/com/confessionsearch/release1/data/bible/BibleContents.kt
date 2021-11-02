@@ -2,6 +2,8 @@ package com.confessionsearch.release1.data.bible
 
 import android.provider.BaseColumns
 
+
+//BibleContents Data Class for ConfessionSearchApp
 class BibleContents : BaseColumns {
     var EntryID: Int? = null
     var TranslationID: Int? = null
