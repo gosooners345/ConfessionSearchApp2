@@ -134,4 +134,5 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="share_entry">Each search result page has the share button enabled to allow for easy sharing with your friends or favorite social media site.</string>
     <string name="sources_tab">Sources:</string>
     <string name="available_options">Available Options:</string>
+    <string name="sort_by_chapter">Sort By Chapter?</string>
 </resources>

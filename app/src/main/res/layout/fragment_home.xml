@@ -109,6 +109,17 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     app:chipIconVisible="true"
                     app:closeIconVisible="false" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sortByChapter"
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/sort_by_chapter"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIconVisible="true"
+                    app:closeIconVisible="false" />
             </com.google.android.material.chip.ChipGroup>
 
 

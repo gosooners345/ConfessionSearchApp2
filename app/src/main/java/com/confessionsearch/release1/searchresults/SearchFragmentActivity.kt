@@ -1,5 +1,6 @@
 package com.confessionsearch.release1.searchresults
 
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -20,6 +21,8 @@ class SearchFragmentActivity  //public ViewPager2 vp2;
         documentList = sourceList
         search.getItem(count)
         search.saveState()
+
+        Log.d("Handler", "Fragment Activity is in charge")
         vp.adapter = search
     }
 }

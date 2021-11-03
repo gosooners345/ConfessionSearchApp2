@@ -8,8 +8,11 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -28,6 +31,8 @@ import www.sanju.motiontoast.MotionToast
 import java.util.*
 import java.util.regex.Pattern
 
+//Handle Search algorithm and Sort by types here
+
 class SearchHandler : AppCompatActivity() {
 
     var masterList = DocumentList()
@@ -36,6 +41,7 @@ class SearchHandler : AppCompatActivity() {
     var docDBhelper: DocumentDBClassHelper? = null
     var shareList = ""
     var shareNote = ""
+    var sortType = ""
 
 
     @SuppressLint("NewApi")
@@ -53,7 +59,8 @@ class SearchHandler : AppCompatActivity() {
         val proofs = intent.getBooleanExtra("Proofs", false)
         val query = intent.getStringExtra("Query")
         val fileName = intent.getStringExtra("FileName")
-
+        sortType = intent.getStringExtra("SortType").toString()
+        Log.d("Handle", "SearchHandler is in charge")
 
         search(
             query, allDocsBool, answers,
@@ -91,8 +98,7 @@ class SearchHandler : AppCompatActivity() {
         var docID = 0
         var accessString = ""
         var fileString = ""
-        // var docDBhelper = docHelper /*documentDBClassHelper(super.getApplicationContext())*/
-        // var documentDB = docDB //docDBhelper!!.readableDatabase
+
         docDBhelper = DocumentDBClassHelper(this)
         documentDB = docDBhelper!!.readableDatabase
 
@@ -153,12 +159,13 @@ class SearchHandler : AppCompatActivity() {
         //Search topics and filter them
         if (!readerSearch!! and textSearch!! and !questionSearch!!) {
             if (!query!!.isEmpty()) {
-                this.FilterResults(masterList, answers, proofs!!, query)
+                this.FilterResults(masterList, answers, proofs!!, query, sortType)
                 //Collections.reverse(masterList)
             } else {
                 if (masterList.size > 1) {
                     query = fileName
                     setContentView(R.layout.index_pager)
+
                     val adapter = SearchAdapter(supportFragmentManager, masterList, query!!)
                     val vp2 = findViewById<ViewPager>(R.id.resultPager)
                     searchFragment!!.DisplayResults(masterList, vp2, adapter, query, 0)
@@ -266,11 +273,10 @@ class SearchHandler : AppCompatActivity() {
                 val awesomeDialog = AwesomeDialog.build(this)
                     .title(
                         "No Results Found!",
-                        // titleColor = ContextCompat.getColor(this, android.R.color.)
+
                     )
                     .body(
                         "No results were found. Do you want to go back and search for another topic?",
-                        ///  color = ContextCompat.getColor(this, android.R.color.holo_red_light)
                     )
                     .background(R.drawable.error_background)
                     .onPositive("Yes") {
@@ -292,10 +298,10 @@ class SearchHandler : AppCompatActivity() {
         documentList: DocumentList,
         answers: Boolean?,
         proofs: Boolean,
-        query: String?
+        query: String?, sortOrderString: String?
     ) {
         val resultList = DocumentList()
-
+        Log.d("SORTORDER", sortOrderString!!)
         //Break document up into pieces to be searched for topic
         for (document in documentList) {
             val searchEntries = ArrayList<String>()
@@ -331,13 +337,30 @@ class SearchHandler : AppCompatActivity() {
                 resultList.add(document)
             }
         }
+        sortOrder(resultList)
         //Sort the Results by highest matching tally
-        Collections.sort(resultList, Document.compareMatches.reversed())
+
         for (d in resultList) {
             d.proofs = HighlightText(d.proofs!!, query)
             d.documentText = HighlightText(d.documentText, query)
         }
         masterList = resultList
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.sortAction -> {
+                Log.d("MENU", "Sort Action Item Selected")
+                Toast.makeText(this, "Sort Item Actiopn Selected", Toast.LENGTH_LONG).show()
+            }
+        }
+        return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.sort_menu, menu)
+        return true
     }
 
     //Look for the matching chapter/question index
@@ -390,7 +413,6 @@ class SearchHandler : AppCompatActivity() {
         val replaceString = Pattern.compile(query!!, Pattern.CASE_INSENSITIVE)
         val m = replaceString.matcher(sourceStr!!)
         resultString = m.replaceAll(replaceQuery)
-        //Log.d("Test", resultString)
         return resultString
     }
 
@@ -401,10 +423,20 @@ class SearchHandler : AppCompatActivity() {
         return formatString
     }
 
+    //Back Button
     override fun onBackPressed() {
         this.finish()
         super.onBackPressed()
 
     }
 
+    //Sorts documents based on order given
+    fun sortOrder(docList: DocumentList) {
+        if (sortType == "Chapter")
+            Collections.sort(docList, Document.compareMatchesAndChapters)
+        else
+            Collections.sort(docList, Document.compareMatches)
+    }
+
 }
+

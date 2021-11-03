@@ -41,6 +41,7 @@ class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
 
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
         notesViewModel.noteRepository = NoteRepository(context)
         fetchNotes()
         notesList = root.findViewById(R.id.notesListView)

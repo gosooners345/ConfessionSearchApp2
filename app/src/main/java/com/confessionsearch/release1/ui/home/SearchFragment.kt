@@ -36,22 +36,17 @@ class SearchFragment : Fragment() {
     var documentDB: SQLiteDatabase? = null
     var docDBhelper: DocumentDBClassHelper? = null
     var shareProvider: ShareActionProvider? = null
-
     private var documentTypeSpinner: Spinner? = null
     private var documentNameSpinner: Spinner? = null
-    var helpButton: ExtendedFloatingActionButton? = null
     var searchButton: ExtendedFloatingActionButton? = null
-    var notesButton: ExtendedFloatingActionButton? = null
     var header = ""
     protected var textSearch: Boolean? = null
     protected var questionSearch: Boolean? = null
     protected var readerSearch: Boolean? = null
     var query: String? = null
     var dbName = "confessionSearchDB.sqlite3"
-
     var type = ""
     var shareList = ""
-
     var fileName: String? = null
     protected var allOpen: Boolean? = null
     protected var confessionOpen: Boolean? = null
@@ -61,18 +56,19 @@ class SearchFragment : Fragment() {
     protected var proofs = true
     protected var answers = true
     protected var searchAll = false
-
+    protected var sortByChapterBool = false
 
     //Testing
     var answerChip: Chip? = null
     var proofChip: Chip? = null
     var searchAllChip: Chip? = null
     var optionGroup: ChipGroup? = null
-
+    var sortType: String = ""
     var searchFAB: ExtendedFloatingActionButton? = null
     var topicChip: Chip? = null
     var questionChip: Chip? = null
     var readDocsChip: Chip? = null
+    var sortChapterChip: Chip? = null
     var docTypeSpinnerAdapter: ArrayAdapter<String>? = null
     var docTitleSpinnerAdapter: ArrayAdapter<String>? = null
     var docTitleList: ArrayList<String?> = ArrayList()
@@ -120,11 +116,13 @@ class SearchFragment : Fragment() {
         answerChip = root.findViewById(R.id.answerChip)
         proofChip = root.findViewById(R.id.proofChip)
         searchAllChip = root.findViewById(R.id.searchAllChip)
+        sortChapterChip = root.findViewById(R.id.sortByChapter)
 
         //Implement check changed listeners
         answerChip!!.setOnCheckedChangeListener(checkBox)
         proofChip!!.setOnCheckedChangeListener(checkBox)
         searchAllChip!!.setOnCheckedChangeListener(checkBox)
+        sortChapterChip!!.setOnCheckedChangeListener(checkBox)
         topicChip = root.findViewById(R.id.topicChip)
         questionChip = root.findViewById(R.id.questionChip)
         readDocsChip = root.findViewById(R.id.readDocsChip)
@@ -166,13 +164,13 @@ class SearchFragment : Fragment() {
             R.id.proofChip -> proofs = !proofChip!!.isChecked
             R.id.answerChip -> answers = !answerChip!!.isChecked
             R.id.searchAllChip -> searchAll = searchAllChip!!.isChecked
+            R.id.sortByChapter -> sortByChapterBool = sortChapterChip!!.isChecked
         }
     }
 
 
     var optionListener = ChipGroup.OnCheckedChangeListener { group, checkedId ->
         val enter = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)
-        //val searchFab = root.findViewById<ExtendedFloatingActionButton>(R.id.searchFAB)
         if (checkedId == (R.id.topicChip)) {
             searchBox!!.isEnabled = true
             searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
@@ -183,7 +181,7 @@ class SearchFragment : Fragment() {
             textSearch = true
             questionSearch = false
             readerSearch = false
-            // searchFAB!!.text = resources.getString(R.string.Search)
+
 
         } else if (checkedId == R.id.questionChip) {
             searchBox!!.isEnabled = true
@@ -211,14 +209,7 @@ class SearchFragment : Fragment() {
         val query: String
         if (!readerSearch!!) {
             query = searchBox!!.query.toString()
-            if (query.isEmpty())
-            // Toast.makeText(super.getContext(), R.string.query_error, Toast.LENGTH_LONG).show()
-            /* DesignerToast.Error(
-                 super.getContext(),
-                 "Enter A topic in the search field!",
-                 Gravity.BOTTOM,
-                 Toast.LENGTH_LONG
-             )*/ {
+            if (query.isEmpty()) {
                 when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
                     Configuration.UI_MODE_NIGHT_YES -> {
                         MotionToast.darkToast(
@@ -364,8 +355,13 @@ class SearchFragment : Fragment() {
     @SuppressLint("NewApi")
     fun Search(query: String?) {
 
-        var searchIntent = Intent(context, SearchHandler::class.java)//MainActivity::class.java)
-        //val parentActivity = super.getActivity()
+        Log.d("Handler", "HomeScreen is in charge")
+        if (sortByChapterBool)
+            sortType = "Chapter"
+        else
+            sortType = "Matches"
+
+        var searchIntent = Intent(context, SearchHandler::class.java)
         val stringQuery = query
         Log.d("Test", context.toString())
         //Document Type Filtering
@@ -387,7 +383,8 @@ class SearchFragment : Fragment() {
         //FileName
         searchIntent.putExtra("FileName", fileName)
         searchIntent.putExtra("ACTIVITY_ID", ACTIVITY_ID)
-
+        //Sort Options
+        searchIntent.putExtra("SortType", sortType)
 
         requireContext().startActivity(searchIntent)
 

@@ -9,4 +9,6 @@ class DocumentList : ArrayList<Document>() {
     init {
         this.title = ""
     }
+
+
 }

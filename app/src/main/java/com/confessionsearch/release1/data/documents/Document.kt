@@ -39,12 +39,26 @@ class Document : BaseColumns, Comparable<Document> {
         var compareMatches = java.util.Comparator<Document> { document1, document2 ->
             val string1: String
             val string2: String
-            if (document1.matches!! > document2.matches!!) 1 else if (document1.matches!! < document2.matches!!) -1 else {
+            if (document1.matches!! > document2.matches!!) -1
+            else if (document1.matches!! < document2.matches!!) 1
+            else {
                 string1 = document1.chNumber.toString() + document1.docDetailID
                 string2 = document2.chNumber.toString() + document2.docDetailID
                 string1.compareTo(string2)
             }
-            //Add comparator object for sorting by numerical order
+        }
+        var compareMatchesAndChapters = java.util.Comparator<Document> { document1, document2 ->
+
+            if (document1.chNumber!! < document2.chNumber!!) -1
+            else if (document1.chNumber == document2.chNumber) {
+                if (document1.matches!! == document2.matches!!)
+                    document1.documentID!!.compareTo(document2.documentID!!)
+                else
+                    document1.matches!!.compareTo(document2.matches!!)
+            } else
+                1
+
+
         }
     }
 }
