@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable-anydpi/ic_sort_AZ.xml" value="0.17871621621621622" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/ic_nav_bible.xml" value="0.17972972972972973" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout-land/fragment_bible_form.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/activity_main.xml" value="0.1" />

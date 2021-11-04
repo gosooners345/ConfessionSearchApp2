@@ -77,7 +77,7 @@ class SearchFragment : Fragment() {
     var chipGroup: ChipGroup? = null
     var masterList = DocumentList()
     var shareNote: String? = null
-
+    var docType = ""
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -307,6 +307,7 @@ class SearchFragment : Fragment() {
                         catechismOpen = false
                         creedOpen = false
                         helpOpen = false
+                        docType = "All"
                     }
                     "CONFESSION" -> {
                         allOpen = false
@@ -315,6 +316,7 @@ class SearchFragment : Fragment() {
                         header = "Chapter "
                         creedOpen = false
                         helpOpen = false
+                        docType = "Confession"
                     }
                     "CATECHISM" -> {
                         allOpen = false
@@ -323,6 +325,7 @@ class SearchFragment : Fragment() {
                         catechismOpen = true
                         creedOpen = false
                         helpOpen = false
+                        docType = "Catechism"
                     }
                     "CREED" -> {
                         allOpen = false
@@ -330,6 +333,7 @@ class SearchFragment : Fragment() {
                         catechismOpen = false
                         confessionOpen = false
                         helpOpen = false
+                        docType = "Creed"
                     }
                 }
             }
@@ -366,15 +370,13 @@ class SearchFragment : Fragment() {
         Log.d("Test", context.toString())
         //Document Type Filtering
         searchIntent.putExtra("AllDocs", allOpen)
-        searchIntent.putExtra("Confession", confessionOpen)
-        searchIntent.putExtra("Catechism", catechismOpen)
-        searchIntent.putExtra("Creed", creedOpen)
         //All document search within type or all
         searchIntent.putExtra("SearchAll", searchAll)
         //Search Type
         searchIntent.putExtra("Question", questionSearch)
         searchIntent.putExtra("Text", textSearch)
         searchIntent.putExtra("Reader", readerSearch)
+        searchIntent.putExtra("docType", docType)
         //Advanced Options
         searchIntent.putExtra("Answers", answers)
         searchIntent.putExtra("Proofs", proofs)

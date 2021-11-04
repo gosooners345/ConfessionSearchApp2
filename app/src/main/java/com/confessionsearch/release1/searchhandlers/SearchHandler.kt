@@ -41,8 +41,11 @@ class SearchHandler : AppCompatActivity() {
     var docDBhelper: DocumentDBClassHelper? = null
     var shareList = ""
     var shareNote = ""
+    var docType = ""
+    var refreshQuery = ""
     var sortType = ""
-
+    lateinit var adapter: SearchAdapter
+    lateinit var vp2: ViewPager
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {//, persistentState: PersistableBundle?) {
@@ -52,6 +55,7 @@ class SearchHandler : AppCompatActivity() {
         val confession = intent.getBooleanExtra("Confession", false)
         val catechism = intent.getBooleanExtra("Catechism", false)
         val creed = intent.getBooleanExtra("Creed", false)
+        docType = intent.getStringExtra("docType").toString()
         val searchAll = intent.getBooleanExtra("SearchAll", false)
         val readerSearch = intent.getBooleanExtra("Reader", false)
         val textSearch = intent.getBooleanExtra("Text", false)
@@ -64,9 +68,7 @@ class SearchHandler : AppCompatActivity() {
 
         search(
             query, allDocsBool, answers,
-            confession,
-            catechism,
-            creed,
+            docType,
             searchAll,
             proofs,
             readerSearch,
@@ -83,9 +85,7 @@ class SearchHandler : AppCompatActivity() {
         query: String?,
         allOpen: Boolean?,
         answers: Boolean?,
-        confessionOpen: Boolean?,
-        catechismOpen: Boolean?,
-        creedOpen: Boolean?,
+        docType: String?,
         searchAll: Boolean?,
         proofs: Boolean?,
         readerSearch: Boolean?,
@@ -102,29 +102,59 @@ class SearchHandler : AppCompatActivity() {
         docDBhelper = DocumentDBClassHelper(this)
         documentDB = docDBhelper!!.readableDatabase
 
-        //Boolean  proofs = true, answers = true, searchAll = false, viewDocs = false;
-
         Log.d("Search()", "Search Party Begins")
         searchFragment = SearchFragmentActivity()
-
         //Filters for how searches are executed by document type and name
-        if (!searchAll!!) {
-            accessString = String.format(" and documenttitle.documentName = '%s' ", fileName)
+        /*if (searchAll!!)
+        {*/
+
+        if (docType == "All") {
+            docID = 0
+            fileString = if (!searchAll!!) String.format(
+                "Select * From DocumentTitle where DocumentTitle.DocumentName = '%s'",
+                fileName
+            ) else "SELECT * FROM DocumentTitle"
+        } else if (docType == "Catechism") {
+            docID = 3
+            fileString = if (!searchAll!!) {
+                String.format(" documentTitle.DocumentTypeID = 3 AND DocumentName = '%s'", fileName)
+            } else "documentTitle.DocumentTypeID=3"
+        } else if (docType == "Creed") {
+            docID = 1
+            fileString = if (!searchAll!!) {
+                String.format(" documentTitle.DocumentTypeID = 1 AND DocumentName = '%s'", fileName)
+            } else "documentTitle.DocumentTypeID=1"
+        } else if (docType == "Confession") {
+            docID = 2
+            fileString = if (!searchAll!!) {
+                String.format(" documentTitle.DocumentTypeID = 2 AND DocumentName = '%s'", fileName)
+            } else "documentTitle.DocumentTypeID=2"
         }
+        if (!searchAll!!)
+            accessString = String.format(
+                " and documenttitle.documentName = '%s' and document.documentID = documenttitle.documentID ",
+                fileName
+            )
+
+
+        //
+
+        /*//All Documents
         if (allOpen!!) {
             docID = 0
             fileString = if (searchAll) "SELECT * FROM DocumentTitle" else String.format(
                 "Select * From DocumentTitle where DocumentTitle.DocumentName = '%s'",
                 fileName
             )
-        }
-
-        if (catechismOpen!!) {
+        }*/
+//SQL For Doc Types
+/*        if (catechismOpen!!) {
             docID = 3
             fileString = if (!searchAll) {
                 String.format(" documentTitle.DocumentTypeID = 3 AND DocumentName = '%s'", fileName)
             } else " documentTitle.DocumentTypeID = 3"
-        } else if (confessionOpen!!) {
+        }
+        else if (confessionOpen!!) {
             docID = 2
             fileString = if (!searchAll) {
                 String.format(" documentTitle.DocumentTypeID = 2 AND DocumentName = '%s'", fileName)
@@ -138,7 +168,8 @@ class SearchHandler : AppCompatActivity() {
             } else {
                 String.format(" documentTitle.DocumentTypeID = 1")
             }
-        }
+        }*/
+
         //This fills the list with entries for filtering and sorting
         masterList = docDBhelper!!.getAllDocuments(
             fileString,
@@ -158,45 +189,52 @@ class SearchHandler : AppCompatActivity() {
         }
         //Search topics and filter them
         if (!readerSearch!! and textSearch!! and !questionSearch!!) {
-            if (!query!!.isEmpty()) {
-                this.FilterResults(masterList, answers, proofs!!, query, sortType)
-                //Collections.reverse(masterList)
-            } else {
+            //if (!query!!.isEmpty()) {
+            this.FilterResults(
+                masterList,
+                allOpen,
+                answers,
+                proofs!!,
+                query,
+                sortType,
+                fileName,
+                docID
+            )
+            if (masterList.size > 1) {
+                refreshQuery = query!!
+                refreshFragmentsOnScreen(query)
+            }
+            //}
+            /*else {
                 if (masterList.size > 1) {
                     query = fileName
-                    setContentView(R.layout.index_pager)
-
-                    val adapter = SearchAdapter(supportFragmentManager, masterList, query!!)
-                    val vp2 = findViewById<ViewPager>(R.id.resultPager)
-                    searchFragment!!.DisplayResults(masterList, vp2, adapter, query, 0)
+                    refreshQuery = query!!
+                    refreshFragmentsOnScreen(query)
                 }
-            }
+            }*/
         } else if (questionSearch and (query !== "") and !readerSearch and !textSearch) {
             if (query !== "") {
                 val searchInt = query!!.toInt()
                 FilterResults(masterList, answers, proofs, searchInt)
+                if (masterList.size > 1)
+                    refreshFragmentsOnScreen(query)
             } else {
                 recreate()
             }
         } else if (readerSearch and !questionSearch and !textSearch) {
             query = if (!searchAll) {
                 "Results for All"
+
             } else "View All"
+            refreshQuery = query
+            if (masterList.size > 1)
+                refreshFragmentsOnScreen(query)
         }
-
-
-        //Displays the list of results
-        if (masterList.size > 1) {
-            setContentView(R.layout.index_pager)
-            val adapter = SearchAdapter(supportFragmentManager, masterList, query!!)
-            val vp2 = findViewById<ViewPager>(R.id.resultPager)
-            searchFragment!!.DisplayResults(masterList, vp2, adapter, query, 0)
-        } else {
+        if (masterList.size < 2) {
             //Returns an error if there are no results in the list
             if (masterList.size == 1) {
                 val document = masterList[masterList.size - 1]
                 try {
-
                     setContentView(R.layout.search_results)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
@@ -274,7 +312,7 @@ class SearchHandler : AppCompatActivity() {
                     .title(
                         "No Results Found!",
 
-                    )
+                        )
                     .body(
                         "No results were found. Do you want to go back and search for another topic?",
                     )
@@ -292,13 +330,21 @@ class SearchHandler : AppCompatActivity() {
         }
     }
 
+    private fun refreshFragmentsOnScreen(query: String?) {
+        setContentView(R.layout.index_pager)
+        adapter = SearchAdapter(supportFragmentManager, masterList, query!!)
+        vp2 = findViewById<ViewPager>(R.id.resultPager)
+        searchFragment!!.DisplayResults(masterList, vp2, adapter, query, 0)
+    }
+
+
     //Filter out search results
     @RequiresApi(Build.VERSION_CODES.N)
     fun FilterResults(
-        documentList: DocumentList,
+        documentList: DocumentList, allOpen: Boolean?,
         answers: Boolean?,
         proofs: Boolean,
-        query: String?, sortOrderString: String?
+        query: String?, sortOrderString: String?, fileName: String?, docID: Int?
     ) {
         val resultList = DocumentList()
         Log.d("SORTORDER", sortOrderString!!)
@@ -325,6 +371,7 @@ class SearchHandler : AppCompatActivity() {
             }
             //If the entry has a match to the query, it'll show up in the results
             if (document.matches!! > 0) {
+
                 // No answers
                 if (!answers!!) {
                     if (document.documentText!!.contains("Question")) {
@@ -334,29 +381,59 @@ class SearchHandler : AppCompatActivity() {
                 }
                 //No proofs
                 if (!proofs) document.proofs = "No Proofs available!"
-                resultList.add(document)
-            }
-        }
-        sortOrder(resultList)
-        //Sort the Results by highest matching tally
+                if (allOpen!!)
+                    resultList.add(document)
 
+                if (fileName != "")
+                    if (document.documentName == fileName)
+                        resultList.add(document)
+            }
+
+        }
         for (d in resultList) {
             d.proofs = HighlightText(d.proofs!!, query)
             d.documentText = HighlightText(d.documentText, query)
         }
+        sortOrder(resultList)
         masterList = resultList
     }
 
+    //Menu Functions
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.sortAction -> {
-                Log.d("MENU", "Sort Action Item Selected")
-                Toast.makeText(this, "Sort Item Actiopn Selected", Toast.LENGTH_LONG).show()
+            R.id.numerical_Ascending -> {
+                Log.d("MENU", "Chapter Order Ascending Selected")
+                Toast.makeText(this, "Chapter Order Ascending Item Selected", Toast.LENGTH_LONG)
+                    .show()
+                sortOptions(CHAPTER_ASC, masterList)
+                refreshFragmentsOnScreen(refreshQuery)
+            }
+            R.id.numerical_Descending -> {
+                Log.d("MENU", "Chapter Order Descending Selected")
+                Toast.makeText(this, "Chapter Order Descending Item Selected", Toast.LENGTH_LONG)
+                    .show()
+                sortOptions(CHAPTER_DSC, masterList)
+                refreshFragmentsOnScreen(refreshQuery)
+            }
+            R.id.match_Order_Ascending -> {
+                Log.d("MENU", "Match Order Ascending Selected")
+                Toast.makeText(this, "Match Order Ascending Item Selected", Toast.LENGTH_LONG)
+                    .show()
+                sortOptions(MATCH_ASC, masterList)
+                refreshFragmentsOnScreen(refreshQuery)
+            }
+            R.id.match_Order_Descending -> {
+                Log.d("MENU", "Match Order Descending Selected")
+                Toast.makeText(this, "Descending Order Descending Item Selected", Toast.LENGTH_LONG)
+                    .show()
+                sortOptions(MATCH_DSC, masterList)
+                refreshFragmentsOnScreen(refreshQuery)
             }
         }
         return true
     }
 
+    //Menu Creation
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.sort_menu, menu)
@@ -432,10 +509,41 @@ class SearchHandler : AppCompatActivity() {
 
     //Sorts documents based on order given
     fun sortOrder(docList: DocumentList) {
-        if (sortType == "Chapter")
-            Collections.sort(docList, Document.compareMatchesAndChapters)
-        else
+        //Prevents Creeds from crashing the app
+        if (docType == "CREED")
             Collections.sort(docList, Document.compareMatches)
+        else {
+            if (sortType == "Chapter")
+                Collections.sort(docList, Document.compareMatchesAndChapters)
+            else
+                Collections.sort(docList, Document.compareMatches)
+        }
+    }
+
+    private fun sortOptions(SortOrder: String, docList: DocumentList) {
+        when (SortOrder) {
+            "Chapter_ASC" -> Collections.sort(docList, Document.compareMatchesAndChapters)
+            "Chapter_DSC" -> {
+                Collections.sort(docList, Document.compareMatchesAndChapters)
+                Collections.reverse(docList)
+
+            }
+            "Matches_DSC" -> Collections.sort(docList, Document.compareMatches)
+            "Matches_ASC" -> {
+                Collections.sort(docList, Document.compareMatches)
+                Collections.reverse(docList)
+            }
+        }
+
+    }
+
+    companion object {
+        const val CHAPTER_ASC = "Chapter_ASC"
+        const val CHAPTER_DSC = "Chapter_DSC"
+        const val MATCH_ASC = "Matches_ASC"
+        const val MATCH_DSC = "Matches_DSC"
+        const val ACTIVITY_ID = 676
+        const val TAG = "SearchHandler"
     }
 
 }

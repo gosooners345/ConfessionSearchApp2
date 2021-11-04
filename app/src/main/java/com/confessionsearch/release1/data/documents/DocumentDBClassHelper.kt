@@ -566,8 +566,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
                 docIds.add(docTitle[y].documentID)
                 docTitleList.add(docTitle[y].documentName)
             }
-            val cursor1: Cursor
-            cursor1 = dbList.rawQuery(docCommandText, null)
+            val cursor1: Cursor = dbList.rawQuery(docCommandText, null)
             Log.d(
                 "Size of Query List", cursor1.getColumnIndexOrThrow(KEY_DOCDETAILID_ID)
                     .toString()

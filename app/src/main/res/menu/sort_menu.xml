@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <item
         android:id="@+id/sortAction"
-        android:title="Sort By"
+        android:title="@string/sort_by"
         android:icon="@drawable/ic_sort_order"
-        app:showAsAction="always"></item>
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/numerical_Ascending"
+                android:title="@string/_0_9_asc" />
+            <item
+                android:id="@+id/numerical_Descending"
+                android:title="@string/_0_9_desc" />
+            <item
+                android:id="@+id/match_Order_Descending"
+                android:title="@string/matches_high_to_low" />
+            <item
+                android:id="@+id/match_Order_Ascending"
+                android:title="@string/matches_low_to_high" />
+        </menu>
 
+    </item>
 </menu>
