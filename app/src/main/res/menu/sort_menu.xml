@@ -10,6 +10,9 @@
         app:showAsAction="always">
         <menu>
             <item
+                android:id="@+id/sortHeader"
+                android:title="@string/sort_byhdr" />
+            <item
                 android:id="@+id/numerical_Ascending"
                 android:title="@string/_0_9_asc" />
             <item

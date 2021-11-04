@@ -522,24 +522,28 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
         var docList = docList
         val cursor: Cursor?
         val documentList = DocumentList()
-        val commandText: String
         val docCommandText: String
-        val accessString: String
+
         var documentIndex = 0
-        accessString = DataTableAccess(access)
-        //SQL Query Execution
-//Identify what needs selected
-        commandText = if (docID != 0) {
+        //Document title list SQL String
+        val commandText: String = if (docID != 0) {
             TableAccess(fileString)
         } else fileString
+        //DocumentList SQL String
+        val accessString: String = if (allDocs!!) access!! else
+            DataTableAccess(access)
         docCommandText = accessString
+        //SQL Query Execution
+//Identify what needs selected
+
+
         //Add entries to Document List
         val docTitle = ArrayList<DocumentTitle>()
         val docIds = ArrayList<Int?>()
         val docTitleList = ArrayList<String?>()
         //CommandText Uses Table Access For Document Titles, doc uses DataTableAccess
         cursor = dbList.rawQuery(commandText, null)
-        //cursor1 =
+
         try {
             if (cursor.moveToFirst()) {
                 var i = 0
@@ -623,7 +627,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
     fun DataTableAccess(documentName: String?): String {
         return String.format(
             "SELECT Documenttitle.documentName, " +
-                    "document.*, documenttitle.documentid FROM " +
+                    "document.*, documenttitle.documentid, documenttitle.documentTypeID FROM " +
                     "documentTitle NATURAL JOIN document WHERE document.DocumentID = DocumentTitle.DocumentID %s",
             documentName
         )

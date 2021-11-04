@@ -76,9 +76,7 @@ class SearchHandler : AppCompatActivity() {
             questionSearch,
             fileName
         )
-
     }
-
     //The main star of the show. This method is critical to the rest of the app. It handles the search function
     @RequiresApi(Build.VERSION_CODES.N)
     fun search(
@@ -105,70 +103,67 @@ class SearchHandler : AppCompatActivity() {
         Log.d("Search()", "Search Party Begins")
         searchFragment = SearchFragmentActivity()
         //Filters for how searches are executed by document type and name
-        /*if (searchAll!!)
-        {*/
 
-        if (docType == "All") {
-            docID = 0
-            fileString = if (!searchAll!!) String.format(
-                "Select * From DocumentTitle where DocumentTitle.DocumentName = '%s'",
-                fileName
-            ) else "SELECT * FROM DocumentTitle"
-        } else if (docType == "Catechism") {
-            docID = 3
-            fileString = if (!searchAll!!) {
-                String.format(" documentTitle.DocumentTypeID = 3 AND DocumentName = '%s'", fileName)
-            } else "documentTitle.DocumentTypeID=3"
-        } else if (docType == "Creed") {
-            docID = 1
-            fileString = if (!searchAll!!) {
-                String.format(" documentTitle.DocumentTypeID = 1 AND DocumentName = '%s'", fileName)
-            } else "documentTitle.DocumentTypeID=1"
-        } else if (docType == "Confession") {
-            docID = 2
-            fileString = if (!searchAll!!) {
-                String.format(" documentTitle.DocumentTypeID = 2 AND DocumentName = '%s'", fileName)
-            } else "documentTitle.DocumentTypeID=2"
-        }
-        if (!searchAll!!)
-            accessString = String.format(
-                " and documenttitle.documentName = '%s' and document.documentID = documenttitle.documentID ",
-                fileName
-            )
-
-
-        //
-
-        /*//All Documents
-        if (allOpen!!) {
-            docID = 0
-            fileString = if (searchAll) "SELECT * FROM DocumentTitle" else String.format(
-                "Select * From DocumentTitle where DocumentTitle.DocumentName = '%s'",
-                fileName
-            )
-        }*/
-//SQL For Doc Types
-/*        if (catechismOpen!!) {
-            docID = 3
-            fileString = if (!searchAll) {
-                String.format(" documentTitle.DocumentTypeID = 3 AND DocumentName = '%s'", fileName)
-            } else " documentTitle.DocumentTypeID = 3"
-        }
-        else if (confessionOpen!!) {
-            docID = 2
-            fileString = if (!searchAll) {
-                String.format(" documentTitle.DocumentTypeID = 2 AND DocumentName = '%s'", fileName)
-            } else {
-                " documentTitle.DocumentTypeID = 2"
+        when (docType) {
+            "All" -> {
+                docID = 0
+                fileString = if (!searchAll!!) String.format(
+                    "Select * From DocumentTitle where DocumentTitle.DocumentName = '%s'",
+                    fileName
+                ) else "SELECT * FROM DocumentTitle"
+                accessString =
+                    if (searchAll) String.format("Select * from Document") else String.format(
+                        " AND DocumentTitle.DocumentName = '%s' ",
+                        fileName
+                    )
+                ""
+                //String.format(
+                //" and Documenttitle.documentName = '%s' ",
+                //fileName )
             }
-        } else if (creedOpen!!) {
-            docID = 1
-            fileString = if (!searchAll) {
-                String.format(" documentTitle.DocumentTypeID = 1 AND DocumentName = '%s'", fileName)
-            } else {
-                String.format(" documentTitle.DocumentTypeID = 1")
+            "Catechism" -> {
+                docID = 3
+                fileString = if (!searchAll!!) {
+                    String.format(
+                        " documentTitle.DocumentTypeID = 3 AND DocumentName = '%s' ",
+                        fileName
+                    )
+                } else "documentTitle.DocumentTypeID=3"
+                accessString =
+                    if (searchAll) "AND DocumentTitle.DocumentTypeID=3" else String.format(
+                        " AND DocumentTitle.DocumentName = '%s' ",
+                        fileName
+                    ) //""// "and documenttitle.documentName = '%s'"
             }
-        }*/
+            "Creed" -> {
+                docID = 1
+                fileString = if (!searchAll!!) {
+                    String.format(
+                        " documentTitle.DocumentTypeID = 1 AND DocumentName = '%s'",
+                        fileName
+                    )
+                } else "documentTitle.DocumentTypeID=1"
+                accessString =
+                    if (searchAll) " AND DocumentTitle.DocumentTypeID=1 " else String.format(
+                        " AND DocumentTitle.DocumentName = '%s' ",
+                        fileName
+                    )//""// "and documenttitle.documentName = '%s'"
+            }
+            "Confession" -> {
+                docID = 2
+                fileString = if (!searchAll!!) {
+                    String.format(
+                        " documentTitle.DocumentTypeID = 2 AND DocumentName = '%s'",
+                        fileName
+                    )
+                } else "documentTitle.DocumentTypeID=2"
+                accessString =
+                    if (searchAll) "AND DocumentTitle.DocumentTypeID=2" else String.format(
+                        " AND DocumentTitle.DocumentName = '%s' ",
+                        fileName
+                    )//""//"AND documenttitle.documentName = '%s'"
+            }
+        }
 
         //This fills the list with entries for filtering and sorting
         masterList = docDBhelper!!.getAllDocuments(
@@ -189,7 +184,6 @@ class SearchHandler : AppCompatActivity() {
         }
         //Search topics and filter them
         if (!readerSearch!! and textSearch!! and !questionSearch!!) {
-            //if (!query!!.isEmpty()) {
             this.FilterResults(
                 masterList,
                 allOpen,
@@ -204,14 +198,7 @@ class SearchHandler : AppCompatActivity() {
                 refreshQuery = query!!
                 refreshFragmentsOnScreen(query)
             }
-            //}
-            /*else {
-                if (masterList.size > 1) {
-                    query = fileName
-                    refreshQuery = query!!
-                    refreshFragmentsOnScreen(query)
-                }
-            }*/
+
         } else if (questionSearch and (query !== "") and !readerSearch and !textSearch) {
             if (query !== "") {
                 val searchInt = query!!.toInt()
@@ -222,7 +209,7 @@ class SearchHandler : AppCompatActivity() {
                 recreate()
             }
         } else if (readerSearch and !questionSearch and !textSearch) {
-            query = if (!searchAll) {
+            query = if (!searchAll!!) {
                 "Results for All"
 
             } else "View All"
@@ -381,11 +368,7 @@ class SearchHandler : AppCompatActivity() {
                 }
                 //No proofs
                 if (!proofs) document.proofs = "No Proofs available!"
-                if (allOpen!!)
-                    resultList.add(document)
 
-                if (fileName != "")
-                    if (document.documentName == fileName)
                         resultList.add(document)
             }
 

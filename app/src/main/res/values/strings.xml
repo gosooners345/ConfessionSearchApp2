@@ -140,4 +140,5 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="_0_9_desc">0-9 DESC</string>
     <string name="matches_low_to_high">Matches Low to High</string>
     <string name="matches_high_to_low">Matches High to Low</string>
+    <string name="sort_byhdr">Sort By:</string>
 </resources>
