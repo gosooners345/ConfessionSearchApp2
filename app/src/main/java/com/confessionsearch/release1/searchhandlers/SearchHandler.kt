@@ -112,14 +112,7 @@ class SearchHandler : AppCompatActivity() {
                     fileName
                 ) else "SELECT * FROM DocumentTitle"
                 accessString =
-                    if (searchAll) String.format("Select * from Document") else String.format(
-                        " AND DocumentTitle.DocumentName = '%s' ",
-                        fileName
-                    )
-                ""
-                //String.format(
-                //" and Documenttitle.documentName = '%s' ",
-                //fileName )
+                    if (searchAll) String.format("Select * from Document") else "s"
             }
             "Catechism" -> {
                 docID = 3
@@ -130,10 +123,7 @@ class SearchHandler : AppCompatActivity() {
                     )
                 } else "documentTitle.DocumentTypeID=3"
                 accessString =
-                    if (searchAll) "AND DocumentTitle.DocumentTypeID=3" else String.format(
-                        " AND DocumentTitle.DocumentName = '%s' ",
-                        fileName
-                    ) //""// "and documenttitle.documentName = '%s'"
+                    if (!searchAll) "s" else ""//"AND DocumentTitle.DocumentTypeID=3"// else "s"//String.format(" AND DocumentTitle.DocumentName = '%s' ", fileName) //""// "and documenttitle.documentName = '%s'"
             }
             "Creed" -> {
                 docID = 1
@@ -144,10 +134,7 @@ class SearchHandler : AppCompatActivity() {
                     )
                 } else "documentTitle.DocumentTypeID=1"
                 accessString =
-                    if (searchAll) " AND DocumentTitle.DocumentTypeID=1 " else String.format(
-                        " AND DocumentTitle.DocumentName = '%s' ",
-                        fileName
-                    )//""// "and documenttitle.documentName = '%s'"
+                    if (searchAll) "" else "s"// AND documentTitle.DocumentTypeID=1
             }
             "Confession" -> {
                 docID = 2
@@ -158,10 +145,8 @@ class SearchHandler : AppCompatActivity() {
                     )
                 } else "documentTitle.DocumentTypeID=2"
                 accessString =
-                    if (searchAll) "AND DocumentTitle.DocumentTypeID=2" else String.format(
-                        " AND DocumentTitle.DocumentName = '%s' ",
-                        fileName
-                    )//""//"AND documenttitle.documentName = '%s'"
+                    if (searchAll) "" else "s"
+
             }
         }
 
@@ -171,6 +156,7 @@ class SearchHandler : AppCompatActivity() {
             fileName,
             docID,
             allOpen,
+            searchAll,
             documentDB!!,
             accessString,
             masterList,
@@ -210,10 +196,9 @@ class SearchHandler : AppCompatActivity() {
             }
         } else if (readerSearch and !questionSearch and !textSearch) {
             query = if (!searchAll!!) {
-                "Results for All"
-
+                fileName
             } else "View All"
-            refreshQuery = query
+            refreshQuery = query!!
             if (masterList.size > 1)
                 refreshFragmentsOnScreen(query)
         }

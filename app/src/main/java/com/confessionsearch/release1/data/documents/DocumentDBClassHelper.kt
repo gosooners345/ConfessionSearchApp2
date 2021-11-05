@@ -514,6 +514,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
         fileName: String?,
         docID: Int,
         allDocs: Boolean?,
+        searchAll: Boolean?,
         dbList: SQLiteDatabase,
         access: String?,
         docList: DocumentList?,
@@ -529,13 +530,10 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
         val commandText: String = if (docID != 0) {
             TableAccess(fileString)
         } else fileString
-        //DocumentList SQL String
-        val accessString: String = if (allDocs!!) access!! else
-            DataTableAccess(access)
-        docCommandText = accessString
+
         //SQL Query Execution
 //Identify what needs selected
-
+        var accessString = ""
 
         //Add entries to Document List
         val docTitle = ArrayList<DocumentTitle>()
@@ -570,6 +568,23 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
                 docIds.add(docTitle[y].documentID)
                 docTitleList.add(docTitle[y].documentName)
             }
+
+
+            //DocumentList SQL String
+            accessString = if (access!! == "s") {
+                var documentTitleIDLoc = docTitleList.indexOf(fileName)
+                var docIDLoc = docTitle[documentTitleIDLoc].documentID
+                var accessExtra: String = String.format("AND Document.documentID = '%s' ", docIDLoc)
+                DataTableAccess(accessExtra)
+            } else if (searchAll!! and !allDocs!!) {
+
+                var docIDString = docIds.toString()
+                docIDString = docIDString.replace('[', '(')
+                docIDString = docIDString.replace(']', ')')
+                DataTableAccess(String.format("AND Document.documentID in %s ", docIDString))
+            } else access
+
+            docCommandText = accessString
             val cursor1: Cursor = dbList.rawQuery(docCommandText, null)
             Log.d(
                 "Size of Query List", cursor1.getColumnIndexOrThrow(KEY_DOCDETAILID_ID)
@@ -627,8 +642,8 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
     fun DataTableAccess(documentName: String?): String {
         return String.format(
             "SELECT Documenttitle.documentName, " +
-                    "document.*, documenttitle.documentid, documenttitle.documentTypeID FROM " +
-                    "documentTitle NATURAL JOIN document WHERE document.DocumentID = DocumentTitle.DocumentID %s",
+                    "document.*, documenttitle.documentid FROM " +
+                    "documentTitle NATURAL JOIN document WHERE document.DocumentID = DocumentTitle.DocumentID %s ",
             documentName
         )
     }
