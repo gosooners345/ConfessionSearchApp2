@@ -14,7 +14,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.ViewPager
 import com.confessionsearch.release1.R
@@ -502,7 +501,7 @@ class SearchHandler : AppCompatActivity() {
 
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
+   /* override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
 
@@ -518,7 +517,7 @@ class SearchHandler : AppCompatActivity() {
                 onBackPressed()
             }
         }
-    }
+    }*/
 
     companion object {
         const val CHAPTER_ASC = "Chapter_ASC"
