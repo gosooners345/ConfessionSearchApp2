@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.ViewPager
 import com.confessionsearch.release1.R
@@ -29,6 +30,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import www.sanju.motiontoast.MotionToast
 import java.util.*
 import java.util.regex.Pattern
+import kotlin.collections.ArrayList
 
 //Handle Search algorithm and Sort by types here
 
@@ -49,6 +51,7 @@ class SearchHandler : AppCompatActivity() {
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {//, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState)
+
         val allDocsBool = intent.getBooleanExtra("AllDocs", false)
         val answers = intent.getBooleanExtra("Answers", false)
         val confession = intent.getBooleanExtra("Confession", false)
@@ -76,6 +79,8 @@ class SearchHandler : AppCompatActivity() {
             fileName
         )
     }
+
+
     //The main star of the show. This method is critical to the rest of the app. It handles the search function
     @RequiresApi(Build.VERSION_CODES.N)
     fun search(
@@ -365,6 +370,7 @@ class SearchHandler : AppCompatActivity() {
         masterList = resultList
     }
 
+
     //Menu Functions
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -496,6 +502,24 @@ class SearchHandler : AppCompatActivity() {
 
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+
+        when (Configuration.UI_MODE_NIGHT_MASK and resources.configuration.uiMode) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                Log.i("ConfigChange", "Restarting Actviity due to UI Change")
+                onBackPressed()
+            }
+
+            Configuration.UI_MODE_NIGHT_YES -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                onBackPressed()
+            }
+        }
+    }
+
     companion object {
         const val CHAPTER_ASC = "Chapter_ASC"
         const val CHAPTER_DSC = "Chapter_DSC"
@@ -506,4 +530,6 @@ class SearchHandler : AppCompatActivity() {
     }
 
 }
+
+
 

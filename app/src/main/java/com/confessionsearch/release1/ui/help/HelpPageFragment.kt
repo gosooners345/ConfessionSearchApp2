@@ -18,6 +18,7 @@ class HelpPageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         Log.i("HelpFragment", "I am loading...")
         val view = inflater.inflate(R.layout.fragment_help_page, container, false)
       var searchTabTV = view.findViewById<TextView>(R.id.searchTabLabel)

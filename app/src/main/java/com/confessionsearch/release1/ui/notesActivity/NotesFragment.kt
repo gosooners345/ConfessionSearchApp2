@@ -36,6 +36,7 @@ class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         notesViewModel =
             ViewModelProvider(this).get(NotesViewModel::class.java)
 

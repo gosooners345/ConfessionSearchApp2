@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ShareActionProvider
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.searchresults.SearchResultFragment
@@ -26,6 +27,7 @@ class BibleViewerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         val verseText = requireArguments().getString(VERSE, "")
         val bookName = requireArguments().getString(BOOKNAME, "")
         val verseNum = requireArguments().getInt(verseNum, 0)

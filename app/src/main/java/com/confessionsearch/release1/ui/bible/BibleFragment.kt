@@ -53,6 +53,7 @@ class BibleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentBibleFormBinding.inflate(inflater, container, false)
         bibleViewModel = ViewModelProvider(this).get(BibleViewModel::class.java)
         docDBhelper = DocumentDBClassHelper(super.getContext())
@@ -236,4 +237,5 @@ class BibleFragment : Fragment() {
     companion object {
         const val ACTIVITY_ID = 37
     }
+
 }

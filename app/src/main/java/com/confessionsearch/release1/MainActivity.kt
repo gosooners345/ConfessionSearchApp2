@@ -2,11 +2,15 @@ package com.confessionsearch.release1
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -26,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
+            setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
             var binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
@@ -40,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.navigation_notes,
                     R.id.navigation_bible,
                     R.id.navigation_help
-                   
+
                 )
             )
 
@@ -51,6 +56,32 @@ class MainActivity : AppCompatActivity() {
             DesignerToast.Error(this, ex.message, Gravity.BOTTOM, Toast.LENGTH_LONG)
         }
 
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase)
+        setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        when (Configuration.UI_MODE_NIGHT_MASK and resources.configuration.uiMode) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                var restart = Intent(context, MainActivity::class.java)
+                Log.i("ConfigChange", "Restarting Actviity due to UI Change")
+                finish()
+                startActivity(restart)
+            }
+
+            Configuration.UI_MODE_NIGHT_YES -> {
+                setDefaultNightMode(MODE_NIGHT_YES)
+                var restart = Intent(context, MainActivity::class.java)
+                Log.i("ConfigChange", "Restarting Actviity due to UI Change")
+                finish()
+                startActivity(restart)
+            }
+        }
     }
 
     //required to be here for adding notes to the note list fragment
