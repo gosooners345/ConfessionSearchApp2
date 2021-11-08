@@ -14,7 +14,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.ViewPager
 import com.confessionsearch.release1.R
@@ -54,9 +53,6 @@ class SearchHandler : AppCompatActivity() {
 
         val allDocsBool = intent.getBooleanExtra("AllDocs", false)
         val answers = intent.getBooleanExtra("Answers", false)
-        val confession = intent.getBooleanExtra("Confession", false)
-        val catechism = intent.getBooleanExtra("Catechism", false)
-        val creed = intent.getBooleanExtra("Creed", false)
         docType = intent.getStringExtra("docType").toString()
         val searchAll = intent.getBooleanExtra("SearchAll", false)
         val readerSearch = intent.getBooleanExtra("Reader", false)
@@ -502,7 +498,7 @@ class SearchHandler : AppCompatActivity() {
 
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
+   /* override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
 
@@ -518,7 +514,7 @@ class SearchHandler : AppCompatActivity() {
                 onBackPressed()
             }
         }
-    }
+    }*/
 
     companion object {
         const val CHAPTER_ASC = "Chapter_ASC"

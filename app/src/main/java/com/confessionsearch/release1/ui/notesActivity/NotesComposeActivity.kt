@@ -34,8 +34,6 @@ class NotesComposeActivity : AppCompatActivity() {
     var noteRepository: NoteRepository? = null
     var mode = 0
 
-    //Custom Editor Test Variables
-    //Editor notesContentRichText;
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

@@ -534,7 +534,6 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
         //SQL Query Execution
 //Identify what needs selected
         var accessString = ""
-
         //Add entries to Document List
         val docTitle = ArrayList<DocumentTitle>()
         val docIds = ArrayList<Int?>()
@@ -568,8 +567,6 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
                 docIds.add(docTitle[y].documentID)
                 docTitleList.add(docTitle[y].documentName)
             }
-
-
             //DocumentList SQL String
             accessString = if (access!! == "s") {
                 var documentTitleIDLoc = docTitleList.indexOf(fileName)
