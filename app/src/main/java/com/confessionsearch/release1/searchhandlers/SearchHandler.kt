@@ -12,7 +12,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -123,7 +122,7 @@ class SearchHandler : AppCompatActivity() {
                     )
                 } else "documentTitle.DocumentTypeID=3"
                 accessString =
-                    if (!searchAll) "s" else ""//"AND DocumentTitle.DocumentTypeID=3"// else "s"//String.format(" AND DocumentTitle.DocumentName = '%s' ", fileName) //""// "and documenttitle.documentName = '%s'"
+                    if (!searchAll) "s" else ""
             }
             "Creed" -> {
                 docID = 1
@@ -371,29 +370,21 @@ class SearchHandler : AppCompatActivity() {
         when (item.itemId) {
             R.id.numerical_Ascending -> {
                 Log.d("MENU", "Chapter Order Ascending Selected")
-                Toast.makeText(this, "Chapter Order Ascending Item Selected", Toast.LENGTH_LONG)
-                    .show()
                 sortOptions(CHAPTER_ASC, masterList)
                 refreshFragmentsOnScreen(refreshQuery)
             }
             R.id.numerical_Descending -> {
                 Log.d("MENU", "Chapter Order Descending Selected")
-                Toast.makeText(this, "Chapter Order Descending Item Selected", Toast.LENGTH_LONG)
-                    .show()
                 sortOptions(CHAPTER_DSC, masterList)
                 refreshFragmentsOnScreen(refreshQuery)
             }
             R.id.match_Order_Ascending -> {
                 Log.d("MENU", "Match Order Ascending Selected")
-                Toast.makeText(this, "Match Order Ascending Item Selected", Toast.LENGTH_LONG)
-                    .show()
                 sortOptions(MATCH_ASC, masterList)
                 refreshFragmentsOnScreen(refreshQuery)
             }
             R.id.match_Order_Descending -> {
                 Log.d("MENU", "Match Order Descending Selected")
-                Toast.makeText(this, "Descending Order Descending Item Selected", Toast.LENGTH_LONG)
-                    .show()
                 sortOptions(MATCH_DSC, masterList)
                 refreshFragmentsOnScreen(refreshQuery)
             }
