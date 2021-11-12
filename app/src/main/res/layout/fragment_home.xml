@@ -36,141 +36,159 @@
                 android:id="@+id/topicChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkable="true"
+                android:padding="5dp"
                 android:text="@string/topic"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:chipEndPadding="5dp"
+                app:chipIcon="@drawable/ic_chip_topic_icon"
                 app:chipIconVisible="true"
-                android:checkable="true"
-                android:padding="5dp"
                 app:closeIconEnabled="false" />
 
             <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:padding="5dp"
-                android:layout_height="wrap_content"
                 android:id="@+id/questionChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:padding="5dp"
                 android:text="@string/question"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:chipIcon="@drawable/ic_chip_question_icon"
                 app:chipIconVisible="true"
-                android:checkable="true"
                 app:closeIconEnabled="false" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/readDocsChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/readDocsChip"
+                android:checkable="true"
                 android:padding="5dp"
                 android:text="@string/read_document"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:chipIcon="@drawable/ic_nav_bible"
                 app:chipIconVisible="true"
-                android:checkable="true"
                 app:closeIconEnabled="false" />
         </com.google.android.material.chip.ChipGroup>
 
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group"
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:id="@+id/searchOptionContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:selectionRequired="false"
-            android:layoutDirection="locale"
-            android:padding="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/optionLabel">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/answerChip"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkable="true"
+                android:layoutDirection="locale"
                 android:padding="5dp"
-                android:text="@string/no_answers"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                app:chipIconVisible="true"
-                app:closeIconVisible="false" />
+                app:selectionRequired="false"
+                app:singleLine="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/proofChip"
-                android:padding="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/no_proofs"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                app:chipIconVisible="true"
-                app:closeIconVisible="false" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/answerChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:padding="5dp"
+                    android:text="@string/no_answers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIcon="@drawable/ic_chip_no_icon"
+                    app:chipIconVisible="true"
+                    app:closeIconVisible="false" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/searchAllChip"
-                android:padding="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/search_all_documents"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                app:chipIconVisible="true"
-                app:closeIconVisible="false" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/proofChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:padding="5dp"
+                    android:text="@string/no_proofs"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIcon="@drawable/ic_chip_no_icon"
+                    app:chipIconVisible="true"
+                    app:closeIconVisible="false" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/sortByChapter"
-                android:padding="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="@string/sort_by_chapter"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                app:chipIconVisible="true"
-                app:closeIconVisible="false" />
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/searchAllChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:padding="5dp"
+                    android:text="@string/search_all_documents"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIcon="@drawable/ic_chip_searchalldocs_icon"
+                    app:chipIconVisible="true"
+                    app:closeIconVisible="false" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sortByChapter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:padding="5dp"
+                    android:text="@string/sort_by_chapter"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:chipIcon="@drawable/ic_chip_sortchapter_icon"
+                    app:chipIconVisible="true"
+                    app:closeIconVisible="false" />
+            </com.google.android.material.chip.ChipGroup>
 
 
-        <SearchView
-            android:id="@+id/searchView1"
-            android:layout_width="wrap_content"
+        </HorizontalScrollView>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchContainer"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-
-            android:contentDescription="@string/Search"
-
-            android:iconifiedByDefault="false"
-            android:imeOptions="normal|actionSearch"
-            android:paddingTop="5dp"
-            android:textAlignment="gravity"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:hint="Search Here"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/topicLabel"
             app:layout_constraintTop_toBottomOf="@+id/option_group"
-            tools:layout_conversion_absoluteHeight="53dp"
-            tools:layout_conversion_absoluteWidth="53dp" />
+            app:startIconDrawable="@drawable/ic_search_box_search_icon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchBoxTextBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:contentDescription="@string/Search" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Spinner
             android:id="@+id/documentTypeSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="2dp"
             android:dropDownWidth="wrap_content"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="@+id/searchView1"
+            android:textAlignment="viewEnd"
+            app:layout_constraintEnd_toEndOf="@+id/searchContainer"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/typeTVLabel"
-            app:layout_constraintTop_toBottomOf="@+id/searchView1"
+            app:layout_constraintTop_toBottomOf="@+id/searchContainer"
             tools:layout_conversion_absoluteHeight="24dp"
             tools:layout_conversion_absoluteWidth="269dp" />
 
         <Spinner
             android:id="@+id/documentNameSpinner"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:contentDescription="@string/document_list_spinner_desc"
             android:dropDownWidth="wrap_content"
             android:focusable="true"
-            android:paddingEnd="5dp"
+            android:paddingEnd="3dp"
             android:spinnerMode="dialog"
             android:textAlignment="viewEnd"
             app:layout_constrainedWidth="true"
@@ -185,12 +203,11 @@
             android:id="@+id/confessionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="26dp"
             android:labelFor="@id/documentNameSpinner"
             android:text="@string/document"
             android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/typeTVLabel"
             app:layout_constraintTop_toBottomOf="@+id/typeTVLabel"
@@ -253,12 +270,12 @@
             android:layout_height="55dp"
             android:layout_marginStart="7dp"
             android:gravity="center_vertical"
-            android:labelFor="@id/searchView1"
+            android:labelFor="@id/searchContainer"
             android:text="@string/topic_number"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            app:layout_constraintBottom_toBottomOf="@+id/searchView1"
+            app:layout_constraintBottom_toBottomOf="@+id/searchContainer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/searchView1"
+            app:layout_constraintTop_toTopOf="@+id/searchContainer"
             tools:layout_conversion_absoluteHeight="60dp"
             tools:layout_conversion_absoluteWidth="83dp" />
 
@@ -290,7 +307,7 @@
             app:icon="@drawable/search_light_drawable"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chip_group" />
+            app:layout_constraintTop_toBottomOf="@+id/searchOptionContainer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

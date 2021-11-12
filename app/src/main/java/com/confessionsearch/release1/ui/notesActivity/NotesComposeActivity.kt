@@ -98,7 +98,7 @@ class NotesComposeActivity : AppCompatActivity() {
                 } else noteRepository!!.updateNote(newNote)
                 if (activityID == 32) NotesFragment.adapter!!.notifyDataSetChanged()
                 Log.i(TAG, "Saving note to storage")
-                //Snackbar.make(findViewById(R.id.masterLayout), "Note Saved", BaseTransientBottomBar.LENGTH_LONG).show()
+
             }
             //Close this activity out and head back to parent screen
             finish()

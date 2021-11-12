@@ -463,7 +463,7 @@ class SearchHandler : AppCompatActivity() {
 
     //Back Button
     override fun onBackPressed() {
-        this.finish()
+this.finish()
         super.onBackPressed()
 
     }
@@ -498,23 +498,6 @@ class SearchHandler : AppCompatActivity() {
 
     }
 
-   /* override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-
-
-        when (Configuration.UI_MODE_NIGHT_MASK and resources.configuration.uiMode) {
-            Configuration.UI_MODE_NIGHT_NO -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                Log.i("ConfigChange", "Restarting Actviity due to UI Change")
-                onBackPressed()
-            }
-
-            Configuration.UI_MODE_NIGHT_YES -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                onBackPressed()
-            }
-        }
-    }*/
 
     companion object {
         const val CHAPTER_ASC = "Chapter_ASC"

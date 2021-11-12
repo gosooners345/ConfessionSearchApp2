@@ -25,6 +25,8 @@ import com.confessionsearch.release1.searchhandlers.SearchHandler
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import www.sanju.motiontoast.MotionToast
 import java.util.*
 import kotlin.collections.ArrayList
@@ -40,6 +42,9 @@ class SearchFragment : Fragment() {
     private var documentNameSpinner: Spinner? = null
     var searchButton: ExtendedFloatingActionButton? = null
     var header = ""
+    var recurCalls = 0
+    var searchBoxContainer: TextInputLayout? = null
+    var searchBoxTextBox: TextInputEditText? = null
     protected var textSearch: Boolean? = null
     protected var questionSearch: Boolean? = null
     protected var readerSearch: Boolean? = null
@@ -64,7 +69,6 @@ class SearchFragment : Fragment() {
     var searchAllChip: Chip? = null
     var optionGroup: ChipGroup? = null
     var sortType: String = ""
-    var searchFAB: ExtendedFloatingActionButton? = null
     var topicChip: Chip? = null
     var questionChip: Chip? = null
     var readDocsChip: Chip? = null
@@ -103,12 +107,17 @@ class SearchFragment : Fragment() {
         optionGroup = root.findViewById(R.id.option_group)
         //Search Button Initialization
         searchButton = root.findViewById(R.id.searchFAB)
-
         searchButton!!.setOnClickListener(searchButtonListener)
         //Search Box Initialization
-        searchBox = root.findViewById(R.id.searchView1)
-        searchBox!!.setOnQueryTextListener(searchQueryListener)
-        searchBox!!.setOnKeyListener(submissionKey)
+        //Old
+        //searchBox = root.findViewById(R.id.searchView1)
+        //searchBox!!.setOnQueryTextListener(searchQueryListener)
+        //searchBox!!.setOnKeyListener(submissionKey)
+        //New
+        searchBoxContainer = root.findViewById(R.id.searchContainer)
+        //searchBoxTextBox=root.findViewById(R.id.searchBoxTextBox)
+        searchBoxContainer!!.editText!!.setOnKeyListener(submissionKey)
+        //searchBoxContainer.setOnQueryTextListener
         //More stuff
         optionGroup!!.setOnCheckedChangeListener(optionListener)
 
@@ -148,7 +157,7 @@ class SearchFragment : Fragment() {
             docTitleList
         )
         documentNameSpinner!!.onItemSelectedListener = docTitleSpinner
-        searchBox!!.setOnKeyListener(submissionKey)
+        //searchBoxContainer!!.setOnKeyListener(submissionKey)
         topicChip!!.performClick()
 
         return root
@@ -172,23 +181,22 @@ class SearchFragment : Fragment() {
     var optionListener = ChipGroup.OnCheckedChangeListener { group, checkedId ->
         val enter = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)
         if (checkedId == (R.id.topicChip)) {
-            searchBox!!.isEnabled = true
-            searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
-            searchBox!!.isSubmitButtonEnabled = true
-            searchBox!!.setOnKeyListener(submissionKey)
-            searchBox!!.setOnQueryTextListener(searchQueryListener)
-            searchBox!!.inputType = InputType.TYPE_CLASS_TEXT
+            //searchBox!!.isEnabled = true
+            searchBoxContainer!!.isEnabled = true
+            searchBoxContainer!!.editText!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
+            searchBoxContainer!!.editText!!.setOnKeyListener(submissionKey)
+            searchBoxContainer!!.editText!!.inputType = InputType.TYPE_CLASS_TEXT
             textSearch = true
             questionSearch = false
             readerSearch = false
 
 
         } else if (checkedId == R.id.questionChip) {
-            searchBox!!.isEnabled = true
-            searchBox!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
-            searchBox!!.inputType = InputType.TYPE_CLASS_NUMBER
-            searchBox!!.setOnQueryTextListener(searchQueryListener)
-            searchBox!!.setOnKeyListener(submissionKey)
+            searchBoxContainer!!.isEnabled = true
+            searchBoxContainer!!.editText!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
+            searchBoxContainer!!.editText!!.inputType = InputType.TYPE_CLASS_NUMBER
+            //searchBoxContainer!!.editText!!.setOnEditorActionListener(searchQueryListener)
+            searchBoxContainer!!.editText!!.setOnKeyListener(submissionKey)
             textSearch = false
             readerSearch = false
             questionSearch = true
@@ -207,8 +215,14 @@ class SearchFragment : Fragment() {
     //Submission key
     var searchButtonListener = View.OnClickListener {
         val query: String
-        if (!readerSearch!!) {
-            query = searchBox!!.query.toString()
+        Log.d("SEARCHBUTTON", "THE SEARCHBUTTON WAS PUSHED TO EXECUTE THIS")
+        if (readerSearch!!) {
+            query = ""
+            Search(query)
+        } else {
+
+            query = searchBoxContainer!!.editText?.text.toString()
+            //searchBox!!.query.toString()
             if (query.isEmpty()) {
                 when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
                     Configuration.UI_MODE_NIGHT_YES -> {
@@ -240,27 +254,35 @@ class SearchFragment : Fragment() {
                     }
                 }
             } else Search(query)
-        } else {
-            query = ""
-            Search(query)
         }
     }
-    var submissionKey = View.OnKeyListener { v, keyCode, event ->
-        val searchBox = v as SearchView
-        if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
-            query = searchBox.query.toString()
+
+    //Enter Key Submission
+    var submissionKey = View.OnKeyListener { v, _, event ->
+        val searchBox = v as TextInputEditText
+        if (event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+            query = searchBox.text.toString()
+            /* recurCalls++
+             if(recurCalls==1)
+             searchButton!!.performClick()*/
+
+
+            Log.d("ENTERKEY", "THE ENTER KEY WAS PRESSED TO EXECUTE THIS")
             Log.d("View", String.format("%s", event.displayLabel))
             if (!query!!.isEmpty() and !readerSearch!!) Search(query) else Toast.makeText(
                 super.getContext(),
                 R.string.query_error,
                 Toast.LENGTH_LONG
             ).show()
+
             true
         } else {
             false
         }
     }
-    var searchQueryListener: SearchView.OnQueryTextListener =
+
+    //Deprecated old code, No longer needed, but useful for learning
+    /*var searchQueryListener: SearchView.OnQueryTextListener =
         object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(entry: String): Boolean {
                 query = entry
@@ -279,7 +301,7 @@ class SearchFragment : Fragment() {
                 return false
             }
         }
-
+*/
     //Spinner Listeners
     var spinnerItemSelectedListener: AdapterView.OnItemSelectedListener = object :
         AdapterView.OnItemSelectedListener {
@@ -303,36 +325,20 @@ class SearchFragment : Fragment() {
                 when (type.toUpperCase(Locale.ROOT)) {
                     "ALL" -> {
                         allOpen = true
-                        confessionOpen = false
-                        catechismOpen = false
-                        creedOpen = false
-                        helpOpen = false
                         docType = "All"
                     }
                     "CONFESSION" -> {
                         allOpen = false
-                        confessionOpen = true
-                        catechismOpen = false
                         header = "Chapter "
-                        creedOpen = false
-                        helpOpen = false
                         docType = "Confession"
                     }
                     "CATECHISM" -> {
                         allOpen = false
                         header = "Question "
-                        confessionOpen = false
-                        catechismOpen = true
-                        creedOpen = false
-                        helpOpen = false
                         docType = "Catechism"
                     }
                     "CREED" -> {
                         allOpen = false
-                        creedOpen = true
-                        catechismOpen = false
-                        confessionOpen = false
-                        helpOpen = false
                         docType = "Creed"
                     }
                 }
@@ -358,8 +364,9 @@ class SearchFragment : Fragment() {
     // 7-13-21 Take the data from the search form and package it in a format to put in the search handler
     @SuppressLint("NewApi")
     fun Search(query: String?) {
-
+        Log.d("tagme", "THIS SHOULD ONLY APPEAR ONE TIME")
         Log.d("Handler", "HomeScreen is in charge")
+        //Sort Type Setting
         if (sortByChapterBool)
             sortType = "Chapter"
         else
@@ -389,7 +396,7 @@ class SearchFragment : Fragment() {
         searchIntent.putExtra("SortType", sortType)
 
         requireContext().startActivity(searchIntent)
-
+        recurCalls = 0
 
     }
 
