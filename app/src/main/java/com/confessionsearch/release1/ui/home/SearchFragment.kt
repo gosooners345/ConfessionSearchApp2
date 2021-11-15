@@ -1,11 +1,13 @@
 package com.confessionsearch.release1.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -14,7 +16,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.widget.ShareActionProvider
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.confessionsearch.release1.R
@@ -24,45 +25,33 @@ import com.confessionsearch.release1.databinding.FragmentHomeBinding
 import com.confessionsearch.release1.searchhandlers.SearchHandler
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import www.sanju.motiontoast.MotionToast
 import java.util.*
 import kotlin.collections.ArrayList
 
 class SearchFragment : Fragment() {
 
-    private lateinit var searchViewModel: SearchViewModel
+
     private var _binding: FragmentHomeBinding? = null
     var documentDB: SQLiteDatabase? = null
     var docDBhelper: DocumentDBClassHelper? = null
     var shareProvider: ShareActionProvider? = null
     private var documentTypeSpinner: Spinner? = null
     private var documentNameSpinner: Spinner? = null
-    var searchButton: ExtendedFloatingActionButton? = null
+
     var header = ""
     var searchBoxContainer: TextInputLayout? = null
-    protected var textSearch: Boolean? = null
-    protected var questionSearch: Boolean? = null
-    protected var readerSearch: Boolean? = null
-    var query: String? = null
+
     var dbName = "confessionSearchDB.sqlite3"
     var type = ""
-    var shareList = ""
-    var fileName: String? = null
-    protected var allOpen: Boolean? = null
-    protected var proofs = true
-    protected var answers = true
-    protected var searchAll = false
-    protected var sortByChapterBool = false
+
 
     //Testing
     var answerChip: Chip? = null
     var proofChip: Chip? = null
     var searchAllChip: Chip? = null
     var optionGroup: ChipGroup? = null
-    var sortType: String = ""
     var topicChip: Chip? = null
     var questionChip: Chip? = null
     var readDocsChip: Chip? = null
@@ -74,7 +63,7 @@ class SearchFragment : Fragment() {
     var chipGroup: ChipGroup? = null
     var masterList = DocumentList()
     var shareNote: String? = null
-    var docType = ""
+    // var docType = ""
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -94,16 +83,20 @@ class SearchFragment : Fragment() {
         documentDB = docDBhelper!!.readableDatabase
         //Load Types and Load Spinners
         searchViewModel.loadTypes(docDBhelper!!.getAllDocTypes(documentDB))
-        val root: View = binding.root//View.inflate(context,R.layout.fragment_home,container)
+        val root: View = binding.root
         //Chip Group Initialization
         chipGroup = root.findViewById(R.id.chip_group)
         optionGroup = root.findViewById(R.id.option_group)
-        //Search Button Initialization
-        searchButton = root.findViewById(R.id.searchFAB)
-        searchButton!!.setOnClickListener(searchButtonListener)
+
         //Search Box Initialization
+
         searchBoxContainer = root.findViewById(R.id.searchContainer)
+
         searchBoxContainer!!.editText!!.setOnKeyListener(submissionKey)
+
+
+        searchBoxContainer!!.editText!!.addTextChangedListener(searchBoxEditTextChangedWatcher)
+
         //More stuff
         optionGroup!!.setOnCheckedChangeListener(optionListener)
         // Chip Initialization 06/01/2021 - Testing look and execution
@@ -151,7 +144,6 @@ class SearchFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
     private var checkBox = CompoundButton.OnCheckedChangeListener { compoundButton, _ ->
         when (compoundButton.id) {
             R.id.proofChip -> proofs = !proofChip!!.isChecked
@@ -160,8 +152,6 @@ class SearchFragment : Fragment() {
             R.id.sortByChapter -> sortByChapterBool = sortChapterChip!!.isChecked
         }
     }
-
-
     var optionListener = ChipGroup.OnCheckedChangeListener { group, checkedId ->
         //val enter = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)
         if (checkedId == (R.id.topicChip)) {
@@ -172,7 +162,7 @@ class SearchFragment : Fragment() {
             textSearch = true
             questionSearch = false
             readerSearch = false
-            searchButton!!.text = resources.getString(R.string.Search)
+            searchViewModel.buttonText = resources.getString(R.string.Search)
 
 
         } else if (checkedId == R.id.questionChip) {
@@ -183,10 +173,10 @@ class SearchFragment : Fragment() {
             textSearch = false
             readerSearch = false
             questionSearch = true
-            searchButton!!.text = resources.getString(R.string.Search)
+            searchViewModel.buttonText = resources.getString(R.string.Search)
 
         } else if (checkedId == R.id.readDocsChip) {
-            searchButton!!.text = resources.getString(R.string.read_button_text)
+            searchViewModel.buttonText = resources.getString(R.string.read_button_text)
             searchBoxContainer!!.isEnabled = false
             textSearch = false
             questionSearch = false
@@ -195,57 +185,17 @@ class SearchFragment : Fragment() {
 
     }
 
-    //Submission key
-    var searchButtonListener = View.OnClickListener {
-        val query: String
-        Log.d("SEARCHBUTTON", "THE SEARCHBUTTON WAS PUSHED TO EXECUTE THIS")
-        if (readerSearch!!) {
-            query = ""
-            Search(query)
-        } else {
-            query = searchBoxContainer!!.editText?.text.toString()
-            if (query.isEmpty()) {
-                when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                    Configuration.UI_MODE_NIGHT_YES -> {
-                        MotionToast.darkToast(
-                            super.requireActivity(), getString(R.string.query_error),
-                            "Enter A topic in the search field!",
-                            MotionToast.TOAST_ERROR,
-                            MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.SHORT_DURATION,
-                            ResourcesCompat.getFont(
-                                super.requireActivity(),
-                                R.font.helvetica_regular
-                            )
-                        )
-                    }
-                    Configuration.UI_MODE_NIGHT_NO -> {
-                        MotionToast.createToast(
-                            super.requireActivity(), getString(R.string.query_error),
-                            "Enter a topic in the search field!",
-                            MotionToast.TOAST_ERROR,
-                            MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.SHORT_DURATION,
-                            ResourcesCompat.getFont(
-                                super.requireActivity(),
-                                R.font.helvetica_regular
-                            )
-                        )
-
-                    }
-                }
-            } else Search(query)
-        }
-    }
-
     //Enter Key Submission
     var submissionKey = View.OnKeyListener { v, _, event ->
         val searchBox = v as TextInputEditText
         if (event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-            query = searchBox.text.toString()
+            searchViewModel.query = searchBox.text.toString()
             Log.d("ENTERKEY", "THE ENTER KEY WAS PRESSED TO EXECUTE THIS")
             Log.d("View", String.format("%s", event.displayLabel))
-            if (!query!!.isEmpty() and !readerSearch!!) Search(query) else Toast.makeText(
+            if (!searchViewModel.query.isEmpty() and !readerSearch!!) Search(
+                searchViewModel.query,
+                requireContext()
+            ) else Toast.makeText(
                 super.getContext(),
                 R.string.query_error,
                 Toast.LENGTH_LONG
@@ -255,6 +205,25 @@ class SearchFragment : Fragment() {
         } else {
             false
         }
+    }
+
+    // Needed to change the
+    var searchBoxEditTextChangedWatcher: TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            searchViewModel.query = s.toString()
+            //Log.d("QUERYVAL","Query is ${searchViewModel.query}")
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            searchViewModel.query = s.toString()
+            //  Log.d("QUERYVAL","Query is ${searchViewModel.query}")
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            searchViewModel.query = s!!.toString()
+            //    Log.d("QUERYVAL","Query is ${searchViewModel.query}")
+        }
+
     }
 
     //Spinner Listeners
@@ -318,43 +287,59 @@ class SearchFragment : Fragment() {
 
     // 7-13-21 Take the data from the search form and package it in a format to put in the search handler
     @SuppressLint("NewApi")
-    fun Search(query: String?) {
-        Log.d("Handler", "HomeScreen is in charge")
-        //Sort Type Setting
-        if (sortByChapterBool)
-            sortType = "Chapter"
-        else
-            sortType = "Matches"
 
-        var searchIntent = Intent(context, SearchHandler::class.java)
-        val stringQuery = query
-        Log.d("Test", context.toString())
-        //Document Type Filtering
-        searchIntent.putExtra("AllDocs", allOpen)
-        //All document search within type or all
-        searchIntent.putExtra("SearchAll", searchAll)
-        //Search Type
-        searchIntent.putExtra("Question", questionSearch)
-        searchIntent.putExtra("Text", textSearch)
-        searchIntent.putExtra("Reader", readerSearch)
-        searchIntent.putExtra("docType", docType)
-        //Advanced Options
-        searchIntent.putExtra("Answers", answers)
-        searchIntent.putExtra("Proofs", proofs)
-        //Query Holder
-        searchIntent.putExtra("Query", stringQuery)
-        //FileName
-        searchIntent.putExtra("FileName", fileName)
-        searchIntent.putExtra("ACTIVITY_ID", ACTIVITY_ID)
-        //Sort Options
-        searchIntent.putExtra("SortType", sortType)
-
-        requireContext().startActivity(searchIntent)
-
-    }
 
     companion object {
         const val ACTIVITY_ID = 32
+
+        var fileName: String? = ""
+        var allOpen: Boolean? = false
+        var proofs = true
+        var answers = true
+        var searchAll = false
+        var sortByChapterBool = false
+        var sortType = ""
+        var docType = ""
+        var textSearch: Boolean? = null
+        var questionSearch: Boolean? = null
+        var readerSearch: Boolean? = null
+        lateinit var searchViewModel: SearchViewModel
+
+        fun Search(query: String?, context: Context?) {
+            //This will force the application to halt before continuing
+            Log.d("Handler", "HomeScreen is in charge")
+            //Sort Type Setting
+            if (sortByChapterBool)
+                sortType = "Chapter"
+            else
+                sortType = "Matches"
+
+            var searchIntent = Intent(context, SearchHandler::class.java)
+            val stringQuery = query
+            Log.d("Test", context.toString())
+            //Document Type Filtering
+            searchIntent.putExtra("AllDocs", allOpen)
+            //All document search within type or all
+            searchIntent.putExtra("SearchAll", searchAll)
+            //Search Type
+            searchIntent.putExtra("Question", questionSearch)
+            searchIntent.putExtra("Text", textSearch)
+            searchIntent.putExtra("Reader", readerSearch)
+            searchIntent.putExtra("docType", docType)
+            //Advanced Options
+            searchIntent.putExtra("Answers", answers)
+            searchIntent.putExtra("Proofs", proofs)
+            //Query Holder
+            searchIntent.putExtra("Query", stringQuery)
+            //FileName
+            searchIntent.putExtra("FileName", fileName)
+            searchIntent.putExtra("ACTIVITY_ID", ACTIVITY_ID)
+            //Sort Options
+            searchIntent.putExtra("SortType", sortType)
+
+            context!!.startActivity(searchIntent)
+
+        }
     }
 
 }

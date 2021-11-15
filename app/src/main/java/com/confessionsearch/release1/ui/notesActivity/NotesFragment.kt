@@ -1,5 +1,6 @@
 package com.confessionsearch.release1.ui.notesActivity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -51,7 +52,7 @@ class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
         notesList!!.itemAnimator = DefaultItemAnimator()
         notesList!!.adapter = adapter
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(notesList)
-        fab = root.findViewById(R.id.newNote)
+        //fab = root.findViewById(R.id.newNote)
 
         return root
     }
@@ -109,5 +110,12 @@ class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
         @JvmField
         var adapter: NotesAdapter? = null
         const val ACTIVITY_ID = 32
+        const val buttonText = "New Note"
+        const val buttonPic = R.drawable.ic_add_note
+        fun NewNote(context: Context?) {
+            val intent = Intent(context, NotesComposeActivity::class.java)
+            intent.putExtra("activity_ID", NotesFragment.ACTIVITY_ID)
+            context!!.startActivity(intent)
+        }
     }
 }

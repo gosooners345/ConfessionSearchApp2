@@ -292,7 +292,7 @@
             tools:layout_conversion_absoluteHeight="60dp"
             tools:layout_conversion_absoluteWidth="83dp" />
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+       <!-- <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/searchFAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -307,7 +307,7 @@
             app:icon="@drawable/search_light_drawable"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchOptionContainer" />
+            app:layout_constraintTop_toBottomOf="@+id/searchOptionContainer" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

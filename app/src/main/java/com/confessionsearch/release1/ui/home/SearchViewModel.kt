@@ -1,6 +1,7 @@
 package com.confessionsearch.release1.ui.home
 
 import androidx.lifecycle.ViewModel
+import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.documents.DocumentTitle
 import com.confessionsearch.release1.data.documents.DocumentType
 
@@ -33,5 +34,8 @@ class SearchViewModel : ViewModel() {
 
     }
 
+    var query: String = ""
+    var buttonText: String = ""
+    var buttonPic: Int = R.drawable.search_light_drawable
 
 }

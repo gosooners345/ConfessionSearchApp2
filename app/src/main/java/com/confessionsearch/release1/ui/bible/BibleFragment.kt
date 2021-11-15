@@ -1,5 +1,6 @@
 package com.confessionsearch.release1.ui.bible
 
+import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
@@ -28,18 +29,16 @@ class BibleFragment : Fragment() {
     var documentDB: SQLiteDatabase? = null
     var docDBhelper: DocumentDBClassHelper? = null
     var bibleTransList: ArrayList<String?> = ArrayList()
-    var bibleTranslation = ""
+
     var submitButton: ExtendedFloatingActionButton? = null
 
-    var bibleCh = 0
-    var bibleVerseNum = 0
     var bibleBooksList: ArrayList<String?> = ArrayList()
     var bibleChapterList: ArrayList<String?> = ArrayList()
     var bibleVerseNumList: ArrayList<String?> = ArrayList()
     var bibleSelectorSpinner: Spinner? = null
     var bibleChapterSpinner: Spinner? = null
     var bibleVerseSelector: Spinner? = null
-    var bibleBook = ""
+
     var bibleBookSelectorComboBox: Spinner? = null
     var bibleBookAdapter: ArrayAdapter<String>? = null
     var bibleChNumAdapter: ArrayAdapter<String>? = null
@@ -74,8 +73,8 @@ class BibleFragment : Fragment() {
         bibleChapterSpinner = root.findViewById(R.id.bibleChapterSpinner)
         bibleVerseSelector = root.findViewById(R.id.verseSpinner)
         bibleTranslation = bibleSelectorSpinner!!.selectedItem.toString()
-        submitButton = root.findViewById(R.id.submitFAB)
-        submitButton!!.setOnClickListener(submitFabClicker)
+        /* submitButton = root.findViewById(R.id.submitFAB)
+         submitButton!!.setOnClickListener(submitFabClicker)*/
 
         return root
 
@@ -216,26 +215,36 @@ class BibleFragment : Fragment() {
         }
 
     var submitFabClicker = View.OnClickListener {
-        try {
-            val bibleIntent = Intent(context, BibleReaderSearchResults::class.java)
-            bibleIntent.putExtra("Translation", bibleTranslation)
-            bibleIntent.putExtra("BookName", bibleBook)
-            bibleIntent.putExtra("Chapter", bibleCh)
-            bibleIntent.putExtra("VerseNum", bibleVerseNum)
-            requireContext().startActivity(bibleIntent)
-        } catch (ex: Exception) {
-            DesignerToast.Error(
-                requireContext(),
-                String.format(ex.message!!.toString()),
-                Gravity.CENTER,
-                Toast.LENGTH_LONG
-            )
-        }
+        Submit(requireContext())
+
 
     }
 
     companion object {
         const val ACTIVITY_ID = 37
-    }
+        var bibleTranslation = ""
+        var bibleCh = 0
+        var bibleVerseNum = 0
+        var bibleBook = ""
+        fun Submit(context: Context?) {
+            try {
+                val bibleIntent = Intent(context, BibleReaderSearchResults::class.java)
+                bibleIntent.putExtra("Translation", bibleTranslation)
+                bibleIntent.putExtra("BookName", bibleBook)
+                bibleIntent.putExtra("Chapter", bibleCh)
+                bibleIntent.putExtra("VerseNum", bibleVerseNum)
+                context!!.startActivity(bibleIntent)
+            } catch (ex: Exception) {
+                DesignerToast.Error(
+                    context,
+                    String.format(ex.message!!.toString()),
+                    Gravity.CENTER,
+                    Toast.LENGTH_LONG
+                )
+            }
+        }
 
+        const val buttonText = "Read"
+        const val buttonPic = R.drawable.ic_nav_bible
+    }
 }
