@@ -9,22 +9,22 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.notes.NoteRepository
 import com.confessionsearch.release1.data.notes.Notes
 import com.example.awesomedialog.*
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.textfield.TextInputLayout
 import www.sanju.motiontoast.MotionToast
 
 class NotesComposeActivity : AppCompatActivity() {
-    var notesSubject: EditText? = null
-    var notesContent: EditText? = null
+    var notesSubject: TextInputLayout? = null
+    var notesContent: TextInputLayout? = null
     var activityID = 0
-    var saveButton: ExtendedFloatingActionButton? = null
-    var editButton: ExtendedFloatingActionButton? = null
+    var saveButton: Button? = null
+    var editButton: Button? = null
     var isNewNote = false
     var noteContentString = ""
     var noteSubjectString = ""
@@ -39,19 +39,19 @@ class NotesComposeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.notes_compose_layout)
-        notesContent = findViewById(R.id.contentEditText)
-        notesSubject = findViewById(R.id.subjectTitleEditText)
+        notesContent = findViewById(R.id.topicContainer)
+        notesSubject = findViewById(R.id.contentContainer)
         noteRepository = NoteRepository(this)
 
         //Load Notes
         if (!intentInfo) {
-            notesSubject!!.setText(newNote!!.name)
-            notesContent!!.setText(newNote!!.content)
+            notesSubject!!.editText!!.setText(newNote!!.name)
+            notesContent!!.editText!!.setText(newNote!!.content)
         } else {
-            notesSubject!!.setText("")
-            notesContent!!.setText("")
+            notesSubject!!.editText!!.setText("")
+            notesContent!!.editText!!.setText("")
         }
-        notesSubject!!.addTextChangedListener(object : TextWatcher {
+        notesSubject!!.editText!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, after: Int) {
                 noteSubjectString = s.toString()
@@ -59,7 +59,7 @@ class NotesComposeActivity : AppCompatActivity() {
 
             override fun afterTextChanged(editable: Editable) {}
         })
-        notesContent!!.addTextChangedListener(object : TextWatcher {
+        notesContent!!.editText!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 noteContentString = s.toString()
@@ -85,10 +85,14 @@ class NotesComposeActivity : AppCompatActivity() {
     //Save Note to device
     var SaveNote: View.OnClickListener = object : View.OnClickListener {
         override fun onClick(view: View) {
-            noteSubjectString = notesSubject!!.text.toString()
-            noteContentString = notesContent!!.text.toString()
+            noteSubjectString = notesSubject!!.editText!!.text.toString()
+            noteContentString = notesContent!!.editText!!.text.toString()
             //Update or save new content to note
-            newNote = if (!isNewNote) Notes(noteSubjectString, noteContentString, incomingNote!!.noteID) else Notes()
+            newNote = if (!isNewNote) Notes(
+                noteSubjectString,
+                noteContentString,
+                incomingNote!!.noteID
+            ) else Notes()
             newNote!!.name = noteSubjectString
             newNote!!.content = noteContentString
             run {
@@ -264,8 +268,8 @@ class NotesComposeActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.shareAction -> {
                 shareList = """
-                ${notesSubject!!.text}
-                ${notesContent!!.text}
+                ${notesSubject!!.editText!!.text}
+                ${notesContent!!.editText!!.text}
                 """.trimIndent()
                 val sendIntent = Intent()
                 sendIntent.action = Intent.ACTION_SEND

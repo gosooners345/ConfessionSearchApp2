@@ -29,7 +29,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:includeFontPadding="true"
                 android:overScrollMode="ifContentScrolls"
                 android:paddingStart="5dp"
@@ -41,47 +42,44 @@
                 android:verticalScrollbarPosition="right"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/chapterHeader" />
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            <Button
                 android:id="@+id/shareActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
                 android:actionProviderClass="android.widget.ShareActionProvider"
-
                 android:text="@string/share"
                 app:icon="@android:drawable/ic_menu_share"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/saveNote" />
+                app:layout_constraintTop_toBottomOf="@+id/chapterText" />
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            <Button
                 android:id="@+id/saveNote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="5dp"
+
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="32dp"
 
 
-                android:layout_marginBottom="16dp"
                 android:text="@string/save_note"
                 app:icon="@drawable/ic_save_note"
-                app:layout_constraintBottom_toTopOf="@id/shareActionButton"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chapterText" />
+                app:layout_constraintTop_toBottomOf="@+id/shareActionButton" />
 
             <TextView
                 android:id="@+id/chapterHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp"
                 android:text="chapterHeader"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"

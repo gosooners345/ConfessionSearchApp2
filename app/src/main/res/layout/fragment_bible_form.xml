@@ -6,7 +6,7 @@
     android:id="@+id/layoutMain"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-
+    style="@android:style/Widget.Material.ScrollView"
     android:isScrollContainer="true"
     android:overScrollMode="always"
     android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -23,20 +23,23 @@
             android:id="@+id/bibleTranslationSelector"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="107dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:minHeight="48dp"
             android:spinnerMode="dialog"
             android:textAlignment="viewEnd"
-            app:layout_constraintStart_toEndOf="@id/translationDisplayLabel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_bible_title" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/translationDisplayLabel"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/translationDisplayLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="122dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
             android:text="@string/bible_translation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_bible_title" />
@@ -45,19 +48,26 @@
             android:id="@+id/bibleBookSelector"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
-            app:layout_constraintEnd_toEndOf="@+id/bibleTranslationSelector"
-            app:layout_constraintTop_toBottomOf="@+id/bibleTranslationSelector" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:minHeight="48dp"
+            android:spinnerMode="dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookDisplay"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/bookDisplay"
-            android:layout_width="65dp"
-            android:layout_height="19dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="24dp"
-            android:text="Book:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/book"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/translationDisplayLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/bibleTranslationSelector" />
 
         <TextView
             android:id="@+id/fragment_bible_title"
@@ -66,7 +76,7 @@
             android:layout_marginStart="155dp"
             android:layout_marginTop="44dp"
             android:layout_marginEnd="177dp"
-            android:text="Bible Reader"
+            android:text="@string/bible_reader"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.533"
@@ -77,38 +87,53 @@
             android:id="@+id/chapterDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="24dp"
-            android:text="Chapter:"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+
+            android:text="@string/chapter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bookDisplay" />
+            app:layout_constraintTop_toBottomOf="@+id/bibleBookSelector" />
 
         <Spinner
             android:id="@+id/bibleChapterSpinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            app:layout_constraintEnd_toEndOf="@id/bibleBookSelector"
-            app:layout_constraintTop_toBottomOf="@+id/bibleBookSelector" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:minHeight="48dp"
+            android:spinnerMode="dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chapterDisplay"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <Spinner
             android:id="@+id/verseSpinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="68dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
 
-            app:layout_constraintEnd_toEndOf="@+id/bibleChapterSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/bibleChapterSpinner" />
+            android:layout_marginBottom="150dp"
+            android:minHeight="48dp"
+            android:spinnerMode="dialog"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/verseDisplay"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/verseDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="24dp"
-            android:text="Verse:"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/verse"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chapterDisplay" />
+            app:layout_constraintTop_toBottomOf="@+id/bibleChapterSpinner" />
 
 
 

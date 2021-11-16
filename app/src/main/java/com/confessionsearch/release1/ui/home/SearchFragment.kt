@@ -124,7 +124,7 @@ class SearchFragment : Fragment() {
             docTypes
         )
         documentTypeSpinner!!.adapter = docTypeSpinnerAdapter
-        documentTypeSpinner!!.onItemSelectedListener = spinnerItemSelectedListener
+        documentTypeSpinner!!.onItemSelectedListener = docTypeSpinnerListener
         type = ""
         //Load Document Titles into Doc Title list for preparation
         searchViewModel.loadTitles(docDBhelper!!.getAllDocTitles(type, documentDB!!))
@@ -134,7 +134,7 @@ class SearchFragment : Fragment() {
             R.layout.support_simple_spinner_dropdown_item,
             docTitleList
         )
-        documentNameSpinner!!.onItemSelectedListener = docTitleSpinner
+        documentNameSpinner!!.onItemSelectedListener = docTitleSpinnerListener
         topicChip!!.performClick()
 
         return root
@@ -153,7 +153,6 @@ class SearchFragment : Fragment() {
         }
     }
     var optionListener = ChipGroup.OnCheckedChangeListener { group, checkedId ->
-        //val enter = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)
         if (checkedId == (R.id.topicChip)) {
             searchBoxContainer!!.isEnabled = true
             searchBoxContainer!!.editText!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
@@ -185,7 +184,7 @@ class SearchFragment : Fragment() {
 
     }
 
-    //Enter Key Submission
+    //Enter Key Event Handler for Search EditText
     var submissionKey = View.OnKeyListener { v, _, event ->
         val searchBox = v as TextInputEditText
         if (event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
@@ -227,7 +226,8 @@ class SearchFragment : Fragment() {
     }
 
     //Spinner Listeners
-    var spinnerItemSelectedListener: AdapterView.OnItemSelectedListener = object :
+
+    var docTypeSpinnerListener: AdapterView.OnItemSelectedListener = object :
         AdapterView.OnItemSelectedListener {
         @SuppressLint("ResourceAsColor")
         override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -245,8 +245,8 @@ class SearchFragment : Fragment() {
                 )
                 docTitleSpinnerAdapter!!.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
                 documentNameSpinner!!.adapter = docTitleSpinnerAdapter
-                documentNameSpinner!!.onItemSelectedListener = docTitleSpinner
-                when (type.toUpperCase(Locale.ROOT)) {
+                documentNameSpinner!!.onItemSelectedListener = docTitleSpinnerListener
+                when (type.uppercase(Locale.ROOT)) {
                     "ALL" -> {
                         allOpen = true
                         docType = "All"
@@ -273,7 +273,8 @@ class SearchFragment : Fragment() {
             type = parent.selectedItem.toString()
         }
     }
-    var docTitleSpinner: AdapterView.OnItemSelectedListener = object :
+
+    var docTitleSpinnerListener: AdapterView.OnItemSelectedListener = object :
         AdapterView.OnItemSelectedListener {
         override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
             fileName = String.format("%s", adapterView.selectedItem.toString())
@@ -293,10 +294,10 @@ class SearchFragment : Fragment() {
         const val ACTIVITY_ID = 32
 
         var fileName: String? = ""
-        var allOpen: Boolean? = false
+        var allOpen: Boolean? = null
         var proofs = true
         var answers = true
-        var searchAll = false
+        var searchAll: Boolean? = null
         var sortByChapterBool = false
         var sortType = ""
         var docType = ""

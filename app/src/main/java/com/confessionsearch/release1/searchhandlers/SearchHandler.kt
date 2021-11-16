@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +26,6 @@ import com.confessionsearch.release1.searchresults.SearchFragmentActivity
 import com.confessionsearch.release1.searchresults.SearchResultFragment
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
 import com.example.awesomedialog.*
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import www.sanju.motiontoast.MotionToast
 import java.util.*
 import java.util.regex.Pattern
@@ -213,8 +213,8 @@ class SearchHandler : AppCompatActivity() {
                     setContentView(R.layout.error_page)
                 }
                 var header = ""
-                val saveFab = findViewById<ExtendedFloatingActionButton>(R.id.saveNote)
-                val fab = findViewById<ExtendedFloatingActionButton>(R.id.shareActionButton)
+                val saveFab = findViewById<Button>(R.id.saveNote)
+                val fab = findViewById<Button>(R.id.shareActionButton)
                 val chapterBox = findViewById<TextView>(R.id.chapterText)
                 val proofBox = findViewById<TextView>(R.id.proofText)
                 val chNumbBox = findViewById<TextView>(R.id.confessionChLabel)
@@ -333,8 +333,8 @@ class SearchHandler : AppCompatActivity() {
                     //Tally up all matching sections
                     while (true) {
                         val wordIndex =
-                            word.toUpperCase()
-                                .indexOf(query!!.toUpperCase(), matchIndex)
+                            word.uppercase(Locale.getDefault())
+                                .indexOf(query!!.uppercase(Locale.getDefault()), matchIndex)
                         if (wordIndex < 0) break
                         matchIndex = wordIndex + 1
                         document.matches = document.matches!! + 1

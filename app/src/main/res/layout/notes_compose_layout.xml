@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/masterLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -22,102 +23,149 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/subjectTitleEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="5dp"
-                android:ems="10"
-                android:hint="@string/enter_title_string"
-                android:inputType="text"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:selectAllOnFocus="true"
-                android:singleLine="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/subjectLabelTV"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/content_container"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="24dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subjectTitleEditText">
-
-            <EditText
-                    android:id="@+id/contentEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="15dp"
-                    android:hint="@string/enter_notes_string"
-                    android:imeOptions="normal"
-                    android:inputType="textMultiLine|text|textImeMultiLine"
-                    android:isScrollContainer="true"
-                    android:padding="5dp"
-                    android:scrollbars="vertical"
-                    android:selectAllOnFocus="false" />
-            </LinearLayout>
+            <!--            <EditText
+                            android:id="@+id/subjectTitleEditText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="5dp"
+                            android:ems="10"
+                            android:hint="@string/enter_title_string"
+                            android:inputType="text"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp"
+                            android:selectAllOnFocus="true"
+                            android:singleLine="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/subjectLabelTV"
+                           />
+            -->
 
             <TextView
                 android:id="@+id/subjectLabelTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="30dp"
-                android:text="@string/subject"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginTop="16dp"
+                android:text="@string/new_note"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/topicContainer"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="5dp"
+                android:hint="@string/note_title"
+                android:layoutDirection="locale"
+                app:endIconMode="clear_text"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subjectLabelTV" />
+                app:layout_constraintTop_toBottomOf="@+id/subjectLabelTV">
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/titleTextBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/contentContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="5dp"
+                android:hint="@string/note_content"
+                android:layoutDirection="locale"
+
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topicContainer">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/contentTextBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="normal"
+                    android:inputType="textMultiLine|text|textImeMultiLine"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <!-- <TextView
+                 android:id="@+id/textView2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="5dp"
+                 android:layout_marginTop="8dp"
+                 android:text="@string/content"
+                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/topicContainer" />
+             <LinearLayout
+                 android:id="@+id/content_container"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="5dp"
+                 android:layout_marginTop="24dp"
+                 android:orientation="vertical"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                 <EditText
+                     android:id="@+id/contentEditText"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_margin="15dp"
+                     android:hint="@string/enter_content_here"
+                     android:imeOptions="normal"
+                     android:inputType="textMultiLine|text|textImeMultiLine"
+                     android:isScrollContainer="true"
+                     android:padding="5dp"
+                     android:scrollbars="vertical"
+                     android:selectAllOnFocus="false" />
+             </LinearLayout>-->
+
+            <Button
                 android:id="@+id/editButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="60dp"
                 android:layout_marginTop="36dp"
-                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="32dp"
                 android:text="@string/edit_note"
 
                 app:icon="@drawable/ic_notes_edit"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/saveNote"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/content_container" />
+                app:layout_constraintStart_toStartOf="@id/contentContainer"
+                app:layout_constraintTop_toBottomOf="@+id/contentContainer"
+                app:layout_constraintVertical_bias="0.0" />
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            <Button
                 android:id="@+id/saveNote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
+                android:layout_gravity="bottom"
                 android:layout_marginTop="36dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="32dp"
+
                 android:layout_marginBottom="32dp"
                 android:text="@string/save_note"
-
                 app:icon="@android:drawable/ic_menu_save"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/content_container" />
+                app:layout_constraintEnd_toEndOf="@id/contentContainer"
+                app:layout_constraintTop_toBottomOf="@+id/contentContainer"
+                app:layout_constraintVertical_bias="0.62" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

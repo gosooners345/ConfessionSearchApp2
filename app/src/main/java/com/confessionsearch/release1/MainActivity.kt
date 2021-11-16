@@ -1,5 +1,13 @@
 package com.confessionsearch.release1
 
+/* Author: Brandon Guerin
+*
+*  Language: Kotlin
+*
+*  Application : The Reformed Collective
+*
+*/
+
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -61,12 +69,14 @@ class MainActivity : AppCompatActivity() {
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
 
+
         } catch (ex: Exception) {
             ex.printStackTrace()
             DesignerToast.Error(this, ex.message, Gravity.BOTTOM, Toast.LENGTH_LONG)
         }
 
     }
+
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(newBase)
@@ -75,19 +85,28 @@ class MainActivity : AppCompatActivity() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+
         when (Configuration.UI_MODE_NIGHT_MASK and resources.configuration.uiMode) {
             Configuration.UI_MODE_NIGHT_NO -> {
                 setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                Log.i("ConfigChange", "Configuration Change Made")
                 var restart = Intent(context, MainActivity::class.java)
-                Log.i("ConfigChange", "Restarting Actviity due to UI Change")
+                var saveBundle = navController.saveState()
+
+                restart.putExtra("config", saveBundle)
                 finish()
                 startActivity(restart)
+
             }
 
             Configuration.UI_MODE_NIGHT_YES -> {
                 setDefaultNightMode(MODE_NIGHT_YES)
+
                 var restart = Intent(context, MainActivity::class.java)
                 Log.i("ConfigChange", "Restarting Actviity due to UI Change")
+                var saveBundle = navController.saveState()
+                //this.onSaveInstanceState( saveBundle )
+                restart.putExtra("config", saveBundle)
                 finish()
                 startActivity(restart)
             }

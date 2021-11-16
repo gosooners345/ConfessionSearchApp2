@@ -6,7 +6,7 @@
     android:id="@+id/layoutMain"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-
+    style="@android:style/Widget.Material.ScrollView"
     android:isScrollContainer="true"
     android:overScrollMode="always"
     android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -24,12 +24,14 @@
             android:id="@+id/option_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:singleSelection="true"
-            app:selectionRequired="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
             android:layoutDirection="locale"
             android:padding="5dp"
             app:layout_constraintStart_toStartOf="@id/searchByLabel"
-            app:layout_constraintTop_toBottomOf="@+id/searchByLabel">
+            app:layout_constraintTop_toBottomOf="@+id/searchByLabel"
+            app:selectionRequired="true"
+            app:singleSelection="true">
 
 
             <com.google.android.material.chip.Chip
@@ -74,6 +76,10 @@
             android:id="@+id/searchOptionContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/optionLabel">
 
@@ -138,17 +144,17 @@
 
         </HorizontalScrollView>
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/searchContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:hint="Search Here"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/search_topic_question"
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/topicLabel"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/option_group"
             app:startIconDrawable="@drawable/ic_search_box_search_icon">
 
@@ -157,45 +163,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:contentDescription="@string/Search" />
+                android:contentDescription="@string/Search"
+                tools:ignore="EditableContentDescCheck" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <Spinner
             android:id="@+id/documentTypeSpinner"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="2dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:dropDownWidth="wrap_content"
+            android:minHeight="48dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:spinnerMode="dropdown"
+            android:spinnerMode="dialog"
             android:textAlignment="viewEnd"
-            app:layout_constraintEnd_toEndOf="@+id/searchContainer"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/typeTVLabel"
-            app:layout_constraintTop_toBottomOf="@+id/searchContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/typeTVLabel"
             tools:layout_conversion_absoluteHeight="24dp"
             tools:layout_conversion_absoluteWidth="269dp" />
 
         <Spinner
             android:id="@+id/documentNameSpinner"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:contentDescription="@string/document_list_spinner_desc"
             android:dropDownWidth="wrap_content"
             android:focusable="true"
-            android:paddingEnd="3dp"
+            android:minHeight="48dp"
             android:spinnerMode="dialog"
             android:textAlignment="viewEnd"
             app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="@+id/documentTypeSpinner"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/confessionLabel"
-            app:layout_constraintTop_toBottomOf="@+id/documentTypeSpinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/confessionLabel"
             tools:layout_conversion_absoluteHeight="24dp"
             tools:layout_conversion_absoluteWidth="270dp" />
 
@@ -203,14 +210,14 @@
             android:id="@+id/confessionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:labelFor="@id/documentNameSpinner"
             android:text="@string/document"
             android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/typeTVLabel"
-            app:layout_constraintTop_toBottomOf="@+id/typeTVLabel"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/documentTypeSpinner"
             tools:layout_conversion_absoluteHeight="24dp"
             tools:layout_conversion_absoluteWidth="86dp" />
 
@@ -220,11 +227,11 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="@string/advanced_search_options"
 
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/advanced_search_options"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/documentNameSpinner"
             tools:layout_conversion_absoluteHeight="24dp"
@@ -250,64 +257,32 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:labelFor="@id/option_group"
             android:text="@string/search_options"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
 
-            app:layout_constraintHorizontal_bias="0.126"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appTitle"
             tools:layout_conversion_absoluteHeight="24dp"
             tools:layout_conversion_absoluteWidth="83dp" />
 
-        <TextView
-            android:id="@+id/topicLabel"
-            android:layout_width="95dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="7dp"
-            android:gravity="center_vertical"
-            android:labelFor="@id/searchContainer"
-            android:text="@string/topic_number"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            app:layout_constraintBottom_toBottomOf="@+id/searchContainer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/searchContainer"
-            tools:layout_conversion_absoluteHeight="60dp"
-            tools:layout_conversion_absoluteWidth="83dp" />
 
         <TextView
             android:id="@+id/typeTVLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:labelFor="@id/documentTypeSpinner"
             android:text="@string/document_type"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            app:layout_constraintStart_toStartOf="@+id/topicLabel"
-            app:layout_constraintTop_toBottomOf="@+id/topicLabel"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchContainer"
             tools:layout_conversion_absoluteHeight="60dp"
             tools:layout_conversion_absoluteWidth="83dp" />
 
-       <!-- <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/searchFAB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="48dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/search"
-            app:fabSize="auto"
-            app:icon="@drawable/search_light_drawable"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchOptionContainer" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -49,14 +49,14 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="search_execution_begins">Search Execution Begins</string>
     <string name="app_site">https://play.google.com/store/apps/details?id=com.confessionsearch.release1</string>
     <string name="search_all_documents">Search All Documents?</string>
-    <string name="document_type">Document Type:</string>
+    <string name="document_type">Document Type</string>
     <string name="Search">Search</string>
     <string name="settings_page">Settings</string>
     <string name="themeLabel_String">Set Theme:</string>
     <string name="apply_theme_Text">Select a theme to apply</string>
 
     <string name="reformed_index_search">Reformed Index Search</string>
-    <string name="search_by">Search By:</string>
+    <string name="search_by">Search By</string>
     <string name="topic_number">Topic/Number:</string>
     <string name="search">Search</string>
     <string name="help">Help</string>
@@ -69,22 +69,17 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="question">Question</string>
     <string name="read_document">Read Document</string>
     <string name="no_answers">No Answers?</string>
-    <string name="document">Document:</string>
-    <string name="search_options">Search Options:</string>
+    <string name="document">Document</string>
+    <string name="search_options">Search Options</string>
     <string name="title_activity_notes">notesActivity</string>
-    <string name="first_fragment_label">First Fragment</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="hello_first_fragment">Hello first fragment</string>
 
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="subject">Subject:</string>
+    <string name="subject">Subject</string>
     <string name="new_note">New Note</string>
     <string name="enter_topic_here">Enter Topic Here</string>
-    <string name="notes">Notes:</string>
-    <string name="content">Content:</string>
+    <string name="notes">Notes</string>
+    <string name="content">Content</string>
     <string name="new_Note_string_add">New Note</string>
     <string name="enter_title_string">Enter Title Here</string>
     <string name="enter_notes_string">Enter Notes Content Here</string>
@@ -109,7 +104,7 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="other_stuff">Theme Section</string>
     <string name="home_page">Home</string>
     <string name="help_page">Help Page</string>
-    <string name="advanced_search_options">Advanced Search Options:</string>
+    <string name="advanced_search_options">Advanced Search Options</string>
     <string name="search_documents_below">Search Documents Below</string>
     <string-array name="themes">
         <item>Dark</item>
@@ -128,7 +123,7 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="notes_tab_help">Notes Tab:</string>
     <string name="notes_tab_helpPgh">Under the notes tab, you can store your favorite verses, any thoughts or ideas that come to mind as you\'re studying. Navigate to the notes tab and hit new note to get started on your notes. When finished, hit save note and it will be stored on your device until you remove it or edit it to add more. \nTo delete a note, simply swipe right on the note item in the notes section. \n To save a note on something you found in search, simply hit save note on the result page and it will take you to the page to edit your note.</string>
     <string name="bible_tab_HelpLabel">Bible Tab:</string>
-    <string name="bible_tab_helpPgh">This section of the application is brand new. It will allow you to read the bible by simply navigating driectly to the passage you want to read. Simply press on each of the spinners and select your desired translation, book, chapter and verse. After that, hit submit. It\'s that easy.</string>
+    <string name="bible_tab_helpPgh">This section of the application is brand new. It will allow you to read the bible by simply navigating directly to the passage you want to read. Simply press on each of the spinners and select your desired translation, book, chapter and verse. After that, hit submit. It\'s that easy.</string>
     <string name="other_stuff_tab">Other Stuff:</string>
     <string name="copyright_disclaimer">Sources for these documents are in public domain since they are old. Bible translations will be cited below alongside any copyrighted content used with permission.</string>
     <string name="share_entry">Each search result page has the share button enabled to allow for easy sharing with your friends or favorite social media site.</string>
@@ -141,4 +136,13 @@ and catechisms. Use this to take a quick note of a topic your searching, or add 
     <string name="matches_low_to_high">Matches Low to High</string>
     <string name="matches_high_to_low">Matches High to Low</string>
     <string name="sort_byhdr">Sort By:</string>
+    <string name="enter_content_here">Enter Content Here</string>
+    <string name="title">Title</string>
+    <string name="note_content">Note Content</string>
+    <string name="note_title">Note Title</string>
+    <string name="search_topic_question">Search Topic/Question #</string>
+    <string name="chapter">Chapter</string>
+    <string name="bible_reader">Bible Reader</string>
+    <string name="book">Book</string>
+    <string name="verse">Verse</string>
 </resources>

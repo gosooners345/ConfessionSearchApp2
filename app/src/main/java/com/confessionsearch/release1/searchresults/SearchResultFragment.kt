@@ -7,13 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ShareActionProvider
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
-
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class SearchResultFragment : Fragment() {
     private val documentTitle: String? = null
@@ -59,8 +58,8 @@ class SearchResultFragment : Fragment() {
         matchView.text = String.format("Matches: %s", resultMatch)
         shareList = (docTitleBox.text.toString() + newLine + chNumbBox.text + newLine
                 + newLine + chapterBox.text + newLine + "Proofs" + newLine + proofBox.text)
-        val fab: ExtendedFloatingActionButton = view.findViewById(R.id.shareActionButton)
-        val saveFab: ExtendedFloatingActionButton = view.findViewById(R.id.saveNote)
+        val fab = view.findViewById<Button>(R.id.shareActionButton)
+        val saveFab = view.findViewById<Button>(R.id.saveNote)
         fab.setOnClickListener(shareContent)
         shareNote = ""
         shareNote = String.format(
