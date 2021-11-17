@@ -19,6 +19,7 @@ import androidx.appcompat.widget.ShareActionProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.confessionsearch.release1.R
+import com.confessionsearch.release1.data.MyAdapter
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.data.documents.DocumentList
 import com.confessionsearch.release1.databinding.FragmentHomeBinding
@@ -40,6 +41,7 @@ class SearchFragment : Fragment() {
     private var documentTypeSpinner: Spinner? = null
     private var documentNameSpinner: Spinner? = null
 
+    // var docTypeATV : TextInputLayout? = null
     var header = ""
     var searchBoxContainer: TextInputLayout? = null
 
@@ -56,7 +58,7 @@ class SearchFragment : Fragment() {
     var questionChip: Chip? = null
     var readDocsChip: Chip? = null
     var sortChapterChip: Chip? = null
-    var docTypeSpinnerAdapter: ArrayAdapter<String>? = null
+    var docTypeSpinnerAdapter: MyAdapter<String>? = null
     var docTitleSpinnerAdapter: ArrayAdapter<String>? = null
     var docTitleList: ArrayList<String?> = ArrayList()
     var docTypes: ArrayList<String?> = ArrayList()
@@ -114,17 +116,23 @@ class SearchFragment : Fragment() {
         questionChip = root.findViewById(R.id.questionChip)
         readDocsChip = root.findViewById(R.id.readDocsChip)
         //Spinner Initialization
+        //docTypeATV = root.findViewById(R.id.docTypeComboBox)
         documentTypeSpinner = root.findViewById(R.id.documentTypeSpinner)
         documentNameSpinner = root.findViewById(R.id.documentNameSpinner)
         //Adapter and Spinner Assignments
         docTypes = searchViewModel.getTypes()
-        docTypeSpinnerAdapter = ArrayAdapter(
+        docTypeSpinnerAdapter = MyAdapter(
             requireContext(),
-            R.layout.support_simple_spinner_dropdown_item,
+            R.layout.support_simple_spinner_dropdown_item,//spinner_item_layout,
             docTypes
         )
-        documentTypeSpinner!!.adapter = docTypeSpinnerAdapter
+
+
+        documentTypeSpinner!!.adapter = (docTypeSpinnerAdapter)
+
         documentTypeSpinner!!.onItemSelectedListener = docTypeSpinnerListener
+
+        // (docTypeATV!!.editText!! as AutoCompleteTextView)!!.showDropdown(docTypeSpinnerAdapter!!)
         type = ""
         //Load Document Titles into Doc Title list for preparation
         searchViewModel.loadTitles(docDBhelper!!.getAllDocTitles(type, documentDB!!))
@@ -342,6 +350,7 @@ class SearchFragment : Fragment() {
 
         }
     }
+
 
 }
 

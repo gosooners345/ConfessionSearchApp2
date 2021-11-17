@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ShareActionProvider
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
@@ -13,7 +14,6 @@ import androidx.fragment.app.Fragment
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.searchresults.SearchResultFragment
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class BibleViewerFragment : Fragment() {
     private val bibleReaderTitle: String? = null
@@ -40,8 +40,8 @@ class BibleViewerFragment : Fragment() {
         else
             chHeader.text = bookName + " " + chapterNumber
         chTextBox.text = verseText
-        val fab: ExtendedFloatingActionButton = view.findViewById(R.id.shareActionButton)
-        val saveFab: ExtendedFloatingActionButton = view.findViewById(R.id.saveNote)
+        val fab: Button = view.findViewById(R.id.shareActionButton)
+        val saveFab: Button = view.findViewById(R.id.saveNote)
         fab.setOnClickListener(shareContent)
         shareNote = ""
         shareNote =

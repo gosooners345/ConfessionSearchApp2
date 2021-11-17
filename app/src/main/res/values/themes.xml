@@ -18,6 +18,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+
     <style name="AppTheme" parent="Theme.Material3.DayNight">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>

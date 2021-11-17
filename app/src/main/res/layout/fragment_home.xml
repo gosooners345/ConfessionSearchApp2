@@ -72,77 +72,101 @@
                 app:closeIconEnabled="false" />
         </com.google.android.material.chip.ChipGroup>
 
-        <HorizontalScrollView
+        <!--<HorizontalScrollView
             android:id="@+id/searchOptionContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="150dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionLabel">
+            app:layout_constraintTop_toBottomOf="@+id/optionLabel"
+            app:layout_constraintVertical_bias="1.0">-->
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="locale"
-                android:padding="5dp"
-                app:selectionRequired="false"
-                app:singleLine="true">
+        <!-- <com.google.android.material.chip.ChipGroup
+             android:id="@+id/chip_group"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layoutDirection="locale"
+             android:padding="5dp"
+             app:selectionRequired="false"
+             app:singleLine="false">-->
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/answerChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checkable="true"
-                    android:padding="5dp"
-                    android:text="@string/no_answers"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    app:chipIcon="@drawable/ic_chip_no_icon"
-                    app:chipIconVisible="true"
-                    app:closeIconVisible="false" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/answerChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:checkable="true"
+            android:padding="5dp"
+            android:text="@string/no_answers"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIcon="@drawable/ic_chip_no_icon"
+            app:chipIconVisible="true"
+            app:closeIconVisible="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/optionLabel" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/proofChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checkable="true"
-                    android:padding="5dp"
-                    android:text="@string/no_proofs"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    app:chipIcon="@drawable/ic_chip_no_icon"
-                    app:chipIconVisible="true"
-                    app:closeIconVisible="false" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/searchAllChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checkable="true"
-                    android:padding="5dp"
-                    android:text="@string/search_all_documents"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    app:chipIcon="@drawable/ic_chip_searchalldocs_icon"
-                    app:chipIconVisible="true"
-                    app:closeIconVisible="false" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/sortByChapter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checkable="true"
-                    android:padding="5dp"
-                    android:text="@string/sort_by_chapter"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    app:chipIcon="@drawable/ic_chip_sortchapter_icon"
-                    app:chipIconVisible="true"
-                    app:closeIconVisible="false" />
-            </com.google.android.material.chip.ChipGroup>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/proofChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="160dp"
+            android:checkable="true"
+            android:padding="5dp"
+            android:text="@string/no_proofs"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIcon="@drawable/ic_chip_no_icon"
+            app:chipIconVisible="true"
 
 
-        </HorizontalScrollView>
+            app:closeIconVisible="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/answerChip" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/searchAllChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:checkable="true"
+            android:padding="5dp"
+            android:text="@string/search_all_documents"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIcon="@drawable/ic_chip_searchalldocs_icon"
+            app:chipIconVisible="true"
+
+            app:closeIconVisible="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/optionLabel" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sortByChapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="160dp"
+            android:checkable="true"
+            android:padding="5dp"
+            android:text="@string/sort_by_chapter"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIcon="@drawable/ic_chip_sortchapter_icon"
+            app:chipIconVisible="true"
+            app:closeIconVisible="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchAllChip" />
+        <!-- </com.google.android.material.chip.ChipGroup>-->
+
+
+        <!-- </HorizontalScrollView>-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/searchContainer"
@@ -169,6 +193,7 @@
 
         <Spinner
             android:id="@+id/documentTypeSpinner"
+            style="@android:style/Widget.Material.Spinner.Underlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -188,6 +213,7 @@
 
         <Spinner
             android:id="@+id/documentNameSpinner"
+            style="@android:style/Widget.Material.Spinner.Underlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

@@ -21,6 +21,7 @@
 
         <Spinner
             android:id="@+id/bibleTranslationSelector"
+            style="@android:style/Widget.Material.Spinner.Underlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -46,6 +47,7 @@
 
         <Spinner
             android:id="@+id/bibleBookSelector"
+            style="@android:style/Widget.Material.Spinner.Underlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -102,6 +104,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:minHeight="48dp"
+            style="@android:style/Widget.Material.Spinner.Underlined"
             android:spinnerMode="dialog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +118,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-
+            style="@android:style/Widget.Material.Spinner.Underlined"
             android:layout_marginBottom="150dp"
             android:minHeight="48dp"
             android:spinnerMode="dialog"
