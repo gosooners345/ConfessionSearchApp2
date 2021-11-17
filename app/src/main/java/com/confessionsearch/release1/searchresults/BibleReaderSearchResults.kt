@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -17,7 +18,6 @@ import com.confessionsearch.release1.data.bible.BibleContentsList
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.ui.bible.BibleViewerFragment
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import www.sanju.motiontoast.MotionToast
 
 
@@ -102,8 +102,8 @@ class BibleReaderSearchResults : AppCompatActivity() {
                 chHeader.text =
                     String.format("${bibleContents.BookName} ${bibleContents.ChapterNum}")
                 chTextBox.text = bibleContents.VerseText
-                val fab: ExtendedFloatingActionButton = findViewById(R.id.shareActionButton)
-                val saveFab: ExtendedFloatingActionButton = findViewById(R.id.saveNote)
+                val fab: Button = findViewById(R.id.shareActionButton)
+                val saveFab: Button = findViewById(R.id.saveNote)
                 fab.setOnClickListener(shareContent)
                 shareNote = ""
                 shareNote =
