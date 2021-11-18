@@ -2,23 +2,23 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.home.SearchFragment"
     android:id="@+id/layoutMain"
+    style="@android:style/Widget.Material.ScrollView"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    style="@android:style/Widget.Material.ScrollView"
     android:isScrollContainer="true"
     android:overScrollMode="always"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:scrollbarStyle="outsideInset"
-    android:scrollbars="vertical">
+    android:scrollbars="vertical"
+    tools:context=".ui.home.SearchFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayout"
-        tools:context=".ui.home.SearchFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".ui.home.SearchFragment">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/option_group"
@@ -72,26 +72,6 @@
                 app:closeIconEnabled="false" />
         </com.google.android.material.chip.ChipGroup>
 
-        <!--<HorizontalScrollView
-            android:id="@+id/searchOptionContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="150dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionLabel"
-            app:layout_constraintVertical_bias="1.0">-->
-
-        <!-- <com.google.android.material.chip.ChipGroup
-             android:id="@+id/chip_group"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layoutDirection="locale"
-             android:padding="5dp"
-             app:selectionRequired="false"
-             app:singleLine="false">-->
 
         <com.google.android.material.chip.Chip
             android:id="@+id/answerChip"
@@ -191,46 +171,38 @@
                 tools:ignore="EditableContentDescCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Spinner
-            android:id="@+id/documentTypeSpinner"
-            style="@android:style/Widget.Material.Spinner.Underlined"
-            android:layout_width="0dp"
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/docTypeCB"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginHorizontal="@dimen/dimen_8"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:dropDownWidth="wrap_content"
-            android:minHeight="48dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:spinnerMode="dialog"
-            android:textAlignment="viewEnd"
+            android:background="@drawable/spinner_outline"
+            android:paddingLeft="@dimen/dimen_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/typeTVLabel"
-            tools:layout_conversion_absoluteHeight="24dp"
-            tools:layout_conversion_absoluteWidth="269dp" />
+            app:smsp_arrowColor="?attr/colorOnBackground"
+            app:smsp_floatingLabelColor="?attr/colorPrimary"
+            app:smsp_itemColor="?attr/colorOnBackground"
+            app:smsp_itemListColor="?attr/colorOnBackground" />
 
-        <Spinner
-            android:id="@+id/documentNameSpinner"
-            style="@android:style/Widget.Material.Spinner.Underlined"
-            android:layout_width="0dp"
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/docTitleCB"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginHorizontal="@dimen/dimen_8"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/document_list_spinner_desc"
-            android:dropDownWidth="wrap_content"
-            android:focusable="true"
-            android:minHeight="48dp"
-            android:spinnerMode="dialog"
-            android:textAlignment="viewEnd"
-            app:layout_constrainedWidth="true"
+            android:background="@drawable/spinner_outline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/confessionLabel"
-            tools:layout_conversion_absoluteHeight="24dp"
-            tools:layout_conversion_absoluteWidth="270dp" />
+            app:layout_constraintTop_toBottomOf="@id/confessionLabel"
+
+            app:smsp_arrowColor="?attr/colorOnBackground"
+            app:smsp_floatingLabelColor="?attr/colorPrimary"
+            app:smsp_itemColor="?attr/colorOnBackground"
+            app:smsp_itemListColor="?attr/colorOnBackground" />
+
 
         <TextView
             android:id="@+id/confessionLabel"
@@ -238,12 +210,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:labelFor="@id/documentNameSpinner"
+            android:labelFor="@id/docTitleCB"
             android:text="@string/document"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/documentTypeSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/docTypeCB"
             tools:layout_conversion_absoluteHeight="24dp"
             tools:layout_conversion_absoluteWidth="86dp" />
 
@@ -259,7 +231,7 @@
             android:text="@string/advanced_search_options"
             android:textAppearance="?android:attr/textAppearanceSmall"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/documentNameSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/docTitleCB"
             tools:layout_conversion_absoluteHeight="24dp"
             tools:layout_conversion_absoluteWidth="125dp" />
 
@@ -301,7 +273,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:labelFor="@id/documentTypeSpinner"
+            android:labelFor="@id/docTypeCB"
             android:text="@string/document_type"
             android:textAppearance="?android:attr/textAppearanceSmall"
             app:layout_constraintStart_toStartOf="parent"

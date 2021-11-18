@@ -66,7 +66,6 @@ class SearchFragment : Fragment() {
     var masterList = DocumentList()
     var shareNote: String? = null
     // var docType = ""
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -116,23 +115,23 @@ class SearchFragment : Fragment() {
         questionChip = root.findViewById(R.id.questionChip)
         readDocsChip = root.findViewById(R.id.readDocsChip)
         //Spinner Initialization
-        //docTypeATV = root.findViewById(R.id.docTypeComboBox)
-        documentTypeSpinner = root.findViewById(R.id.documentTypeSpinner)
-        documentNameSpinner = root.findViewById(R.id.documentNameSpinner)
+
         //Adapter and Spinner Assignments
         docTypes = searchViewModel.getTypes()
+
+
+
+
+
         docTypeSpinnerAdapter = MyAdapter(
-            requireContext(),
-            R.layout.support_simple_spinner_dropdown_item,//spinner_item_layout,
+            requireContext(), R.layout.support_simple_spinner_dropdown_item,
             docTypes
         )
 
+        /// Test 1
+        binding.docTypeCB.item = docTypes as List<Any>?
+        binding.docTypeCB.onItemSelectedListener = docTypeSpinnerListener
 
-        documentTypeSpinner!!.adapter = (docTypeSpinnerAdapter)
-
-        documentTypeSpinner!!.onItemSelectedListener = docTypeSpinnerListener
-
-        // (docTypeATV!!.editText!! as AutoCompleteTextView)!!.showDropdown(docTypeSpinnerAdapter!!)
         type = ""
         //Load Document Titles into Doc Title list for preparation
         searchViewModel.loadTitles(docDBhelper!!.getAllDocTitles(type, documentDB!!))
@@ -142,9 +141,11 @@ class SearchFragment : Fragment() {
             R.layout.support_simple_spinner_dropdown_item,
             docTitleList
         )
-        documentNameSpinner!!.onItemSelectedListener = docTitleSpinnerListener
+        binding.docTitleCB.item = docTitleList as List<Any>?
+        binding.docTitleCB.onItemSelectedListener = docTitleSpinnerListener
+//        documentNameSpinner!!.onItemSelectedListener = docTitleSpinnerListener
         topicChip!!.performClick()
-
+        binding.docTypeCB.setSelection(0)
         return root
     }
 
@@ -252,8 +253,9 @@ class SearchFragment : Fragment() {
                     docTitles
                 )
                 docTitleSpinnerAdapter!!.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-                documentNameSpinner!!.adapter = docTitleSpinnerAdapter
-                documentNameSpinner!!.onItemSelectedListener = docTitleSpinnerListener
+                binding.docTitleCB.item = docTitles as List<Any>?
+                binding.docTitleCB.onItemSelectedListener = docTitleSpinnerListener
+
                 when (type.uppercase(Locale.ROOT)) {
                     "ALL" -> {
                         allOpen = true
@@ -274,6 +276,7 @@ class SearchFragment : Fragment() {
                         docType = "Creed"
                     }
                 }
+                binding.docTitleCB.setSelection(0)
             }
         }
 

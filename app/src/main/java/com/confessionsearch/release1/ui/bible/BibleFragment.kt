@@ -35,9 +35,7 @@ class BibleFragment : Fragment() {
     var bibleBooksList: ArrayList<String?> = ArrayList()
     var bibleChapterList: ArrayList<String?> = ArrayList()
     var bibleVerseNumList: ArrayList<String?> = ArrayList()
-    var bibleSelectorSpinner: Spinner? = null
-    var bibleChapterSpinner: Spinner? = null
-    var bibleVerseSelector: Spinner? = null
+
 
     var bibleBookSelectorComboBox: Spinner? = null
     var bibleBookAdapter: ArrayAdapter<String>? = null
@@ -62,19 +60,22 @@ class BibleFragment : Fragment() {
         bibleViewModel.loadTranslations(docDBhelper!!.getAllBibleTranslations(documentDB!!))
         bibleTransList = bibleViewModel.getTranslations()
         val root = binding.root
-        bibleSelectorSpinner = root.findViewById(R.id.bibleTranslationSelector)
+        // bibleSelectorSpinner = root.findViewById(R.id.bibleTranslationSelector)
         bibleSelectorAdapter = ArrayAdapter(
             requireContext(),
             R.layout.support_simple_spinner_dropdown_item, bibleTransList
         )
-        bibleSelectorSpinner!!.adapter = bibleSelectorAdapter
-        bibleSelectorSpinner!!.onItemSelectedListener = bibleSelectorSpinnerListener
-        bibleBookSelectorComboBox = root.findViewById(R.id.bibleBookSelector)
-        bibleChapterSpinner = root.findViewById(R.id.bibleChapterSpinner)
-        bibleVerseSelector = root.findViewById(R.id.verseSpinner)
-        bibleTranslation = bibleSelectorSpinner!!.selectedItem.toString()
-        /* submitButton = root.findViewById(R.id.submitFAB)
-         submitButton!!.setOnClickListener(submitFabClicker)*/
+        binding.bibleTranslationCB.item = bibleTransList as List<Any>?
+        binding.bibleTranslationCB.onItemSelectedListener = bibleSelectorSpinnerListener
+
+        //bibleSelectorSpinner!!.adapter = bibleSelectorAdapter
+        //bibleSelectorSpinner!!.onItemSelectedListener = bibleSelectorSpinnerListener
+        //bibleBookSelectorComboBox = root.findViewById(R.id.bibleBookSelector)
+        /*bibleChapterSpinner = root.findViewById(R.id.bibleChapterSpinner)
+        bibleVerseSelector = root.findViewById(R.id.verseSpinner)*/
+        binding.bibleTranslationCB.setSelection(0)
+
+
 
         return root
 
@@ -96,8 +97,9 @@ class BibleFragment : Fragment() {
                 R.layout.support_simple_spinner_dropdown_item,
                 bibleBooksList
             )
-            bibleBookSelectorComboBox!!.adapter = bibleBookAdapter
-            bibleBookSelectorComboBox!!.onItemSelectedListener = bibleBookSelectorListener
+            binding.bibleBookCB.item = bibleBooksList as List<Any>?
+            binding.bibleBookCB.onItemSelectedListener = bibleBookSelectorListener
+            binding.bibleBookCB.setSelection(0)
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -124,8 +126,9 @@ class BibleFragment : Fragment() {
                 bibleChapterList
             )
 
-            bibleChapterSpinner!!.adapter = bibleChNumAdapter
-            bibleChapterSpinner!!.onItemSelectedListener = bibleChSelectorListener
+            binding.bibleChapterSpinner.item = bibleChapterList as List<Any>?
+            binding.bibleChapterSpinner.onItemSelectedListener = bibleChSelectorListener
+            binding.bibleChapterSpinner.setSelection(0)
 
 
         }
@@ -146,8 +149,9 @@ class BibleFragment : Fragment() {
                 R.layout.support_simple_spinner_dropdown_item,
                 bibleChapterList
             )
-            bibleChapterSpinner!!.adapter = bibleChNumAdapter
-            bibleChapterSpinner!!.onItemSelectedListener = bibleChSelectorListener
+            binding.bibleChapterSpinner.item = bibleChapterList as List<Any>?
+            binding.bibleChapterSpinner.onItemSelectedListener = bibleChSelectorListener
+            binding.bibleChapterSpinner.setSelection(0)
         }
     }
 
@@ -181,8 +185,10 @@ class BibleFragment : Fragment() {
                     R.layout.support_simple_spinner_dropdown_item,
                     bibleVerseNumList
                 )
-                bibleVerseSelector!!.adapter = bibleVerseNumAdapter
-                bibleVerseSelector!!.onItemSelectedListener = bibleVerseSelectorListener
+                binding.verseSpinner.item = bibleVerseNumList as List<Any>?
+                //bibleVerseSelector!!.adapter = bibleVerseNumAdapter
+                binding.verseSpinner.onItemSelectedListener = bibleVerseSelectorListener
+                binding.verseSpinner.setSelection(0)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
