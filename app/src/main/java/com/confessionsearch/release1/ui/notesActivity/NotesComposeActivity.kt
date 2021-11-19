@@ -40,8 +40,8 @@ class NotesComposeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.notes_compose_layout)
-        notesContent = findViewById(R.id.topicContainer)
-        notesSubject = findViewById(R.id.contentContainer)
+        notesContent = findViewById(R.id.contentContainer)
+        notesSubject = findViewById(R.id.topicContainer)
         noteRepository = NoteRepository(this)
 
         //Load Notes
