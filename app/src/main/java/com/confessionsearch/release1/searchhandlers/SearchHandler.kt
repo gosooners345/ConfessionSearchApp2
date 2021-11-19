@@ -1,6 +1,7 @@
 package com.confessionsearch.release1.searchhandlers
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.database.sqlite.SQLiteDatabase
@@ -14,6 +15,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.ViewPager
@@ -25,7 +27,6 @@ import com.confessionsearch.release1.searchresults.SearchAdapter
 import com.confessionsearch.release1.searchresults.SearchFragmentActivity
 import com.confessionsearch.release1.searchresults.SearchResultFragment
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
-import com.example.awesomedialog.*
 import www.sanju.motiontoast.MotionToast
 import java.util.*
 import java.util.regex.Pattern
@@ -183,14 +184,17 @@ class SearchHandler : AppCompatActivity() {
             if (masterList.size > 1) {
                 refreshQuery = query!!
                 refreshFragmentsOnScreen(query)
+
             }
 
         } else if (questionSearch and (query !== "") and !readerSearch and !textSearch) {
             if (query !== "") {
                 val searchInt = query!!.toInt()
                 FilterResults(masterList, answers, proofs, searchInt)
-                if (masterList.size > 1)
+                if (masterList.size > 1) {
                     refreshFragmentsOnScreen(query)
+
+                }
             } else {
                 recreate()
             }
@@ -199,8 +203,10 @@ class SearchHandler : AppCompatActivity() {
                 fileName
             } else "View All"
             refreshQuery = query!!
-            if (masterList.size > 1)
+            if (masterList.size > 1) {
                 refreshFragmentsOnScreen(query)
+
+            }
         }
         if (masterList.size < 2) {
             //Returns an error if there are no results in the list
@@ -238,7 +244,6 @@ class SearchHandler : AppCompatActivity() {
                 shareList = (docTitleBox.text.toString() + newLine + chNumbBox.text + newLine
                         + newLine + chapterBox.text + newLine + "Proofs" + newLine + proofBox.text)
                 fab.setOnClickListener(shareContent)
-                // fab.setBackgroundColor(Color.BLACK)
 
                 shareNote = (docTitleBox.text.toString() + "<br>" + "<br>" + chNumbBox.text + "<br>"
                         + "<br>" + document.documentText + "<br>" + "Proofs" + "<br>" + document.proofs)
@@ -280,23 +285,22 @@ class SearchHandler : AppCompatActivity() {
     Go back to home page to search for another topic
     """.trimIndent(), query
                 )
-                val awesomeDialog = AwesomeDialog.build(this)
-                    .title(
-                        "No Results Found!",
-
-                        )
-                    .body(
-                        "No results were found. Do you want to go back and search for another topic?",
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle("No Results Found!")
+                alert.setMessage(
+                    String.format(
+                        """No results were found for %s
+    Go back to home page to search for another topic
+    """.trimIndent(), query
                     )
-                    .background(R.drawable.error_background)
-                    .onPositive("Yes") {
-                        this.onBackPressed()
-                    }
-                    .onNegative("No") {
-                    }
-                    .position(AwesomeDialog.POSITIONS.CENTER)
+                )
+                alert.setPositiveButton("Yes") { dialog, which ->
+                    onBackPressed()
+                }
+                alert.setNegativeButton("No") { dialog, which -> dialog.dismiss() }
+                val dialog: Dialog = alert.create()
+                if (!isFinishing) dialog.show()
 
-                if (!isFinishing) awesomeDialog.show()
 
             }
         }
@@ -307,6 +311,7 @@ class SearchHandler : AppCompatActivity() {
         adapter = SearchAdapter(supportFragmentManager, masterList, query!!)
         vp2 = findViewById<ViewPager>(R.id.resultPager)
         searchFragment!!.DisplayResults(masterList, vp2, adapter, query, 0)
+
     }
 
 
@@ -459,13 +464,6 @@ class SearchHandler : AppCompatActivity() {
         var formatString = formatString
         formatString = formatString.replace("|", "<br><br>")
         return formatString
-    }
-
-    //Back Button
-    override fun onBackPressed() {
-this.finish()
-        super.onBackPressed()
-
     }
 
     //Sorts documents based on order given

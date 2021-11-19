@@ -1,5 +1,6 @@
 package com.confessionsearch.release1.ui.notesActivity
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -10,12 +11,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.notes.NoteRepository
 import com.confessionsearch.release1.data.notes.Notes
-import com.example.awesomedialog.*
 import com.google.android.material.textfield.TextInputLayout
 import www.sanju.motiontoast.MotionToast
 
@@ -144,16 +145,14 @@ class NotesComposeActivity : AppCompatActivity() {
                 Configuration.UI_MODE_NIGHT_NO -> darkMode = false
 
             }
-            val awesomeDialog = AwesomeDialog.build(this)
-                .title("Save Note?")
-                .body(String.format(resources.getString(R.string.save_note_message)))
-                .background(R.drawable.info_background)
-                .onPositive("Yes") {
-                    saveButton!!.performClick()
-                }
-                .onNegative("No") { finish() }
+            val alert = AlertDialog.Builder(this)
+                .setTitle("Save Note?")
+                .setMessage(String.format(resources.getString(R.string.save_note_message)))
+                .setNegativeButton("No") { dialog, which -> finish() }
+                .setPositiveButton("Yes") { dialog, which -> saveButton!!.performClick() }
+            val dialog: Dialog = alert.create()
+            if (!isFinishing) dialog.show()
 
-            if (!isFinishing) awesomeDialog.show()
         } else {
             DisableEdit()
 

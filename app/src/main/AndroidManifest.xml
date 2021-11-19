@@ -12,6 +12,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:launchMode="singleTop"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
             android:label="@string/app_name">
             <intent-filter>
@@ -23,17 +24,20 @@
         <activity
             android:name=".ui.notesActivity.NotesComposeActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:label="New Note" />
+            android:label="New Note"
+            android:launchMode="singleTop" />
         <activity
             android:name=".searchhandlers.SearchHandler"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
             android:label="Search Results"
+            android:launchMode="singleTop"
             android:parentActivityName=".MainActivity" />
 
         <activity
             android:name=".searchresults.BibleReaderSearchResults"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:parentActivityName=".MainActivity" />
 
     </application>
