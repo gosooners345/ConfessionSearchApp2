@@ -2,16 +2,16 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="ui.bible.BibleFragment"
     android:id="@+id/layoutMain"
+    style="@android:style/Widget.Material.ScrollView"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    style="@android:style/Widget.Material.ScrollView"
     android:isScrollContainer="true"
     android:overScrollMode="always"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:scrollbarStyle="outsideInset"
-    android:scrollbars="vertical">
+    android:scrollbars="vertical"
+    tools:context="ui.bible.BibleFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -47,13 +47,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_8"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/spinner_outline"
+            android:paddingLeft="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/translationDisplayLabel"
-            app:smsp_floatingLabelColor="?attr/colorPrimary"
             app:smsp_arrowColor="?attr/colorOnBackground"
+            app:smsp_floatingLabelColor="?attr/colorPrimary"
             app:smsp_itemColor="?attr/colorOnBackground"
             app:smsp_itemListColor="?attr/colorOnBackground" />
 
@@ -62,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+
             android:layout_marginTop="16dp"
             android:text="@string/book"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,14 +75,17 @@
             android:id="@+id/bibleBookCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_8"
+
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/spinner_outline"
+            android:paddingLeft="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bookDisplay"
-            app:smsp_floatingLabelColor="?attr/colorPrimary"
             app:smsp_arrowColor="?attr/colorOnBackground"
+            app:smsp_floatingLabelColor="?attr/colorPrimary"
             app:smsp_itemColor="?attr/colorOnBackground"
             app:smsp_itemListColor="?attr/colorOnBackground" />
 
@@ -115,13 +121,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_8"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/spinner_outline"
+            android:paddingLeft="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chapterDisplay"
-            app:smsp_floatingLabelColor="?attr/colorPrimary"
             app:smsp_arrowColor="?attr/colorOnBackground"
+            app:smsp_floatingLabelColor="?attr/colorPrimary"
             app:smsp_itemColor="?attr/colorOnBackground"
             app:smsp_itemListColor="?attr/colorOnBackground" />
 
@@ -169,13 +178,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_8"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/spinner_outline"
+            android:paddingLeft="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/verseDisplay"
-            app:smsp_floatingLabelColor="?attr/colorPrimary"
             app:smsp_arrowColor="?attr/colorOnBackground"
+            app:smsp_floatingLabelColor="?attr/colorPrimary"
             app:smsp_itemColor="?attr/colorOnBackground"
             app:smsp_itemListColor="?attr/colorOnBackground" />
 
