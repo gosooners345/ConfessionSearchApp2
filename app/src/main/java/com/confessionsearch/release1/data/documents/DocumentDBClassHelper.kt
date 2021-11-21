@@ -1,5 +1,6 @@
 package com.confessionsearch.release1.data.documents
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
@@ -10,6 +11,8 @@ import com.confessionsearch.release1.data.bible.BibleContents
 import com.confessionsearch.release1.data.bible.BibleContentsList
 import com.confessionsearch.release1.data.bible.BibleTranslation
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
+import java.util.*
+import kotlin.collections.ArrayList
 
 // Database Helper class for the ConfessionSearchApp Main Search and Bible reader functionality
 
@@ -83,6 +86,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
         }
     }
 
+    @SuppressLint("Range")
     //Get Bible translations
     fun getAllBibleTranslations(dbBibles: SQLiteDatabase?): ArrayList<BibleTranslation> {
         val translations = ArrayList<BibleTranslation>()
@@ -123,6 +127,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
 
     //Document Search Related DB Method
     //QUERY SQL STATEMENTS FOR SEARCH
+    @SuppressLint("Range")
     fun getAllDocTypes(dbTypes: SQLiteDatabase?): ArrayList<DocumentType> {
         val types = ArrayList<DocumentType>()
         val commandText = "SELECT * FROM DocumentType"
@@ -158,6 +163,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
 
     //Bible Reader Related
 //Book Specific Filtering, Safe, Gets Chapters for spinner
+    @SuppressLint("Range")
     fun getAllChapters(
         bibleList: SQLiteDatabase?,
         translationName: String?,
@@ -202,6 +208,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
 
 
     //Bible Reader Related Method,Safe
+    @SuppressLint("Range")
     fun getAllVerseNumbers(
         bibleList: SQLiteDatabase?,
         translationName: String?,
@@ -247,6 +254,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
         }
     }
 //Get Bible Verses
+@SuppressLint("Range")
     fun getAllVerses(
         bibleList: SQLiteDatabase?,
         translationName: String?,
@@ -288,6 +296,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
     }
 
     //Bible Contents List
+    @SuppressLint("Range")
     fun getChaptersandVerses(
         bibleList: SQLiteDatabase?,
         translationName: String?,
@@ -412,6 +421,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
 
 
     //get bible books, Bible Reader Related
+    @SuppressLint("Range")
     fun getAllBooks(
         bibleList: SQLiteDatabase?
     ): ArrayList<BibleBooks> {
@@ -454,17 +464,18 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
     }
 
     //Grab Document titles from DB, Document Search Related;
+    @SuppressLint("Range")
     fun getAllDocTitles(type: String, dbType: SQLiteDatabase): ArrayList<DocumentTitle> {
         var type = type
         val documentTitles = ArrayList<DocumentTitle>()
         var typeID = 0
         val commandText: String
         if (type === "") type = "ALL"
-        commandText = when (type.toUpperCase()) {
+        commandText = when (type.uppercase(Locale.getDefault())) {
             "ALL" -> "SELECT * FROM DocumentTitle"
-            else -> LayoutString(type.toUpperCase())
+            else -> LayoutString(type.uppercase(Locale.getDefault()))
         }
-        when (type.toUpperCase()) {
+        when (type.uppercase(Locale.getDefault())) {
             "CREED" -> typeID = 1
             "CONFESSION" -> typeID = 2
             "CATECHISM" -> typeID = 3
@@ -509,6 +520,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
     }
 
     //Fetch documents for processing, Document Search Related
+    @SuppressLint("Range")
     fun getAllDocuments(
         fileString: String,
         fileName: String?,
