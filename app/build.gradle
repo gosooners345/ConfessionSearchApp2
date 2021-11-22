@@ -57,7 +57,7 @@ implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     annotationProcessor 'androidx.room:room-compiler:2.3.0'
-
+ implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
     implementation 'com.github.irshulx:laser-native-editor:3.0.3'
 }
 repositories {

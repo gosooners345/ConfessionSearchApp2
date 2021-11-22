@@ -18,26 +18,27 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.documents.Document
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.data.documents.DocumentList
 import com.confessionsearch.release1.searchresults.SearchAdapter
-import com.confessionsearch.release1.searchresults.SearchFragmentActivity
 import com.confessionsearch.release1.searchresults.SearchResultFragment
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import www.sanju.motiontoast.MotionToast
 import java.util.*
 import java.util.regex.Pattern
 import kotlin.collections.ArrayList
+
 
 //Handle Search algorithm and Sort by types here
 
 class SearchHandler : AppCompatActivity() {
 
     var masterList = DocumentList()
-    var searchFragment: SearchFragmentActivity? = null
     var documentDB: SQLiteDatabase? = null
     var docDBhelper: DocumentDBClassHelper? = null
     var shareList = ""
@@ -46,7 +47,7 @@ class SearchHandler : AppCompatActivity() {
     var refreshQuery = ""
     var sortType = ""
     lateinit var adapter: SearchAdapter
-    lateinit var vp2: ViewPager
+    lateinit var vp2: ViewPager2
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {//, persistentState: PersistableBundle?) {
@@ -102,7 +103,6 @@ class SearchHandler : AppCompatActivity() {
         documentDB = docDBhelper!!.readableDatabase
 
         Log.d("Search()", "Search Party Begins")
-        searchFragment = SearchFragmentActivity()
         //Filters for how searches are executed by document type and name
 
         when (docType) {
@@ -135,7 +135,7 @@ class SearchHandler : AppCompatActivity() {
                     )
                 } else "documentTitle.DocumentTypeID=1"
                 accessString =
-                    if (searchAll) "" else "s"// AND documentTitle.DocumentTypeID=1
+                    if (searchAll) "" else "s"
             }
             "Confession" -> {
                 docID = 2
@@ -308,9 +308,19 @@ class SearchHandler : AppCompatActivity() {
 
     private fun refreshFragmentsOnScreen(query: String?) {
         setContentView(R.layout.index_pager)
-        adapter = SearchAdapter(supportFragmentManager, masterList, query!!)
-        vp2 = findViewById<ViewPager>(R.id.resultPager)
-        searchFragment!!.DisplayResults(masterList, vp2, adapter, query, 0)
+        adapter = SearchAdapter(supportFragmentManager, masterList, query!!, lifecycle)
+        vp2 = findViewById<ViewPager2>(R.id.resultPager2)
+        adapter.createFragment(0)
+        vp2.adapter = adapter
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        TabLayoutMediator(tabLayout, vp2) { tab, position ->
+            vp2.setCurrentItem(tab.position, true)
+            tab.text = String.format("Result %s of %s for %s", position + 1, masterList.size, query)
+        }
+            .attach()
+        adapter.saveState()
+
+        //searchFragment!!.DisplayResults(masterList, vp2, adapter, query, 0)
 
     }
 

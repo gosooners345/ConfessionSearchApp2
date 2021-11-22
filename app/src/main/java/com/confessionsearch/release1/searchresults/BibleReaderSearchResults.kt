@@ -11,13 +11,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.ViewPager
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.bible.BibleContentsList
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.ui.bible.BibleViewerFragment
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import www.sanju.motiontoast.MotionToast
 
 
@@ -25,12 +28,12 @@ class BibleReaderSearchResults : AppCompatActivity() {
 
     var shareList: String? = ""
     var shareNote: String? = ""
-
+    lateinit var vp2: ViewPager2
+    lateinit var adapter: BibleReaderAdapter
     var bibleVerseList = BibleContentsList()
     var docDBhelper: DocumentDBClassHelper? = null
     var documentDB: SQLiteDatabase? = null
     var header = ""
-    var bibleReaderHandler: BibleReaderHandler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +55,8 @@ class BibleReaderSearchResults : AppCompatActivity() {
         Log.d("BibleReader", "Debut")
         docDBhelper = DocumentDBClassHelper(this)
         documentDB = docDBhelper!!.readableDatabase
+        //Attempt DB Stuff here
         try {
-            bibleReaderHandler = BibleReaderHandler()
             bibleVerseList = docDBhelper!!.getChaptersandVerses(
                 documentDB!!,
                 bibleTranslation,
@@ -61,7 +64,6 @@ class BibleReaderSearchResults : AppCompatActivity() {
                 bibleCh,
                 bibleVerseNum
             )
-
 
             if (bibleCh != 0) {
                 var verse = ""
@@ -75,12 +77,11 @@ class BibleReaderSearchResults : AppCompatActivity() {
                 }
             }
             bibleVerseList.title = bibleBook
-            //Under further review for bugfixes
-            //setContentView(R.layout.index_pager)
+
             val bibleAdapter = BibleReaderAdapter(
                 supportFragmentManager,
                 bibleVerseList,
-                bibleVerseList.title!!
+                bibleVerseList.title!!, lifecycle
             )
 
             if (bibleVerseList.size > 1) {
@@ -88,10 +89,22 @@ class BibleReaderSearchResults : AppCompatActivity() {
                 val adapter = BibleReaderAdapter(
                     supportFragmentManager,
                     bibleVerseList,
-                    bibleVerseList.title!!
+                    bibleVerseList.title!!, lifecycle
                 )
-                val vp = findViewById<ViewPager>(R.id.resultPager)
-                bibleReaderHandler!!.displayResults(bibleVerseList, vp, adapter, 0)
+                vp2 = findViewById<ViewPager2>(R.id.resultPager2)
+                adapter.createFragment(0)
+                vp2.adapter = adapter
+                val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+                TabLayoutMediator(tabLayout, vp2) { tab, position ->
+                    tab.text = String.format(
+                        "Chapter %s of %s in %s",
+                        position + 1,
+                        bibleVerseList.size,
+                        bibleBook
+                    )
+                }.attach()
+                adapter.saveState()
+
 
             } else {
                 setContentView(R.layout.fragment_bible_view_results)
@@ -146,8 +159,13 @@ class BibleReaderSearchResults : AppCompatActivity() {
     }
 }
 
-class BibleReaderAdapter(fm: FragmentManager?, verseList: BibleContentsList, titleString: String) :
-    FragmentStatePagerAdapter(fm!!) {
+class BibleReaderAdapter(
+    fm: FragmentManager?,
+    verseList: BibleContentsList,
+    titleString: String,
+    lifeCycle: Lifecycle
+) :
+    FragmentStateAdapter(fm!!, lifeCycle) {
     var dList1 = BibleContentsList()
     var bibleList = verseList
     private var bibleBookPosition = 0
@@ -156,17 +174,17 @@ class BibleReaderAdapter(fm: FragmentManager?, verseList: BibleContentsList, tit
 
     //public FragmentManager news;
     var news: FragmentManager? = null
-    override fun getCount(): Int {
-        return bibleList.size
-    }
+    /* override fun getCount(): Int {
+         return bibleList.size
+     }
+ */
+    /*  override fun getPageTitle(position: Int): CharSequence? {
+          var titleString =
+              String.format("Chapter %s of %s in %s", position + 1, bibleList.size, term)
+          return titleString
+      }*/
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        var titleString =
-            String.format("Chapter %s of %s in %s", position + 1, bibleList.size, term)
-        return titleString
-    }
-
-    override fun getItem(position: Int): Fragment {
+    /*override fun getItem(position: Int): Fragment {
         var title = ""
         val frg: Fragment
         val bibleSection = bibleList[position]
@@ -186,7 +204,7 @@ class BibleReaderAdapter(fm: FragmentManager?, verseList: BibleContentsList, tit
                 bibleSection.BookName!!
             )
         return frg
-    }
+    }*/
 
     init {
         term = titleString
@@ -194,5 +212,31 @@ class BibleReaderAdapter(fm: FragmentManager?, verseList: BibleContentsList, tit
 
     companion object {
         private const val ACTIVITY_ID = 66
+    }
+
+    override fun getItemCount(): Int {
+        return bibleList.size
+    }
+
+    override fun createFragment(position: Int): Fragment {
+        var title = ""
+        val frg: Fragment
+        val bibleSection = bibleList[position]
+        bibleBookPosition++
+        if (bibleSection.VerseNumber!! > 0)
+            frg = BibleViewerFragment.NewVerse(
+                bibleSection.ChapterNum!!,
+                bibleSection.VerseText!!,
+                bibleSection.VerseNumber!!,
+                bibleSection.BookName!!
+            )
+        else
+            frg = BibleViewerFragment.NewVerse(
+                bibleSection.ChapterNum!!,
+                bibleSection.VerseText!!,
+                0,
+                bibleSection.BookName!!
+            )
+        return frg
     }
 }

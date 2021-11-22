@@ -7,6 +7,8 @@
     <string name="catechism_help">Search Help:</string>
     <string name="catechismPgh">
   </string>
+    <string name="placeholder_text_ch_Title">chapterHeader</string>
+    <string name="placeholder_text_here">ChapterTextHere</string>
     <string name="OK">OK</string>
     <string name="def_theme">LightMode</string>
     <string name="theme_summary">Appearance</string>
@@ -16,7 +18,7 @@
     <string name="query_error">Entry required before search can be executed!</string>
     <string name="Source_Text" formatted="true">All documents used in this application are public domain. A big thanks for inspiration and help for this app came from https://www.reformed.org/."</string>
     <string name="View_Button">View</string>
-<string name="submit">Submit</string>
+    <string name="submit">Submit</string>
     <string name="confessionPgh" formatted="true">To exclude answers from results, hit the No Answers Checkbox under Search Options.\n
     To exclude proofs from search, Hit no Proofs checkbox.</string>
     <string name="creedPgh">Hit the home button to go back home</string>
