@@ -48,12 +48,12 @@ class SearchResultFragment : Fragment() {
         docTitleBox.text = resultTitle
         if (resultChapter.contains("Question")) {
             header = "Question "
-            chNumbBox.text = String.format("%s %s : %s", header, resultID, chTitle)
+            chNumbBox.text = resultTitle+ "\r\n" +String.format("%s %s : %s", header, resultID, chTitle)
         } else if (resultChapter.contains("I. ")) {
             header = "Chapter"
             chNumbBox.text = resultTitle+ "\r\n" + String.format("%s %s: %s", header, resultID, chTitle)
         } else {
-            chNumbBox.text = String.format("%s ", chTitle)
+            chNumbBox.text = resultTitle+ "\r\n" +String.format("%s ", chTitle)
         }
         matchView.text = String.format("Matches: %s", resultMatch)
         shareList = (docTitleBox.text.toString() + newLine + chNumbBox.text + newLine
