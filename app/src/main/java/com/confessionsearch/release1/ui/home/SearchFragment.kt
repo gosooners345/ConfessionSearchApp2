@@ -1,5 +1,16 @@
 package com.confessionsearch.release1.ui.home
 
+/* Author: Brandon Guerin
+*
+*  Language: Kotlin
+*
+*  Application: The Reformed Collective
+*  Class: SearchFragment.kt
+*  Purpose: Main home fragment of application, Serves as the host to the search function
+*
+*
+**/
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -14,14 +25,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.*
-import androidx.appcompat.widget.ShareActionProvider
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.CompoundButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.MyAdapter
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
-import com.confessionsearch.release1.data.documents.DocumentList
 import com.confessionsearch.release1.databinding.FragmentHomeBinding
 import com.confessionsearch.release1.searchhandlers.SearchHandler
 import com.google.android.material.chip.Chip
@@ -37,19 +49,9 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     var documentDB: SQLiteDatabase? = null
     var docDBhelper: DocumentDBClassHelper? = null
-    var shareProvider: ShareActionProvider? = null
-    private var documentTypeSpinner: Spinner? = null
-    private var documentNameSpinner: Spinner? = null
-
-    // var docTypeATV : TextInputLayout? = null
     var header = ""
     var searchBoxContainer: TextInputLayout? = null
-
-    var dbName = "confessionSearchDB.sqlite3"
     var type = ""
-
-
-    //Testing
     var answerChip: Chip? = null
     var proofChip: Chip? = null
     var searchAllChip: Chip? = null
@@ -63,9 +65,7 @@ class SearchFragment : Fragment() {
     var docTitleList: ArrayList<String?> = ArrayList()
     var docTypes: ArrayList<String?> = ArrayList()
     var chipGroup: ChipGroup? = null
-    var masterList = DocumentList()
-    var shareNote: String? = null
-    // var docType = ""
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -328,6 +328,7 @@ class SearchFragment : Fragment() {
 
             var searchIntent = Intent(context, SearchHandler::class.java)
             val stringQuery = query
+
             Log.d("Test", context.toString())
             //Document Type Filtering
             searchIntent.putExtra("AllDocs", allOpen)

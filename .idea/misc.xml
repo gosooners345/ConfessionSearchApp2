@@ -15,6 +15,7 @@
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/ic_nav_bible.xml" value="0.17972972972972973" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/ic_nav_help.xml" value="0.1" />
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/notes_outline.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/spinner_outline.xml" value="0.17972972972972973" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout-land/fragment_bible_form.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -29,8 +30,8 @@
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/fragment_notes.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/index_pager.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/newactivity_main.xml" value="0.16925675675675675" />
-        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/notes_compose_layout.xml" value="0.18" />
-        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/notes_item_layout.xml" value="0.1" />
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/notes_compose_layout.xml" value="0.25" />
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/notes_item_layout.xml" value="0.33" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/search_results.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/spinner_item_layout.xml" value="0.16925675675675675" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/test_activity_main.xml" value="0.1" />
@@ -38,6 +39,7 @@
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/menu/menu.xml" value="0.14831081081081082" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/menu/share_menu.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/menu/sort_menu.xml" value="0.1" />
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/xml/preferences.xml" value="0.12" />
       </map>
     </option>
   </component>

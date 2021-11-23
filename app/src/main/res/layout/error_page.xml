@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
 
     >
+
     <ImageView
 
         android:id="@+id/warningIV"
@@ -15,8 +16,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="128dp"
-        app:srcCompat="@android:color/background_light"
         android:src="@android:drawable/stat_notify_error"
+        app:srcCompat="@android:color/background_light"
         app:tint="#fffa0e0e" />
     <TextView
         android:id="@+id/errorTV"

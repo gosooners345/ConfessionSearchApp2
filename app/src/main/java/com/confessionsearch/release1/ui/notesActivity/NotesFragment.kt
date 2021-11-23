@@ -1,5 +1,14 @@
 package com.confessionsearch.release1.ui.notesActivity
 
+/* Author: Brandon Guerin
+*
+*  Language: Kotlin
+*
+*  Application: The Reformed Collective
+*  Class Name: NotesFragment.kt
+*  Purpose: This is the class file that handles events on the Notes section of the application
+*/
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle

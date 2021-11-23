@@ -1,6 +1,5 @@
 package com.confessionsearch.release1.ui.notesActivity
 
-import android.app.Dialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -11,12 +10,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.notes.NoteRepository
 import com.confessionsearch.release1.data.notes.Notes
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import www.sanju.motiontoast.MotionToast
 
@@ -138,25 +138,26 @@ class NotesComposeActivity : AppCompatActivity() {
 
     //back button
     override fun onBackPressed() {
-        if (mode == EDIT_OFF) {
+        /*if (mode == EDIT_OFF) {
             var darkMode = false
             when (applicationContext.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)) {
                 Configuration.UI_MODE_NIGHT_YES -> darkMode = true
                 Configuration.UI_MODE_NIGHT_NO -> darkMode = false
 
-            }
-            val alert = AlertDialog.Builder(this)
-                .setTitle("Save Note?")
-                .setMessage(String.format(resources.getString(R.string.save_note_message)))
-                .setNegativeButton("No") { dialog, which -> finish() }
-                .setPositiveButton("Yes") { dialog, which -> saveButton!!.performClick() }
-            val dialog: Dialog = alert.create()
-            if (!isFinishing) dialog.show()
+            }*/
 
-        } else {
-            DisableEdit()
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Save Note?")
+            .setMessage(String.format(resources.getString(R.string.save_note_message)))
+            .setNegativeButton("No") { dialog, which -> finish() }
+            .setPositiveButton("Yes") { dialog, which -> saveButton!!.performClick() }
+            .setNeutralButton("Cancel") { dialog, which -> dialog.dismiss() }
+            .show()
 
-        }
+        /* } else {
+             DisableEdit()
+
+         }*/
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -200,6 +201,8 @@ class NotesComposeActivity : AppCompatActivity() {
         notesContent!!.isEnabled = false
         notesSubject!!.isEnabled = false
         mode = EDIT_OFF
+        val anchorView = findViewById<View>(R.id.masterLayout)
+        Snackbar.make(anchorView, "Note Editing Disabled", Snackbar.LENGTH_SHORT).show()
         when (applicationContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
             Configuration.UI_MODE_NIGHT_YES -> {
                 MotionToast.darkToast(
@@ -231,6 +234,8 @@ class NotesComposeActivity : AppCompatActivity() {
         notesContent!!.isEnabled = true
         notesSubject!!.isEnabled = true
         mode = EDIT_ON
+        val anchorView = findViewById<View>(R.id.masterLayout)
+        Snackbar.make(anchorView, "Note Editing Enabled", Snackbar.LENGTH_SHORT).show()
         when (applicationContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
             Configuration.UI_MODE_NIGHT_YES -> {
                 MotionToast.darkToast(

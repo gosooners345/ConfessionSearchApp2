@@ -1,7 +1,6 @@
 package com.confessionsearch.release1.searchhandlers
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.database.sqlite.SQLiteDatabase
@@ -15,7 +14,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager2.widget.ViewPager2
@@ -26,6 +24,7 @@ import com.confessionsearch.release1.data.documents.DocumentList
 import com.confessionsearch.release1.searchresults.SearchAdapter
 import com.confessionsearch.release1.searchresults.SearchResultFragment
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import www.sanju.motiontoast.MotionToast
@@ -50,9 +49,8 @@ class SearchHandler : AppCompatActivity() {
     lateinit var vp2: ViewPager2
 
     @SuppressLint("NewApi")
-    override fun onCreate(savedInstanceState: Bundle?) {//, persistentState: PersistableBundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val allDocsBool = intent.getBooleanExtra("AllDocs", false)
         val answers = intent.getBooleanExtra("Answers", false)
         docType = intent.getStringExtra("docType").toString()
@@ -278,30 +276,23 @@ class SearchHandler : AppCompatActivity() {
                 }
                 super.setContentView(R.layout.error_page)
                 val errorMsg = findViewById<TextView>(R.id.errorTV)
-                errorMsg.text = String.format(
+                val errorMessage = String.format(
                     """
     No results were found for %s 
     
     Go back to home page to search for another topic
     """.trimIndent(), query
                 )
-                val alert = AlertDialog.Builder(this)
-                alert.setTitle("No Results Found!")
-                alert.setMessage(
-                    String.format(
-                        """No results were found for %s
-    Go back to home page to search for another topic
-    """.trimIndent(), query
-                    )
-                )
-                alert.setPositiveButton("Yes") { dialog, which ->
-                    onBackPressed()
-                }
-                alert.setNegativeButton("No") { dialog, which -> dialog.dismiss() }
-                val dialog: Dialog = alert.create()
-                if (!isFinishing) dialog.show()
+                errorMsg.text = errorMessage
 
-
+                MaterialAlertDialogBuilder(this)
+                    .setTitle("No Results Found!")
+                    .setMessage(errorMessage)
+                    .setPositiveButton("Yes") { dialog, which ->
+                        onBackPressed()
+                    }
+                    .setNegativeButton("No") { dialog, which -> dialog.dismiss() }
+                    .show()
             }
         }
     }

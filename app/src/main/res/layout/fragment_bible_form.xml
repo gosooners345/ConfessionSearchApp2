@@ -39,6 +39,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:text="@string/bible_translation"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_bible_title" />
 
@@ -68,6 +69,7 @@
 
             android:layout_marginTop="16dp"
             android:text="@string/book"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bibleTranslationCB" />
 
@@ -89,23 +91,6 @@
             app:smsp_itemColor="?attr/colorOnBackground"
             app:smsp_itemListColor="?attr/colorOnBackground" />
 
-
-        <!-- <Spinner
-             android:id="@+id/bibleBookSelector"
-             style="@android:style/Widget.Material.Spinner.Underlined"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_marginStart="8dp"
-             android:layout_marginTop="16dp"
-             android:layout_marginEnd="8dp"
-             android:minHeight="48dp"
-             android:spinnerMode="dialog"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toBottomOf="@+id/bookDisplay"
-             tools:ignore="SpeakableTextPresentCheck" />-->
-
-
         <TextView
             android:id="@+id/chapterDisplay"
             android:layout_width="wrap_content"
@@ -113,6 +98,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/chapter"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bibleBookCB" />
 
@@ -134,20 +120,6 @@
             app:smsp_itemColor="?attr/colorOnBackground"
             app:smsp_itemListColor="?attr/colorOnBackground" />
 
-        <!-- <Spinner
-             android:id="@+id/bibleChapterSpinner"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_marginStart="8dp"
-             android:layout_marginTop="16dp"
-             android:layout_marginEnd="8dp"
-             android:minHeight="48dp"
-             style="@android:style/Widget.Material.Spinner.Underlined"
-             android:spinnerMode="dialog"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toBottomOf="@+id/chapterDisplay"
-             tools:ignore="SpeakableTextPresentCheck" />-->
         <TextView
             android:id="@+id/verseDisplay"
             android:layout_width="wrap_content"
@@ -155,24 +127,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/verse"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bibleChapterSpinner" />
-        <!--<Spinner
-            android:id="@+id/verseSpinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            style="@android:style/Widget.Material.Spinner.Underlined"
-            android:layout_marginBottom="150dp"
-            android:minHeight="48dp"
-            android:spinnerMode="dialog"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/verseDisplay"
-            tools:ignore="SpeakableTextPresentCheck" />-->
+
         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
             android:id="@+id/verseSpinner"
             android:layout_width="match_parent"
@@ -181,8 +139,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="64dp"
             android:background="@drawable/spinner_outline"
-            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/verseDisplay"

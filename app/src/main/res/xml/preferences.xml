@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-
-    >
-
-    <CheckBoxPreference
-        android:buttonTint="?android:attr/textColor"
-        android:contentDescription="Theme Settings"
-        android:defaultValue="true"
-        android:key="darkMode"
-        android:shadowColor="?android:attr/textColor"
-        android:summary="Check here if you want to enable dark mode for easier reading"
-        android:summaryOff="Check Here for Dark mode"
-        android:summaryOn="Dark mode enabled"
-        android:textColor="?android:attr/textColor"
-        android:textColorHighlight="?android:attr/textColor"
-        android:textColorHint="?android:attr/textColor"
-        android:title="@string/dark_mode_title" />
+<PreferenceScreen>
 
 
 </PreferenceScreen>

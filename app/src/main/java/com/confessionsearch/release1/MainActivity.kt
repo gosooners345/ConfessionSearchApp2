@@ -5,20 +5,19 @@ package com.confessionsearch.release1
 *  Language: Kotlin
 *
 *  Application : The Reformed Collective
-*
+*  Class: MainActivity.kt
+*  Purpose: This is the main entry point to the application
 */
 
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.*
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -69,7 +68,6 @@ class MainActivity : AppCompatActivity() {
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
 
-
         } catch (ex: Exception) {
             ex.printStackTrace()
             DesignerToast.Error(this, ex.message, Gravity.BOTTOM, Toast.LENGTH_LONG)
@@ -85,34 +83,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-
-        when (Configuration.UI_MODE_NIGHT_MASK and resources.configuration.uiMode) {
-            Configuration.UI_MODE_NIGHT_NO -> {
-                setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                Log.i("ConfigChange", "Configuration Change Made")
-                var restart = Intent(context, MainActivity::class.java)
-                var saveBundle = navController.saveState()
-
-                restart.putExtra("config", saveBundle)
-                finish()
-                startActivity(restart)
-
-            }
-
-            Configuration.UI_MODE_NIGHT_YES -> {
-                setDefaultNightMode(MODE_NIGHT_YES)
-
-                var restart = Intent(context, MainActivity::class.java)
-                Log.i("ConfigChange", "Restarting Actviity due to UI Change")
-                var saveBundle = navController.saveState()
-                //this.onSaveInstanceState( saveBundle )
-                restart.putExtra("config", saveBundle)
-                finish()
-                startActivity(restart)
-            }
-        }
+        recreate()
     }
 
+    // This changes the Floating Action Button Depending on what is displayed on screen
     private var navControllerEvent: NavController.OnDestinationChangedListener =
         NavController.OnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -137,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    // Test for fab consolidation
+    //Floating Action Button Event Handler
     var mainFabOnClickListener = View.OnClickListener {
         when (navView.selectedItemId) {
             R.id.navigation_notes -> {
@@ -189,10 +163,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    }
-
-    override fun onBackPressed() {
-        this.finish()
     }
 
     //Pass any static variables along here
