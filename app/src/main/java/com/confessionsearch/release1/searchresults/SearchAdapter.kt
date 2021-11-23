@@ -36,7 +36,7 @@ class SearchAdapter(
             if (title === "Results" || title === "") document.documentName else document.documentName
         docPosition++
         frg = SearchResultFragment.NewResult(
-            document.documentText, document.proofs, document.documentName,
+            document.documentText, document.proofs, title,
             document.chNumber, documentList1.title, document.matches, document.chName, document.tags
         )
         return frg
