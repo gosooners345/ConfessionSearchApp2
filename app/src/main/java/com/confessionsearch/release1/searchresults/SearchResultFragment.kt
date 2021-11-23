@@ -46,6 +46,7 @@ class SearchResultFragment : Fragment() {
         proofBox.text = Html.fromHtml(resultProofs)
         tagBox.text = String.format("Tags: %s", resultTags)
         docTitleBox.text = resultTitle
+        docTitleBox.text = resultTitle
         if (resultChapter.contains("Question")) {
             header = "Question "
             chNumbBox.text = resultTitle+ "\r\n" +String.format("%s %s : %s", header, resultID, chTitle)
