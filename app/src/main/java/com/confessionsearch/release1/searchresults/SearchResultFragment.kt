@@ -51,7 +51,7 @@ class SearchResultFragment : Fragment() {
             chNumbBox.text = String.format("%s %s : %s", header, resultID, chTitle)
         } else if (resultChapter.contains("I. ")) {
             header = "Chapter"
-            chNumbBox.text = String.format("%s %s: %s", header, resultID, chTitle)
+            chNumbBox.text = resultTitle+ "\r\n" + String.format("%s %s: %s", header, resultID, chTitle)
         } else {
             chNumbBox.text = String.format("%s ", chTitle)
         }
