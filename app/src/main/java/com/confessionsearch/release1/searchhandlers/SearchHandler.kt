@@ -1,5 +1,15 @@
 package com.confessionsearch.release1.searchhandlers
 
+/* Author: Brandon Guerin
+*
+*  Language: Kotlin
+*
+*  Application : The Reformed Collective
+*  Class: SearchHandler.kt
+*  Purpose: This class handles all search related functions and delivers search results to the
+*  screen when completed
+*/
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
@@ -297,6 +307,7 @@ class SearchHandler : AppCompatActivity() {
         }
     }
 
+    // This method is crucial for loading the Search Results onto the screen and refreshing based on sort order
     private fun refreshFragmentsOnScreen(query: String?) {
         setContentView(R.layout.index_pager)
         adapter = SearchAdapter(supportFragmentManager, masterList, query!!, lifecycle)
@@ -310,9 +321,6 @@ class SearchHandler : AppCompatActivity() {
         }
             .attach()
         adapter.saveState()
-
-        //searchFragment!!.DisplayResults(masterList, vp2, adapter, query, 0)
-
     }
 
 
