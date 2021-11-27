@@ -9,15 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ShareActionProvider
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
 
 class SearchResultFragment : Fragment() {
-    private val documentTitle: String? = null
-    var action: ShareActionProvider? = null
     var shareNote: String? = null
     var shareList = ""
 
@@ -41,12 +38,8 @@ class SearchResultFragment : Fragment() {
         val resultID = requireArguments().getInt(number, 0)
         val view = inflater.inflate(R.layout.search_results, container, false)
         val chapterBox = view.findViewById<TextView>(R.id.chapterText)
-        val proofBox = view.findViewById<TextView>(R.id.proofText)
         val chNumbBox = view.findViewById<TextView>(R.id.confessionChLabel)
         val docTitleBox = view.findViewById<TextView>(R.id.documentTitleLabel)
-        val matchView = view.findViewById<TextView>(R.id.matchView)
-        val tagBox = view.findViewById<TextView>(R.id.tagView)
-        val proofLabel = view.findViewById<TextView>(R.id.proofLabel)
         val fab = view.findViewById<Button>(R.id.shareActionButton)
         val saveFab = view.findViewById<Button>(R.id.saveNote)
         if (resultChapter.contains("Question")) {
@@ -64,31 +57,12 @@ class SearchResultFragment : Fragment() {
         docTitleBox.text = resultTitle
         chNumbBox.text = titleHeader
 
-        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.N) {
-            chapterBox.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM)
-            chapterBox.text = Html.fromHtml(
-                lineBreak + resultChapter + lineBreak + "Proofs:" + lineBreak + resultProofs
-                        + lineBreak + matchLine + lineBreak + tagLine
-            )
-            shareList = chapterBox.text.toString()
-            shareNote = chapterBox.text.toString()
-            proofBox.visibility = View.GONE
-            proofLabel.visibility = View.GONE
-            tagBox.visibility = View.GONE
-            matchView.visibility = View.GONE
-        } else {
-            chapterBox.text = Html.fromHtml(resultChapter)
-            proofBox.text = Html.fromHtml(resultProofs)
-            tagBox.text = tagLine
-            matchView.text = matchLine
-            shareList = (docTitleBox.text.toString() + newLine + chNumbBox.text + newLine
-                    + newLine + chapterBox.text + newLine + "Proofs" + newLine + proofBox.text)
-            shareNote = String.format(
-                docTitleBox.text.toString() + newLine + chNumbBox.text.toString() + newLine
-                        + chapterBox.text + newLine + "Proofs" + newLine + proofBox.text.toString()
-            )
-        }
-
+        chapterBox.text = Html.fromHtml(
+            lineBreak + resultChapter + lineBreak + "Proofs:" + lineBreak + resultProofs
+                    + lineBreak + matchLine + lineBreak + tagLine
+        )
+        shareList = chapterBox.text.toString()
+        shareNote = chapterBox.text.toString()
         fab.setOnClickListener(shareContent)
         saveFab.setOnClickListener(saveNewNote)
         return view

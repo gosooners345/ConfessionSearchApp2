@@ -168,6 +168,9 @@ class MainActivity : AppCompatActivity() {
     //Pass any static variables along here
     companion object {
         var notesArrayList = ArrayList<Notes>()
+        const val versionName = BuildConfig.VERSION_NAME
+        const val appName = BuildConfig.APPLICATION_ID
+        const val buildType = BuildConfig.BUILD_TYPE
     }
 
 

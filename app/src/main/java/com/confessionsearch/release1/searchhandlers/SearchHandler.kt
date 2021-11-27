@@ -236,12 +236,8 @@ class SearchHandler : AppCompatActivity() {
                 val saveFab = findViewById<Button>(R.id.saveNote)
                 val fab = findViewById<Button>(R.id.shareActionButton)
                 val chapterBox = findViewById<TextView>(R.id.chapterText)
-                val matchView = findViewById<TextView>(R.id.matchView)
-                val proofBox = findViewById<TextView>(R.id.proofText)
-                val proofLabel = findViewById<TextView>(R.id.proofLabel)
                 val chNumbBox = findViewById<TextView>(R.id.confessionChLabel)
                 val docTitleBox = findViewById<TextView>(R.id.documentTitleLabel)
-                val tagBox = findViewById<TextView>(R.id.tagView)
                 if (document.documentText!!.contains("Question")) {
                     header = "Question "
                     titleHeader =
@@ -256,29 +252,13 @@ class SearchHandler : AppCompatActivity() {
                 matchLine = String.format("Matches: %s", document.matches)
                 docTitleBox.text = document.documentName
                 chNumbBox.text = titleHeader
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    chapterBox.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM)
-                    chapterBox.text = Html.fromHtml(
-                        lineBreak + document.documentText + lineBreak + "Proofs:" + lineBreak + document.proofs +
-                                lineBreak + tagLine + lineBreak + matchLine
-                    )
-                    shareList = docTitleBox.text.toString() + newLine + chapterBox.text.toString()
-                    shareNote = shareList
-                    proofBox.visibility = View.GONE
-                    proofLabel.visibility = View.GONE
-                    tagBox.visibility = View.GONE
-                    matchView.visibility = View.GONE
-                } else {
-                    proofBox.text = Html.fromHtml(document.proofs)
-                    chapterBox.text = Html.fromHtml(document.documentText)
-                    tagBox.text = String.format("Tags: %s", document.tags)
-                    shareList = (docTitleBox.text.toString() + newLine + chNumbBox.text + newLine
-                            + newLine + chapterBox.text + newLine + "Proofs" + newLine + proofBox.text)
+                chapterBox.text = Html.fromHtml(
+                    lineBreak + document.documentText + lineBreak + "Proofs:" + lineBreak + document.proofs +
+                            lineBreak + tagLine + lineBreak + matchLine
+                )
+                shareList = docTitleBox.text.toString() + newLine + chapterBox.text.toString()
+                shareNote = shareList
 
-                    shareNote =
-                        (docTitleBox.text.toString() + "<br>" + "<br>" + chNumbBox.text + "<br>"
-                                + "<br>" + document.documentText + "<br>" + "Proofs" + "<br>" + document.proofs)
-                }
 
                 fab.setOnClickListener(shareContent)
                 saveFab.setOnClickListener(saveNewNote)
