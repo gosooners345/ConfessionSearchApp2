@@ -1,6 +1,8 @@
 package com.confessionsearch.release1.ui.help
 
 import android.os.Bundle
+import android.text.Html
+import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,21 +21,38 @@ class HelpPageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+        var searchTitle = (getString(R.string.search_tab) + newLine +
+                getString(R.string.help_searchTab_pgh1))
+
+
+        var spannedTitle = Html.fromHtml(searchTitle, FROM_HTML_MODE_LEGACY).toString()
         var sourceElement = Element()
         sourceElement.title =
-            getString(R.string.sources_tab) + newLine + getString(R.string.copyright_disclaimer)
+            getString(R.string.sources_tab) + newLine + Html.fromHtml(
+                getString(R.string.copyright_disclaimer),
+                FROM_HTML_MODE_LEGACY
+            ).toString()
         var versionElement = Element()
         versionElement.title = "Version #: ${MainActivity.versionName}"
         val searchTabElement = Element()
-        searchTabElement.title = getString(R.string.search_tab) + newLine +
-                getString(R.string.help_searchTab_pgh1)
+        searchTabElement.title = spannedTitle
         searchTabElement.value = getString(R.string.help_searchTab_pgh1)
         val notesSectionElement = Element()
         notesSectionElement.title =
-            getString(R.string.notes_tab_help) + newLine + getString(R.string.notes_tab_helpPgh)
+            Html.fromHtml(getString(R.string.notes_tab_help), FROM_HTML_MODE_LEGACY)
+                .toString() + Html.fromHtml(
+                getString(R.string.notes_tab_helpPgh),
+                FROM_HTML_MODE_LEGACY
+            ).toString()
         val bibleReaderElement = Element()
         bibleReaderElement.title =
-            getString(R.string.bible_tab_HelpLabel) + newLine + getString(R.string.bible_tab_helpPgh)
+            Html.fromHtml(getString(R.string.bible_tab_HelpLabel), FROM_HTML_MODE_LEGACY)
+                .toString() + Html.fromHtml(
+                getString(R.string.bible_tab_helpPgh),
+                FROM_HTML_MODE_LEGACY
+            ).toString()
         Log.i("HelpFragment", "I am loading...")
         val helpPage = AboutPage(requireContext())
             .setDescription(getString(R.string.app_description))

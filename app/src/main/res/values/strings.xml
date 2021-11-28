@@ -112,17 +112,17 @@
   <string name="bible_translation">Translation Name</string>
   <string name="bible_footer">Bible</string>
 
-  <string name="search_tab">Search tab:</string>
-  <string name="help_searchTab_pgh1" formatted="true">Search creeds, confessions, and catechisms here.
-        \n Search by topic, chapter or question, or read the document using the toggles on the top of the page.\n
-    Customize your search further by omitting answers or proofs, searching all documents, or sort by chapter order by hitting the buttons under Advanced Search Options.</string>
+  <string name="search_tab">&lt;b>Search Tab:&lt;/b></string>
+  <string name="help_searchTab_pgh1" formatted="true"> &lt;p>&lt;ul>Search creeds, confessions, and catechisms here.
+    &lt;li>Search by topic, chapter or question, or read the document using the toggles on the top of the page.&lt;/li>
+    &lt;li>Customize your search further by omitting answers or proofs, searching all documents, or sort by chapter order by hitting the buttons under Advanced Search Options.&lt;/li>&lt;/ul>&lt;/p></string>
   <string name="search_tab_pgh2">Here are the available options to you in the search: \n To search topics, hit the Topic button, Chapters/Questions in Confessions/Catechisms hit the Chapter/Question Button, To simply read the document, hit the Read button. \n For more advanced filtering such as answer/proof removal, hit the no answers/no proofs buttons, to search all documents, hit the search all documents button. This will depend on what document type you have selected. For all documents, you\'ll need the \'All\' type selected, otherwise it will be limited to what you have selected.</string>
-  <string name="notes_tab_help">Notes Tab:</string>
-  <string name="notes_tab_helpPgh" formatted="true">Store notes of your favorite scripture passages, search results, and more. \nHit the Save Note button on any search result or bible reader page and you\'ll be able to instantly save a note and navigate back to your previous task.\n Hit the new note button on the notes tab to create an entirely new note. \nWhen you\'re finished, hit save note to save the note on your device. </string>
-  <string name="bible_tab_HelpLabel">Bible Tab:</string>
-  <string name="bible_tab_helpPgh" formatted="true">Read Scripture by simply selecting what translation, book, chapter, and verse you want to navigate to. \nIf you want to read an entire book of scripture, simply leave the chapter field on All. \nThe same goes for reading an entire chapter of a book of Scripture, leave the verse field set to all. \nHit the read button and you\'ll be reading through scripture.</string>
+  <string name="notes_tab_help">&lt;b>Notes Tab:&lt;/b></string>
+  <string name="notes_tab_helpPgh" formatted="true">&lt;p>&lt;ul>Store notes of your favorite scripture passages, search results, and more. &lt;/li>&lt;li>Hit the Save Note button on any search result or bible reader page and you\'ll be able to instantly save a note and navigate back to your previous task.&lt;/li> &lt;li>Hit the new note button on the notes tab to create an entirely new note.&lt;/li> &lt;li>When you\'re finished, hit save note to save the note on your device.&lt;/li>&lt;/ul>&lt;/p> </string>
+  <string name="bible_tab_HelpLabel">&lt;b>Bible Tab:&lt;/b></string>
+  <string name="bible_tab_helpPgh" formatted="true">&lt;p>&lt;ul &lt;liRead Scripture by simply selecting what translation, book, chapter, and verse you want to navigate to.&lt;/li>&lt;li>If you want to read an entire book of scripture, simply leave the chapter field on All. &lt;/li>&lt;li>The same goes for reading an entire chapter of a book of Scripture, leave the verse field set to all. \nHit the read button and you\'ll be reading through scripture.&lt;/li&lt;/ul>&lt;/p></string>
   <string name="other_stuff_tab">Other Stuff:</string>
-  <string name="copyright_disclaimer">Sources for these documents are in public domain since they are old. Bible translations will be cited below alongside any copyrighted content used with permission.</string>
+  <string name="copyright_disclaimer">&lt;p>Sources for these documents are in public domain since they are old. Bible translations will be cited below alongside any copyrighted content used with permission.&lt;/p></string>
   <string name="share_entry">Each search result page has the share button enabled to allow for easy sharing with your friends or favorite social media site.</string>
   <string name="sources_tab">Sources:</string>
   <string name="available_options">Available Options:</string>
