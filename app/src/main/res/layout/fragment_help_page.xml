@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!--<androidx.cardview.widget.CardView
     android:id="@+id/verseAnchor"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,32 +18,33 @@
     android:verticalScrollbarPosition="right"
     app:cardCornerRadius="2dp"
     app:cardElevation="3dp"
-    app:layout_scrollFlags="scroll">
+    app:layout_scrollFlags="scroll">-->
 
-    <ViewStub
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <!--<ScrollView
-        android:id="@+id/help_page_SV"
-        style="@android:style/Widget.Material.ScrollView"
+<!--<ViewStub
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />-->
+<ScrollView android:id="@+id/help_page_SV"
+    style="@android:style/Widget.Material.ScrollView"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="80dp"
+    android:scrollIndicators="end"
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/result_screen"
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="80dp"
-        android:scrollIndicators="end"
-        android:scrollbarStyle="insideOverlay"
-        android:scrollbars="vertical">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/result_screen"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:isScrollContainer="true"
-            android:overScrollMode="always"
-            android:scrollIndicators="right"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:isScrollContainer="true"
+        android:overScrollMode="always"
+        android:scrollIndicators="right"
             android:scrollbars="vertical"
             android:verticalScrollbarPosition="right">
 
@@ -59,176 +59,78 @@
                 android:letterSpacing=".10"
                 android:text="@string/help_page"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/searchTabLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/searchTabLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-                android:layout_marginVertical="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/search_tab"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/helpPage_TitleBar" />
+            android:layout_marginVertical="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="SearchTab"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/helpPage_TitleBar" />
 
+        <TextView
+            android:id="@+id/bibleTabLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-            <TextView
-                android:id="@+id/searchTabHelpText1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:fitsSystemWindows="true"
-                android:isScrollContainer="true"
-                android:nestedScrollingEnabled="true"
+            android:layout_marginVertical="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="SearchTab"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchTabLabel" />
 
-                android:scrollIndicators="right"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:text="@string/help_searchTab_pgh1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:verticalScrollbarPosition="right"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/searchTabLabel" />
+        <TextView
+            android:id="@+id/notesTabLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-            <TextView
-                android:id="@+id/optionsHelpDisplay"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/available_options"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/searchTabHelpText1"
-
-                />
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="SearchTab"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bibleTabLabel"
 
 
-            <TextView
-                android:id="@+id/searchTabHelpText2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
-                android:text="@string/search_tab_pgh2"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/optionsHelpDisplay" />
+            />
+
+        <TextView
+            android:id="@+id/sourcesTabLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="SearchTab"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notesTabLabel"
 
 
-            <TextView
-                android:id="@+id/notes_Tab_HelpLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
-                android:text="@string/notes_tab_help"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/searchTabHelpText2" />
-
-            <TextView
-                android:id="@+id/notes_tab_pgh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
-                android:text="@string/notes_tab_helpPgh"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/notes_Tab_HelpLabel"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-            <TextView
-                android:id="@+id/bible_tab_HelpLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
-                android:text="@string/bible_tab_HelpLabel"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/notes_tab_pgh"
-
-                />
-
-            <TextView
-                android:id="@+id/bible_reader_pgh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="16dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bible_tab_HelpLabel"
-                android:text="@string/bible_tab_helpPgh" />
-
-            <TextView
-                android:id="@+id/otherStuff"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
-                android:text="@string/other_stuff_tab"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bible_reader_pgh" />
-
-            <TextView
-                android:id="@+id/otherPgh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/otherStuff"
-                android:text="@string/share_entry" />
-
-            <TextView
-                android:id="@+id/source_Section"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:text="@string/sources_tab"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/otherPgh" />
+            />
 
 
-            <TextView
-                android:id="@+id/sourceLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="32dp"
-                android:text="@string/copyright_disclaimer"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/source_Section" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>-->
-</androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
