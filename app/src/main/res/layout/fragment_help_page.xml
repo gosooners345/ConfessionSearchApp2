@@ -8,17 +8,23 @@
     android:layout_y="2dp"
     android:clickable="true"
     android:nestedScrollingEnabled="true"
-
+    android:layout_marginEnd="@dimen/dimen_8"
+    android:layout_marginStart="@dimen/dimen_8"
+    android:layout_marginTop="@dimen/dimen_64"
     android:overScrollMode="always"
     android:scrollIndicators="right"
     android:scrollbarStyle="insideInset"
+    android:background="@drawable/notes_outline"
     android:scrollbars="vertical"
     android:verticalScrollbarPosition="right"
     app:cardCornerRadius="2dp"
     app:cardElevation="3dp"
     app:layout_scrollFlags="scroll">
 
-    <ScrollView
+    <ViewStub
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!--<ScrollView
         android:id="@+id/help_page_SV"
         style="@android:style/Widget.Material.ScrollView"
         android:layout_width="match_parent"
@@ -224,5 +230,5 @@
                 app:layout_constraintTop_toBottomOf="@id/source_Section" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </ScrollView>-->
 </androidx.cardview.widget.CardView>

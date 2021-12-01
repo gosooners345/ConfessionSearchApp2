@@ -2,7 +2,7 @@ package com.confessionsearch.release1.ui.help
 
 import android.os.Bundle
 import android.text.Html
-import android.text.Html.FROM_HTML_MODE_LEGACY
+import android.text.Html.*
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,13 +26,15 @@ class HelpPageFragment : Fragment() {
         var searchTitle = (getString(R.string.search_tab) + newLine +
                 getString(R.string.help_searchTab_pgh1))
 
-
-        var spannedTitle = Html.fromHtml(searchTitle, FROM_HTML_MODE_LEGACY).toString()
+        var notesTitle =
+            (getString(R.string.notes_tab_help) + newLine + getString(R.string.notes_tab_helpPgh))
+        var spannedTitle =
+            Html.fromHtml(searchTitle, FROM_HTML_SEPARATOR_LINE_BREAK_LIST).toString()
         var sourceElement = Element()
         sourceElement.title =
             getString(R.string.sources_tab) + newLine + Html.fromHtml(
                 getString(R.string.copyright_disclaimer),
-                FROM_HTML_MODE_LEGACY
+                FROM_HTML_OPTION_USE_CSS_COLORS
             ).toString()
         var versionElement = Element()
         versionElement.title = "Version #: ${MainActivity.versionName}"
@@ -41,14 +43,10 @@ class HelpPageFragment : Fragment() {
         searchTabElement.value = getString(R.string.help_searchTab_pgh1)
         val notesSectionElement = Element()
         notesSectionElement.title =
-            Html.fromHtml(getString(R.string.notes_tab_help), FROM_HTML_MODE_LEGACY)
-                .toString() + Html.fromHtml(
-                getString(R.string.notes_tab_helpPgh),
-                FROM_HTML_MODE_LEGACY
-            ).toString()
+            Html.fromHtml(notesTitle, FROM_HTML_OPTION_USE_CSS_COLORS).toString()
         val bibleReaderElement = Element()
         bibleReaderElement.title =
-            Html.fromHtml(getString(R.string.bible_tab_HelpLabel), FROM_HTML_MODE_LEGACY)
+            Html.fromHtml(getString(R.string.bible_tab_HelpLabel), FROM_HTML_OPTION_USE_CSS_COLORS)
                 .toString() + Html.fromHtml(
                 getString(R.string.bible_tab_helpPgh),
                 FROM_HTML_MODE_LEGACY
