@@ -36,8 +36,8 @@ class RecyclerViewSpaceExtender : RecyclerView.ItemDecoration {
     ) {
         outRect.top = space
         outRect.bottom = space
-        outRect.left = space - 2
-        outRect.right = space - 2
+/*        outRect.left = space - 2
+        outRect.right = space - 2*/
 
     }
 

@@ -61,7 +61,7 @@ class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
         notesList!!.layoutManager = LinearLayoutManager(context)
         notesList!!.itemAnimator = DefaultItemAnimator()
         notesList!!.adapter = adapter
-        val divider = RecyclerViewSpaceExtender(8)
+        val divider = RecyclerViewSpaceExtender(18)
         notesList!!.addItemDecoration(divider)
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(notesList)
         //fab = root.findViewById(R.id.newNote)

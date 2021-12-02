@@ -5,9 +5,10 @@
     android:clickable="true"
     app:cardCornerRadius="4dp"
     app:cardElevation="3dp"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/dimen_8"
-    android:layout_marginStart="@dimen/dimen_8">
+    android:layout_height="wrap_content">
+    <!--    android:layout_marginEnd="@dimen/dimen_8"
+        android:layout_marginStart="@dimen/dimen_8"-->
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/noteLayout"
