@@ -26,6 +26,7 @@ import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.notes.NoteRepository
 import com.confessionsearch.release1.databinding.FragmentNotesBinding
 import com.confessionsearch.release1.helpers.NotesAdapter
+import com.confessionsearch.release1.helpers.RecyclerViewSpaceExtender
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
@@ -60,6 +61,8 @@ class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
         notesList!!.layoutManager = LinearLayoutManager(context)
         notesList!!.itemAnimator = DefaultItemAnimator()
         notesList!!.adapter = adapter
+        val divider = RecyclerViewSpaceExtender(8)
+        notesList!!.addItemDecoration(divider)
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(notesList)
         //fab = root.findViewById(R.id.newNote)
 

@@ -120,7 +120,7 @@ class BibleReaderSearchResults : AppCompatActivity() {
                 fab.setOnClickListener(shareContent)
                 shareNote = ""
                 shareNote =
-                    chHeader.text.toString() + ":" + chTextBox.text.toString()//+" " + BibleViewerFragment.newLine
+                    chHeader.text.toString() + ":" + chTextBox.text.toString()
                 saveFab.setOnClickListener(saveNewNote)
             }
             Log.i("VerseCatcher", "Results found " + bibleVerseList.count())
@@ -174,37 +174,7 @@ class BibleReaderAdapter(
 
     //public FragmentManager news;
     var news: FragmentManager? = null
-    /* override fun getCount(): Int {
-         return bibleList.size
-     }
- */
-    /*  override fun getPageTitle(position: Int): CharSequence? {
-          var titleString =
-              String.format("Chapter %s of %s in %s", position + 1, bibleList.size, term)
-          return titleString
-      }*/
 
-    /*override fun getItem(position: Int): Fragment {
-        var title = ""
-        val frg: Fragment
-        val bibleSection = bibleList[position]
-        bibleBookPosition++
-        if (bibleSection.VerseNumber!! > 0)
-            frg = BibleViewerFragment.NewVerse(
-                bibleSection.ChapterNum!!,
-                bibleSection.VerseText!!,
-                bibleSection.VerseNumber!!,
-                bibleSection.BookName!!
-            )
-        else
-            frg = BibleViewerFragment.NewVerse(
-                bibleSection.ChapterNum!!,
-                bibleSection.VerseText!!,
-                0,
-                bibleSection.BookName!!
-            )
-        return frg
-    }*/
 
     init {
         term = titleString
