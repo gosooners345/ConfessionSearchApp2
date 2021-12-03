@@ -6,6 +6,7 @@ import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.confessionsearch.release1.R
@@ -36,15 +37,27 @@ class HelpPageFragment : Fragment() {
             FROM_HTML_MODE_COMPACT
         )
         var sourcesLabelTV = view.findViewById<TextView>(R.id.sourcesTabLabel)
+
         sourcesLabelTV.text =
             Html.fromHtml(
                 (getString(R.string.sources_tab) + newLine + getString(R.string.copyright_disclaimer)),
                 Html.FROM_HTML_MODE_COMPACT
             )
+        //      runAnimation(searchTabTV)
+        //    runAnimation(bibleTabTV)
+        //  runAnimation(notesTabTV)
+//        runAnimation(sourcesLabelTV)
 
         return view
 
     }
 
+    fun runAnimation(textView: TextView) {
+        val animationA = AnimationUtils.loadAnimation(requireContext(), R.anim.animate_card_enter)
+        animationA.scaleCurrentDuration(2f)
+        animationA.reset()
+        textView.clearAnimation()
+        textView.startAnimation(animationA)
+    }
 
 }

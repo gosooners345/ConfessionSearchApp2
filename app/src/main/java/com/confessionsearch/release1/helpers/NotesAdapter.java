@@ -57,13 +57,18 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return noteList.size();
 
     }
-
+// Adds animation to the cards
     private void setAnimation(View toAnimate, int position) {
-        if (position > lastPosition) {
+        if (position > lastPosition | position < lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.animate_card_enter);
+            //animation.scaleCurrentDuration(1.5f);
+            toAnimate.clearAnimation();
+
             toAnimate.startAnimation(animation);
+
             lastPosition = position;
         }
+
     }
 
 
