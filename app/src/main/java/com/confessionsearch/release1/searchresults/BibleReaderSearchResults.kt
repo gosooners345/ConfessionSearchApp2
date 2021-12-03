@@ -17,6 +17,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.bible.BibleContentsList
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
+import com.confessionsearch.release1.helpers.DepthPageTransformer
 import com.confessionsearch.release1.ui.bible.BibleViewerFragment
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
 import com.google.android.material.tabs.TabLayout
@@ -94,6 +95,8 @@ class BibleReaderSearchResults : AppCompatActivity() {
                 vp2 = findViewById<ViewPager2>(R.id.resultPager2)
                 adapter.createFragment(0)
                 vp2.adapter = adapter
+                vp2.setPageTransformer(DepthPageTransformer())
+
                 val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
                 TabLayoutMediator(tabLayout, vp2) { tab, position ->
                     tab.text = String.format(

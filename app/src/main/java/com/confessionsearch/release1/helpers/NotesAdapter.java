@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,11 +18,14 @@ import java.util.ArrayList;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
     private final OnNoteListener onNoteListener;
+    private final Context context;
     private ArrayList<Notes> noteList = new ArrayList<>();
+    private int lastPosition = -1;
 
-    public NotesAdapter(ArrayList<Notes> importNotes, OnNoteListener onNoteListener) {
+    public NotesAdapter(ArrayList<Notes> importNotes, OnNoteListener onNoteListener, Context context) {
         noteList = importNotes;
         this.onNoteListener = onNoteListener;
+        this.context = context;
     }
 
 
@@ -41,9 +46,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         TextView noteTitle = holder.subjectView;
         noteTitle.setText(note.getName());
         TextView contentHolder = holder.contentView;
-        contentHolder.setText((note.getContent()));//note.getContent());
-
+        contentHolder.setText((note.getContent()));
+        setAnimation(holder.itemView, position);
     }
+
 
     @Override
     public int getItemCount() {
@@ -51,6 +57,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return noteList.size();
 
     }
+
+    private void setAnimation(View toAnimate, int position) {
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.animate_card_enter);
+            toAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView contentView;
@@ -62,7 +77,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             subjectView = itemView.findViewById(R.id.content_Title);
             contentView = itemView.findViewById(R.id.content_text);
             this.onNoteListener = onNoteListener;
-
             itemView.setOnClickListener(this);
         }
 
