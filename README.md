@@ -1,8 +1,20 @@
 ConfessionSearchApp2
 Author: Brandon Guerin
-Project Languages: C# (Originally), Java (Translated from C# for better support), Kotlin (For latest features)
-Purpose: Android App using Historic Reformed Confessions, Catechisms and Creeds for searching topics within Christianity.
-Project First launched on Play store as application in August 2018.
-First Android App made by author. 
-Application is in active maintenance/current development.
+Project Languages: Kotlin, Java 
+Purpose: Android App using Historic Reformed Confessions, Catechisms and Creeds for searching topics within Christianity. Used to be a C# application. This is the Kotlin/Java port of the original app with added features.
+
+Project is live and active on the Google Play Store.
+
+Minimum version supported is Android Nougat 7.0.
+
+Feature requests can be made by opening an issue here or emailing me at boomersooner12345@gmail.com
+Rate the app in the play store if you've used it and you like it.
+Application link: https://play.google.com/store/apps/details?id=com.confessionsearch.release1
+
+The application uses: 
+SQLite3 DB
+Android Room
+Material You styling (Material Design 3)
+MotionToast
+and more.
 
