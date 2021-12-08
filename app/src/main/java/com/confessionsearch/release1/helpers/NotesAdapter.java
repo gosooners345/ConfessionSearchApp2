@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
     private final OnNoteListener onNoteListener;
     private final Context context;
-    private ArrayList<Notes> noteList = new ArrayList<>();
+    private final ArrayList<Notes> noteList;
     private int lastPosition = -1;
 
     public NotesAdapter(ArrayList<Notes> importNotes, OnNoteListener onNoteListener, Context context) {
@@ -44,10 +44,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Notes note = noteList.get(position);
         TextView noteTitle = holder.subjectView;
-        noteTitle.setText(note.getName());
+        noteTitle.setText(note.getTitle());
         TextView contentHolder = holder.contentView;
         contentHolder.setText((note.getContent()));
-        setAnimation(holder.itemView, position);
+        TextView timeStamp = holder.timeStamp;
+        timeStamp.setText(note.getTime());
+        //  setAnimation(holder.itemView, position);
     }
 
 
@@ -61,7 +63,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private void setAnimation(View toAnimate, int position) {
         if (position > lastPosition | position < lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.animate_card_enter);
-            //animation.scaleCurrentDuration(1.5f);
+            animation.scaleCurrentDuration(.5f);
             toAnimate.clearAnimation();
 
             toAnimate.startAnimation(animation);
@@ -72,26 +74,26 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView contentView;
         public TextView subjectView;
+        public TextView timeStamp;
         OnNoteListener onNoteListener;
 
         public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             subjectView = itemView.findViewById(R.id.content_Title);
             contentView = itemView.findViewById(R.id.content_text);
+            timeStamp = itemView.findViewById(R.id.timeStamp);
             this.onNoteListener = onNoteListener;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            onNoteListener.onNoteClick(getAdapterPosition());
+            onNoteListener.onNoteClick(getBindingAdapterPosition());
         }
     }
 
-    public interface OnNoteListener {
-        void onNoteClick(int position);
-    }
+
 }

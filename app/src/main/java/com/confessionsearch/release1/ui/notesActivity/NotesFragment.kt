@@ -11,10 +11,13 @@ package com.confessionsearch.release1.ui.notesActivity
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -24,48 +27,55 @@ import androidx.recyclerview.widget.RecyclerView
 import com.confessionsearch.release1.MainActivity
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.notes.NoteRepository
+import com.confessionsearch.release1.data.notes.Notes
 import com.confessionsearch.release1.databinding.FragmentNotesBinding
 import com.confessionsearch.release1.helpers.NotesAdapter
+import com.confessionsearch.release1.helpers.OnNoteListener
 import com.confessionsearch.release1.helpers.RecyclerViewSpaceExtender
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import java.text.DateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
+class NotesFragment : Fragment(), OnNoteListener {
 
     private lateinit var notesViewModel: NotesViewModel
     private var _binding: FragmentNotesBinding? = null
-
     var notesList: RecyclerView? = null
-    var fab: ExtendedFloatingActionButton? = null
-
+    var upgrades = 0
+    private var sharedPreferences: SharedPreferences =
+        MainActivity.appcontext!!.getSharedPreferences(
+            MainActivity.appName + ".appPrefs",
+            Context.MODE_PRIVATE
+        )
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         notesViewModel =
-            ViewModelProvider(this).get(NotesViewModel::class.java)
-
+            ViewModelProvider(this)[NotesViewModel::class.java]
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         notesViewModel.noteRepository = NoteRepository(context)
+
+        //Retrieve Notes for application
         fetchNotes()
+        adapter = NotesAdapter(notesArrayList, this, requireContext())
         notesList = root.findViewById(R.id.notesListView)
-        adapter = NotesAdapter(MainActivity.notesArrayList, this, requireContext())
         notesList!!.layoutManager = LinearLayoutManager(context)
         notesList!!.itemAnimator = DefaultItemAnimator()
         notesList!!.adapter = adapter
-        val divider = RecyclerViewSpaceExtender(18)
+        val divider = RecyclerViewSpaceExtender(8)
         notesList!!.addItemDecoration(divider)
-        //notesList!!.animation=AnimationUtils.loadAnimation(context,R.anim.slidein)
+        // notesList!!.animation= AnimationUtils.loadAnimation(context,R.anim.slidein)
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(notesList)
-        //fab = root.findViewById(R.id.newNote)
 
         return root
     }
@@ -75,21 +85,17 @@ class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
         _binding = null
     }
 
-    //Load notes
+    //Load Note for Editing
     override fun onNoteClick(position: Int) {
-
-        MainActivity.notesArrayList[position]
-        val title = MainActivity.notesArrayList[position].name
-        val content = MainActivity.notesArrayList[position].content
         val intent = Intent(context, NotesComposeActivity::class.java)
         intent.putExtra("activity_ID", ACTIVITY_ID)
-        intent.putExtra("note_selected", MainActivity.notesArrayList[position])
+        intent.putExtra("note_selected", notesArrayList[position])
+        Log.d("TEST", "${notesArrayList[position].timeModified}")
         startActivity(intent)
-
     }
 
     //Implement delete functionality
-    var itemTouchHelperCallback: ItemTouchHelper.SimpleCallback =
+    private var itemTouchHelperCallback: ItemTouchHelper.SimpleCallback =
         object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -100,21 +106,59 @@ class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                notesViewModel.deleteNote(MainActivity.notesArrayList[viewHolder.adapterPosition])
+                notesViewModel.deleteNote(notesArrayList[viewHolder.bindingAdapterPosition])
             }
         }
 
     //Critical for retrieving notes for the application
     private fun fetchNotes() {
+        try {
 
+            val defaultVal = 2
+            upgrades = sharedPreferences.getInt("dbUpgrades", defaultVal)
+            Log.d("Test", "SharedPrefsWorks: $upgrades")
+            Log.d("Print", "${sharedPreferences.getInt("dbUpgrades", 2)}")
+            Log.d("Print2", "$upgrades")
+
+        } catch (exC: Exception) {
+            upgrades = 1
+            Log.d("Works", "Shared Prefs isn't working yet")
+        }
         notesViewModel.noteRepository!!.fetchNotes().observe(viewLifecycleOwner, { notes ->
-            if (MainActivity.notesArrayList.size > 0) MainActivity.notesArrayList.clear()
+            if (notesArrayList.size > 0) notesArrayList.clear()
             if (notes != null) {
-                MainActivity.notesArrayList.addAll(notes)
+                notesArrayList.addAll(notes)
+            }
+            if (upgrades <= 3) {
+                addTimes(upgrades)
+                upgrades++
+                sharedPreferences.edit {
+                    putInt("dbUpgrades", upgrades).commit()
+                    Log.d("Print", "${sharedPreferences.getInt("dbUpgrades", 2)}")
+                    Log.d("Print2", "$upgrades")
+                }
+            }
+            try {
+
+                Collections.sort(notesArrayList, Notes.compareDateTime)
+            } catch (ex: Exception) {
+                ex.printStackTrace()
             }
             adapter!!.notifyDataSetChanged()
         }
         )
+
+    }
+    //one-time use
+
+    fun addTimes(upgrade: Int) {
+        if (upgrade < 3)
+            for (note: Notes in notesArrayList) {
+                note.timeModified = System.currentTimeMillis()
+                note.time = DateFormat.getInstance().format(note.timeModified)
+                notesViewModel.noteRepository!!.updateNote(note)
+            }
+
 
     }
 
@@ -122,13 +166,15 @@ class NotesFragment : Fragment(), NotesAdapter.OnNoteListener {
     companion object {
         @JvmField
         var adapter: NotesAdapter? = null
+        var notesArrayList = ArrayList<Notes>()
         const val ACTIVITY_ID = 32
         const val buttonText = "New Note"
         const val buttonPic = R.drawable.ic_add_note
-        fun NewNote(context: Context?) {
+        fun newNote(context: Context?) {
             val intent = Intent(context, NotesComposeActivity::class.java)
             intent.putExtra("activity_ID", NotesFragment.ACTIVITY_ID)
             context!!.startActivity(intent)
         }
+
     }
 }

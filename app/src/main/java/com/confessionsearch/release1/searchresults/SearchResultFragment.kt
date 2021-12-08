@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
+import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -59,16 +60,17 @@ class SearchResultFragment : Fragment() {
 
         chapterBox.text = Html.fromHtml(
             lineBreak + resultChapter + lineBreak + "Proofs:" + lineBreak + resultProofs
-                    + lineBreak + matchLine + lineBreak + tagLine
+                    + lineBreak + matchLine + lineBreak + tagLine, FROM_HTML_MODE_COMPACT
         )
-        shareList = chapterBox.text.toString()
-        shareNote = chapterBox.text.toString()
+        shareList =
+            docTitleBox.text.toString() + "\n" + chNumbBox.text.toString() + "\r" + chapterBox.text.toString()
+        shareNote = shareList
         fab.setOnClickListener(shareContent)
         saveFab.setOnClickListener(saveNewNote)
         return view
     }
 
-    var shareContent = View.OnClickListener {
+    private var shareContent = View.OnClickListener {
         val sendIntent = Intent()
         sendIntent.action = Intent.ACTION_SEND
         val INTENTNAME = "SHARE"
@@ -76,7 +78,7 @@ class SearchResultFragment : Fragment() {
         sendIntent.type = "text/plain"
         startActivity(Intent.createChooser(sendIntent, INTENTNAME))
     }
-    var saveNewNote = View.OnClickListener {
+    private var saveNewNote = View.OnClickListener {
         val intent = Intent(context, NotesComposeActivity::class.java)
         intent.putExtra("search_result_save", shareNote)
         intent.putExtra("activity_ID", ACTIVITY_ID)

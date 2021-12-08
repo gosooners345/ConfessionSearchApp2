@@ -17,6 +17,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -85,6 +86,59 @@ class SearchHandler : AppCompatActivity() {
             questionSearch,
             fileName
         )
+    }
+
+
+    // This refreshes the list and fragments baseed on sort order,etc.
+    private fun refreshFragmentsOnScreen(query: String?) {
+        setContentView(R.layout.index_pager)
+        adapter = SearchAdapter(supportFragmentManager, masterList, query!!, lifecycle)
+        vp2 = findViewById<ViewPager2>(R.id.resultPager2)
+        vp2.setPageTransformer(DepthPageTransformer())
+        adapter.createFragment(0)
+        vp2.adapter = adapter
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        TabLayoutMediator(tabLayout, vp2) { tab, position ->
+            vp2.setCurrentItem(tab.position, true)
+            tab.text = String.format("Result %s of %s for %s", position + 1, masterList.size, query)
+        }
+            .attach()
+        adapter.saveState()
+    }
+
+    //Menu Functions
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.numerical_Ascending -> {
+                Log.d("MENU", "Chapter Order Ascending Selected")
+                sortOptions(CHAPTER_ASC, masterList)
+                refreshFragmentsOnScreen(refreshQuery)
+            }
+            R.id.numerical_Descending -> {
+                Log.d("MENU", "Chapter Order Descending Selected")
+                sortOptions(CHAPTER_DSC, masterList)
+                refreshFragmentsOnScreen(refreshQuery)
+            }
+            R.id.match_Order_Ascending -> {
+                Log.d("MENU", "Match Order Ascending Selected")
+                sortOptions(MATCH_ASC, masterList)
+                refreshFragmentsOnScreen(refreshQuery)
+            }
+            R.id.match_Order_Descending -> {
+                Log.d("MENU", "Match Order Descending Selected")
+                sortOptions(MATCH_DSC, masterList)
+                refreshFragmentsOnScreen(refreshQuery)
+            }
+        }
+        return true
+    }
+
+
+    //Menu Creation
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.sort_menu, menu)
+        return true
     }
 
 
@@ -255,12 +309,10 @@ class SearchHandler : AppCompatActivity() {
                 chNumbBox.text = titleHeader
                 chapterBox.text = Html.fromHtml(
                     lineBreak + document.documentText + lineBreak + "Proofs:" + lineBreak + document.proofs +
-                            lineBreak + tagLine + lineBreak + matchLine
+                            lineBreak + tagLine + lineBreak + matchLine, FROM_HTML_MODE_COMPACT
                 )
                 shareList = docTitleBox.text.toString() + newLine + chapterBox.text.toString()
                 shareNote = shareList
-
-
                 fab.setOnClickListener(shareContent)
                 saveFab.setOnClickListener(saveNewNote)
             } else {
@@ -305,32 +357,14 @@ class SearchHandler : AppCompatActivity() {
                 MaterialAlertDialogBuilder(this)
                     .setTitle("No Results Found!")
                     .setMessage(errorMessage)
-                    .setPositiveButton("Yes") { dialog, which ->
+                    .setPositiveButton("Yes") { _, _ ->
                         onBackPressed()
                     }
-                    .setNegativeButton("No") { dialog, which -> dialog.dismiss() }
+                    .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
                     .show()
             }
         }
     }
-
-    // This method is crucial for loading the Search Results onto the screen and refreshing based on sort order
-    private fun refreshFragmentsOnScreen(query: String?) {
-        setContentView(R.layout.index_pager)
-        adapter = SearchAdapter(supportFragmentManager, masterList, query!!, lifecycle)
-        vp2 = findViewById<ViewPager2>(R.id.resultPager2)
-        vp2.setPageTransformer(DepthPageTransformer())
-        adapter.createFragment(0)
-        vp2.adapter = adapter
-        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
-        TabLayoutMediator(tabLayout, vp2) { tab, position ->
-            vp2.setCurrentItem(tab.position, true)
-            tab.text = String.format("Result %s of %s for %s", position + 1, masterList.size, query)
-        }
-            .attach()
-        adapter.saveState()
-    }
-
 
     //Filter out search results
     @RequiresApi(Build.VERSION_CODES.N)
@@ -376,7 +410,7 @@ class SearchHandler : AppCompatActivity() {
                 //No proofs
                 if (!proofs) document.proofs = "No Proofs available!"
 
-                        resultList.add(document)
+                resultList.add(document)
             }
 
         }
@@ -386,41 +420,6 @@ class SearchHandler : AppCompatActivity() {
         }
         sortOrder(resultList)
         masterList = resultList
-    }
-
-
-    //Menu Functions
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.numerical_Ascending -> {
-                Log.d("MENU", "Chapter Order Ascending Selected")
-                sortOptions(CHAPTER_ASC, masterList)
-                refreshFragmentsOnScreen(refreshQuery)
-            }
-            R.id.numerical_Descending -> {
-                Log.d("MENU", "Chapter Order Descending Selected")
-                sortOptions(CHAPTER_DSC, masterList)
-                refreshFragmentsOnScreen(refreshQuery)
-            }
-            R.id.match_Order_Ascending -> {
-                Log.d("MENU", "Match Order Ascending Selected")
-                sortOptions(MATCH_ASC, masterList)
-                refreshFragmentsOnScreen(refreshQuery)
-            }
-            R.id.match_Order_Descending -> {
-                Log.d("MENU", "Match Order Descending Selected")
-                sortOptions(MATCH_DSC, masterList)
-                refreshFragmentsOnScreen(refreshQuery)
-            }
-        }
-        return true
-    }
-
-    //Menu Creation
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.sort_menu, menu)
-        return true
     }
 
     //Look for the matching chapter/question index
@@ -449,23 +448,6 @@ class SearchHandler : AppCompatActivity() {
         masterList = resultList
     }
 
-    var shareContent = View.OnClickListener {
-        val sendIntent = Intent()
-        sendIntent.action = Intent.ACTION_SEND
-        val INTENTNAME = "SHARE"
-        sendIntent.putExtra(Intent.EXTRA_TEXT, shareList)
-        sendIntent.type = "text/plain"
-        Log.i(SearchResultFragment.TAG, "Sharing Content with provider")
-        startActivity(Intent.createChooser(sendIntent, INTENTNAME))
-    }
-    var saveNewNote = View.OnClickListener {
-        val intent = Intent(this, NotesComposeActivity::class.java)
-        intent.putExtra("search_result_save", shareNote)
-        intent.putExtra("activity_ID", SearchResultFragment.ACTIVITY_ID)
-        Log.i(SearchResultFragment.TAG, "Opening new note to save entry")
-        startActivity(intent)
-    }
-
     //Highlights topic entries in search results
     fun HighlightText(sourceStr: String?, query: String?): String {
         val replaceQuery = "<b>$query</b>"
@@ -483,8 +465,27 @@ class SearchHandler : AppCompatActivity() {
         return formatString
     }
 
+    // View On Click Event Handlers for saving notes and sharing content
+    var shareContent = View.OnClickListener {
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        val INTENTNAME = "SHARE"
+        sendIntent.putExtra(Intent.EXTRA_TEXT, shareList)
+        sendIntent.type = "text/plain"
+        Log.i(SearchResultFragment.TAG, "Sharing Content with provider")
+        startActivity(Intent.createChooser(sendIntent, INTENTNAME))
+    }
+
+    var saveNewNote = View.OnClickListener {
+        val intent = Intent(this, NotesComposeActivity::class.java)
+        intent.putExtra("search_result_save", shareNote)
+        intent.putExtra("activity_ID", SearchResultFragment.ACTIVITY_ID)
+        Log.i(SearchResultFragment.TAG, "Opening new note to save entry")
+        startActivity(intent)
+    }
+
     //Sorts documents based on order given
-    fun sortOrder(docList: DocumentList) {
+    private fun sortOrder(docList: DocumentList) {
         //Prevents Creeds from crashing the app
         if (docType == "CREED")
             Collections.sort(docList, Document.compareMatches)

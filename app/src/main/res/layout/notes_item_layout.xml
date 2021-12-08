@@ -5,10 +5,10 @@
     android:clickable="true"
     app:cardCornerRadius="4dp"
     app:cardElevation="3dp"
-    android:layout_height="wrap_content">
-    <!--    android:layout_marginEnd="@dimen/dimen_8"
-        android:layout_marginStart="@dimen/dimen_8"-->
-    >
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/dimen_8"
+    android:layout_marginStart="@dimen/dimen_8">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/noteLayout"
@@ -23,7 +23,13 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="Title_Here"
+            android:paddingStart="5dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="2dp"
+            android:singleLine="true"
+            android:text="@string/title_here"
+            android:textDirection="locale"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,15 +42,36 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:maxLines="4"
+            android:ellipsize="end"
+            android:maxLines="5"
             android:minLines="1"
-            android:text="Lines"
+            android:paddingStart="5dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="2dp"
+            android:text="@string/lines"
             android:textStyle="italic"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/content_Title" />
+
+        <TextView
+            android:id="@+id/timeStamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:paddingStart="5dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="2dp"
+            android:text="@string/timestamp"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

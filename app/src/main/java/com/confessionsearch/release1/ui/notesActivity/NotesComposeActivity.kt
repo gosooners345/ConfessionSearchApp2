@@ -1,5 +1,6 @@
 package com.confessionsearch.release1.ui.notesActivity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -16,21 +17,22 @@ import com.confessionsearch.release1.data.notes.Notes
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import java.text.DateFormat
 
 class NotesComposeActivity : AppCompatActivity() {
     var notesSubject: TextInputLayout? = null
     var notesContent: TextInputLayout? = null
     var activityID = 0
-    var saveButton: Button? = null
-    var editButton: Button? = null
+    private var saveButton: Button? = null
+    private var editButton: Button? = null
     var isNewNote = false
     var noteContentString = ""
     var noteSubjectString = ""
-    var shareList = ""
+    private var shareList = ""
     var newNote: Notes? = null
     var incomingNote: Notes? = null
     var noteRepository: NoteRepository? = null
-    var mode = 0
+    private var mode = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -43,7 +45,7 @@ class NotesComposeActivity : AppCompatActivity() {
 
         //Load Notes
         if (!intentInfo) {
-            notesSubject!!.editText!!.setText(newNote!!.name)
+            notesSubject!!.editText!!.setText(newNote!!.title)
             notesContent!!.editText!!.setText(newNote!!.content)
         } else {
             notesSubject!!.editText!!.setText("")
@@ -66,22 +68,23 @@ class NotesComposeActivity : AppCompatActivity() {
             override fun afterTextChanged(editable: Editable) {}
         })
         saveButton = findViewById(R.id.saveNote)
-        saveButton!!.setOnClickListener(SaveNote)
+        saveButton!!.setOnClickListener(saveNote)
         editButton = findViewById(R.id.editButton)
         activityID = intent.getIntExtra("activity_ID", -1)
         editButton!!.setOnClickListener(editNote)
     }
 
     //Enable or disable Editing
-    var editNote = View.OnClickListener {
+    private var editNote = View.OnClickListener {
         when (mode) {
-            EDIT_OFF -> EnableEdit()
-            EDIT_ON -> DisableEdit()
+            EDIT_OFF -> enableEdit()
+            EDIT_ON -> disableEdit()
         }
     }
 
     //Save Note to device
-    var SaveNote: View.OnClickListener = object : View.OnClickListener {
+    private var saveNote: View.OnClickListener = object : View.OnClickListener {
+        @SuppressLint("NotifyDataSetChanged")
         override fun onClick(view: View) {
             noteSubjectString = notesSubject!!.editText!!.text.toString()
             noteContentString = notesContent!!.editText!!.text.toString()
@@ -90,17 +93,20 @@ class NotesComposeActivity : AppCompatActivity() {
                 noteSubjectString,
                 noteContentString,
                 incomingNote!!.noteID
-            ) else Notes()
-            newNote!!.name = noteSubjectString
+            )
+            else Notes()
+            newNote!!.title = noteSubjectString
             newNote!!.content = noteContentString
+            newNote!!.timeModified = System.currentTimeMillis()
+            newNote!!.time = DateFormat.getInstance().format(newNote!!.timeModified)
             run {
                 //Update or insert new note into database
                 if (isNewNote) {
                     noteRepository!!.insertNote(newNote)
                 } else noteRepository!!.updateNote(newNote)
+                //If this came from the notes fragment as an update
                 if (activityID == 32) NotesFragment.adapter!!.notifyDataSetChanged()
                 Log.i(TAG, "Saving note to storage")
-
             }
             //Close this activity out and head back to parent screen
             finish()
@@ -109,13 +115,13 @@ class NotesComposeActivity : AppCompatActivity() {
 
     //find out if the note is new or old
     private val intentInfo: Boolean
-        private get() {
+        get() {
             if (intent.hasExtra("note_selected")) {
                 incomingNote = intent.getParcelableExtra("note_selected")
                 newNote = Notes()
                 newNote!!.noteID = incomingNote!!.noteID
                 newNote!!.content = incomingNote!!.content
-                newNote!!.name = incomingNote!!.name
+                newNote!!.title = incomingNote!!.title
                 mode = EDIT_ON
                 isNewNote = false
                 return false
@@ -140,12 +146,12 @@ class NotesComposeActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle("Save Note?")
             .setMessage(String.format(resources.getString(R.string.save_note_message)))
-            .setNegativeButton("No") { dialog, which -> finish() }
-            .setPositiveButton("Yes") { dialog, which -> saveButton!!.performClick() }
-            .setNeutralButton("Cancel") { dialog, which -> dialog.dismiss() }
+            .setNegativeButton("No") { _, _ ->
+                finish()
+            }
+            .setPositiveButton("Yes") { _, _ -> saveButton!!.performClick() }
+            .setNeutralButton("Cancel") { dialog, _ -> dialog.dismiss() }
             .show()
-
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -159,68 +165,22 @@ class NotesComposeActivity : AppCompatActivity() {
         if (mode == EDIT_ON) {
             val anchorView = findViewById<View>(R.id.masterLayout)
             Snackbar.make(anchorView, "Note Editing Enabled", Snackbar.LENGTH_SHORT).show()
-            /*   when (applicationContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                   Configuration.UI_MODE_NIGHT_YES -> {
-                       MotionToast.darkToast(
-                           this,
-                           "Edit Mode On",
-                           "Note Editing Enabled!",
-                           MotionToast.TOAST_INFO,
-                           MotionToast.GRAVITY_BOTTOM,
-                           MotionToast.SHORT_DURATION,
-                           ResourcesCompat.getFont(this, R.font.helvetica_regular)
-                       )
-                   }
-                   Configuration.UI_MODE_NIGHT_NO -> {
-                       MotionToast.createToast(
-                           this,
-                           "Edit Mode On",
-                           "Note Editing Enabled!",
-                           MotionToast.TOAST_INFO,
-                           MotionToast.GRAVITY_BOTTOM,
-                           MotionToast.SHORT_DURATION,
-                           ResourcesCompat.getFont(this, R.font.helvetica_regular)
-                       )
 
-                   }
-               }*/
         }
     }
 
-    private fun DisableEdit() {
+    //Disable Editing
+    private fun disableEdit() {
         notesContent!!.isEnabled = false
         notesSubject!!.isEnabled = false
         mode = EDIT_OFF
         val anchorView = findViewById<View>(R.id.masterLayout)
         Snackbar.make(anchorView, "Note Editing Disabled", Snackbar.LENGTH_SHORT).show()
-        /*  when (applicationContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-              Configuration.UI_MODE_NIGHT_YES -> {
-                  MotionToast.darkToast(
-                      this,
-                      "Edit Mode Off",
-                      "Note Editing Disabled!",
-                      MotionToast.TOAST_INFO,
-                      MotionToast.GRAVITY_BOTTOM,
-                      MotionToast.SHORT_DURATION,
-                      ResourcesCompat.getFont(this, R.font.helvetica_regular)
-                  )
-              }
-              Configuration.UI_MODE_NIGHT_NO -> {
-                  MotionToast.createToast(
-                      this,
-                      "Edit Mode Off",
-                      "Note Editing Disabled!",
-                      MotionToast.TOAST_INFO,
-                      MotionToast.GRAVITY_BOTTOM,
-                      MotionToast.SHORT_DURATION,
-                      ResourcesCompat.getFont(this, R.font.helvetica_regular)
-                  )
 
-              }
-          }*/
     }
 
-    private fun EnableEdit() {
+    //Enable Editing
+    private fun enableEdit() {
         notesContent!!.isEnabled = true
         notesSubject!!.isEnabled = true
         mode = EDIT_ON
@@ -265,12 +225,12 @@ class NotesComposeActivity : AppCompatActivity() {
                 ${notesSubject!!.editText!!.text}
                 ${notesContent!!.editText!!.text}
                 """.trimIndent()
-                val sendIntent = Intent()
-                sendIntent.action = Intent.ACTION_SEND
-                val INTENTNAME = "SHARE"
-                sendIntent.putExtra(Intent.EXTRA_TEXT, shareList)
-                sendIntent.type = "text/plain"
-                startActivity(Intent.createChooser(sendIntent, INTENTNAME))
+                val shareIntent = Intent()
+                shareIntent.action = Intent.ACTION_SEND
+                val intentType = "SHARE"
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareList)
+                shareIntent.type = "text/plain"
+                startActivity(Intent.createChooser(shareIntent, intentType))
             }
         }
         return super.onOptionsItemSelected(item)

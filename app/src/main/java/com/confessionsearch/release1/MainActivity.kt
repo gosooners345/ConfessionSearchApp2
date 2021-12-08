@@ -9,6 +9,7 @@ package com.confessionsearch.release1
 *  Purpose: This is the main entry point to the application
 */
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
@@ -24,7 +25,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.confessionsearch.release1.data.notes.Notes
 import com.confessionsearch.release1.databinding.ActivityMainBinding
 import com.confessionsearch.release1.ui.bible.BibleFragment
 import com.confessionsearch.release1.ui.home.SearchFragment
@@ -38,14 +38,14 @@ import www.sanju.motiontoast.MotionToast
 class MainActivity : AppCompatActivity() {
 
     val context: Context = this
-    var mainFab: ExtendedFloatingActionButton? = null
-    lateinit var navView: BottomNavigationView
-    lateinit var navController: NavController
+    private var mainFab: ExtendedFloatingActionButton? = null
+    private lateinit var navView: BottomNavigationView
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
             setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
-            var binding = ActivityMainBinding.inflate(layoutInflater)
+            val binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
             navView = binding.navView
@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             navController.addOnDestinationChangedListener(navControllerEvent)
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
+            appcontext = this
 
         } catch (ex: Exception) {
             ex.printStackTrace()
@@ -78,7 +79,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(newBase)
-        setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // This changes the Floating Action Button Depending on what is displayed on screen
+    @SuppressLint("UseCompatLoadingForDrawables")
     private var navControllerEvent: NavController.OnDestinationChangedListener =
         NavController.OnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -112,11 +113,11 @@ class MainActivity : AppCompatActivity() {
         }
 
     //Floating Action Button Event Handler
-    var mainFabOnClickListener = View.OnClickListener {
+    private var mainFabOnClickListener = View.OnClickListener {
         when (navView.selectedItemId) {
             R.id.navigation_notes -> {
                 mainFab!!.visibility = View.VISIBLE
-                NotesFragment.NewNote(context)
+                NotesFragment.newNote(context)
             }
             R.id.navigation_home -> {
                 mainFab!!.visibility = View.VISIBLE
@@ -167,11 +168,11 @@ class MainActivity : AppCompatActivity() {
 
     //Pass any static variables along here
     companion object {
-
-        var notesArrayList = ArrayList<Notes>()
         const val versionName = BuildConfig.VERSION_NAME
         const val appName = BuildConfig.APPLICATION_ID
         const val buildType = BuildConfig.BUILD_TYPE
+        var appcontext: Context? = null
+
 
     }
 
