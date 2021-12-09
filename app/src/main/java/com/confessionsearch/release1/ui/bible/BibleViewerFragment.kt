@@ -2,6 +2,8 @@ package com.confessionsearch.release1.ui.bible
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
+import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +40,8 @@ class BibleViewerFragment : Fragment() {
         if (verseNum > 0)
             chHeader.text = bookName + " " + chapterNumber + ":" + verseNum
         else
-            chHeader.text = bookName + " " + chapterNumber
+            chHeader.text =
+                Html.fromHtml("<h4>$bookName $chapterNumber</h4>", FROM_HTML_MODE_COMPACT)
         chTextBox.text = verseText
         val fab: Button = view.findViewById(R.id.shareActionButton)
         val saveFab: Button = view.findViewById(R.id.saveNote)

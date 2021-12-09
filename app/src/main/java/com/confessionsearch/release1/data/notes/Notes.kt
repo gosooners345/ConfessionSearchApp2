@@ -114,5 +114,9 @@ class Notes() : Parcelable, Cloneable, Comparable<Notes> {
                 else -1
             }
         }
+        var compareIDs = java.util.Comparator<Notes> { notes1, notes2 ->
+            notes1.noteID.compareTo(notes2.noteID)
+
+        }
     }
 }

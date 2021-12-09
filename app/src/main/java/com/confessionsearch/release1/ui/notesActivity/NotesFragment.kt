@@ -13,9 +13,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -75,7 +73,7 @@ class NotesFragment : Fragment(), OnNoteListener {
         notesList!!.addItemDecoration(divider)
         // notesList!!.animation= AnimationUtils.loadAnimation(context,R.anim.slidein)
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(notesList)
-
+        setHasOptionsMenu(true)
         return root
     }
 
@@ -154,6 +152,41 @@ class NotesFragment : Fragment(), OnNoteListener {
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.idAscending -> {
+                Collections.sort(notesArrayList, Notes.compareIDs)
+                adapter!!.notifyDataSetChanged()
+                true
+            }
+            R.id.idDescending
+            -> {
+                Collections.sort(notesArrayList, Notes.compareIDs)
+                notesArrayList.reverse()
+                adapter!!.notifyDataSetChanged()
+                true
+            }
+            R.id.updatedAscending -> {
+                Collections.sort(notesArrayList, Notes.compareDateTime)
+                notesArrayList.reverse()
+                adapter!!.notifyDataSetChanged()
+                true
+            }
+            R.id.updatedDescending -> {
+                Collections.sort(notesArrayList, Notes.compareDateTime)
+                adapter!!.notifyDataSetChanged()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+
+        inflater.inflate(R.menu.notes_sort_menu, menu)
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
 
     companion object {
         @JvmField

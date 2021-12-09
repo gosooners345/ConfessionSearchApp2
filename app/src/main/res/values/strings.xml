@@ -150,4 +150,9 @@
     <string name="ratings_suggestion">If you enjoyed using my application, please leave a rating on the Play Store!</string>
     <string name="emailDev">Email the developer with feature requests or bugs spotted.</string>
     <string name="devEmail">boomersooner12345@gmail.com</string>
+    <string name="order_Ascending">Order created low to high</string>
+    <string name="order_created">Order Created</string>
+    <string name="order_created_descending">Order created latest to first</string>
+    <string name="updated_ascending">Updated earliest to latest</string>
+    <string name="updated_latest_to_oldest">Updated latest to oldest</string>
 </resources>

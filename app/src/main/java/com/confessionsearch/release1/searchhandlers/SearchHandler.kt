@@ -32,7 +32,7 @@ import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.documents.Document
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.data.documents.DocumentList
-import com.confessionsearch.release1.helpers.DepthPageTransformer
+import com.confessionsearch.release1.helpers.RotateUpPageTransformer
 import com.confessionsearch.release1.searchresults.SearchAdapter
 import com.confessionsearch.release1.searchresults.SearchResultFragment
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
@@ -94,7 +94,7 @@ class SearchHandler : AppCompatActivity() {
         setContentView(R.layout.index_pager)
         adapter = SearchAdapter(supportFragmentManager, masterList, query!!, lifecycle)
         vp2 = findViewById<ViewPager2>(R.id.resultPager2)
-        vp2.setPageTransformer(DepthPageTransformer())
+        vp2.setPageTransformer(RotateUpPageTransformer())
         adapter.createFragment(0)
         vp2.adapter = adapter
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
@@ -141,6 +141,36 @@ class SearchHandler : AppCompatActivity() {
         return true
     }
 
+
+    //Sorts documents based on order given
+    private fun sortOrder(docList: DocumentList) {
+        //Prevents Creeds from crashing the app
+        if (docType == "CREED")
+            Collections.sort(docList, Document.compareMatches)
+        else {
+            if (sortType == "Chapter")
+                Collections.sort(docList, Document.compareMatchesAndChapters)
+            else
+                Collections.sort(docList, Document.compareMatches)
+        }
+    }
+
+    private fun sortOptions(SortOrder: String, docList: DocumentList) {
+        when (SortOrder) {
+            "Chapter_ASC" -> Collections.sort(docList, Document.compareMatchesAndChapters)
+            "Chapter_DSC" -> {
+                Collections.sort(docList, Document.compareMatchesAndChapters)
+                Collections.reverse(docList)
+
+            }
+            "Matches_DSC" -> Collections.sort(docList, Document.compareMatches)
+            "Matches_ASC" -> {
+                Collections.sort(docList, Document.compareMatches)
+                Collections.reverse(docList)
+            }
+        }
+
+    }
 
     //The main star of the show. This method is critical to the rest of the app. It handles the search function
     @RequiresApi(Build.VERSION_CODES.N)
@@ -482,36 +512,6 @@ class SearchHandler : AppCompatActivity() {
         intent.putExtra("activity_ID", SearchResultFragment.ACTIVITY_ID)
         Log.i(SearchResultFragment.TAG, "Opening new note to save entry")
         startActivity(intent)
-    }
-
-    //Sorts documents based on order given
-    private fun sortOrder(docList: DocumentList) {
-        //Prevents Creeds from crashing the app
-        if (docType == "CREED")
-            Collections.sort(docList, Document.compareMatches)
-        else {
-            if (sortType == "Chapter")
-                Collections.sort(docList, Document.compareMatchesAndChapters)
-            else
-                Collections.sort(docList, Document.compareMatches)
-        }
-    }
-
-    private fun sortOptions(SortOrder: String, docList: DocumentList) {
-        when (SortOrder) {
-            "Chapter_ASC" -> Collections.sort(docList, Document.compareMatchesAndChapters)
-            "Chapter_DSC" -> {
-                Collections.sort(docList, Document.compareMatchesAndChapters)
-                Collections.reverse(docList)
-
-            }
-            "Matches_DSC" -> Collections.sort(docList, Document.compareMatches)
-            "Matches_ASC" -> {
-                Collections.sort(docList, Document.compareMatches)
-                Collections.reverse(docList)
-            }
-        }
-
     }
 
 

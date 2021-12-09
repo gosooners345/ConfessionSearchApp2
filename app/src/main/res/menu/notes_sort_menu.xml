@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/notesSortAction"
+        android:title="@string/sort_by"
+        android:icon="@drawable/ic_sort_order"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/idAscending"
+                android:title="@string/order_Ascending"
+                android:titleCondensed="@string/order_created" />
+            <item
+                android:id="@+id/idDescending"
+                android:title="@string/order_created_descending" />
+            <item
+                android:id="@+id/updatedAscending"
+                android:title="@string/updated_ascending" />
+            <item
+                android:id="@+id/updatedDescending"
+                android:title="@string/updated_latest_to_oldest" />
+        </menu>
+
+
+    </item>
+</menu>
