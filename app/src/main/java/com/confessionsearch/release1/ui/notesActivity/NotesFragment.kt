@@ -13,7 +13,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -90,7 +89,6 @@ class NotesFragment : Fragment(), OnNoteListener {
         val intent = Intent(context, NotesComposeActivity::class.java)
         intent.putExtra("activity_ID", ACTIVITY_ID)
         intent.putExtra("note_selected", notesArrayList[position])
-        Log.d("TEST", "${notesArrayList[position].timeModified}")
         startActivity(intent)
     }
 
@@ -112,34 +110,28 @@ class NotesFragment : Fragment(), OnNoteListener {
 
     //Critical for retrieving notes for the application
     private fun fetchNotes() {
+        //This is here for migration testing
         try {
-
             val defaultVal = 2
             upgrades = sharedPreferences.getInt("dbUpgrades", defaultVal)
-            Log.d("Test", "SharedPrefsWorks: $upgrades")
-            Log.d("Print", "${sharedPreferences.getInt("dbUpgrades", 2)}")
-            Log.d("Print2", "$upgrades")
 
         } catch (exC: Exception) {
-            upgrades = 1
-            Log.d("Works", "Shared Prefs isn't working yet")
+            upgrades = 2
         }
         notesViewModel.noteRepository!!.fetchNotes().observe(viewLifecycleOwner, { notes ->
             if (notesArrayList.size > 0) notesArrayList.clear()
             if (notes != null) {
                 notesArrayList.addAll(notes)
             }
+            //Usually unnecessary code for the purposes of migrating database stuff
             if (upgrades <= 3) {
                 addTimes(upgrades)
                 upgrades++
                 sharedPreferences.edit {
                     putInt("dbUpgrades", upgrades).commit()
-                    Log.d("Print", "${sharedPreferences.getInt("dbUpgrades", 2)}")
-                    Log.d("Print2", "$upgrades")
                 }
             }
             try {
-
                 Collections.sort(notesArrayList, Notes.compareDateTime)
             } catch (ex: Exception) {
                 ex.printStackTrace()

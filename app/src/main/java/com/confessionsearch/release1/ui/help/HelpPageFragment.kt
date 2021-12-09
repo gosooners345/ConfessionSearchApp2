@@ -95,7 +95,7 @@ class HelpPageFragment : Fragment() {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:") // only email apps should handle this
             putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.devEmail)))
-            putExtra(Intent.EXTRA_SUBJECT, "Feature Request or Bug Report")
+            putExtra(Intent.EXTRA_SUBJECT, subject)
         }
         startActivity(intent)
         if (intent.resolveActivity(MainActivity.appcontext!!.packageManager) != null) {
