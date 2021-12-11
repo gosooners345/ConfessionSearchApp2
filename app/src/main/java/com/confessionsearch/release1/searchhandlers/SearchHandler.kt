@@ -28,11 +28,11 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.codeboy.pager2_transformers.Pager2_ForegroundToBackgroundTransformer
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.documents.Document
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.data.documents.DocumentList
-import com.confessionsearch.release1.helpers.RotateUpPageTransformer
 import com.confessionsearch.release1.searchresults.SearchAdapter
 import com.confessionsearch.release1.searchresults.SearchResultFragment
 import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
@@ -94,7 +94,9 @@ class SearchHandler : AppCompatActivity() {
         setContentView(R.layout.index_pager)
         adapter = SearchAdapter(supportFragmentManager, masterList, query!!, lifecycle)
         vp2 = findViewById<ViewPager2>(R.id.resultPager2)
-        vp2.setPageTransformer(RotateUpPageTransformer())
+        val animTransformer = Pager2_ForegroundToBackgroundTransformer()
+
+        vp2.setPageTransformer(animTransformer)
         adapter.createFragment(0)
         vp2.adapter = adapter
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
