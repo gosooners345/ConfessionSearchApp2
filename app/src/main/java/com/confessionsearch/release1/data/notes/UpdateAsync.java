@@ -4,15 +4,15 @@ import android.os.AsyncTask;
 
 public class UpdateAsync extends AsyncTask<Notes, Void, Void> {
 
-    private final NoteDao mNoteDao;
+    private final NoteDao mNotesDao;
 
     public UpdateAsync(NoteDao dao) {
-        mNoteDao = dao;
+        mNotesDao = dao;
     }
 
     @Override
     protected Void doInBackground(Notes... notes) {
-        mNoteDao.updateNotes(notes);
+        mNotesDao.updateNotes(notes);
         return null;
     }
 }

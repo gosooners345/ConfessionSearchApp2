@@ -152,7 +152,7 @@ class BibleReaderSearchResults : AppCompatActivity() {
     }
 
     companion object {
-        private const val ACTIVITY_ID = 65
+        const val ACTIVITY_ID = 65
     }
 }
 

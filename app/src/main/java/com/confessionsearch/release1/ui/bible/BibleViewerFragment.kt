@@ -78,7 +78,7 @@ class BibleViewerFragment : Fragment() {
         private const val VERSE = "verse"
         private const val BOOKNAME = "book"
         private const val verseNum = "verseNum"
-        private const val ACTIVITY_ID = 76
+        const val ACTIVITY_ID = 76
         val newLine = "/r/n"
 
         fun NewVerse(

@@ -163,7 +163,6 @@ class SearchHandler : AppCompatActivity() {
             "Chapter_DSC" -> {
                 Collections.sort(docList, Document.compareMatchesAndChapters)
                 Collections.reverse(docList)
-
             }
             "Matches_DSC" -> Collections.sort(docList, Document.compareMatches)
             "Matches_ASC" -> {
@@ -522,7 +521,6 @@ class SearchHandler : AppCompatActivity() {
         const val CHAPTER_DSC = "Chapter_DSC"
         const val MATCH_ASC = "Matches_ASC"
         const val MATCH_DSC = "Matches_DSC"
-        const val ACTIVITY_ID = 676
         const val TAG = "SearchHandler"
     }
 

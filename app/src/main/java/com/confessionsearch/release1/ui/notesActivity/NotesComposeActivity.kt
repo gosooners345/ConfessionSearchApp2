@@ -208,7 +208,6 @@ class NotesComposeActivity : AppCompatActivity() {
                        MotionToast.SHORT_DURATION,
                        ResourcesCompat.getFont(this, R.font.helvetica_regular)
                    )
-
                }
            }*/
     }

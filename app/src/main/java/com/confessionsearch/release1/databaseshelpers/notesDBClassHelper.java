@@ -29,8 +29,3 @@ public abstract class notesDBClassHelper extends RoomDatabase {
 
     public abstract NoteDao getNoteDao();
 }
-
-
-
-
-

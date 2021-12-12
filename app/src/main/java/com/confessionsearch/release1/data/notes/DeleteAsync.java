@@ -16,4 +16,4 @@ public class DeleteAsync extends AsyncTask<Notes, Void, Void> {
         mNoteDao.delete(notes);
         return null;
     }
-    }
+}

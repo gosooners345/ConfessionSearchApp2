@@ -17,7 +17,7 @@ public class NoteRepository {
         notesDB= notesDBClassHelper.getInstance(context);
     }
     public void insertNote(Notes note){
-new InsertAsync(notesDB.getNoteDao()).execute(note);
+        new InsertAsync(notesDB.getNoteDao()).execute(note);
     }
     public void updateNote(Notes note){
         new UpdateAsync(notesDB.getNoteDao()).execute(note);

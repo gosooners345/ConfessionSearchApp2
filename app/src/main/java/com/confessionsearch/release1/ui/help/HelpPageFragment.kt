@@ -58,10 +58,6 @@ class HelpPageFragment : Fragment() {
         emailDevTV.setOnClickListener(emailOnClickListener)
         var versionTV = view.findViewById<TextView>(R.id.versionInfoTV)
         versionTV.text = "Version #: ${MainActivity.versionName}"
-        //      runAnimation(searchTabTV)
-        //    runAnimation(bibleTabTV)
-        //  runAnimation(notesTabTV)
-//        runAnimation(sourcesLabelTV)
 
         return view
 

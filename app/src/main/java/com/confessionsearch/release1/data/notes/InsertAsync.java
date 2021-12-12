@@ -4,14 +4,14 @@ import android.os.AsyncTask;
 
 public class InsertAsync extends AsyncTask<Notes, Void, Void> {
 
-    private final NoteDao mNoteDao;
+    private final NoteDao mNotesDao;
 
     public InsertAsync(NoteDao dao) {
-        mNoteDao = dao;
+        mNotesDao = dao;
     }
 
     @Override
     protected Void doInBackground(Notes... notes) {
-        mNoteDao.insertNotes(notes);
+        mNotesDao.insertNotes(notes);
         return null;
     }}

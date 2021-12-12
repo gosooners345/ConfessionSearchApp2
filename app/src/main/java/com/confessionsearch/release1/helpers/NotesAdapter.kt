@@ -1,99 +1,73 @@
-package com.confessionsearch.release1.helpers;
+package com.confessionsearch.release1.helpers
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.confessionsearch.release1.R
+import com.confessionsearch.release1.data.notes.Notes
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.confessionsearch.release1.R;
-import com.confessionsearch.release1.data.notes.Notes;
-
-import java.util.ArrayList;
-
-public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
-    private final OnNoteListener onNoteListener;
-    private final Context context;
-    private final ArrayList<Notes> noteList;
-    private int lastPosition = -1;
-
-    public NotesAdapter(ArrayList<Notes> importNotes, OnNoteListener onNoteListener, Context context) {
-        noteList = importNotes;
-        this.onNoteListener = onNoteListener;
-        this.context = context;
+class NotesAdapter @SuppressLint("NotifyDataSetChanged") constructor(
+    private val noteList: ArrayList<Notes>,
+    private val onNoteListener: OnNoteListener,
+    private val context: Context
+) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
+    private var lastPosition = -1
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val context = parent.context
+        val inflater = LayoutInflater.from(context)
+        val noteView = inflater.inflate(R.layout.notes_item_layout, parent, false)
+        return ViewHolder(noteView, onNoteListener)
     }
 
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        View noteView = inflater.inflate(R.layout.notes_item_layout, parent, false);
-
-        return new ViewHolder(noteView, onNoteListener);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Notes note = noteList.get(position);
-        TextView noteTitle = holder.subjectView;
-        noteTitle.setText(note.getTitle());
-        TextView contentHolder = holder.contentView;
-        contentHolder.setText((note.getContent()));
-        TextView timeStamp = holder.timeStamp;
-        timeStamp.setText(note.getTime());
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val note = noteList[position]
+        val noteTitle = holder.subjectView
+        noteTitle.text = note.title
+        val contentHolder = holder.contentView
+        contentHolder.text = note.content
+        val timeStamp = holder.timeStamp
+        timeStamp.text = note.time
         //  setAnimation(holder.itemView, position);
     }
 
-
-    @Override
-    public int getItemCount() {
-
-        return noteList.size();
-
-    }
-// Adds animation to the cards
-    private void setAnimation(View toAnimate, int position) {
-        if (position > lastPosition | position < lastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.animate_card_enter);
-            animation.scaleCurrentDuration(.5f);
-            toAnimate.clearAnimation();
-
-            toAnimate.startAnimation(animation);
-
-            lastPosition = position;
-        }
-
+    override fun getItemCount(): Int {
+        return noteList.size
     }
 
-
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView contentView;
-        public TextView subjectView;
-        public TextView timeStamp;
-        OnNoteListener onNoteListener;
-
-        public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
-            super(itemView);
-            subjectView = itemView.findViewById(R.id.content_Title);
-            contentView = itemView.findViewById(R.id.content_text);
-            timeStamp = itemView.findViewById(R.id.timeStamp);
-            this.onNoteListener = onNoteListener;
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            onNoteListener.onNoteClick(getBindingAdapterPosition());
+    // Adds animation to the cards
+    private fun setAnimation(toAnimate: View, position: Int) {
+        if (position > lastPosition || position < lastPosition) {
+            val animation = AnimationUtils.loadAnimation(
+                context, R.anim.animate_card_enter
+            )
+            animation.scaleCurrentDuration(.5f)
+            toAnimate.clearAnimation()
+            toAnimate.startAnimation(animation)
+            lastPosition = position
         }
     }
 
+    class ViewHolder(itemView: View, var onNoteListener: OnNoteListener) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        var contentView: TextView = itemView.findViewById(R.id.content_text)
+        var subjectView: TextView = itemView.findViewById(R.id.content_Title)
+        var timeStamp: TextView = itemView.findViewById(R.id.timeStamp)
+        override fun onClick(view: View) {
+            onNoteListener.onNoteClick(bindingAdapterPosition)
+        }
 
+        init {
+            itemView.setOnClickListener(this)
+        }
+    }
+
+    init {
+        notifyDataSetChanged()
+    }
 }

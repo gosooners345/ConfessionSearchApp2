@@ -9,7 +9,6 @@ import androidx.room.Update;
 
 import java.util.List;
 
-//Thanks to Mitch at SQLite Learning for providing code to help set up this interface here
 @Dao
 public interface NoteDao {
 

@@ -14,7 +14,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -29,7 +28,6 @@ import com.confessionsearch.release1.databinding.FragmentNotesBinding
 import com.confessionsearch.release1.helpers.NotesAdapter
 import com.confessionsearch.release1.helpers.OnNoteListener
 import com.confessionsearch.release1.helpers.RecyclerViewSpaceExtender
-import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -109,46 +107,18 @@ class NotesFragment : Fragment(), OnNoteListener {
     //Critical for retrieving notes for the application
     private fun fetchNotes() {
         //This is here for migration testing
-        try {
-            val defaultVal = 2
-            upgrades = sharedPreferences.getInt("dbUpgrades", defaultVal)
 
-        } catch (exC: Exception) {
-            upgrades = 2
-        }
         notesViewModel.noteRepository!!.fetchNotes().observe(viewLifecycleOwner, { notes ->
             if (notesArrayList.size > 0) notesArrayList.clear()
             if (notes != null) {
                 notesArrayList.addAll(notes)
             }
+            notesArrayList.sortWith(Notes.compareDateTime)
             //Usually unnecessary code for the purposes of migrating database stuff
-            if (upgrades <= 3) {
-                addTimes(upgrades)
-                upgrades++
-                sharedPreferences.edit {
-                    putInt("dbUpgrades", upgrades).commit()
-                }
-            }
-            try {
-                Collections.sort(notesArrayList, Notes.compareDateTime)
-            } catch (ex: Exception) {
-                ex.printStackTrace()
-            }
+
             adapter!!.notifyDataSetChanged()
         }
         )
-
-    }
-    //one-time use
-
-    fun addTimes(upgrade: Int) {
-        if (upgrade < 3)
-            for (note: Notes in notesArrayList) {
-                note.timeModified = System.currentTimeMillis()
-                note.time = DateFormat.getInstance().format(note.timeModified)
-                notesViewModel.noteRepository!!.updateNote(note)
-            }
-
 
     }
 
@@ -173,7 +143,8 @@ class NotesFragment : Fragment(), OnNoteListener {
                 true
             }
             R.id.updatedDescending -> {
-                Collections.sort(notesArrayList, Notes.compareDateTime)
+                // Collections.sort(notesArrayList, Notes.compareDateTime)
+                notesArrayList.sortWith(Notes.compareDateTime)
                 adapter!!.notifyDataSetChanged()
                 true
             }

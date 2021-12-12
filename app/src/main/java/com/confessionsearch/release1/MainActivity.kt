@@ -17,8 +17,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -44,7 +42,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
-            setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
             val binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
@@ -172,8 +169,6 @@ class MainActivity : AppCompatActivity() {
         const val appName = BuildConfig.APPLICATION_ID
         const val buildType = BuildConfig.BUILD_TYPE
         var appcontext: Context? = null
-
-
     }
 
 
