@@ -3,6 +3,8 @@ package com.confessionsearch.release1.searchresults
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.text.Html
+import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -14,7 +16,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.codeboy.pager2_transformers.Pager2_ForegroundToBackgroundTransformer
+import com.codeboy.pager2_transformers.Pager2_VerticalFlipTransformer
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.bible.BibleContentsList
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
@@ -89,7 +91,7 @@ class BibleReaderSearchResults : AppCompatActivity() {
                 vp2 = findViewById<ViewPager2>(R.id.resultPager2)
                 adapter.createFragment(0)
                 vp2.adapter = adapter
-                vp2.setPageTransformer(Pager2_ForegroundToBackgroundTransformer())
+                vp2.setPageTransformer(Pager2_VerticalFlipTransformer())
 
                 val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
                 TabLayoutMediator(tabLayout, vp2) { tab, position ->
@@ -110,7 +112,10 @@ class BibleReaderSearchResults : AppCompatActivity() {
                 val chHeader = findViewById<TextView>(R.id.chapterHeader)
                 //Set the header and verse text fields
                 chHeader.text =
-                    String.format("${bibleContents.BookName} ${bibleContents.ChapterNum}")
+                    Html.fromHtml(
+                        "<h4>${bibleContents.BookName} ${bibleContents.ChapterNum}</h4>",
+                        FROM_HTML_MODE_COMPACT
+                    )
                 chTextBox.text = bibleContents.VerseText
                 val fab: Button = findViewById(R.id.shareActionButton)
                 val saveFab: Button = findViewById(R.id.saveNote)
@@ -168,9 +173,6 @@ class BibleReaderAdapter(
     private var bibleBookPosition = 0
     private var term = ""
     private val header = ""
-
-    //public FragmentManager news;
-    var news: FragmentManager? = null
 
 
     init {

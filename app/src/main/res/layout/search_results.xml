@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/result_layout_anchor"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dimen_32">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/result_screen"
@@ -13,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_32"
-        android:layout_marginBottom="@dimen/dimen_32"
         android:fitsSystemWindows="true"
         android:scrollbars="vertical">
 
@@ -98,7 +98,7 @@
 
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="72dp"
 
 
             android:text="@string/save_note"
