@@ -1,27 +1,19 @@
-package com.confessionsearch.release1.data.notes;
+package com.confessionsearch.release1.data.notes
 
-import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
-import androidx.room.Update;
-
-import java.util.List;
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
 @Dao
-public interface NoteDao {
-
+interface NoteDao {
     @Insert
-    long[] insertNotes(Notes... notes);
-
+    fun insertNotes(vararg notes: Notes?): LongArray?
 
     @Query("SELECT * FROM notes")
-    LiveData<List<Notes>> fetchNotes();
+    fun fetchNotes(): LiveData<List<Notes>>
 
     @Delete
-    int delete(Notes... notes);
+    fun delete(vararg notes: Notes?): Int
 
     @Update
-    int updateNotes(Notes... notes);
+    fun updateNotes(vararg notes: Notes?): Int
 }

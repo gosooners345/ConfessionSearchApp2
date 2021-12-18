@@ -1,17 +1,10 @@
-package com.confessionsearch.release1.data.notes;
+package com.confessionsearch.release1.data.notes
 
-import android.os.AsyncTask;
+import android.os.AsyncTask
 
-public class InsertAsync extends AsyncTask<Notes, Void, Void> {
-
-    private final NoteDao mNotesDao;
-
-    public InsertAsync(NoteDao dao) {
-        mNotesDao = dao;
+class InsertAsync(private val mNotesDao: NoteDao) : AsyncTask<Notes?, Void?, Void?>() {
+    override fun doInBackground(vararg notes: Notes?): Void? {
+        mNotesDao.insertNotes(*notes)
+        return null
     }
-
-    @Override
-    protected Void doInBackground(Notes... notes) {
-        mNotesDao.insertNotes(notes);
-        return null;
-    }}
+}

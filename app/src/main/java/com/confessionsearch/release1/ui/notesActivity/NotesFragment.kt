@@ -11,7 +11,6 @@ package com.confessionsearch.release1.ui.notesActivity
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.confessionsearch.release1.MainActivity
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.notes.NoteRepository
 import com.confessionsearch.release1.data.notes.Notes
@@ -36,12 +34,6 @@ class NotesFragment : Fragment(), OnNoteListener {
     private lateinit var notesViewModel: NotesViewModel
     private var _binding: FragmentNotesBinding? = null
     var notesList: RecyclerView? = null
-    var upgrades = 0
-    private var sharedPreferences: SharedPreferences =
-        MainActivity.appcontext!!.getSharedPreferences(
-            MainActivity.appName + ".appPrefs",
-            Context.MODE_PRIVATE
-        )
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -114,8 +106,6 @@ class NotesFragment : Fragment(), OnNoteListener {
                 notesArrayList.addAll(notes)
             }
             notesArrayList.sortWith(Notes.compareDateTime)
-            //Usually unnecessary code for the purposes of migrating database stuff
-
             adapter!!.notifyDataSetChanged()
         }
         )

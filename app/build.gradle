@@ -9,7 +9,7 @@ android {
         applicationId "com.confessionsearch.release1"
         minSdkVersion 24
         targetSdkVersion 31
-        versionCode 85
+        versionCode 86
         versionName "5.1.7-release"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
