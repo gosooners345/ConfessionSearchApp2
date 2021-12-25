@@ -9,10 +9,13 @@ package com.confessionsearch.release1.ui.notesActivity
 *  Purpose: This is the class file that handles events on the Notes section of the application
 */
 
+import android.app.SearchManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -26,6 +29,7 @@ import com.confessionsearch.release1.databinding.FragmentNotesBinding
 import com.confessionsearch.release1.helpers.NotesAdapter
 import com.confessionsearch.release1.helpers.OnNoteListener
 import com.confessionsearch.release1.helpers.RecyclerViewSpaceExtender
+import com.confessionsearch.release1.searchhandlers.SearchNotesActivity
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -33,7 +37,7 @@ class NotesFragment : Fragment(), OnNoteListener {
 
     private lateinit var notesViewModel: NotesViewModel
     private var _binding: FragmentNotesBinding? = null
-    var notesList: RecyclerView? = null
+    lateinit var notesList: RecyclerView
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -56,11 +60,11 @@ class NotesFragment : Fragment(), OnNoteListener {
         fetchNotes()
         adapter = NotesAdapter(notesArrayList, this, requireContext())
         notesList = root.findViewById(R.id.notesListView)
-        notesList!!.layoutManager = LinearLayoutManager(context)
-        notesList!!.itemAnimator = DefaultItemAnimator()
-        notesList!!.adapter = adapter
+        notesList.layoutManager = LinearLayoutManager(context)
+        notesList.itemAnimator = DefaultItemAnimator()
+        notesList.adapter = adapter
         val divider = RecyclerViewSpaceExtender(8)
-        notesList!!.addItemDecoration(divider)
+        notesList.addItemDecoration(divider)
         // notesList!!.animation= AnimationUtils.loadAnimation(context,R.anim.slidein)
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(notesList)
         setHasOptionsMenu(true)
@@ -143,9 +147,20 @@ class NotesFragment : Fragment(), OnNoteListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-
-
         inflater.inflate(R.menu.notes_sort_menu, menu)
+        val searchManager: SearchManager =
+            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        ((menu.findItem(R.id.menu_search).actionView) as SearchView).apply {
+            setSearchableInfo(
+                searchManager.getSearchableInfo(
+                    ComponentName(
+                        context,
+                        SearchNotesActivity::class.java
+                    )
+                )
+            )
+        }
+
         return super.onCreateOptionsMenu(menu, inflater)
     }
 

@@ -88,16 +88,10 @@ class SearchFragment : Fragment() {
         //Chip Group Initialization
         chipGroup = root.findViewById(R.id.chip_group)
         optionGroup = root.findViewById(R.id.option_group)
-
         //Search Box Initialization
-
         searchBoxContainer = root.findViewById(R.id.searchContainer)
-
         searchBoxContainer!!.editText!!.setOnKeyListener(submissionKey)
-
-
         searchBoxContainer!!.editText!!.addTextChangedListener(searchBoxEditTextChangedWatcher)
-
         //More stuff
         optionGroup!!.setOnCheckedChangeListener(optionListener)
         // Chip Initialization 06/01/2021 - Testing look and execution
@@ -105,7 +99,6 @@ class SearchFragment : Fragment() {
         proofChip = root.findViewById(R.id.proofChip)
         searchAllChip = root.findViewById(R.id.searchAllChip)
         sortChapterChip = root.findViewById(R.id.sortByChapter)
-
         //Implement check changed listeners
         answerChip!!.setOnCheckedChangeListener(checkBox)
         proofChip!!.setOnCheckedChangeListener(checkBox)
@@ -115,23 +108,15 @@ class SearchFragment : Fragment() {
         questionChip = root.findViewById(R.id.questionChip)
         readDocsChip = root.findViewById(R.id.readDocsChip)
         //Spinner Initialization
-
         //Adapter and Spinner Assignments
         docTypes = searchViewModel.getTypes()
-
-
-
-
-
         docTypeSpinnerAdapter = MyAdapter(
             requireContext(), R.layout.support_simple_spinner_dropdown_item,
             docTypes
         )
-
         /// Test 1
         binding.docTypeCB.item = docTypes as List<Any>?
         binding.docTypeCB.onItemSelectedListener = docTypeSpinnerListener
-
         type = ""
         //Load Document Titles into Doc Title list for preparation
         searchViewModel.loadTitles(docDBhelper!!.getAllDocTitles(type, documentDB!!))
@@ -143,7 +128,6 @@ class SearchFragment : Fragment() {
         )
         binding.docTitleCB.item = docTitleList as List<Any>?
         binding.docTitleCB.onItemSelectedListener = docTitleSpinnerListener
-//        documentNameSpinner!!.onItemSelectedListener = docTitleSpinnerListener
         topicChip!!.performClick()
         binding.docTypeCB.setSelection(0)
         return root

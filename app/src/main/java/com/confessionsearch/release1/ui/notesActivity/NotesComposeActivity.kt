@@ -165,7 +165,6 @@ class NotesComposeActivity : AppCompatActivity() {
         if (mode == EDIT_ON) {
             val anchorView = findViewById<View>(R.id.masterLayout)
             Snackbar.make(anchorView, "Note Editing Enabled", Snackbar.LENGTH_SHORT).show()
-
         }
     }
 
@@ -186,30 +185,7 @@ class NotesComposeActivity : AppCompatActivity() {
         mode = EDIT_ON
         val anchorView = findViewById<View>(R.id.masterLayout)
         Snackbar.make(anchorView, "Note Editing Enabled", Snackbar.LENGTH_SHORT).show()
-        /*   when (applicationContext.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-               Configuration.UI_MODE_NIGHT_YES -> {
-                   MotionToast.darkToast(
-                       this,
-                       "Edit Mode On",
-                       "Note Editing Enabled!",
-                       MotionToast.TOAST_INFO,
-                       MotionToast.GRAVITY_BOTTOM,
-                       MotionToast.SHORT_DURATION,
-                       ResourcesCompat.getFont(this, R.font.helvetica_regular)
-                   )
-               }
-               Configuration.UI_MODE_NIGHT_NO -> {
-                   MotionToast.createToast(
-                       this,
-                       "Edit Mode On",
-                       "Note Editing Enabled!",
-                       MotionToast.TOAST_INFO,
-                       MotionToast.GRAVITY_BOTTOM,
-                       MotionToast.SHORT_DURATION,
-                       ResourcesCompat.getFont(this, R.font.helvetica_regular)
-                   )
-               }
-           }*/
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

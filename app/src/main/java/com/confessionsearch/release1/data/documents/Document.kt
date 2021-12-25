@@ -18,7 +18,16 @@ class Document : BaseColumns, Comparable<Document> {
     constructor()
 
     //initializing constructor
-    constructor(documentID: Int?, docDetailID: Int?, documentName: String?, chNumber: Int?, chName: String?, documentText: String?, proofs: String?, tags: String?) {
+    constructor(
+        documentID: Int?,
+        docDetailID: Int?,
+        documentName: String?,
+        chNumber: Int?,
+        chName: String?,
+        documentText: String?,
+        proofs: String?,
+        tags: String?
+    ) {
         this.chName = chName
         this.documentText = documentText
         this.chNumber = chNumber
@@ -61,4 +70,13 @@ class Document : BaseColumns, Comparable<Document> {
 
         }
     }
+
+    override fun toString(): String {
+        return String.format(
+            "${documentName}\r\n Chapter $chNumber : $chName \r\n" +
+                    "$documentText \r\n Proofs: \r\n" +
+                    "$proofs"
+        )
+    }
 }
+

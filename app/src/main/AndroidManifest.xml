@@ -20,6 +20,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".ui.notesActivity.NotesComposeActivity"
@@ -32,7 +33,19 @@
             android:label="Search Results"
             android:launchMode="singleTop"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".searchhandlers.SearchNotesActivity"
+            android:label="Search Results"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
 
+        </activity>
         <activity
             android:name=".searchresults.BibleReaderSearchResults"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
