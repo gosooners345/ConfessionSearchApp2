@@ -13,19 +13,19 @@
         android:icon="@drawable/ic_sort_order"
         app:showAsAction="always">
         <menu>
+            <!-- <item
+      android:id="@+id/dateCreated"
+      android:title="@string/sort_created_date"
+      android:icon="@drawable/ic_sort_date"
+      />-->
             <item
-                android:id="@+id/idAscending"
-                android:title="@string/order_Ascending"
-                android:titleCondensed="@string/order_created" />
+                android:id="@+id/dateUpdated"
+                android:title="@string/sort_updated_date"
+                android:icon="@drawable/ic_sort_date" />
             <item
-                android:id="@+id/idDescending"
-                android:title="@string/order_created_descending" />
-            <item
-                android:id="@+id/updatedAscending"
-                android:title="@string/updated_ascending" />
-            <item
-                android:id="@+id/updatedDescending"
-                android:title="@string/updated_latest_to_oldest" />
+                android:id="@+id/alphabetized"
+                android:title="@string/sort_aplhabetical"
+                android:icon="@drawable/ic_sort_a_to_z" />
         </menu>
 
 

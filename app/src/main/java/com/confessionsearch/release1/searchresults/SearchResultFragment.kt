@@ -13,7 +13,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.confessionsearch.release1.R
-import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
+import com.confessionsearch.release1.ui.notes.NotesComposeActivity
 
 class SearchResultFragment : Fragment() {
     var shareNote: String? = null

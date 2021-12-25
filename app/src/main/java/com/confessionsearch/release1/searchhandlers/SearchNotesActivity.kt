@@ -14,8 +14,8 @@ import com.confessionsearch.release1.data.notes.Notes
 import com.confessionsearch.release1.helpers.NotesAdapter
 import com.confessionsearch.release1.helpers.OnNoteListener
 import com.confessionsearch.release1.helpers.RecyclerViewSpaceExtender
-import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
-import com.confessionsearch.release1.ui.notesActivity.NotesFragment
+import com.confessionsearch.release1.ui.notes.NotesComposeActivity
+import com.confessionsearch.release1.ui.notes.NotesFragment
 
 class SearchNotesActivity : AppCompatActivity(), OnNoteListener {
 

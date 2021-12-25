@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "notes")
 class Notes() : Parcelable, Cloneable, Comparable<Notes> {
@@ -117,6 +118,21 @@ class Notes() : Parcelable, Cloneable, Comparable<Notes> {
         var compareIDs = java.util.Comparator<Notes> { notes1, notes2 ->
             notes1.noteID.compareTo(notes2.noteID)
 
+        }
+        var compareAlphabetized = java.util.Comparator<Notes> { notes1, notes2 ->
+            if (notes1.title!!.lowercase(Locale.getDefault()).compareTo(
+                    notes2.title!!.lowercase(
+                        Locale.getDefault()
+                    )
+                ) == 0
+            )
+                notes1.compareTo(notes2)
+            else
+                notes1.title!!.lowercase(Locale.getDefault()).compareTo(
+                    notes2.title!!.lowercase(
+                        Locale.getDefault()
+                    )
+                )
         }
     }
 }

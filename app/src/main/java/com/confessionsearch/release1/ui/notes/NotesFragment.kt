@@ -1,4 +1,4 @@
-package com.confessionsearch.release1.ui.notesActivity
+package com.confessionsearch.release1.ui.notes
 
 /* Author: Brandon Guerin
 *
@@ -38,6 +38,7 @@ class NotesFragment : Fragment(), OnNoteListener {
     private lateinit var notesViewModel: NotesViewModel
     private var _binding: FragmentNotesBinding? = null
     lateinit var notesList: RecyclerView
+    var reversed = false
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -65,8 +66,6 @@ class NotesFragment : Fragment(), OnNoteListener {
         notesList.adapter = adapter
         val divider = RecyclerViewSpaceExtender(8)
         notesList.addItemDecoration(divider)
-        // notesList!!.animation= AnimationUtils.loadAnimation(context,R.anim.slidein)
-        ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(notesList)
         setHasOptionsMenu(true)
         return root
     }
@@ -118,30 +117,44 @@ class NotesFragment : Fragment(), OnNoteListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.idAscending -> {
+            /* R.id.dateCreated -> {
                 Collections.sort(notesArrayList, Notes.compareIDs)
                 adapter!!.notifyDataSetChanged()
                 true
-            }
-            R.id.idDescending
+            }*/
+            R.id.dateUpdated
             -> {
-                Collections.sort(notesArrayList, Notes.compareIDs)
-                notesArrayList.reverse()
-                adapter!!.notifyDataSetChanged()
-                true
-            }
-            R.id.updatedAscending -> {
                 Collections.sort(notesArrayList, Notes.compareDateTime)
-                notesArrayList.reverse()
-                adapter!!.notifyDataSetChanged()
+                if (!reversed) {
+                    notesArrayList.reverse()
+                    adapter!!.notifyDataSetChanged()
+                    reversed = true
+
+                } else {
+                    //  Collections.sort(notesArrayList, Notes.compareDateTime)
+                    adapter!!.notifyDataSetChanged()
+                    reversed = false
+                }
                 true
             }
-            R.id.updatedDescending -> {
-                // Collections.sort(notesArrayList, Notes.compareDateTime)
-                notesArrayList.sortWith(Notes.compareDateTime)
-                adapter!!.notifyDataSetChanged()
+            R.id.alphabetized -> {
+                if (reversed) {
+                    Collections.sort(notesArrayList, Notes.compareAlphabetized)
+                    adapter!!.notifyDataSetChanged()
+                    reversed = false
+                } else {
+                    Collections.sort(notesArrayList, Notes.compareAlphabetized)
+                    notesArrayList.reverse()
+                    adapter!!.notifyDataSetChanged()
+                    reversed = true
+                }
                 true
             }
+            /*R.id.updatedDescending -> {
+                Notes.compareDateTime?.let { notesArrayList.sortWith(it) }
+                adapter!!.notifyDataSetChanged()
+                true
+            }*/
             else -> super.onOptionsItemSelected(item)
         }
     }

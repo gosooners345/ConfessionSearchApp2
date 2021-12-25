@@ -118,22 +118,22 @@
     &lt;li> Customize your search further by omitting answers or proofs, searching all documents, or sort by chapter order by hitting the buttons under Advanced Search Options.&lt;/li>&lt;/ul>&lt;/p></string>
   <string name="search_tab_pgh2">Here are the available options to you in the search: \n To search topics, hit the Topic button, Chapters/Questions in Confessions/Catechisms hit the Chapter/Question Button, To simply read the document, hit the Read button. \n For more advanced filtering such as answer/proof removal, hit the no answers/no proofs buttons, to search all documents, hit the search all documents button. This will depend on what document type you have selected. For all documents, you\'ll need the \'All\' type selected, otherwise it will be limited to what you have selected.</string>
   <string name="notes_tab_helpLabel">&lt;h3>Notes Tab:&lt;/h3></string>
-  <string name="notes_tab_helpPgh" formatted="true">&lt;p>&lt;ul>&lt;li>Store notes of your favorite scripture passages, search results, and more. &lt;/li>&lt;li>Hit the Save Note button on any search result or bible reader page and you\'ll be able to instantly save a note and navigate back to your previous task.&lt;/li>&lt;li>Hit the new note button on the notes tab to create an entirely new note.&lt;/li> &lt;li>When you\'re finished, hit save note to save the note on your device.&lt;/li>&lt;/ul>&lt;/p></string>
-  <string name="bible_tab_HelpLabel">&lt;h3>Bible Tab:&lt;/h3></string>
-  <string name="bible_tab_helpPgh" formatted="true">&lt;p>&lt;ul>&lt;li>Read Scripture by simply selecting what translation, book, chapter, and verse you want to navigate to.&lt;/li>&lt;li>If you want to read an entire book of scripture, simply leave the chapter field on All.&lt;/li>&lt;li>The same goes for reading an entire chapter of a book of Scripture, leave the verse field set to all. \nHit the read button and you\'ll be reading through scripture.&lt;/li&lt;/ul>&lt;/p></string>
-  <string name="other_stuff_tab">Other Stuff:</string>
-  <string name="copyright_disclaimer">&lt;p>Sources for these documents are in public domain since they are old. Bible translations will be cited below alongside any copyrighted content used with permission.&lt;/p></string>
-  <string name="share_entry">Each search result page has the share button enabled to allow for easy sharing with your friends or favorite social media site.</string>
-  <string name="sources_tab">&lt;h3>Sources:&lt;/h3></string>
-  <string name="available_options">Available Options:</string>
-  <string name="sort_by_chapter">Sort By Chapter?</string>
-  <string name="sort_by">Sort By</string>
-  <string name="_0_9_asc">0-9 Low to High</string>
-  <string name="_0_9_desc">0-9 High to Low</string>
-  <string name="matches_low_to_high">Matches Low to High</string>
-  <string name="matches_high_to_low">Matches High to Low</string>
-  <string name="sort_byhdr">Sort By:</string>
-  <string name="enter_content_here">Enter Content Here</string>
+    <string name="notes_tab_helpPgh" formatted="true">&lt;p>&lt;ul>&lt;li>Store notes of your favorite scripture passages, search results, and more. &lt;/li>&lt;li>Hit the Save Note button on any search result or bible reader page and you\'ll be able to instantly save a note and navigate back to your previous task.&lt;/li>&lt;li>Hit the new note button on the notes tab to create an entirely new note.&lt;/li> &lt;li>When you\'re finished, hit save note to save the note on your device.&lt;/li>&lt;/ul>&lt;/p></string>
+    <string name="bible_tab_HelpLabel">&lt;h3>Bible Tab:&lt;/h3></string>
+    <string name="bible_tab_helpPgh" formatted="true">&lt;p>&lt;ul>&lt;li>Read Scripture by simply selecting what translation, book, chapter, and verse you want to navigate to.&lt;/li>&lt;li>If you want to read an entire book of scripture, simply leave the chapter field on All.&lt;/li>&lt;li>The same goes for reading an entire chapter of a book of Scripture, leave the verse field set to all. \nHit the read button and you\'ll be reading through scripture.&lt;/li&lt;/ul>&lt;/p></string>
+    <string name="other_stuff_tab">Other Stuff:</string>
+    <string name="copyright_disclaimer">&lt;p>Sources for these documents are in public domain since they are old. Bible translations will be cited below alongside any copyrighted content used with permission.&lt;/p></string>
+    <string name="share_entry">Each search result page has the share button enabled to allow for easy sharing with your friends or favorite social media site.</string>
+    <string name="sources_tab">&lt;h3>Sources:&lt;/h3></string>
+    <string name="available_options">Available Options:</string>
+    <string name="sort_by_chapter">Sort By Chapter?</string>
+    <string name="sort_by">Sort By</string>
+    <string name="_0_9_asc">0-9 Ascending</string>
+    <string name="_0_9_desc">0-9 Descending</string>
+    <string name="matches_low_to_high">Matches Ascending</string>
+    <string name="matches_high_to_low">Matches Descending</string>
+    <string name="sort_byhdr">Sort By:</string>
+    <string name="enter_content_here">Enter Content Here</string>
     <string name="title">Title</string>
     <string name="note_content">Note Content</string>
     <string name="note_title">Note Title</string>
@@ -150,9 +150,7 @@
     <string name="ratings_suggestion">If you enjoyed using my application, please leave a rating on the Play Store!</string>
     <string name="emailDev">Email the developer with feature requests or bugs spotted.</string>
     <string name="devEmail">boomersooner12345@gmail.com</string>
-    <string name="order_Ascending">Order created low to high</string>
-    <string name="order_created">Order Created</string>
-    <string name="order_created_descending">Order created latest to first</string>
-    <string name="updated_ascending">Updated earliest to latest</string>
-    <string name="updated_latest_to_oldest">Updated latest to oldest</string>
+    <string name="sort_created_date">Date Created</string>
+    <string name="sort_updated_date">Recently Updated</string>
+    <string name="sort_aplhabetical">A to Z</string>
 </resources>

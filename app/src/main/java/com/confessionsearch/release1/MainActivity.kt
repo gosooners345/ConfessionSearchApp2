@@ -26,7 +26,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.confessionsearch.release1.databinding.ActivityMainBinding
 import com.confessionsearch.release1.ui.bible.BibleFragment
 import com.confessionsearch.release1.ui.home.SearchFragment
-import com.confessionsearch.release1.ui.notesActivity.NotesFragment
+import com.confessionsearch.release1.ui.notes.NotesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.vdx.designertoast.DesignerToast

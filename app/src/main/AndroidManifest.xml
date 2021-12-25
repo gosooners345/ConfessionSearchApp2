@@ -23,7 +23,7 @@
 
         </activity>
         <activity
-            android:name=".ui.notesActivity.NotesComposeActivity"
+            android:name=".ui.notes.NotesComposeActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:label="New Note"
             android:launchMode="singleTop" />

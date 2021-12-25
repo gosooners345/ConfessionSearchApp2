@@ -1,4 +1,4 @@
-package com.confessionsearch.release1.ui.notesActivity
+package com.confessionsearch.release1.ui.notes
 
 import androidx.lifecycle.ViewModel
 import com.confessionsearch.release1.data.notes.NoteRepository

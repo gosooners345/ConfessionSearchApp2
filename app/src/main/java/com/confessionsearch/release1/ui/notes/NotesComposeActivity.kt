@@ -1,4 +1,4 @@
-package com.confessionsearch.release1.ui.notesActivity
+package com.confessionsearch.release1.ui.notes
 
 import android.annotation.SuppressLint
 import android.content.Intent

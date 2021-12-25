@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.searchresults.SearchResultFragment
-import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
+import com.confessionsearch.release1.ui.notes.NotesComposeActivity
 
 class BibleViewerFragment : Fragment() {
     private val bibleReaderTitle: String? = null

@@ -35,7 +35,7 @@ import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.data.documents.DocumentList
 import com.confessionsearch.release1.searchresults.SearchAdapter
 import com.confessionsearch.release1.searchresults.SearchResultFragment
-import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
+import com.confessionsearch.release1.ui.notes.NotesComposeActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

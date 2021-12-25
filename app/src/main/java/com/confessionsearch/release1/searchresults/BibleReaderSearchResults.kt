@@ -21,7 +21,7 @@ import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.bible.BibleContentsList
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.ui.bible.BibleViewerFragment
-import com.confessionsearch.release1.ui.notesActivity.NotesComposeActivity
+import com.confessionsearch.release1.ui.notes.NotesComposeActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import www.sanju.motiontoast.MotionToast
