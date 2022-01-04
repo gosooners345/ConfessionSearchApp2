@@ -153,4 +153,5 @@
     <string name="sort_created_date">Date Created</string>
     <string name="sort_updated_date">Recently Updated</string>
     <string name="sort_aplhabetical">A to Z</string>
+    <string name="note_tags">Note Tags</string>
 </resources>

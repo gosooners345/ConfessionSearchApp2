@@ -12,15 +12,20 @@ import java.util.*
 
 @Entity(tableName = "notes")
 class Notes() : Parcelable, Cloneable, Comparable<Notes> {
-    @ColumnInfo(name = "title")
-    var title: String? = null
+
 
     @JvmField
     @PrimaryKey(autoGenerate = true)
     var noteID = 0
 
+    @ColumnInfo(name = "title")
+    var title: String? = null
+
     @ColumnInfo(name = "content")
     var content: String? = null
+
+    @ColumnInfo(name = "tags")
+    var noteTags: String? = null
 
     @ColumnInfo(name = "time_modified")
     var timeModified: Long? = System.currentTimeMillis()
@@ -30,9 +35,10 @@ class Notes() : Parcelable, Cloneable, Comparable<Notes> {
     var time: String? = DateFormat.getInstance().format(timeModified)
 
     constructor(`in`: Parcel) : this() {
-        title = `in`.readString()
         noteID = `in`.readInt()
+        title = `in`.readString()
         content = `in`.readString()
+        noteTags = `in`.readString()
         time = `in`.readString()
         timeModified = `in`.readLong()
     }
@@ -40,18 +46,20 @@ class Notes() : Parcelable, Cloneable, Comparable<Notes> {
     //Main constructor for Notes Class
     //Added Timestamp for sorting by date and updating.
     @RequiresApi(Build.VERSION_CODES.N)
-    constructor(newTitle: String?, newContent: String?, noteID: Int) : this() {
+    constructor(newTitle: String?, newContent: String?, noteID: Int, tags: String?) : this() {
+        this.noteID = noteID
         title = newTitle
         content = newContent
-        this.noteID = noteID
+        noteTags = tags
         this.timeModified = System.currentTimeMillis()
         this.time = DateFormat.getInstance().format(timeModified)
     }
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest!!.writeString(title)
-        dest.writeInt(noteID)
+        dest!!.writeInt(noteID)
+        dest.writeString(title)
         dest.writeString(content)
+        dest.writeString(noteTags)
         if (timeModified != null) {
             dest.writeLong(timeModified!!)
             dest.writeString(time!!)
@@ -66,6 +74,7 @@ class Notes() : Parcelable, Cloneable, Comparable<Notes> {
         return "Notes{" +
                 "title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", tags = '" + noteTags + '\'' +
                 ",time updated '=" + time + '\'' +
                 ",time modified '='" + timeModified + '\'' +
                 '}'
@@ -91,6 +100,7 @@ class Notes() : Parcelable, Cloneable, Comparable<Notes> {
         var result = title?.hashCode() ?: 0
         result = 31 * result + noteID
         result = 31 * result + (content?.hashCode() ?: 0)
+        result = 31 * result + (noteTags?.hashCode() ?: 0)
         result = 31 * result + (timeModified?.hashCode() ?: 0)
         result = 31 * result + (time?.hashCode() ?: 0)
         return result

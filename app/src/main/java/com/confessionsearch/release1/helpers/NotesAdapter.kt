@@ -33,6 +33,10 @@ class NotesAdapter @SuppressLint("NotifyDataSetChanged") constructor(
         contentHolder.text = note.content
         val timeStamp = holder.timeStamp
         timeStamp.text = note.time
+        //Tags Addition
+        val tagView = holder.tagView
+        tagView.text = "Tags: ${if (note.noteTags !== null) note.noteTags else "..."}"
+
         //  setAnimation(holder.itemView, position);
     }
 
@@ -57,6 +61,7 @@ class NotesAdapter @SuppressLint("NotifyDataSetChanged") constructor(
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var contentView: TextView = itemView.findViewById(R.id.content_text)
         var subjectView: TextView = itemView.findViewById(R.id.content_Title)
+        var tagView: TextView = itemView.findViewById(R.id.tags_text)
         var timeStamp: TextView = itemView.findViewById(R.id.timeStamp)
         override fun onClick(view: View) {
             onNoteListener.onNoteClick(bindingAdapterPosition)

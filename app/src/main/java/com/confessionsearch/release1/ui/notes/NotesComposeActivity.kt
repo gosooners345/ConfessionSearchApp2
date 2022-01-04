@@ -18,16 +18,21 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import java.text.DateFormat
+import java.util.*
 
 class NotesComposeActivity : AppCompatActivity() {
     var notesSubject: TextInputLayout? = null
     var notesContent: TextInputLayout? = null
+
+    //Tags Addition
+    lateinit var tagsContainer: TextInputLayout
     var activityID = 0
     private var saveButton: Button? = null
     private var editButton: Button? = null
     var isNewNote = false
     var noteContentString = ""
     var noteSubjectString = ""
+    var tagsString = ""
     private var shareList = ""
     var newNote: Notes? = null
     var incomingNote: Notes? = null
@@ -41,15 +46,22 @@ class NotesComposeActivity : AppCompatActivity() {
         setContentView(R.layout.notes_compose_layout)
         notesContent = findViewById(R.id.contentContainer)
         notesSubject = findViewById(R.id.topicContainer)
+        tagsContainer = findViewById(R.id.tagsContainer)
         noteRepository = NoteRepository(this)
 
         //Load Notes
         if (!intentInfo) {
             notesSubject!!.editText!!.setText(newNote!!.title)
             notesContent!!.editText!!.setText(newNote!!.content)
+            if (newNote!!.noteTags != null)
+                tagsContainer.editText!!.setText(newNote!!.noteTags)
+            else
+                tagsContainer.editText!!.setText("")
         } else {
             notesSubject!!.editText!!.setText("")
             notesContent!!.editText!!.setText("")
+            //Tags Addition
+            tagsContainer.editText!!.setText("")
         }
         notesSubject!!.editText!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
@@ -67,6 +79,18 @@ class NotesComposeActivity : AppCompatActivity() {
 
             override fun afterTextChanged(editable: Editable) {}
         })
+        tagsContainer.editText!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, after: Int) {
+                tagsString = s.toString()
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+                tagsString = editable.toString()
+            }
+        })
+
+
         saveButton = findViewById(R.id.saveNote)
         saveButton!!.setOnClickListener(saveNote)
         editButton = findViewById(R.id.editButton)
@@ -88,24 +112,31 @@ class NotesComposeActivity : AppCompatActivity() {
         override fun onClick(view: View) {
             noteSubjectString = notesSubject!!.editText!!.text.toString()
             noteContentString = notesContent!!.editText!!.text.toString()
+            //Tags Addition
+            tagsString = tagsContainer.editText!!.text.toString()
             //Update or save new content to note
             newNote = if (!isNewNote) Notes(
                 noteSubjectString,
                 noteContentString,
-                incomingNote!!.noteID
+                incomingNote!!.noteID, tagsString
             )
             else Notes()
             newNote!!.title = noteSubjectString
             newNote!!.content = noteContentString
             newNote!!.timeModified = System.currentTimeMillis()
             newNote!!.time = DateFormat.getInstance().format(newNote!!.timeModified)
+            newNote!!.noteTags = tagsString
             run {
                 //Update or insert new note into database
                 if (isNewNote) {
                     noteRepository!!.insertNote(newNote)
                 } else noteRepository!!.updateNote(newNote)
                 //If this came from the notes fragment as an update
-                if (activityID == 32) NotesFragment.adapter!!.notifyDataSetChanged()
+                if (activityID == 32) {
+                    Collections.sort(NotesFragment.notesArrayList, Notes.compareDateTime)
+                    NotesFragment.notesArrayList.reverse()
+                    NotesFragment.adapter!!.notifyDataSetChanged()
+                }
                 Log.i(TAG, "Saving note to storage")
             }
             //Close this activity out and head back to parent screen
@@ -122,6 +153,10 @@ class NotesComposeActivity : AppCompatActivity() {
                 newNote!!.noteID = incomingNote!!.noteID
                 newNote!!.content = incomingNote!!.content
                 newNote!!.title = incomingNote!!.title
+                if (incomingNote!!.noteTags != null)
+                    newNote!!.noteTags = incomingNote!!.noteTags
+                else
+                    newNote!!.noteTags = ""
                 mode = EDIT_ON
                 isNewNote = false
                 return false

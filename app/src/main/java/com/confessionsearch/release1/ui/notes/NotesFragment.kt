@@ -66,6 +66,7 @@ class NotesFragment : Fragment(), OnNoteListener {
         notesList.adapter = adapter
         val divider = RecyclerViewSpaceExtender(8)
         notesList.addItemDecoration(divider)
+        ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(notesList)
         setHasOptionsMenu(true)
         return root
     }
@@ -117,11 +118,7 @@ class NotesFragment : Fragment(), OnNoteListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            /* R.id.dateCreated -> {
-                Collections.sort(notesArrayList, Notes.compareIDs)
-                adapter!!.notifyDataSetChanged()
-                true
-            }*/
+
             R.id.dateUpdated
             -> {
                 Collections.sort(notesArrayList, Notes.compareDateTime)
@@ -129,32 +126,25 @@ class NotesFragment : Fragment(), OnNoteListener {
                     notesArrayList.reverse()
                     adapter!!.notifyDataSetChanged()
                     reversed = true
-
                 } else {
-                    //  Collections.sort(notesArrayList, Notes.compareDateTime)
                     adapter!!.notifyDataSetChanged()
                     reversed = false
                 }
                 true
             }
             R.id.alphabetized -> {
+                Collections.sort(notesArrayList, Notes.compareAlphabetized)
                 if (reversed) {
-                    Collections.sort(notesArrayList, Notes.compareAlphabetized)
                     adapter!!.notifyDataSetChanged()
                     reversed = false
                 } else {
-                    Collections.sort(notesArrayList, Notes.compareAlphabetized)
                     notesArrayList.reverse()
                     adapter!!.notifyDataSetChanged()
                     reversed = true
                 }
                 true
             }
-            /*R.id.updatedDescending -> {
-                Notes.compareDateTime?.let { notesArrayList.sortWith(it) }
-                adapter!!.notifyDataSetChanged()
-                true
-            }*/
+
             else -> super.onOptionsItemSelected(item)
         }
     }
