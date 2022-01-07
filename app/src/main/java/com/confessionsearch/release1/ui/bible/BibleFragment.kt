@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,7 +17,6 @@ import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.databinding.FragmentBibleFormBinding
 import com.confessionsearch.release1.searchresults.BibleReaderSearchResults
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.vdx.designertoast.DesignerToast
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -30,14 +28,11 @@ class BibleFragment : Fragment() {
     var docDBhelper: DocumentDBClassHelper? = null
     var bibleTransList: ArrayList<String?> = ArrayList()
 
-    var submitButton: ExtendedFloatingActionButton? = null
-
     var bibleBooksList: ArrayList<String?> = ArrayList()
     var bibleChapterList: ArrayList<String?> = ArrayList()
     var bibleVerseNumList: ArrayList<String?> = ArrayList()
 
 
-    var bibleBookSelectorComboBox: Spinner? = null
     var bibleBookAdapter: ArrayAdapter<String>? = null
     var bibleChNumAdapter: ArrayAdapter<String>? = null
     var bibleVerseNumAdapter: ArrayAdapter<String>? = null
@@ -60,23 +55,9 @@ class BibleFragment : Fragment() {
         bibleViewModel.loadTranslations(docDBhelper!!.getAllBibleTranslations(documentDB!!))
         bibleTransList = bibleViewModel.getTranslations()
         val root = binding.root
-        // bibleSelectorSpinner = root.findViewById(R.id.bibleTranslationSelector)
-        bibleSelectorAdapter = ArrayAdapter(
-            requireContext(),
-            R.layout.support_simple_spinner_dropdown_item, bibleTransList
-        )
         binding.bibleTranslationCB.item = bibleTransList as List<Any>?
         binding.bibleTranslationCB.onItemSelectedListener = bibleSelectorSpinnerListener
-
-        //bibleSelectorSpinner!!.adapter = bibleSelectorAdapter
-        //bibleSelectorSpinner!!.onItemSelectedListener = bibleSelectorSpinnerListener
-        //bibleBookSelectorComboBox = root.findViewById(R.id.bibleBookSelector)
-        /*bibleChapterSpinner = root.findViewById(R.id.bibleChapterSpinner)
-        bibleVerseSelector = root.findViewById(R.id.verseSpinner)*/
         binding.bibleTranslationCB.setSelection(0)
-
-
-
         return root
 
     }
