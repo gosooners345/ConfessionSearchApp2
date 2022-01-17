@@ -1,5 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        app:key="layoutOptions"
+        app:title="Notes Settings"
+        app:icon="@drawable/ic_sticky_note">
+        <ListPreference
+            app:key="noteLayoutSelection"
+            app:title="Choose Notes Layout Option"
+            android:defaultValue="linear"
+            app:icon="@drawable/ic_note_navigation"
+            app:entries="@array/layoutOptionLabels_Array"
+            app:entryValues="@array/layoutOptionValues_Array" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="About"
+        app:key="help_category"
+        app:icon="@drawable/help_icon">
+        <Preference
+            android:background="@drawable/notes_outline"
+            app:icon="@drawable/review_icon"
+            app:key="feedback"
+            app:summary="Tell me about your experience using this app or request new features here.
+    I would love to hear about them!"
+            app:title="Contact Me">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/dev_email_uri">
+                <extra
+                    android:name="android.intent.extra.TEXT"
+                    android:value="What can I help you with?" />
+                <extra
+                    android:name="android.intent.extra.SUBJECT"
+                    android:value="Feedback about The Reformed Collective" />
+                />
+            </intent>
+        </Preference>
+        <Preference
+            app:icon="@drawable/ratingstar"
+            app:key="rating"
+            app:title="Rate My App on the Play Store!"
+            app:summary="Please take a moment to rate my application on the Play Store!">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://play.google.com/store/apps/details?id=com.confessionsearch.release1" />
+        </Preference>
+        <Preference
+            app:key="version"
+            app:title="Version Information" />
 
+    </PreferenceCategory>
 
 </PreferenceScreen>

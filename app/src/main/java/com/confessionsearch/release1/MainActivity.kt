@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.navigation_home,
                     R.id.navigation_notes,
                     R.id.navigation_bible,
-                    R.id.navigation_help
+                    R.id.navigation_settings
 
                 )
             )
@@ -156,7 +156,7 @@ class MainActivity : AppCompatActivity() {
                 mainFab!!.visibility = View.VISIBLE
                 BibleFragment.Submit(context)
             }
-            R.id.navigation_help -> {
+            R.id.navigation_settings -> {
                 mainFab!!.visibility = View.INVISIBLE
             }
         }
@@ -167,6 +167,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val versionName = BuildConfig.VERSION_NAME
         const val appName = BuildConfig.APPLICATION_ID
+        const val prefsName = appName + "_preferences"
         const val buildType = BuildConfig.BUILD_TYPE
         var appcontext: Context? = null
     }

@@ -9,8 +9,8 @@ android {
         applicationId "com.confessionsearch.release1"
         minSdkVersion 24
         targetSdkVersion 31
-        versionCode 87
-        versionName "5.2.0-release"
+        versionCode 88
+        versionName "5.3.0-release"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -70,13 +70,13 @@ implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    kapt 'androidx.room:room-compiler:2.4.0-rc01'
+    kapt 'androidx.room:room-compiler:2.4.1'
  implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
     implementation 'com.github.irshulx:laser-native-editor:3.0.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
     kapt 'android.arch.persistence.room:compiler:1.1.1'
-
+ implementation 'androidx.preference:preference-ktx:1.1.1'
 
 
 

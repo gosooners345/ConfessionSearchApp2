@@ -145,95 +145,10 @@
             android:text="SearchTab"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/notesTabLabel" />
 
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toTopOf="@id/ratingsTV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:dividerThickness="2dp"
-            app:dividerColor="?attr/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/sourcesTabLabel" />
-
-        <TextView
-            android:id="@+id/ratingsTV"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="80dp"
-            android:layoutDirection="locale"
-            android:padding="5dp"
-            android:textColor="@color/itemselected"
-            android:text="SearchTab"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sourcesTabLabel" />
-
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toTopOf="@id/emailDevTV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:dividerThickness="2dp"
-            app:dividerColor="?attr/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/ratingsTV" />
-
-        <TextView
-            android:id="@+id/emailDevTV"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:clickable="true"
-            android:layoutDirection="locale"
-            android:padding="5dp"
-            android:text="SearchTab"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/itemselected"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ratingsTV" />
-
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toTopOf="@id/versionInfoTV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:dividerThickness="2dp"
-            app:dividerColor="?attr/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/emailDevTV" />
-
-        <TextView
-            android:id="@+id/versionInfoTV"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="80dp"
-            android:layoutDirection="locale"
-            android:padding="5dp"
-            android:text="SearchTab"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/emailDevTV" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

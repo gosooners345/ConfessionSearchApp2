@@ -154,4 +154,15 @@
     <string name="sort_updated_date">Recently Updated</string>
     <string name="sort_aplhabetical">A to Z</string>
     <string name="note_tags">Note Tags</string>
+    <string-array name="layoutOptionLabels_Array">
+        <item>Linear</item>
+        <item>Staggered</item>
+        <item>Grid</item>
+    </string-array>
+    <string-array name="layoutOptionValues_Array">
+        <item>linear</item>
+        <item>staggered</item>
+        <item>grid</item>
+    </string-array>
+    <string name="dev_email_uri">mailto:Boomersooner12345@gmail.com</string>
 </resources>

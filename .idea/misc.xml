@@ -8,6 +8,7 @@
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable-anydpi/ic_chip_searchalldocs_icon.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable-anydpi/ic_chip_sortchapter_icon.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable-anydpi/ic_chip_topic_icon.xml" value="0.1" />
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable-anydpi/ic_save_note.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable-anydpi/ic_sort_AZ.xml" value="0.17871621621621622" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable-anydpi/ic_sort_order.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable-anydpi/spinner_arrow.xml" value="0.17972972972972973" />
@@ -15,6 +16,7 @@
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/ic_nav_bible.xml" value="0.17972972972972973" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/ic_nav_help.xml" value="0.1" />
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/ic_notes_edit.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/notes_outline.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/drawable/spinner_outline.xml" value="0.17972972972972973" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout-land/fragment_bible_form.xml" value="0.1" />
@@ -25,7 +27,7 @@
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/error_page.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/fragment_bible_form.xml" value="0.22" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/fragment_bible_view_results.xml" value="0.1" />
-        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/fragment_help_page.xml" value="0.15" />
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/fragment_help_page.xml" value="0.33" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/fragment_home.xml" value="0.18" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/fragment_notes.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/layout/index_pager.xml" value="0.1" />
@@ -39,9 +41,11 @@
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/menu/menu.xml" value="0.14831081081081082" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/menu/notes_sort_menu.xml" value="0.16925675675675675" />
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/menu/other_pages.xml" value="0.16925675675675675" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/menu/share_menu.xml" value="0.1" />
         <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/menu/sort_menu.xml" value="0.1" />
-        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/xml/preferences.xml" value="0.12" />
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/xml/about_page.xml" value="0.1" />
+        <entry key="..\:/AndroidAppProjects/ConfessionSearchApp2/app/src/main/res/xml/preferences.xml" value="0.25" />
       </map>
     </option>
   </component>

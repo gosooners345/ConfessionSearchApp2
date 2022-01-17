@@ -20,10 +20,7 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -36,6 +33,7 @@ import com.confessionsearch.release1.data.MyAdapter
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.databinding.FragmentHomeBinding
 import com.confessionsearch.release1.searchhandlers.SearchHandler
+import com.confessionsearch.release1.ui.help.HelpPageFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
@@ -130,6 +128,7 @@ class SearchFragment : Fragment() {
         binding.docTitleCB.onItemSelectedListener = docTitleSpinnerListener
         topicChip!!.performClick()
         binding.docTypeCB.setSelection(0)
+        setHasOptionsMenu(true)
         return root
     }
 
@@ -281,9 +280,16 @@ class SearchFragment : Fragment() {
     }
 
 
-    // 7-13-21 Take the data from the search form and package it in a format to put in the search handler
-    @SuppressLint("NewApi")
+    //Add Help page button
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val helpIntent = Intent(requireContext(), HelpPageFragment::class.java)
+        requireContext().startActivity(helpIntent)
+        return true
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.other_pages, menu)
+    }
 
     companion object {
         const val ACTIVITY_ID = 32

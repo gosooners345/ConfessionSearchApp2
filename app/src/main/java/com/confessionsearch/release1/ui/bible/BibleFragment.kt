@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -17,6 +14,7 @@ import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
 import com.confessionsearch.release1.databinding.FragmentBibleFormBinding
 import com.confessionsearch.release1.searchresults.BibleReaderSearchResults
+import com.confessionsearch.release1.ui.help.HelpPageFragment
 import com.vdx.designertoast.DesignerToast
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -58,6 +56,7 @@ class BibleFragment : Fragment() {
         binding.bibleTranslationCB.item = bibleTransList as List<Any>?
         binding.bibleTranslationCB.onItemSelectedListener = bibleSelectorSpinnerListener
         binding.bibleTranslationCB.setSelection(0)
+        setHasOptionsMenu(true)
         return root
 
     }
@@ -205,6 +204,17 @@ class BibleFragment : Fragment() {
         Submit(requireContext())
 
 
+    }
+
+    //Help Page stuff
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val helpIntent = Intent(requireContext(), HelpPageFragment::class.java)
+        requireContext().startActivity(helpIntent)
+        return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.other_pages, menu)
     }
 
     companion object {

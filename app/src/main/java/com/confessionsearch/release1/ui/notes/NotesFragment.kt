@@ -12,16 +12,15 @@ package com.confessionsearch.release1.ui.notes
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
+import com.confessionsearch.release1.MainActivity
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.notes.NoteRepository
 import com.confessionsearch.release1.data.notes.Notes
@@ -61,7 +60,19 @@ class NotesFragment : Fragment(), OnNoteListener {
         fetchNotes()
         adapter = NotesAdapter(notesArrayList, this, requireContext())
         notesList = root.findViewById(R.id.notesListView)
-        notesList.layoutManager = LinearLayoutManager(context)
+        val prefs = requireContext().getSharedPreferences(MainActivity.prefsName, MODE_PRIVATE)
+        val layoutChoice = prefs.getString("noteLayoutSelection", "linear")
+        var layoutRoller: RecyclerView.LayoutManager?
+        if (layoutChoice == "linear")
+            layoutRoller = LinearLayoutManager(requireContext())
+        else if (layoutChoice == "grid")
+            layoutRoller = GridLayoutManager(requireContext(), 2)
+        else
+            layoutRoller = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+
+
+        notesList.layoutManager = layoutRoller
         notesList.itemAnimator = DefaultItemAnimator()
         notesList.adapter = adapter
         val divider = RecyclerViewSpaceExtender(8)

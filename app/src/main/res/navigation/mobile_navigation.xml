@@ -7,20 +7,29 @@
 
     <fragment
         android:id="@+id/navigation_notes"
+        android:label="Notes"
         android:name="com.confessionsearch.release1.ui.notes.NotesFragment"
         tools:layout="@layout/fragment_notes" />
 
     <fragment
         android:id="@+id/navigation_home"
+        android:label="Search"
         android:name="com.confessionsearch.release1.ui.home.SearchFragment"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_bible"
+        android:label="Bible"
         android:name="com.confessionsearch.release1.ui.bible.BibleFragment"
         tools:layout="@layout/fragment_bible_form" />
     <fragment
-        android:id="@+id/navigation_help"
+        android:id="@+id/navigation_settings"
+        android:label="Settings"
+        android:name="com.confessionsearch.release1.ui.settings.SettingsFragment" />
+    <fragment
+        android:id="@+id/helpPageFragment"
         android:name="com.confessionsearch.release1.ui.help.HelpPageFragment"
+        android:label="Help Page"
         tools:layout="@layout/fragment_help_page" />
+
 
 </navigation>
