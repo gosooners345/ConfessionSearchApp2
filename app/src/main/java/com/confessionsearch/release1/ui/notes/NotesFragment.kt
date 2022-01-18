@@ -29,6 +29,7 @@ import com.confessionsearch.release1.helpers.NotesAdapter
 import com.confessionsearch.release1.helpers.OnNoteListener
 import com.confessionsearch.release1.helpers.RecyclerViewSpaceExtender
 import com.confessionsearch.release1.searchhandlers.SearchNotesActivity
+import com.confessionsearch.release1.ui.help.HelpPageFragment
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -62,13 +63,14 @@ class NotesFragment : Fragment(), OnNoteListener {
         notesList = root.findViewById(R.id.notesListView)
         val prefs = requireContext().getSharedPreferences(MainActivity.prefsName, MODE_PRIVATE)
         val layoutChoice = prefs.getString("noteLayoutSelection", "linear")
+        val gridSize = prefs.getInt("gridSize", 2)
         var layoutRoller: RecyclerView.LayoutManager?
         if (layoutChoice == "linear")
             layoutRoller = LinearLayoutManager(requireContext())
         else if (layoutChoice == "grid")
-            layoutRoller = GridLayoutManager(requireContext(), 2)
+            layoutRoller = GridLayoutManager(requireContext(), gridSize)
         else
-            layoutRoller = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            layoutRoller = StaggeredGridLayoutManager(gridSize, StaggeredGridLayoutManager.VERTICAL)
 
 
 
@@ -129,7 +131,11 @@ class NotesFragment : Fragment(), OnNoteListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-
+            R.id.helpPage -> {
+                val helpIntent = Intent(requireContext(), HelpPageFragment::class.java)
+                requireContext().startActivity(helpIntent)
+                return true
+            }
             R.id.dateUpdated
             -> {
                 Collections.sort(notesArrayList, Notes.compareDateTime)

@@ -12,6 +12,17 @@
             app:icon="@drawable/ic_note_navigation"
             app:entries="@array/layoutOptionLabels_Array"
             app:entryValues="@array/layoutOptionValues_Array" />
+        <SeekBarPreference
+            app:key="gridSize"
+
+            app:defaultValue="3"
+            app:title="Layout Grid Size"
+            app:min="1"
+            android:max="5"
+            app:seekBarIncrement="1"
+            app:updatesContinuously="true"
+            app:adjustable="true"
+            app:showSeekBarValue="true" />
     </PreferenceCategory>
     <PreferenceCategory
         app:title="About"
