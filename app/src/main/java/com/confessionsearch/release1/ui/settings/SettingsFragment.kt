@@ -17,10 +17,10 @@ class SettingsFragment : PreferenceFragmentCompat(),
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
-        gridSizePreference = findPreference<SeekBarPreference>("gridSize")!!
+        gridSizePreference = findPreference<SeekBarPreference>(getString(R.string.gridSize))!!
 
-        notesLayoutSelector = findPreference("noteLayoutSelection")!!
-        var versionInfo: Preference = findPreference<Preference>("version")!!
+        notesLayoutSelector = findPreference(resources.getString(R.string.noteLayoutSelection))!!
+        var versionInfo: Preference = findPreference<Preference>(getString(R.string.version))!!
 
         versionInfo.summary = "Version info: ${MainActivity.versionName}"
         versionInfo.setOnPreferenceClickListener {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="vertical_linear_labels">
+        <item>Vertical</item>
+        <item>Horizontal</item>
+    </string-array>
+    <string-array name="vertical_linear_values">
+        <item>vertical</item>
+        <item>horizontal</item>
+    </string-array>
+    <string-array name="layoutOptionLabels_Array">
+        <item>Linear</item>
+        <item>Staggered</item>
+        <item>Grid</item>
+    </string-array>
+    <string-array name="layoutOptionValues_Array">
+        <item>linear</item>
+        <item>staggered</item>
+        <item>grid</item>
+    </string-array>
+
+</resources>

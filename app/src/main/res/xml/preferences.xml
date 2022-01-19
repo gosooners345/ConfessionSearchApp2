@@ -12,6 +12,7 @@
             app:icon="@drawable/ic_note_navigation"
             app:entries="@array/layoutOptionLabels_Array"
             app:entryValues="@array/layoutOptionValues_Array" />
+
         <SeekBarPreference
             app:key="gridSize"
 
@@ -29,7 +30,6 @@
         app:key="help_category"
         app:icon="@drawable/help_icon">
         <Preference
-            android:background="@drawable/notes_outline"
             app:icon="@drawable/review_icon"
             app:key="feedback"
             app:summary="Tell me about your experience using this app or request new features here.

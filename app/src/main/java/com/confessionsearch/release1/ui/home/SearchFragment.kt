@@ -188,7 +188,7 @@ class SearchFragment : Fragment() {
                 requireContext()
             ) else Toast.makeText(
                 super.getContext(),
-                R.string.query_error,
+                R.string.error_query_is_empty,
                 Toast.LENGTH_LONG
             ).show()
 
