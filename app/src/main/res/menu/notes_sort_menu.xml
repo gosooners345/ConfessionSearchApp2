@@ -29,6 +29,6 @@
         android:id="@+id/helpPage"
         android:title="Help"
         android:icon="@drawable/help_icon"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="collapseActionView" />
 
 </menu>
