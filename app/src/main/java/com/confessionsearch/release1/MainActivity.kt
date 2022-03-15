@@ -53,15 +53,20 @@ class MainActivity : AppCompatActivity() {
             val prefs = getSharedPreferences(prefsName, MODE_PRIVATE)
 
             firstTime = prefs.getBoolean("firstTime", true)
-            if (firstTime) {
-
+            if (firstTime)
+            {
+    
                 firstTime = false
                 setContentView(R.layout.first_use_layout)
                 button = findViewById(R.id.skipButton)
                 button.setOnClickListener(skipButtonClickListener)
                 loadOnBoardingScreen()
-                prefs.edit().putBoolean(resources.getString(R.string.firstTime), firstTime).apply()
-            } else {
+                prefs.edit().putBoolean(
+                    resources.getString(R.string.firstTime), firstTime
+                ).apply()
+            }
+            else
+            {
                 loadApplication()
             }
 
@@ -82,22 +87,27 @@ class MainActivity : AppCompatActivity() {
         super.onConfigurationChanged(newConfig)
         recreate()
     }
-
-    fun loadOnBoardingScreen() {
+    
+    private fun loadOnBoardingScreen()
+    {
         fragmentManager = supportFragmentManager
-        val paperOnboardingFragment = PaperOnboardingFragment.newInstance(onBoardingScreens())
+        val paperOnboardingFragment =
+            PaperOnboardingFragment.newInstance(onBoardingScreens())
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.frameLayout, paperOnboardingFragment)
         fragmentTransaction.commit()
-
-
+        
+        
     }
-
-    fun onBoardingScreens(): ArrayList<PaperOnboardingPage> {
+    
+    private fun onBoardingScreens(): ArrayList<PaperOnboardingPage>
+    {
         val introList = ArrayList<PaperOnboardingPage>()
         val firstPage = PaperOnboardingPage(
             resources.getString(R.string.intro_message),
-            resources.getString(R.string.app_description) + "\r\nThe skip button below will take you past the tutorial if you've used this app before.",
+            resources.getString(
+                R.string.app_description
+            ) + "\r\nThe skip button below will take you past the tutorial if you've used this app before.",
             getColor(R.color.white),
             R.drawable.ic_home_black_24dp,
             R.drawable.next_arrow
