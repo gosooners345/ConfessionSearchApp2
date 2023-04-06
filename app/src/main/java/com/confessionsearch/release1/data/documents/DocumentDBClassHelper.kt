@@ -12,7 +12,6 @@ import com.confessionsearch.release1.data.bible.BibleContentsList
 import com.confessionsearch.release1.data.bible.BibleTranslation
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 import java.util.*
-import kotlin.collections.ArrayList
 
 // Database Helper class for the ConfessionSearchApp Main Search and Bible reader functionality
 
@@ -520,6 +519,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
     }
 
     //Fetch documents for processing, Document Search Related
+    // Modifications may need to use the following instead of what's here: Table Name, Columns selected,selection, etc
     @SuppressLint("Range")
     fun getAllDocuments(
         fileString: String,
@@ -552,7 +552,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
         val docTitleList = ArrayList<String?>()
         //CommandText Uses Table Access For Document Titles, doc uses DataTableAccess
         cursor = dbList.rawQuery(commandText, null)
-
+//cursor = dbList.query("Document",)
         try {
             if (cursor.moveToFirst()) {
                 var i = 0

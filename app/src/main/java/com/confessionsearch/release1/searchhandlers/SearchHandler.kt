@@ -28,7 +28,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager2.widget.ViewPager2
-import com.codeboy.pager2_transformers.Pager2_VerticalFlipTransformer
+import com.codeboy.pager2_transformers.Pager2_ClockSpinTransformer
 import com.confessionsearch.release1.R
 import com.confessionsearch.release1.data.documents.Document
 import com.confessionsearch.release1.data.documents.DocumentDBClassHelper
@@ -42,7 +42,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import www.sanju.motiontoast.MotionToast
 import java.util.*
 import java.util.regex.Pattern
-import kotlin.collections.ArrayList
 
 
 //Handle Search algorithm and Sort by types here
@@ -94,7 +93,7 @@ class SearchHandler : AppCompatActivity() {
         setContentView(R.layout.index_pager)
         adapter = SearchAdapter(supportFragmentManager, masterList, query!!, lifecycle)
         vp2 = findViewById<ViewPager2>(R.id.resultPager2)
-        val animTransformer = Pager2_VerticalFlipTransformer()
+        val animTransformer = Pager2_ClockSpinTransformer()
 
         vp2.setPageTransformer(animTransformer)
         adapter.createFragment(0)
@@ -173,6 +172,8 @@ class SearchHandler : AppCompatActivity() {
 
     }
 
+    // This will be replaced with an AI function that will probably improve performance and such. It'd be cool if the functionality allowed for
+    // stuff like auto quote and grammar correction in the DB or in results
     //The main star of the show. This method is critical to the rest of the app. It handles the search function
     @RequiresApi(Build.VERSION_CODES.N)
     fun search(
@@ -202,10 +203,11 @@ class SearchHandler : AppCompatActivity() {
         when (docType) {
             "All" -> {
                 docID = 0
-                fileString = if (!searchAll!!) String.format(
-                    "Select * From DocumentTitle where DocumentTitle.DocumentName = '%s'",
-                    fileName
-                ) else "SELECT * FROM DocumentTitle"
+                fileString = if (!searchAll!!)
+                    String.format(
+                        "Select * From DocumentTitle where DocumentTitle.DocumentName = '%s'",
+                        fileName
+                    ) else "SELECT * FROM DocumentTitle"
                 accessString =
                     if (searchAll) String.format("Select * from Document") else "s"
             }
