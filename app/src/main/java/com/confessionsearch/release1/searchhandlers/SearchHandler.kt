@@ -201,48 +201,48 @@ class SearchHandler : AppCompatActivity() {
         //Filters for how searches are executed by document type and name
 
         when (docType) {
-            "All" -> {
+            "All" -> { // #1
                 docID = 0
                 fileString = if (!searchAll!!)
-                    String.format(
+                    String.format( // #1a.
                         "Select * From DocumentTitle where DocumentTitle.DocumentName = '%s'",
                         fileName
-                    ) else "SELECT * FROM DocumentTitle"
+                    ) else "SELECT * FROM DocumentTitle" // #1b
                 accessString =
-                    if (searchAll) String.format("Select * from Document") else "s"
+                    if (searchAll) String.format("Select * from Document") else "s" //1c
             }
-            "Catechism" -> {
+            "Catechism" -> { //#2
                 docID = 3
                 fileString = if (!searchAll!!) {
-                    String.format(
+                    String.format( //#2a.
                         " documentTitle.DocumentTypeID = 3 AND DocumentName = '%s' ",
                         fileName
                     )
-                } else "documentTitle.DocumentTypeID=3"
+                } else "documentTitle.DocumentTypeID=3" //#2b
                 accessString =
-                    if (!searchAll) "s" else ""
+                    if (!searchAll) "s" else "" //2c
             }
-            "Creed" -> {
+            "Creed" -> { //#3
                 docID = 1
                 fileString = if (!searchAll!!) {
-                    String.format(
+                    String.format( //#3a
                         " documentTitle.DocumentTypeID = 1 AND DocumentName = '%s'",
                         fileName
-                    )
+                    ) //#3b
                 } else "documentTitle.DocumentTypeID=1"
                 accessString =
-                    if (searchAll) "" else "s"
+                    if (searchAll) "" else "s" //3c
             }
-            "Confession" -> {
+            "Confession" -> { //#4
                 docID = 2
                 fileString = if (!searchAll!!) {
-                    String.format(
+                    String.format( // #4a
                         " documentTitle.DocumentTypeID = 2 AND DocumentName = '%s'",
                         fileName
                     )
-                } else "documentTitle.DocumentTypeID=2"
+                } else "documentTitle.DocumentTypeID=2" // 4b
                 accessString =
-                    if (searchAll) "" else "s"
+                    if (searchAll) "" else "s" //4c
 
             }
         }

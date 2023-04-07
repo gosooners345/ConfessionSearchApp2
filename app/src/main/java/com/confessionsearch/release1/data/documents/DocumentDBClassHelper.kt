@@ -594,7 +594,15 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
             } else access
 
             docCommandText = accessString
-            val cursor1: Cursor = dbList.rawQuery(docCommandText, null)
+
+            val cursor1: Cursor = /*if(access!! == "s"){
+                dbList.query("DocumentTitle",arrayOf("DocumentTitle.DocumentName,Document.*"),"DocumentTitle.DocumentID",arrayOf("Document.DocumentID"),null,null,null)
+            } else*/
+                dbList.rawQuery(docCommandText, null)
+
+
+            //dbList.rawQuery(docCommandText, null)
+
             Log.d(
                 "Size of Query List", cursor1.getColumnIndexOrThrow(KEY_DOCDETAILID_ID)
                     .toString()
