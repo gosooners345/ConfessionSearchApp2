@@ -530,10 +530,10 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
         dbList: SQLiteDatabase,
         access: String?,
         docList: DocumentList?,
-        context: Context?
+        context: Context?, searchTopic: String?
     ): DocumentList? {
         var docList = docList
-        val cursor: Cursor?
+        var cursor: Cursor?
         val documentList = DocumentList()
         val docCommandText: String
 
@@ -552,7 +552,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
         val docTitleList = ArrayList<String?>()
         //CommandText Uses Table Access For Document Titles, doc uses DataTableAccess
         cursor = dbList.rawQuery(commandText, null)
-//cursor = dbList.query("Document",)
+
         try {
             if (cursor.moveToFirst()) {
                 var i = 0
@@ -573,8 +573,9 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
                     i++
                     cursor.moveToNext()
                 }
+
             }
-            cursor.close()
+            // cursor.close()
             for (y in docTitle.indices) {
                 docIds.add(docTitle[y].documentID)
                 docTitleList.add(docTitle[y].documentName)
@@ -583,37 +584,36 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
             accessString = if (access!! == "s") {
                 var documentTitleIDLoc = docTitleList.indexOf(fileName)
                 var docIDLoc = docTitle[documentTitleIDLoc].documentID
-                var accessExtra: String = String.format("AND Document.documentID = '%s' ", docIDLoc)
-                DataTableAccess(accessExtra)
+                // var accessExtra: String = String.format("AND Document.documentID = '%s' ", docIDLoc)
+                //DataTableAccess(accessExtra)
+                "SELECT * FROM DOCUMENT WHERE DocumentID = $docIDLoc"
             } else if (searchAll!! and !allDocs!!) {
 
                 var docIDString = docIds.toString()
                 docIDString = docIDString.replace('[', '(')
                 docIDString = docIDString.replace(']', ')')
-                DataTableAccess(String.format("AND Document.documentID in %s ", docIDString))
+                //   DataTableAccess(String.format("AND Document.documentID in '%s'", docIDString))
+                "SELECT * FROM DOCUMENT WHERE DocumentID in $docIDString"
             } else access
 
             docCommandText = accessString
 
-            val cursor1: Cursor = /*if(access!! == "s"){
-                dbList.query("DocumentTitle",arrayOf("DocumentTitle.DocumentName,Document.*"),"DocumentTitle.DocumentID",arrayOf("Document.DocumentID"),null,null,null)
-            } else*/
-                dbList.rawQuery(docCommandText, null)
-
-
-            //dbList.rawQuery(docCommandText, null)
-
+            cursor =
+                dbList.rawQuery(
+                    docCommandText,
+                    null
+                )
             Log.d(
-                "Size of Query List", cursor1.getColumnIndexOrThrow(KEY_DOCDETAILID_ID)
+                "Size of Query List", cursor.getColumnIndexOrThrow(KEY_DOCDETAILID_ID)
                     .toString()
             )
-            if (cursor1.moveToFirst()) {
+            if (cursor.moveToFirst()) {
                 var i = 0
-                while (i < cursor1.count) {
+                while (i < cursor.count) {
                     val doc = Document()
-                    doc.chName = cursor1.getString(cursor1.getColumnIndex(KEY_CHAPTER_NAME))
-                    doc.chNumber = cursor1.getInt(cursor1.getColumnIndex(KEY_DOC_INDEX_NUM))
-                    doc.documentID = cursor1.getInt(cursor1.getColumnIndex(KEY_DOCUMENT_ID_FK))
+                    doc.chName = cursor.getString(cursor.getColumnIndex(KEY_CHAPTER_NAME))
+                    doc.chNumber = cursor.getInt(cursor.getColumnIndex(KEY_DOC_INDEX_NUM))
+                    doc.documentID = cursor.getInt(cursor.getColumnIndex(KEY_DOCUMENT_ID_FK))
                     run {
                         documentIndex = docIds.indexOf(doc.documentID)
                         Log.d("DocumentIndex", "Document Index is $documentIndex")
@@ -621,18 +621,18 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
                             docTitle[documentIndex].documentName
                         Log.d("DocumentTitle", "Document Title: " + doc.documentName)
                     }
-                    doc.chName = cursor1.getString(cursor1.getColumnIndex(KEY_CHAPTER_NAME))
-                    doc.proofs = cursor1.getString(cursor1.getColumnIndex(KEY_CHAPTER_PROOFS))
-                    doc.docDetailID = cursor1.getInt(cursor1.getColumnIndex(KEY_DOCDETAILID_ID))
-                    doc.documentText = cursor1.getString(cursor1.getColumnIndex(KEY_CHAPTER_TEXT))
-                    doc.tags = cursor1.getString(cursor1.getColumnIndex(KEY_DOCUMENT_TAGS))
-                    doc.matches = cursor1.getInt(cursor1.getColumnIndex(KEY_MATCHES))
+                    doc.chName = cursor.getString(cursor.getColumnIndex(KEY_CHAPTER_NAME))
+                    doc.proofs = cursor.getString(cursor.getColumnIndex(KEY_CHAPTER_PROOFS))
+                    doc.docDetailID = cursor.getInt(cursor.getColumnIndex(KEY_DOCDETAILID_ID))
+                    doc.documentText = cursor.getString(cursor.getColumnIndex(KEY_CHAPTER_TEXT))
+                    doc.tags = cursor.getString(cursor.getColumnIndex(KEY_DOCUMENT_TAGS))
+                    doc.matches = cursor.getInt(cursor.getColumnIndex(KEY_MATCHES))
                     documentList.add(doc)
                     i++
-                    cursor1.moveToNext()
+                    cursor.moveToNext()
                 }
             }
-            cursor1.close()
+            cursor.close()
             Log.d("Size of List", documentList.size.toString())
             docList = documentList
             return docList
@@ -641,7 +641,7 @@ class DocumentDBClassHelper : SQLiteAssetHelper {
         } finally {
             if (cursor != null && !cursor.isClosed) cursor.close()
             run {
-                cursor.close()
+                cursor?.close()
                 return docList
             }
         }

@@ -257,7 +257,7 @@ class SearchHandler : AppCompatActivity() {
             documentDB!!,
             accessString,
             masterList,
-            this
+            this, query
         )!!
         for (d in masterList) {
             if (d.documentText!!.contains("|") or d.proofs!!.contains("|")) {
